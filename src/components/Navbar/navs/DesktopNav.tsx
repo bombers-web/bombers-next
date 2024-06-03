@@ -1,5 +1,5 @@
 import { Box, Flex, Link } from "@chakra-ui/react";
-import styled, { StyledComponent } from "@emotion/styled";
+import styled from "@emotion/styled";
 import NavLogo from "../../../common/NavLogo";
 import useNav from "../../../hooks/useNav";
 import LoginButton from "src/common/LoginButton";
@@ -10,32 +10,42 @@ type MenuItemProps = {
   outlined?: boolean;
 };
 
+type DesktopNavProps = {
+  homePage: boolean;
+};
+
 const MenuItem = styled(Box)`
   ${(props: MenuItemProps) => ({
-    padding: props.outlined ? "4px" : "inherit",
+    padding: props.outlined ? "4px" : "0px",
     border: props.outlined ? "3px solid white" : "none",
+    alignContent: "center",
     ...props.theme?.fonts?.menuItem,
   })}
-  opacity: 0.75;
   :hover {
     opacity: 1;
-    color: var(--chakra-colors-brand-highlight)
+    color: var(--chakra-colors-brand-highlight);
   }
 `;
 
-const DesktopNav = () => {
+const DesktopNav = ({ homePage }: DesktopNavProps) => {
   const { navs } = useNav();
 
   return (
     <Flex
       id="desktop-nav-container"
-      bg="transparent"
+      bg={
+        homePage
+          ? "linear-gradient(#00000093, #00000025 transparent);"
+          : "brand.dark"
+      }
       minH="100px"
+      minW="100vw"
       display={["none", "none", "flex", "flex"]}
       justifyContent="center"
       alignItems="center"
       px="16px"
       pb="8px"
+      position={homePage ? "fixed" : "inherit"}
     >
       <Flex justifyContent="center" maxW="1180px" w="100%" alignItems="center">
         <Box flex="1">
@@ -73,7 +83,7 @@ const DesktopNav = () => {
           width="100%"
           height="100%"
           sx={{
-            justifyContent: "center",
+            justifyContent: "flex-end",
             alignItems: "center",
           }}
         >

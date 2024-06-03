@@ -48,12 +48,7 @@ const Socials = ({
       <HStack spacing={size === "xl" ? 8 : 0}>
         {socials.map((page) => {
           return (
-            <Link
-              href={page?.url}
-              key={page?.url}
-              passHref
-              legacyBehavior
-            >
+            <Link href={page?.url} key={page?.url} passHref legacyBehavior>
               <Button variant="link" as="a" pb="3" target="_blank">
                 {page.name === "venmo" ? (
                   <></>

@@ -12,22 +12,28 @@ import {
   Flex,
   Heading,
   useDisclosure,
+  Link,
 } from "@chakra-ui/react";
 import { Twirl as Hamburger } from "hamburger-react";
 import { useRouter } from "next/router";
-import Link from "src/common/Link";
 import useNav from "src/hooks/useNav";
 import NavLogo from "../../../common/NavLogo";
 
-const MobileNav = () => {
+type MobileNavProps = {
+  homePage: boolean;
+};
+
+const MobileNav = ({ homePage }: MobileNavProps) => {
   const { navs } = useNav();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const router = useRouter();
 
   return (
     <>
-      <Box display={["block", "block", "none", "none", "none"]}
-      bg="gradient.regular">
+      <Box
+        display={["block", "block", "none", "none", "none"]}
+        bg="gradient.regular"
+      >
         <Flex
           id="mobile-nav"
           minH={"100px"}
@@ -136,12 +142,7 @@ const MobileNav = () => {
                               key={sub.slug}
                             >
                               <Box as="div" flex={1} textAlign="left">
-                                <Heading
-                                  size="xs"
-                                  color="brand.light"
-                                  p={2}
-                                  casing="title"
-                                >
+                                <Heading size="xs" color="brand.light" p={2}>
                                   {sub.name}
                                 </Heading>
                               </Box>
