@@ -86,6 +86,7 @@ const Hero = ({
           p="8"
           justifyContent={textAlign || "flex-start"}
           w="100%"
+          paddingTop={{ base: "100px", md: "0px" }}
         >
           <Stack
             spacing="1"
