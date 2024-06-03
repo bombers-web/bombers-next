@@ -32,7 +32,14 @@ const MobileNav = ({ homePage }: MobileNavProps) => {
     <>
       <Box
         display={["block", "block", "none", "none", "none"]}
-        bg="gradient.regular"
+        // bg="gradient.regular"
+        w={"100vw"}
+        bg={
+          homePage
+            ? "linear-gradient(#00000093, #00000025 transparent);"
+            : "brand.dark"
+        }
+        position={homePage ? "fixed" : "inherit"}
       >
         <Flex
           id="mobile-nav"

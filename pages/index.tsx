@@ -83,7 +83,11 @@ const Home = (props) => {
         <Section
           bg="brand.dark"
           padding="0px"
-          style={{ display: "flex", height: "150px", justifyContent: "center" }}
+          style={{
+            display: "flex",
+            height: "150px",
+            justifyContent: "center",
+          }}
           align="center"
         >
           <Box
