@@ -21,6 +21,7 @@ const MenuItem = styled(Box)`
     alignContent: "center",
     ...props.theme?.fonts?.menuItem,
   })}
+  opacity: .75;
   :hover {
     opacity: 1;
     color: var(--chakra-colors-brand-highlight);
@@ -33,11 +34,7 @@ const DesktopNav = ({ homePage }: DesktopNavProps) => {
   return (
     <Flex
       id="desktop-nav-container"
-      bg={
-        homePage
-          ? "linear-gradient(#00000093, #00000025 transparent);"
-          : "brand.dark"
-      }
+      bg={homePage ? "linear-gradient(#2d2d2dc1, transparent);" : "brand.dark"}
       minH="100px"
       minW="100vw"
       display={["none", "none", "flex", "flex"]}
