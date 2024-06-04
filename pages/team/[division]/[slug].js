@@ -1,8 +1,8 @@
 import { Center, Stack, Text } from "@chakra-ui/react";
+import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { fetchAPI } from "src/lib/api";
 import Layout from "../../../src/common/Layout";
-import Pic from "../../../src/common/Pic";
 import PlayerInfo from "../../../src/components/Players/PlayerInfo";
 import { getPosition } from "../../../src/components/Players/utils";
 import useBp from "../../../theme/useBp";
@@ -10,6 +10,7 @@ import useBp from "../../../theme/useBp";
 const Player = ({ player }) => {
   const [direction, setDirection] = useState("row");
   const [isDesktop] = useBp();
+  const PLAYER_NAME = `${player?.first_name} ${player?.last_name}`;
 
   useEffect(() => {
     setDirection(isDesktop ? "row" : "column");
@@ -25,7 +26,7 @@ const Player = ({ player }) => {
 
   return (
     <Layout
-      seo={{ metaTitle: `${player?.first_name} ${player?.last_name}` }}
+      seo={{ metaTitle: PLAYER_NAME }}
       header={text}
       subheader={position}
       cover={{
@@ -36,10 +37,13 @@ const Player = ({ player }) => {
       <Stack minH="100%" w="100%" bg="brand.light" spacing="0">
         <Stack direction={direction} spacing="4" m="0" bg={"gradient.regular"}>
           <Center flex={1}>
-            <Pic
+            <Image
+              width={1000}
+              height={1000}
               fit={player?.picture?.size > 3000 ? "cover" : "contain"}
-              image={player?.picture}
+              src={player?.picture?.url}
               size="xl"
+              alt={PLAYER_NAME + " profile pic"}
             />
           </Center>
           <Center flex={1} p={8} lineHeight={2}>
@@ -75,7 +79,6 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  console.log({ params });
   const [player] = (await fetchAPI(`/players?slug=${params.slug}`)) || {};
   return {
     props: { player },

@@ -35,7 +35,7 @@ const Schedule = ({ upcoming }) => {
 
   return (
     <Accordion allowMultiple defaultIndex={[0]}>
-      {upcoming.map((game) => {
+      {upcoming?.map((game) => {
         const gameInfoProps = {
           homeTeam: {
             name: game?.home?.name,

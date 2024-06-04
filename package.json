@@ -8,6 +8,7 @@
     "dev": "next dev",
     "build": "npm run lint:fix && next build",
     "start": "next start",
+    "prod": "next build && next start",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "pretty": "prettier . -c",
