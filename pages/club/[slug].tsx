@@ -26,12 +26,12 @@ const Dynamic = ({ page }) => {
         return {
           "sections.hero": (
             <Hero
-              text={block?.title}
+              title={block?.title}
               size={block.size || "xl"}
-              secondaryText={block.subTitle}
+              subTitle={block.subTitle}
               // image={block.image}
               // backButton={block.backButton}
-              buttons={block.buttons}
+              links={block.buttons}
               contentLink={block.contentLink}
               // direction={block.direction}
               // startPic={block.startPic}

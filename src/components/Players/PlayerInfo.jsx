@@ -1,6 +1,6 @@
-import { Center, Heading, SimpleGrid, Stack } from "@chakra-ui/react";
+import { Heading, SimpleGrid, Stack } from "@chakra-ui/react";
 import { formatDate } from "../../../utils/formatDate.js";
-import { getFlag, getPosition, getNationality } from "./utils";
+import { getFlag, getNationality, getPosition } from "./utils";
 
 const PlayerInfo = ({ player }) => {
   const data = [

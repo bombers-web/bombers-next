@@ -1,38 +1,31 @@
 /* eslint-disable no-unused-vars */
 import { Box, Divider, Flex, Heading } from "@chakra-ui/react";
-import Mdx from "src/common/Mdx";
 import { format, formatDistanceToNow } from "date-fns";
-import { useEffect, useState } from "react";
-import styled from "styled-components";
-import Hero from "../../../src/common/Hero";
-import Layout from "../../../src/common/Layout";
-import Pic from "../../../src/common/Pic";
-import { fetchAPI } from "../../../src/lib/api";
-import { getStrapiMedia } from "../../../src/lib/media";
-import useBp from "../../../theme/useBp";
-import ArticleTitle, {
-  ArticleSummary,
-} from "../../../src/components/Articles/ArticleTitle";
-import {
-  ContentTag,
-  ContentTime,
-  HeroTileMeta,
-} from "src/components/NewsReel/styles";
 import { enUS } from "date-fns/locale";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import {
   EmailIcon,
   EmailShareButton,
   FacebookIcon,
+  FacebookMessengerIcon,
   FacebookMessengerShareButton,
   FacebookShareButton,
-  FacebookMessengerIcon,
-  FacebookShareCount,
   TwitterIcon,
   TwitterShareButton,
   WhatsappIcon,
   WhatsappShareButton,
 } from "react-share";
-import { useRouter } from "next/router";
+import Mdx from "src/common/Mdx";
+import { ContentTag, ContentTime } from "src/components/NewsReel/styles";
+import styled from "styled-components";
+import Layout from "../../../src/common/Layout";
+import Pic from "../../../src/common/Pic";
+import ArticleTitle, {
+  ArticleSummary,
+} from "../../../src/components/Articles/ArticleTitle";
+import { fetchAPI } from "../../../src/lib/api";
+import { getStrapiMedia } from "../../../src/lib/media";
 
 const ArticleHeader = styled.div`
   font-size: 44px;
@@ -62,11 +55,9 @@ const defaultArticle = {
 };
 
 const Article = ({ article, context }) => {
-  const [isDesktop] = useBp();
   const router = useRouter();
 
   const imageUrl = getStrapiMedia(article?.image);
-  const [heroSize, setHeroSize] = useState("xs");
 
   const seo = {
     metaTitle: article.title,
@@ -74,10 +65,6 @@ const Article = ({ article, context }) => {
     shareImage: article.image,
     article: true,
   };
-
-  useEffect(() => {
-    setHeroSize(isDesktop);
-  }, [isDesktop]);
 
   const meta = [
     {

@@ -1,5 +1,4 @@
 import Layout from "../../src/common/Layout";
-import CheckoutForm from "../../src/components/CheckoutForm";
 
 const DonatePage = () => {
   return (
@@ -7,7 +6,6 @@ const DonatePage = () => {
       <div className="page-container">
         <h1>Donate with Checkout</h1>
         <p>Donate to our project 💖</p>
-        <CheckoutForm />
       </div>
     </Layout>
   );

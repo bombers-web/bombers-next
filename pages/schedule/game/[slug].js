@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import Layout from "../../../src/common/Layout";
-import Hero from "../../../src/common/Hero";
-import useBp from "../../../theme/useBp";
+import { Heading, Stack } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { Stack, Heading } from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
+import Hero from "../../../src/common/Hero";
+import Layout from "../../../src/common/Layout";
+import useBp from "../../../theme/useBp";
 
 const ScheduleGame = (props) => {
   const [isDesktop] = useBp();

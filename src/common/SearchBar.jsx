@@ -1,12 +1,6 @@
-import React from "react";
-import {
-  Text,
-  Heading,
-  InputLeftElement,
-  InputGroup,
-  Input,
-} from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
+import { Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
+import React from "react";
 
 const SearchBar = ({ handleChange, value, type }) => {
   return (
