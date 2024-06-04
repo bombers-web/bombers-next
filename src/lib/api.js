@@ -7,6 +7,7 @@ export function getStrapiURL(path = "", useLocal) {
 // Helper to make GET requests to Strapi
 export async function fetchAPI(path, useLocal = false) {
   const requestUrl = getStrapiURL(path, useLocal);
+  console.log({ requestUrl });
   try {
     const response = await fetch(requestUrl);
     return await response?.json();
