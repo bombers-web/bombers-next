@@ -47,7 +47,6 @@ export async function getStaticProps() {
     props: {
       history,
     },
-    revalidate: 60,
   };
 }
 export default ClubHistory;

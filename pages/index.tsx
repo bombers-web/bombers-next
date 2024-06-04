@@ -169,7 +169,6 @@ export async function getStaticProps() {
       // d3Upcoming,
       highlight: homeCta?.content || null,
     },
-    revalidate: 60,
   };
 }
 
