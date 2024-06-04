@@ -74,7 +74,7 @@ const NextMatchFont = styled(Box)<{ size?: "xs" | "sm" | "md" | "lg" }>`
 `;
 
 const Home = (props) => {
-  const { articles, homepage, highlight, d1Upcoming } = props;
+  const { homepage, highlight, d1Upcoming } = props;
   const { getLongDate } = new Utils();
   return (
     <Layout seo={homepage.seo} bg="brand.light" id="homepage">

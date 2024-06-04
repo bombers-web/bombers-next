@@ -4,7 +4,7 @@ import useNav from "../../src/hooks/useNav";
 import React from "react";
 
 const ClubIndex = () => {
-  const { navs } = useNav("club");
+  // const { navs } = useNav("club");
   // TODO: reestablish useNav
   // const subMenus = navs[0].subMenus;
 
@@ -34,7 +34,7 @@ const ClubIndex = () => {
     //   slug: "club/career-center",
     //   bg: "",
     // },
-  ]
+  ];
 
   return (
     <Layout

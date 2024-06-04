@@ -1,5 +1,4 @@
-import { Box, Heading, SimpleGrid, useBreakpointValue } from "@chakra-ui/react";
-import Card from "../../common/Card";
+import { Box, Heading, SimpleGrid } from "@chakra-ui/react";
 import { Player } from "../../types/playerTypes";
 import PlayerCard from "./PlayerCard";
 
@@ -9,7 +8,7 @@ type ListProps = {
   title: string;
 };
 
-const List = ({ players, noClick, title }: ListProps) => {
+const List = ({ players, title }: ListProps) => {
   return !players ? (
     <div>Nothing found here</div>
   ) : (

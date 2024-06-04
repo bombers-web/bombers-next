@@ -1,10 +1,9 @@
-import { SyntheticEvent, useEffect, useState } from "react";
 import Tab from "./Tab";
 import {
+  Tabs as StyledTabs,
   TabContent,
   TabContentWrapper,
   TabsContainer,
-  Tabs as StyledTabs,
 } from "./styles";
 import { TabsProps } from "./types";
 

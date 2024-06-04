@@ -1,7 +1,4 @@
 import { Stack } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import useBp from "../../../theme/useBp";
-import GameCard from "./GameCard";
 
 const Games = ({ games = [] }) => {
   return (

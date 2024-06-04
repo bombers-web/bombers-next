@@ -1,16 +1,9 @@
-import {
-  SimpleGrid,
-  Tab,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tabs,
-} from "@chakra-ui/react";
+import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 import { fetchAPI } from "lib/api";
 import { sortBy } from "lodash";
 import React, { useCallback, useState } from "react";
-import ArticleCard from "../../src/components/Articles/ArticleCard";
 import Layout from "../../src/common/Layout";
+import ArticleCard from "../../src/components/Articles/ArticleCard";
 
 const News = ({ articles, categories }) => {
   const [selectedTab, setSelectedTab] = useState("Latest");

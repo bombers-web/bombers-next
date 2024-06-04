@@ -1,9 +1,9 @@
-import { faFacebook, faInstagram } from "@fortawesome/free-brands-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link, Text } from "@chakra-ui/react";
 import { FC } from "react";
 import useNav from "../hooks/useNav";
 import { Sponsors } from "../types/sponsors";
 import NavLogo from "./NavLogo";
+import Socials from "./Socials";
 import {
   Copyright,
   FooterContainer,
@@ -11,10 +11,8 @@ import {
   FooterInfo,
   FooterLinks,
 } from "./styles";
-import { Heading, Text, textDecoration, Link } from "@chakra-ui/react";
-import Socials from "./Socials";
 
-const Footer: FC<{ sponsors: Array<Sponsors> }> = ({ sponsors = [] }) => {
+const Footer: FC<{ sponsors: Array<Sponsors> }> = (_props) => {
   const { navs, shortest } = useNav(["Club", "Team"]);
 
   return (

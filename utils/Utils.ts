@@ -1,11 +1,4 @@
-import {
-  format,
-  formatDistance,
-  formatRelative,
-  getHours,
-  getMinutes,
-  subDays,
-} from "date-fns";
+import { format, formatDistance, subDays } from "date-fns";
 class Utils {
   getAge(dob: string): string {
     return formatDistance(subDays(new Date(), Date.parse(dob)), new Date());

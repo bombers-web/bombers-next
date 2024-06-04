@@ -1,15 +1,12 @@
-import { Tab, TabList, TabPanel, TabPanels, Tabs, Box } from "@chakra-ui/react";
+import { Box, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 import { groupBy } from "lodash";
 import React from "react";
-import Hero from "../../src/common/Hero";
 import Layout from "../../src/common/Layout";
-import useBp from "../../theme/useBp";
-import ScheduleTabs from "./components/ScheduleTabs";
 import { fetchAPI } from "../../src/lib/api";
+import ScheduleTabs from "./components/ScheduleTabs";
 
 const Schedule = ({ games }) => {
   const { d1, d3 } = groupBy(games, "division");
-  const [isDesktop] = useBp();
   const seo = {
     metaTitle: "Schedule",
   };

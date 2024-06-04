@@ -1,4 +1,4 @@
-import { Button, HStack, Stack, Text } from "@chakra-ui/react";
+import { Button, HStack, Stack } from "@chakra-ui/react";
 import {
   faFacebookSquare,
   faInstagram,

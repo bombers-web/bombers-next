@@ -1,10 +1,8 @@
-import { Flex, HStack, Box, Link } from "@chakra-ui/react";
-import styled, { StyledComponent } from "@emotion/styled";
+import { Flex, HStack, Link } from "@chakra-ui/react";
 import LoginButton from "src/common/LoginButton";
-import Socials from "../../../common/Socials";
 import NavLogo from "../../../common/NavLogo";
+import Socials from "../../../common/Socials";
 import useNav from "../../../hooks/useNav";
-
 
 // type MenuItemProps = {
 //   theme: any;
@@ -40,20 +38,20 @@ const TopNav = () => {
       <Flex w="100%" mx={8} justifyContent="flex-end" maxW="1180px">
         <NavLogo color="brand.light" size="md" logoOnly />
         {navs.map((nav) => {
-            return (
-              <Link
-                key={nav.slug}
-                style={{
-                  textDecoration: "none",
-                  alignSelf: "center"
-                }}
-                href={nav.slug}
-              >
-                {nav.name}
-                {/* <MenuItem className="desktop-menu-item">{nav.name}</MenuItem> */}
-              </Link>
-            );
-          })}
+          return (
+            <Link
+              key={nav.slug}
+              style={{
+                textDecoration: "none",
+                alignSelf: "center",
+              }}
+              href={nav.slug}
+            >
+              {nav.name}
+              {/* <MenuItem className="desktop-menu-item">{nav.name}</MenuItem> */}
+            </Link>
+          );
+        })}
         <Socials />
         <LoginButton />
       </Flex>
