@@ -40,7 +40,7 @@ const Results = ({ results }) => {
 
   return (
     <Accordion allowMultiple defaultIndex={[0]}>
-      {results.map((game) => {
+      {results?.map((game) => {
         const gameInfoProps = {
           homeTeam: {
             name: game.home.name,

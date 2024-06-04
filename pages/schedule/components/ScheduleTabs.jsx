@@ -22,7 +22,7 @@ const ScheduleTabs = ({ games = [] }) => {
           <Schedule upcoming={upcoming} />
         </TabPanel>
         <TabPanel>
-          <Results results={results} />
+          <Results results={results || []} />
         </TabPanel>
         <TabPanel>
           <Tables division={division} />
