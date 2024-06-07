@@ -9,7 +9,8 @@ export async function fetchAPI(path, useLocal = false) {
   const requestUrl = getStrapiURL(path, useLocal);
   try {
     const response = await fetch(requestUrl);
-    return await response?.json();
+    const data = await response?.json();
+    return data.data
   } catch (error) {
     console.error("We're offline");
     throw new Error(error);
