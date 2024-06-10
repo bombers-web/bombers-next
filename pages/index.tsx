@@ -158,7 +158,6 @@ export async function getStaticProps() {
     // fetchAPI("/games?division=d3&finished=false&_sort=date:asc&_limit=3"),
     fetchAPI("/home-cta"),
   ]);
-  console.log(d1Upcoming[0].attributes.date)
   return {
     props: {
       articles,
