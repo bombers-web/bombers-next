@@ -10,7 +10,7 @@ export async function fetchAPI(path, useLocal = false) {
   try {
     const response = await fetch(requestUrl);
     const json = await response?.json();
-    return json.data
+    return json.data;
   } catch (error) {
     console.error("We're offline");
     throw new Error(error);

@@ -21,8 +21,9 @@ function useNav(type?: undefined | String | Array<string>): DefaultNavs {
   useEffect(() => {
     fetchAPI("/pages")
       .then((value) => {
-        if (!value) setDynamicPages([]);
-        setDynamicPages(value);
+        if (value) {
+          setDynamicPages(value);
+        }
       })
       .catch((err) => console.error(err));
   }, []);
