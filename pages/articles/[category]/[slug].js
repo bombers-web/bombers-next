@@ -229,7 +229,7 @@ export async function getStaticPaths() {
         category: article?.category?.name || '',
       },
     })) : [],
-    fallback: false,
+    fallback: true,
   };
 }
 

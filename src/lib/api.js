@@ -10,7 +10,7 @@ export async function fetchAPI(path, useLocal = false) {
   const requestUrl = getStrapiURL(path, useLocal);
   try {
     const response = await fetch(requestUrl);
-    console.log({response})
+    console.log({res: response?.json()})
     const json = await response?.json();
     return json.data;
   } catch (error) {

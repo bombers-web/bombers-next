@@ -52,10 +52,10 @@ export async function getStaticPaths() {
   return {
     paths: categories ? categories.map(({ name }) => ({
       params: {
-        category: name || '',
+        category: name || 'news',
       },
     })) : [],
-    fallback: false,
+    fallback: true,
   };
 }
 
