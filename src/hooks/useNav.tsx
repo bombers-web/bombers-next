@@ -116,7 +116,7 @@ function useNav(type?: undefined | String | Array<string>): DefaultNavs {
         name: page.title,
         id: page.slug,
         slug: `${page.parent}/${page.slug}`,
-        bg: page.Seo.ShareImage,
+        bg: page?.Seo?.ShareImage,
       };
 
       if (nav.name === page.parent) {
