@@ -223,7 +223,7 @@ export async function getStaticPaths() {
   const articles = await fetchAPI("/articles");
 
   return {
-    paths: articles.map((article) => ({
+    paths: articles?.map((article) => ({
       params: {
         slug: article.uid,
         category: article.category.name,

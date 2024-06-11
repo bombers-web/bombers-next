@@ -67,7 +67,7 @@ const Player = ({ player }) => {
 export async function getStaticPaths() {
   const players = await fetchAPI("/players");
   return {
-    paths: players.map((player) => ({
+    paths: players?.map((player) => ({
       params: {
         division: player?.division?.toString().toLowerCase() || "d1",
         slug: player?.slug || "shawn-caradine",
