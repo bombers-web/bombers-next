@@ -6,7 +6,7 @@ import { fetchAPI } from "../../src/lib/api";
 import ScheduleTabs from "./components/ScheduleTabs";
 
 const Schedule = ({ games }) => {
-  const { d1, d3 } = groupBy(games, "division");
+  const { d1, d3 } = groupBy(games, "attributes.division");
   const seo = {
     metaTitle: "Schedule",
   };
