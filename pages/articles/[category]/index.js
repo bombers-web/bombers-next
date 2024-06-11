@@ -50,9 +50,9 @@ export async function getStaticPaths() {
   const categories = await fetchAPI("/categories");
 
   return {
-    paths: categories?.map(({ name }) => ({
+    paths: categories.map(({ name }) => ({
       params: {
-        category: name,
+        category: name || '',
       },
     })),
     fallback: false,

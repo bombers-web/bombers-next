@@ -94,7 +94,7 @@ export async function getStaticPaths() {
   const pages = await fetchAPI("/pages");
 
   return {
-    paths: pages?.map((page) => ({
+    paths: pages.map((page) => ({
       params: {
         slug: page.slug || "/404",
       },
