@@ -11,7 +11,7 @@ module.exports = {
   },
   // largePageDataBytes: 135,
   env: {
-    strapi: "https://bombers-backend.herokuapp.com",
+    strapi: "https://bombers-backend.herokuapp.com/api",
     HOST_URL: "https://www.stlouisbombers.com",
   },
   images: {
