@@ -1,4 +1,5 @@
 export function getStrapiURL(path = "", useLocal) {
+  console.log({useLocal})
   return useLocal
     ? `http://localhost:1339${path}`
     : `${process.env.strapi}${path}`;
