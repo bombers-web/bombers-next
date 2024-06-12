@@ -32,6 +32,7 @@ const Players = ({ list, division }) => {
 };
 
 export async function getStaticPaths() {
+  console.log("getStaticPaths in division")
   return {
     paths: ["/team/d1", "/team/d3", "/team/coaches-and-staff"],
     fallback: false,
@@ -39,6 +40,8 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params, ...ctx }) {
+  console.log({ params, ctx });
+
   const { division } = params;
 
   const list = await fetchAPI(
