@@ -57,7 +57,7 @@ const defaultArticle = {
 const Article = ({ article, context }) => {
   const router = useRouter();
 
-  const imageUrl = getStrapiMedia(article?.image);
+  const imageUrl = getStrapiMedia(article?.image) || "/";
 
   const seo = {
     metaTitle: article.title,
