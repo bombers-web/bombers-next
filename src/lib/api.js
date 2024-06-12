@@ -1,5 +1,6 @@
 export function getStrapiURL(path = "", useLocal) {
   console.log({useLocal})
+  console.log({path})
   return useLocal
     ? `http://localhost:1339${path}`
     : `${process.env.strapi}${path}`;
@@ -8,6 +9,7 @@ export function getStrapiURL(path = "", useLocal) {
 // Helper to make GET requests to Strapi
 export async function fetchAPI(path, useLocal = false) {
   const requestUrl = getStrapiURL(path, useLocal);
+  console.log({requestUrl})
   try {
     const response = await fetch(requestUrl);
     const json = await response?.json();
