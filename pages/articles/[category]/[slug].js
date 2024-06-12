@@ -223,12 +223,13 @@ export async function getStaticPaths() {
   const articles = await fetchAPI("/articles");
 
   return {
-    paths: articles ? articles.map((article) => ({
-      params: {
-        slug: article.uid,
-        category: article?.category?.name || '',
-      },
-    })) : [],
+    paths:
+      articles?.map((article) => ({
+        params: {
+          slug: article.uid,
+          category: article?.category?.name || "",
+        },
+      })) || [],
     fallback: true,
   };
 }

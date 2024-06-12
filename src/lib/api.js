@@ -1,5 +1,4 @@
 export function getStrapiURL(path = "", useLocal) {
-  console.log({useLocal})
   return useLocal
     ? `http://localhost:1339${path}`
     : `${process.env.strapi}${path}`;
@@ -10,8 +9,8 @@ export async function fetchAPI(path, useLocal = false) {
   const requestUrl = getStrapiURL(path, useLocal);
   try {
     const response = await fetch(requestUrl);
-    console.log({res: response?.json()})
     const json = await response?.json();
+    console.log({ json });
     return json.data;
   } catch (error) {
     console.error("We're offline");
