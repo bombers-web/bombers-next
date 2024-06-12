@@ -77,7 +77,7 @@ const Article = ({ article, context }) => {
       name: "publishedAt",
       type: "dateTag",
       Component: ContentTime,
-      content: formatDistanceToNow(new Date(article?.publishedAt), {
+      content: article?.publishedAt ? formatDistanceToNow(new Date(article.publishedAt), {
         addSuffix: true,
         locale: {
           ...enUS,
@@ -113,7 +113,7 @@ const Article = ({ article, context }) => {
             }
           },
         },
-      }),
+      }) : '',
     },
   ];
 
@@ -161,7 +161,10 @@ const Article = ({ article, context }) => {
                 <Box>
                   <p>By {article?.author?.name || "Anonymous"}</p>
                   <p className="uk-text-meta uk-margin-remove-top">
-                    {format(new Date(article.publishedAt), "PPPp")}
+                    { 
+                      article?.publishedAt ? 
+                      format(new Date(article.publishedAt), "PPPp") : ''
+                    }
                   </p>
                 </Box>
               </Box>
