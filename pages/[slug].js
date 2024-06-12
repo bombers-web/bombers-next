@@ -10,7 +10,7 @@ import { fetchAPI } from "../src/lib/api";
 const DynamicPage = ({ page }) => {
   return (
     <Layout margin seo={page.seo}>
-      {page.block.map((block) => {
+      {page?.block?.map((block) => {
         return {
           "sections.hero": (
             <Hero
@@ -53,7 +53,7 @@ const DynamicPage = ({ page }) => {
                     </Stack>
                   </Flex>
                   <div>
-                    {block.links.map((link) => (
+                    {block?.links?.map((link) => (
                       <Link href={`/${link.link}`} passHref>
                         {link.title}
                       </Link>

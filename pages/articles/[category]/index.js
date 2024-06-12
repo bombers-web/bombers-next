@@ -36,7 +36,7 @@ const Article = ({ articles, category }) => {
   return (
     <Layout seo={{ mainTitle: category }} header={category}>
       <SimpleGrid m={[0, 0, 2, 2, 4]} spacing="8" minChildWidth="300px">
-        {articles.map((article) => {
+        {articles?.map((article) => {
           return (
             <ArticleCard article={article} href="/articles/"></ArticleCard>
           );

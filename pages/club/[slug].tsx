@@ -12,13 +12,13 @@ import { Block } from "src/types/pageTypes";
 const Dynamic = ({ page }) => {
   return (
     <Layout
-      seo={page.seo}
-      header={page.title}
+      seo={page?.seo}
+      header={page?.title}
       cover={{
-        url: page.Seo.shareImage.url,
+        url: page?.Seo?.shareImage.url,
       }}
     >
-      {page.block.map((block: Block) => {
+      {page?.block?.map((block: Block) => {
         const mobileDirection =
           block.imagePosition === "end" ? "column" : "column-reverse";
         const webDirection =
@@ -71,7 +71,7 @@ const Dynamic = ({ page }) => {
                     </Flex>
                   </Flex>
                   <div>
-                    {block.links.map((link) => (
+                    {block?.links?.map((link) => (
                       <Link href={`/${link.link}`} passHref>
                         {link.title}
                       </Link>
@@ -94,7 +94,7 @@ export async function getStaticPaths() {
   const pages = await fetchAPI("/pages");
 
   return {
-    paths: pages.map((page) => ({
+    paths: pages?.map((page) => ({
       params: {
         slug: page.slug || "/404",
       },

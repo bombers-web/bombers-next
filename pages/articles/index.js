@@ -39,7 +39,7 @@ const News = ({ articles, categories }) => {
           <Tab fontSize="xl" fontWeight="bold">
             Latest
           </Tab>
-          {categories.map((category) => (
+          {categories?.map((category) => (
             <Tab
               fontSize="xl"
               fontWeight="bold"
@@ -53,17 +53,17 @@ const News = ({ articles, categories }) => {
         </TabList>
         <TabPanels my="24px">
           <TabPanel>
-            {articles.length
+            {articles?.length
               ? sortBy(articles, (article) =>
                   new Date(article.publishedAt).toLocaleDateString("en")
                 ).map((item) => <ArticleCard article={item} />)
               : "No Articles"}
           </TabPanel>
-          {categories.map((category) => {
+          {categories?.map((category) => {
             return (
               <TabPanel textTransform="capitalize">
-                {category.articles.length
-                  ? category.articles.map((article) => {
+                {category?.articles?.length
+                  ? category?.articles?.map((article) => {
                       return (
                         <ArticleCard
                           href={"/articles/"}
