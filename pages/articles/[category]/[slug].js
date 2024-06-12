@@ -144,7 +144,7 @@ const Article = ({ article, context }) => {
             <Flex gap="4" alignItems="center">
               <Box>
                 <Pic
-                  image={article.author?.picture || ""}
+                  image={article?.author?.picture || ""}
                   style={{
                     position: "static",
                     borderRadius: "50%",
@@ -208,7 +208,7 @@ const Article = ({ article, context }) => {
             >
               {article?.tagline && (
                 <Heading as="h3" size="lg" color="brand.highlight" my="4">
-                  {article.tagline || ""}
+                  {article?.tagline || ""}
                 </Heading>
               )}
               <Box textAlign="justify" mb="10" pb="10">
@@ -229,7 +229,7 @@ export async function getStaticPaths() {
     paths:
       articles?.map((article) => ({
         params: {
-          slug: article.uid,
+          slug: article?.uid,
           category: article?.category?.name || "",
         },
       })) || [],
