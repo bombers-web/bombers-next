@@ -119,7 +119,7 @@ const Article = ({ article, context }) => {
 
   return (
     <Layout
-      cover={{ url: imageUrl, alternativeText: article.description }}
+      cover={{ url: imageUrl, alternativeText: article?.description }}
       seo={seo}
       mainBg="brand.black"
     >
