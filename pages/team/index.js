@@ -1,7 +1,7 @@
 import { Box, Flex, Heading, SimpleGrid } from "@chakra-ui/react";
 import Card from "../../src/common/Card";
 import Layout from "../../src/common/Layout";
-import { fetchAPI } from "../../src/lib/api";
+// import { fetchAPI } from "../../src/lib/api";
 
 const TeamHome = () => {
   const teams = [
@@ -98,23 +98,23 @@ const TeamHome = () => {
   );
 };
 
-export async function getStaticPaths() {
-  console.log("getStaticPaths in team")
-  return {
-    paths: ["/team/d1", "/team/d3", "/team/coaches-and-staff"],
-    fallback: false,
-  };
-}
+// export async function getStaticPaths() {
+//   console.log("getStaticPaths in team")
+//   return {
+//     paths: ["/team/d1", "/team/d3", "/team/coaches-and-staff"],
+//     fallback: false,
+//   };
+// }
 
-export async function getStaticProps({ params, ...ctx }) {
-  console.log({ params, ctx });
+// export async function getStaticProps({ params, ...ctx }) {
+//   console.log({ params, ctx });
 
-  const { division } = params;
+//   const { division } = params;
 
-  const list = await fetchAPI('/team');
-  return {
-    props: { list },
-  };
-}
+//   const list = await fetchAPI('/team');
+//   return {
+//     props: { list },
+//   };
+// }
 
 export default TeamHome;
