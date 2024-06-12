@@ -2,10 +2,13 @@ import React from "react";
 import Layout from "../../../src/common/Layout";
 import PlayerList from "../../../src/components/Players/PlayerList";
 import Sponsors from "../../../src/components/Sponsors";
-import { fetchAPI } from "../../../src/lib/api";
 import { startCase } from "lodash";
+import { useRouter } from "next/router";
 
-const Players = ({ list, division }) => {
+const Players = () => {
+  const r = useRouter();
+  const { list, division } = r.query;
+
   const covers = {
     d1: "/static/d1_team.jpeg",
     d3: "/static/d3TeamPhoto.JPG",
@@ -14,44 +17,25 @@ const Players = ({ list, division }) => {
   };
   return (
     <>
-      <Layout
-        header={`Bombers ${startCase(division)}`}
-        cover={{
-          url: covers[division],
-          size: "xl",
-          alternativeText: `${division} team pic`,
-        }}
-        seo={{ metaTitle: division }}
-        margin
-      >
-        <PlayerList list={list} type={division} />
-        <Sponsors />
-      </Layout>
+      {division && list ? (
+        <Layout
+          header={`Bombers ${startCase(division)}`}
+          cover={{
+            url: covers[division],
+            size: "xl",
+            alternativeText: `${division} team pic`,
+          }}
+          seo={{ metaTitle: division }}
+          margin
+        >
+          <PlayerList list={list} type={division} />
+          <Sponsors />
+        </Layout>
+      ) : (
+        <div>Loading...</div>
+      )}
     </>
   );
 };
-
-export async function getStaticPaths() {
-  console.log("getStaticPaths in division")
-  return {
-    paths: ["/team/d1", "/team/d3", "/team/coaches-and-staff"],
-    fallback: false,
-  };
-}
-
-export async function getStaticProps({ params, ...ctx }) {
-  console.log({ params, ctx });
-
-  const { division } = params;
-
-  const list = await fetchAPI(
-    ["d1", "d3"].includes(division)
-      ? `/players?division=${division.toUpperCase()}`
-      : `/coaches`
-  );
-  return {
-    props: { list, division },
-  };
-}
 
 export default Players;
