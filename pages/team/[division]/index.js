@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 
 const Players = () => {
   const r = useRouter();
+  console.log({r})
   const { list, division } = r.query;
 
   const covers = {
