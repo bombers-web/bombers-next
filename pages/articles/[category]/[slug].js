@@ -60,9 +60,9 @@ const Article = ({ article, context }) => {
   const imageUrl = getStrapiMedia(article?.image) || "/";
 
   const seo = {
-    metaTitle: article.title,
-    metaDescription: article.description,
-    shareImage: article.image,
+    metaTitle: article?.title,
+    metaDescription: article?.description,
+    shareImage: article?.image,
     article: true,
   };
 
