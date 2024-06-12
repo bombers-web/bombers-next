@@ -1,6 +1,7 @@
 import { Box, Flex, Heading, SimpleGrid } from "@chakra-ui/react";
 import Card from "../../src/common/Card";
 import Layout from "../../src/common/Layout";
+import { fetchAPI } from "../../src/lib/api";
 
 const TeamHome = () => {
   const teams = [
