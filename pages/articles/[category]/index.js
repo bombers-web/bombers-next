@@ -47,6 +47,7 @@ const Article = ({ articles, category }) => {
 };
 
 export async function getStaticPaths() {
+  console.log("getStaticPaths", "categories");
   const categories = await fetchAPI("/categories");
 
   return {
@@ -61,6 +62,8 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
+  console.log({ params });
+
   const articles = await fetchAPI(
     `/articles?[category.name]=${params.category}&status=published`
   );

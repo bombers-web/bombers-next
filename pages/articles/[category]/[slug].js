@@ -77,43 +77,45 @@ const Article = ({ article, context }) => {
       name: "publishedAt",
       type: "dateTag",
       Component: ContentTime,
-      content: article?.publishedAt ? formatDistanceToNow(new Date(article.publishedAt), {
-        addSuffix: true,
-        locale: {
-          ...enUS,
-          formatDistance: (unit, count) => {
-            switch (true) {
-              case unit === "xDays":
-                return `${count} d`;
+      content: article?.publishedAt
+        ? formatDistanceToNow(new Date(article.publishedAt), {
+            addSuffix: true,
+            locale: {
+              ...enUS,
+              formatDistance: (unit, count) => {
+                switch (true) {
+                  case unit === "xDays":
+                    return `${count} d`;
 
-              case unit === "aboutXDays":
-                return `${count} days ago`;
+                  case unit === "aboutXDays":
+                    return `${count} days ago`;
 
-              case unit === "aboutXHours":
-                return `${count} hrs ago`;
-              case unit === "aboutXYears":
-                return `${count} years ago`;
+                  case unit === "aboutXHours":
+                    return `${count} hrs ago`;
+                  case unit === "aboutXYears":
+                    return `${count} years ago`;
 
-              case unit === "xMinutes":
-                return `${count} min ago`;
+                  case unit === "xMinutes":
+                    return `${count} min ago`;
 
-              case unit === "xMonths":
-                return `${count} mo. ago`;
-              case unit === "aboutXMonths":
-                return `${count} mo. ago`;
+                  case unit === "xMonths":
+                    return `${count} mo. ago`;
+                  case unit === "aboutXMonths":
+                    return `${count} mo. ago`;
 
-              case unit === "xSeconds":
-                return "just now";
+                  case unit === "xSeconds":
+                    return "just now";
 
-              case unit === "xYears":
-                return `${count} y`;
+                  case unit === "xYears":
+                    return `${count} y`;
 
-              default:
-                return "%d hours";
-            }
-          },
-        },
-      }) : '',
+                  default:
+                    return "%d hours";
+                }
+              },
+            },
+          })
+        : "",
     },
   ];
 
@@ -161,10 +163,9 @@ const Article = ({ article, context }) => {
                 <Box>
                   <p>By {article?.author?.name || "Anonymous"}</p>
                   <p className="uk-text-meta uk-margin-remove-top">
-                    { 
-                      article?.publishedAt ? 
-                      format(new Date(article.publishedAt), "PPPp") : ''
-                    }
+                    {article?.publishedAt
+                      ? format(new Date(article.publishedAt), "PPPp")
+                      : ""}
                   </p>
                 </Box>
               </Box>
@@ -223,6 +224,7 @@ const Article = ({ article, context }) => {
 };
 
 export async function getStaticPaths() {
+  console.log("getStaticPaths", "articles");
   const articles = await fetchAPI("/articles");
 
   return {
@@ -238,6 +240,8 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
+  console.log({ params });
+
   const [article] =
     (await fetchAPI(`/articles?uid=${params.slug}&status=published`)) || {};
 

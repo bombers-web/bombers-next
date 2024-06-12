@@ -19,6 +19,7 @@ function useNav(type?: undefined | String | Array<string>): DefaultNavs {
   const [dynamicPages, setDynamicPages] = useState([]);
 
   useEffect(() => {
+    console.log("fetch from useEffect /pages");
     fetchAPI("/pages")
       .then((value) => {
         if (value) {
