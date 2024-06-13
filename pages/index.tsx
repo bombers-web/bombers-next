@@ -77,7 +77,7 @@ const Home = (props) => {
   const { homepage, highlight, d1Upcoming } = props;
   const { getLongDate } = new Utils();
   return (
-    <Layout seo={homepage.seo} bg="brand.light" id="homepage">
+    <Layout seo={homepage?.seo} bg="brand.light" id="homepage">
       <PageContent>
         <Hero size="3xl" {...highlight} direct></Hero>
         <Section
@@ -101,20 +101,20 @@ const Home = (props) => {
             mx={8}
           >
             <NextMatchFont size="lg">Next Up: </NextMatchFont>
-            <MatchTeams match={d1Upcoming[0]} />
+            <MatchTeams match={d1Upcoming?.[0]} />
             <NextMatchText flex="2" className="next-match__text--date">
               <Flex gap="3" flex="2">
                 <NextMatchFont size="sm" color="white">
-                  {getLongDate(d1Upcoming[0].attributes.date)[0]}
+                  {getLongDate(d1Upcoming?.[0].date)[0]}
                 </NextMatchFont>
                 <NextMatchFont size="sm" color="white">
-                  {getLongDate(d1Upcoming[0].attributes.date)[1]}
+                  {getLongDate(d1Upcoming?.[0].date)[1]}
                 </NextMatchFont>
               </Flex>
             </NextMatchText>
             <NextMatchText flex="2">
               <NextMatchFont size="md" color="white">
-                {d1Upcoming[0].location}
+                {d1Upcoming?.[0].location}
               </NextMatchFont>
             </NextMatchText>
             <Box flex="1">
@@ -150,13 +150,17 @@ export async function getStaticProps() {
     // d3Upcoming,
     homeCta,
   ] = await Promise.all([
-    fetchAPI("/articles?status=published&_sort=publishedAt:asc&_limit=3"),
-    fetchAPI("/homepage"),
+    fetchAPI(
+      "/articles?populate=*&status=published&_sort=publishedAt:asc&_limit=3"
+    ),
+    fetchAPI("/homepage?populate=*"),
     // fetchAPI("/games?division=d1&finished=true&_sort=date:asc&_limit=3"),
-    fetchAPI("/games?division=d1&finished=false&_sort=date:asc&_limit=1"),
+    fetchAPI(
+      "/games?populate=*&division=d1&finished=false&_sort=date:asc&_limit=1"
+    ),
     // fetchAPI("/games?division=d3&finished=true&_sort=date:asc&_limit=3"),
     // fetchAPI("/games?division=d3&finished=false&_sort=date:asc&_limit=3"),
-    fetchAPI("/home-cta"),
+    fetchAPI("/home-cta?populate=*"),
   ]);
   return {
     props: {

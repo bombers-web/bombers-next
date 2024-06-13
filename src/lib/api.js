@@ -1,6 +1,6 @@
 export function getStrapiURL(path = "", useLocal) {
   return useLocal
-    ? `http://localhost:1339${path}`
+    ? `http://localhost:1337/api${path}`
     : `${process.env.strapi}${path}`;
 }
 

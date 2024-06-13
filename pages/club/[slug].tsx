@@ -10,15 +10,16 @@ import Link from "next/link";
 import { Block } from "src/types/pageTypes";
 
 const Dynamic = ({ page }) => {
+  if (!page) return null;
   return (
     <Layout
       seo={page.seo}
       header={page.title}
       cover={{
-        url: page.Seo.shareImage.url,
+        url: page.Seo?.shareImage?.url,
       }}
     >
-      {page.block.map((block: Block) => {
+      {page.block?.map((block: Block) => {
         const mobileDirection =
           block.imagePosition === "end" ? "column" : "column-reverse";
         const webDirection =
@@ -26,7 +27,7 @@ const Dynamic = ({ page }) => {
         return {
           "sections.hero": (
             <Hero
-              title={block?.title}
+              title={block.title}
               size={block.size || "xl"}
               subTitle={block.subTitle}
               // image={block.image}
@@ -91,7 +92,7 @@ const Dynamic = ({ page }) => {
 };
 
 export async function getStaticPaths() {
-  const pages = await fetchAPI("/pages");
+  const pages = await fetchAPI("/pages?populate=*");
 
   return {
     paths: pages.map((page) => ({
@@ -104,7 +105,8 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const [page] = (await fetchAPI(`/pages?slug=${params.slug}`)) || {};
+  const [page] =
+    (await fetchAPI(`/pages?populate=*&slug=${params.slug}`)) || {};
 
   return {
     props: { key: page.id, page },

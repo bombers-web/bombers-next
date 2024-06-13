@@ -41,7 +41,7 @@ const ClubHistory = ({ history }) => {
 
 export async function getStaticProps() {
   // Run API calls in parallel
-  const [history] = await Promise.all([fetchAPI("/history")]);
+  const [history] = await Promise.all([fetchAPI("/history?populate=*")]);
 
   return {
     props: {

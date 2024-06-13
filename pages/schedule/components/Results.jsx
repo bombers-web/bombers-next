@@ -43,13 +43,13 @@ const Results = ({ results }) => {
       {results?.map((game) => {
         const gameInfoProps = {
           homeTeam: {
-            name: game.home.name,
-            logo: game.home.logo,
+            name: game.home?.name,
+            logo: game.home?.logo,
             score: game.home_score,
           },
           awayTeam: {
-            name: game.away.name,
-            logo: game.away.logo,
+            name: game.away?.name,
+            logo: game.away?.logo,
             score: game.away_score,
           },
           location: game.location,
@@ -87,9 +87,9 @@ const Results = ({ results }) => {
                     textTransform="uppercase"
                     fontFamily="body"
                   >
-                    {isHome(game?.home?.name)
-                      ? `${game?.home?.name} - ${game?.away?.name}`
-                      : `${game?.away?.name} @ ${game?.home?.name}`}
+                    {isHome(game.home?.name)
+                      ? `${game.home?.name} - ${game.away?.name}`
+                      : `${game.away?.name} @ ${game.home?.name}`}
                   </Text>
                 </Box>
                 <AccordionIcon />

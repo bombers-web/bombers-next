@@ -8,9 +8,10 @@ import Layout from "../src/common/Layout";
 import { fetchAPI } from "../src/lib/api";
 
 const DynamicPage = ({ page }) => {
+  if (!page) return null;
   return (
     <Layout margin seo={page.seo}>
-      {page.block.map((block) => {
+      {page.block?.map((block) => {
         return {
           "sections.hero": (
             <Hero
@@ -86,7 +87,8 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const [page] = (await fetchAPI(`/pages?slug=${params.slug}`)) || {};
+  const [page] =
+    (await fetchAPI(`/pages?populate=*&slug=${params.slug}`)) || {};
 
   return {
     props: { key: page.id, page },

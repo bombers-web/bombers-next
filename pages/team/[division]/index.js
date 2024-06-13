@@ -43,8 +43,8 @@ export async function getStaticProps({ params, ...ctx }) {
 
   const list = await fetchAPI(
     ["d1", "d3"].includes(division)
-      ? `/players?division=${division.toUpperCase()}`
-      : `/coaches`
+      ? `/players?populate=*&division=${division.toUpperCase()}`
+      : `/coaches?populate=*`
   );
   return {
     props: { list, division },

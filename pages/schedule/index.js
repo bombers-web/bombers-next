@@ -6,7 +6,7 @@ import { fetchAPI } from "../../src/lib/api";
 import ScheduleTabs from "./components/ScheduleTabs";
 
 const Schedule = ({ games }) => {
-  const { d1, d3 } = groupBy(games, "attributes.division");
+  const { d1, d3 } = groupBy(games, "division");
   const seo = {
     metaTitle: "Schedule",
   };
@@ -49,7 +49,7 @@ const Schedule = ({ games }) => {
 
 export async function getStaticProps() {
   // Run API calls in parallel
-  const [games] = await Promise.all([fetchAPI("/games")]);
+  const [games] = await Promise.all([fetchAPI("/games?populate=*")]);
 
   return {
     props: {
