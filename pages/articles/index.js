@@ -62,7 +62,8 @@ const News = ({ articles, categories }) => {
           {categories.map((category) => {
             return (
               <TabPanel textTransform="capitalize">
-                {category.articles.length
+                {/* TODO: ADD FLATTEN MAP LOGIC HERE */}
+                {category?.articles?.length
                   ? category.articles.map((article) => {
                       return (
                         <ArticleCard
@@ -82,8 +83,10 @@ const News = ({ articles, categories }) => {
 };
 
 export async function getStaticProps() {
-  const categories = (await fetchAPI(`/categories`)) || {};
-  const articles = (await fetchAPI(`/articles`)) || {};
+  const categories = (await fetchAPI(`/categories?populate=*`)) || {};
+  const articles = (await fetchAPI(`/articles?populate=*`)) || {};
+
+  // TODO: NOT GETTING ARTICLES - api is returning [] but strapi shows 3
 
   return {
     props: { categories, articles },
@@ -91,5 +94,3 @@ export async function getStaticProps() {
 }
 
 export default News;
-
-// [{ category: "news", articles: [] }];

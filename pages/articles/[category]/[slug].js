@@ -235,7 +235,9 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const [article] =
-    (await fetchAPI(`/articles?uid=${params.slug}&status=published`)) || {};
+    (await fetchAPI(
+      `/articles?populate=*&uid=${params.slug}&status=published`
+    )) || {};
 
   return {
     props: { article },

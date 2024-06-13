@@ -19,6 +19,7 @@ const ClubHistory = ({ history }) => {
       }}
     >
       <PageContent>
+        {/* TODO: flattenData here (reuse function in util) */}
         {history?.section?.map((section) => {
           return (
             <Box maxH="100%" my="8" mx="auto" p="8" maxW="5xl">
@@ -41,7 +42,7 @@ const ClubHistory = ({ history }) => {
 
 export async function getStaticProps() {
   // Run API calls in parallel
-  const [history] = await Promise.all([fetchAPI("/history")]);
+  const [history] = await Promise.all([fetchAPI("/history?populate=*")]);
 
   return {
     props: {

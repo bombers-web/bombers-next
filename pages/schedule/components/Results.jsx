@@ -1,5 +1,6 @@
 import React from "react";
 import GameInfo from "../../../src/components/Games/GameInfo";
+import { flattenData } from "../../../utils/apiHelpers.js";
 import {
   Box,
   Divider,
@@ -41,15 +42,17 @@ const Results = ({ results }) => {
   return (
     <Accordion allowMultiple defaultIndex={[0]}>
       {results?.map((game) => {
+        const homeData = flattenData(game.home.data);
+        const awayData = flattenData(game.away.data);
         const gameInfoProps = {
           homeTeam: {
-            name: game.home.name,
-            logo: game.home.logo,
+            name: homeData?.name,
+            logo: homeData?.logo,
             score: game.home_score,
           },
           awayTeam: {
-            name: game.away.name,
-            logo: game.away.logo,
+            name: awayData?.name,
+            logo: awayData?.logo,
             score: game.away_score,
           },
           location: game.location,
@@ -87,9 +90,9 @@ const Results = ({ results }) => {
                     textTransform="uppercase"
                     fontFamily="body"
                   >
-                    {isHome(game?.home?.name)
-                      ? `${game?.home?.name} - ${game?.away?.name}`
-                      : `${game?.away?.name} @ ${game?.home?.name}`}
+                    {isHome(homeData?.name)
+                      ? `${homeData?.name} - ${awayData?.name}`
+                      : `${awayData?.name} @ ${homeData?.name}`}
                   </Text>
                 </Box>
                 <AccordionIcon />

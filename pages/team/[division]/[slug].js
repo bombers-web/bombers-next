@@ -79,7 +79,8 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const [player] = (await fetchAPI(`/players?slug=${params.slug}`)) || {};
+  const [player] =
+    (await fetchAPI(`/players?populate=*&slug=${params.slug}`)) || {};
   return {
     props: { player },
   };

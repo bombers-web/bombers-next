@@ -105,10 +105,10 @@ const Home = (props) => {
             <NextMatchText flex="2" className="next-match__text--date">
               <Flex gap="3" flex="2">
                 <NextMatchFont size="sm" color="white">
-                  {getLongDate(d1Upcoming[0].attributes.date)[0]}
+                  {getLongDate(d1Upcoming[0].date)[0]}
                 </NextMatchFont>
                 <NextMatchFont size="sm" color="white">
-                  {getLongDate(d1Upcoming[0].attributes.date)[1]}
+                  {getLongDate(d1Upcoming[0].date)[1]}
                 </NextMatchFont>
               </Flex>
             </NextMatchText>
@@ -150,10 +150,14 @@ export async function getStaticProps() {
     // d3Upcoming,
     homeCta,
   ] = await Promise.all([
-    fetchAPI("/articles?status=published&_sort=publishedAt:asc&_limit=3"),
+    fetchAPI(
+      "/articles?populate=*&status=published&_sort=publishedAt:asc&_limit=3"
+    ),
     fetchAPI("/homepage"),
     // fetchAPI("/games?division=d1&finished=true&_sort=date:asc&_limit=3"),
-    fetchAPI("/games?division=d1&finished=false&_sort=date:asc&_limit=1"),
+    fetchAPI(
+      "/games?populate=*&division=d1&finished=false&_sort=date:asc&_limit=1"
+    ),
     // fetchAPI("/games?division=d3&finished=true&_sort=date:asc&_limit=3"),
     // fetchAPI("/games?division=d3&finished=false&_sort=date:asc&_limit=3"),
     fetchAPI("/home-cta"),

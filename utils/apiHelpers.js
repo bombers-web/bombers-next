@@ -35,3 +35,19 @@ export async function fetchPostJSON(url, data) {
     throw err;
   }
 }
+
+export const flattenData = (data) => {
+  if (Array.isArray(data)) {
+    const flattenedData = data.map(({ id, attributes }) => {
+      return { id, ...attributes };
+    });
+    return flattenedData;
+  } else {
+    // If data is not an array, return it as is
+    if (data?.id && data?.attributes) {
+      return { id: data.id, ...data.attributes };
+    } else {
+      return data;
+    }
+  }
+};

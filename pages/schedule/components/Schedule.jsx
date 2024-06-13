@@ -10,6 +10,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import GameInfo from "../../../src/components/Games/GameInfo";
+import { flattenData } from "../../../utils/apiHelpers.js";
 
 const Schedule = ({ upcoming }) => {
   const formatDateTime = (dateTime) => {
@@ -36,17 +37,18 @@ const Schedule = ({ upcoming }) => {
   return (
     <Accordion allowMultiple defaultIndex={[0]}>
       {upcoming?.map((game) => {
-        game = game.attributes;
+        const homeData = flattenData(game.home.data);
+        const awayData = flattenData(game.away.data);
         const gameInfoProps = {
           homeTeam: {
-            name: game?.home?.name,
-            logo: game?.home?.logo,
-            score: game?.home_score,
+            name: homeData?.name,
+            logo: homeData?.logo,
+            score: game.home_score,
           },
           awayTeam: {
-            name: game?.away?.name,
-            logo: game?.away?.logo,
-            score: game?.away_score,
+            name: awayData?.name,
+            logo: awayData?.logo,
+            score: game.away_score,
           },
           date: game?.date,
           location: game?.location,
@@ -85,9 +87,9 @@ const Schedule = ({ upcoming }) => {
                     textTransform="uppercase"
                     fontFamily="body"
                   >
-                    {isHome(game?.home?.name)
-                      ? `${game?.home?.name} - ${game?.away?.name}`
-                      : `${game?.away?.name} @ ${game?.home?.name}`}
+                    {isHome(homeData?.name)
+                      ? `${homeData?.name} - ${awayData?.name}`
+                      : `${awayData?.name} @ ${homeData?.name}`}
                   </Text>
                 </Box>
                 <AccordionIcon />
