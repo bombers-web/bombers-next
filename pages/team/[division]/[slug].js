@@ -65,7 +65,7 @@ const Player = ({ player }) => {
 };
 
 export async function getStaticPaths() {
-  const players = await fetchAPI("/players");
+  const players = await fetchAPI("/players?populate=*");
   return {
     paths: players.map((player) => ({
       params: {
@@ -79,7 +79,8 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const [player] = (await fetchAPI(`/players?slug=${params.slug}`)) || {};
+  const [player] =
+    (await fetchAPI(`/players?populate=*&slug=${params.slug}`)) || {};
   return {
     props: { player },
   };

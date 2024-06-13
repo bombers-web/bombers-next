@@ -82,8 +82,8 @@ const News = ({ articles, categories }) => {
 };
 
 export async function getStaticProps() {
-  const categories = (await fetchAPI(`/categories`)) || {};
-  const articles = (await fetchAPI(`/articles`)) || {};
+  const categories = (await fetchAPI(`/categories?populate=*`)) || {};
+  const articles = (await fetchAPI(`/articles?populate=*`)) || {};
 
   return {
     props: { categories, articles },
@@ -91,5 +91,3 @@ export async function getStaticProps() {
 }
 
 export default News;
-
-// [{ category: "news", articles: [] }];

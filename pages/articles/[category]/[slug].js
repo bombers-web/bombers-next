@@ -220,7 +220,7 @@ const Article = ({ article, context }) => {
 };
 
 export async function getStaticPaths() {
-  const articles = await fetchAPI("/articles");
+  const articles = await fetchAPI("/articles?populate=*");
 
   return {
     paths: articles.map((article) => ({
@@ -235,7 +235,9 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const [article] =
-    (await fetchAPI(`/articles?uid=${params.slug}&status=published`)) || {};
+    (await fetchAPI(
+      `/articles?populate=*&uid=${params.slug}&status=published`
+    )) || {};
 
   return {
     props: { article },
