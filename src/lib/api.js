@@ -2,7 +2,7 @@ import { flattenData } from "../../utils/apiHelpers";
 
 export function getStrapiURL(path = "", useLocal) {
   return useLocal
-    ? `${process.env.strapi}${path}`
+    ? `http://localhost:1337/api${path}`
     : `${process.env.strapi}${path}`;
 }
 
@@ -11,7 +11,7 @@ export async function fetchAPI(path, useLocal = false) {
   const requestUrl = getStrapiURL(path, useLocal);
   try {
     const response = await fetch(requestUrl);
-    const { data } = await response?.json();
+    const { data, error } = await response?.json();
     return flattenData(data);
   } catch (error) {
     console.error("We're offline");
