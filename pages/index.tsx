@@ -76,8 +76,9 @@ const NextMatchFont = styled(Box)<{ size?: "xs" | "sm" | "md" | "lg" }>`
 const Home = (props) => {
   const { homepage, highlight, d1Upcoming } = props;
   const { getLongDate } = new Utils();
+  if (!homepage || !highlight || !d1Upcoming) return null;
   return (
-    <Layout seo={homepage.seo} bg="brand.light" id="homepage">
+    <Layout seo={homepage?.seo} bg="brand.light" id="homepage">
       <PageContent>
         <Hero size="3xl" {...highlight} direct></Hero>
         <Section
