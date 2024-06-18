@@ -160,7 +160,7 @@ export async function getStaticProps() {
     ),
     // fetchAPI("/games?division=d3&finished=true&_sort=date:asc&_limit=3"),
     // fetchAPI("/games?division=d3&finished=false&_sort=date:asc&_limit=3"),
-    fetchAPI("/home-cta?populate=*"),
+    fetchAPI("/home-cta?populate=content.image"),
   ]);
   return {
     props: {
