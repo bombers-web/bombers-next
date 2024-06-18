@@ -42,8 +42,8 @@ const Player = ({ player }) => {
               width={1000}
               height={1000}
               fit={player?.picture?.size > 3000 ? "cover" : "contain"}
-              // src={player?.picture?.url || "/static/default/defaultpic.png"}
-              src={`https://bombers.s3.us-east-1.amazonaws.com/${player?.picture?.name}`}
+              src={player?.picture?.url || "/static/default/defaultpic.png"}
+              // src={`https://bombers.s3.us-east-1.amazonaws.com/${player?.picture?.name}`}
               size="xl"
               alt={PLAYER_NAME + " profile pic"}
             />
