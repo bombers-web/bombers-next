@@ -80,7 +80,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const [player] =
-    (await fetchAPI(`/players?populate=*&slug=${params.slug}`)) || {};
+    (await fetchAPI(`/players?populate=picture&filters[slug][$eqi]=${params.slug}`)) || {};
   return {
     props: { player },
   };
