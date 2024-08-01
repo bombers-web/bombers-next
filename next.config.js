@@ -15,6 +15,6 @@ module.exports = {
     HOST_URL: "https://www.stlouisbombers.com",
   },
   images: {
-    domains: ["bombers.s3.amazonaws.com"],
+    domains: ["bombers.s3.us-east-1.amazonaws.com", "bombers.s3.amazonaws.com"],
   },
 };

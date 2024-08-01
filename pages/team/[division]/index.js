@@ -41,11 +41,13 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params, ...ctx }) {
   const { division } = params;
 
+  // add picture to api (got error) "poppulate=picutre"
   const list = await fetchAPI(
     ["d1", "d3"].includes(division)
-      ? `/players?populate=*&division=${division.toUpperCase()}`
-      : `/coaches?populate=*`
+      ? `/players?filters[division][$eqi]=${division}`
+      : `/coaches?populate=picture`
   );
+
   return {
     props: { list, division },
   };

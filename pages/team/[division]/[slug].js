@@ -8,6 +8,7 @@ import { getPosition } from "../../../src/components/Players/utils";
 import useBp from "../../../theme/useBp";
 
 const Player = ({ player }) => {
+  console.log(player);
   const [direction, setDirection] = useState("row");
   const [isDesktop] = useBp();
   const PLAYER_NAME = `${player?.first_name} ${player?.last_name}`;
@@ -41,7 +42,7 @@ const Player = ({ player }) => {
               width={1000}
               height={1000}
               fit={player?.picture?.size > 3000 ? "cover" : "contain"}
-              src={player?.picture?.url}
+              src={player?.picture?.url || "/static/default/defaultpic.png"}
               size="xl"
               alt={PLAYER_NAME + " profile pic"}
             />
@@ -80,7 +81,9 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const [player] =
-    (await fetchAPI(`/players?populate=*&slug=${params.slug}`)) || {};
+    (await fetchAPI(
+      `/players?populate=picture&filters[slug][$eqi]=${params.slug}`
+    )) || {};
   return {
     props: { player },
   };
