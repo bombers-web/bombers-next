@@ -76,7 +76,6 @@ const NextMatchFont = styled(Box)<{ size?: "xs" | "sm" | "md" | "lg" }>`
 const Home = (props) => {
   const { homepage, highlight, d1Upcoming } = props;
   const { getLongDate } = new Utils();
-
   return (
     <Layout seo={homepage?.seo} bg="brand.light" id="homepage">
       <PageContent>
@@ -157,7 +156,7 @@ export async function getStaticProps() {
     fetchAPI("/homepage?populate=*"),
     // fetchAPI("/games?division=d1&finished=true&_sort=date:asc&_limit=3"),
     fetchAPI(
-      "/games?games?populate=*&filters[division][$eq}=d1&filters[finished][$eq]=false&sort[1]=date"
+      "/games?populate=*,home.logo,away.logo&filters[division][$eq}=d1&filters[finished][$eq]=false&sort[1]=date"
     ),
     // fetchAPI("/games?division=d3&finished=true&_sort=date:asc&_limit=3"),
     // fetchAPI("/games?division=d3&finished=false&_sort=date:asc&_limit=3"),
