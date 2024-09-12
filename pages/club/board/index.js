@@ -14,7 +14,7 @@ const Board = (props) => {
         margin
       >
         <Box h="100vh">
-          <SimpleGrid columns={[1, 3]} spacing={[0, 2]} m={[3]}>
+          <SimpleGrid columns={[1, 3]} spacing={[2, 2]} m={[3]}>
             {members?.length ? (
               members?.map((member) => {
                 const { picture, first_name, last_name, position, email } =
