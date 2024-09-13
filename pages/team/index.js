@@ -11,7 +11,7 @@ const TeamHome = () => {
     },
     {
       displayName: "Division 2",
-      url: "d3",
+      url: "d2",
       bg: "/static/d3TeamPhoto.JPG",
     },
     {

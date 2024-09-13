@@ -6,7 +6,7 @@ import { fetchAPI } from "../../src/lib/api";
 import ScheduleTabs from "./components/ScheduleTabs";
 
 const Schedule = ({ games }) => {
-  const { d1, d3 } = groupBy(games, "division");
+  const { d1, d2 } = groupBy(games, "division");
   const seo = {
     metaTitle: "Schedule",
   };
@@ -38,7 +38,7 @@ const Schedule = ({ games }) => {
               <ScheduleTabs games={d1}></ScheduleTabs>
             </TabPanel>
             <TabPanel>
-              <ScheduleTabs games={d3}></ScheduleTabs>
+              <ScheduleTabs games={d2}></ScheduleTabs>
             </TabPanel>
           </TabPanels>
         </Tabs>
