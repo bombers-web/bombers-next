@@ -50,7 +50,7 @@ const Schedule = ({ games }) => {
 export async function getStaticProps() {
   // Run API calls in parallel
   const [games] = await Promise.all([
-    fetchAPI("/games?populate=home.logo&populate=away.logo"),
+    fetchAPI("/games?populate=home.logo&populate=away.logo&sort[1]=date:asc"),
   ]);
 
   return {
