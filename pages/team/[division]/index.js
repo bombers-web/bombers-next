@@ -8,7 +8,7 @@ import { startCase } from "lodash";
 const Players = ({ list, division }) => {
   const covers = {
     d1: "/static/d1_team.jpeg",
-    d3: "/static/d3TeamPhoto.JPG",
+    d2: "/static/d3TeamPhoto.JPG",
     "coaches-and-staff": "/static/coach_pic1.jpeg",
     legends: "/static/jk_legends_pic.jpeg",
   };
@@ -33,7 +33,7 @@ const Players = ({ list, division }) => {
 
 export async function getStaticPaths() {
   return {
-    paths: ["/team/d1", "/team/d3", "/team/coaches-and-staff"],
+    paths: ["/team/d1", "/team/d2", "/team/coaches-and-staff"],
     fallback: false,
   };
 }
@@ -43,7 +43,7 @@ export async function getStaticProps({ params, ...ctx }) {
 
   // add picture to api (got error) "poppulate=picutre"
   const list = await fetchAPI(
-    ["d1", "d3"].includes(division)
+    ["d1", "d2"].includes(division)
       ? `/players?filters[division][$eqi]=${division}`
       : `/coaches?populate=picture`
   );

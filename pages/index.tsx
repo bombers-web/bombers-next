@@ -151,16 +151,16 @@ export async function getStaticProps() {
     homeCta,
   ] = await Promise.all([
     fetchAPI(
-      "/articles?populate=*&status=published&_sort=publishedAt:asc&_limit=3"
+      // "/articles?populate=*&status=published&_sort=publishedAt:asc&_limit=3"
+      "/articles?populate=*&filters[status][$eq]=published&sort[1]=publishedAt:asc&pagination[limit]=3"
     ),
     fetchAPI("/homepage?populate=*"),
-    // fetchAPI("/games?division=d1&finished=true&_sort=date:asc&_limit=3"),
     fetchAPI(
-      "/games?populate=*&division=d1&finished=false&_sort=date:asc&_limit=1"
+      "/games?populate=*,home.logo,away.logo&filters[division][$eq}=d1&filters[finished][$eq]=false&sort[1]=date"
     ),
     // fetchAPI("/games?division=d3&finished=true&_sort=date:asc&_limit=3"),
     // fetchAPI("/games?division=d3&finished=false&_sort=date:asc&_limit=3"),
-    fetchAPI("/home-cta?populate=content.image"),
+    fetchAPI("/home-cta?populate=content.image.format"),
   ]);
   return {
     props: {

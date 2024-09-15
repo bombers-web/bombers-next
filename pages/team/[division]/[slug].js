@@ -1,4 +1,4 @@
-import { Center, Stack, Text } from "@chakra-ui/react";
+import { Center, Stack, Text, Flex } from "@chakra-ui/react";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { fetchAPI } from "src/lib/api";
@@ -35,7 +35,7 @@ const Player = ({ player }) => {
       }}
     >
       {/* <Hero backButton text={text} /> */}
-      <Stack minH="100%" w="100%" bg="brand.light" spacing="0">
+      {/* <Stack minH="100%" w="100%" bg="brand.light" spacing="0">
         <Stack direction={direction} spacing="4" m="0" bg={"gradient.regular"}>
           <Center flex={1}>
             <Image
@@ -60,6 +60,21 @@ const Player = ({ player }) => {
           {player?.bio}
         </Stack>
         <PlayerInfo w="50%" player={player} />
+      </Stack> */}
+      <Stack direction={direction}>
+        <Center flex={1} bg={"gradient.regular"}>
+          <Image
+            width={500}
+            height={500}
+            fit={player?.picture?.size > 3000 ? "cover" : "contain"}
+            src={player?.picture?.url || "/static/default/defaultpic.png"}
+            size="xl"
+            alt={PLAYER_NAME + " profile pic"}
+          />
+        </Center>
+        <Flex flex={1}>
+          <PlayerInfo w="50%" player={player} />
+        </Flex>
       </Stack>
     </Layout>
   );

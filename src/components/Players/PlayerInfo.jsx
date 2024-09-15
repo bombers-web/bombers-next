@@ -48,6 +48,8 @@ const PlayerInfo = ({ player }) => {
               display="flex"
               spacing="3"
               direction="column"
+              marginRight="5"
+              marginLeft="5"
             >
               <Heading color="brand.medium" size="xs" as="div" minW="80px">
                 {label}:
