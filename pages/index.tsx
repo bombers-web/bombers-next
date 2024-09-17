@@ -1,4 +1,4 @@
-import { Box, Button, Flex } from "@chakra-ui/react";
+import { Box, Button, Flex, Link } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import MatchTeams from "components/Games/MatchTeams";
 import PageContent from "src/common/PageContent";
@@ -118,7 +118,9 @@ const Home = (props) => {
               </NextMatchFont>
             </NextMatchText>
             <Box flex="1">
-              <Button variant="outline">Watch Info</Button>
+              <Link href="/watch">
+                <Button variant="outline">Watch Info</Button>
+              </Link>
             </Box>
           </Box>
         </Section>
