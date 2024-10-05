@@ -31,8 +31,8 @@ function useNav(type?: undefined | String | Array<string>): DefaultNavs {
   const baseNavs = [
     {
       name: "Latest",
-      id: "articles",
-      slug: "/articles",
+      id: "content",
+      slug: "/content",
     },
     {
       name: "Schedule",

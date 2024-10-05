@@ -5,7 +5,7 @@ import React, { useCallback, useState } from "react";
 import Layout from "../../src/common/Layout";
 import ArticleCard from "../../src/components/Articles/ArticleCard";
 
-const News = ({ articles, categories }) => {
+const News = ({ content, categories }) => {
   const [selectedTab, setSelectedTab] = useState("Latest");
 
   const onTabChange = useCallback((e, d) => {
@@ -14,10 +14,10 @@ const News = ({ articles, categories }) => {
 
   return (
     <Layout
-      header="Articles"
+      header="Content"
       seo={{
-        metaTitle: "Articles",
-        metaDescription: `${selectedTab} articles`,
+        metaTitle: "Content",
+        metaDescription: `${selectedTab} content`,
       }}
       cover={{
         url: "/static/mcb-hero.jpeg",
@@ -32,7 +32,7 @@ const News = ({ articles, categories }) => {
         colorScheme="gray"
         value={selectedTab}
         onChange={onTabChange}
-        id="article-tabs"
+        id="content-tabs"
         defaultIndex={0}
       >
         <TabList>
@@ -53,25 +53,25 @@ const News = ({ articles, categories }) => {
         </TabList>
         <TabPanels my="24px">
           <TabPanel>
-            {articles.length
-              ? sortBy(articles, (article) =>
-                  new Date(article.publishedAt).toLocaleDateString("en")
-                ).map((item) => <ArticleCard article={item} />)
-              : "No Articles"}
+            {content.length
+              ? sortBy(content, (content) =>
+                  new Date(content.published).toLocaleDateString("en")
+                ).map((item) => <ArticleCard content={item} />)
+              : "No Content"}
           </TabPanel>
           {categories.map((category) => {
             return (
               <TabPanel textTransform="capitalize">
-                {category.articles.length
-                  ? category.articles.map((article) => {
+                {category.content?.length
+                  ? category.contents.map((content) => {
                       return (
                         <ArticleCard
-                          href={"/articles/"}
-                          article={article}
+                          href={"/content/"}
+                          content={content}
                         ></ArticleCard>
                       );
                     })
-                  : `No ${category.name} article`}
+                  : `No ${category.name} content`}
               </TabPanel>
             );
           })}
@@ -82,11 +82,11 @@ const News = ({ articles, categories }) => {
 };
 
 export async function getStaticProps() {
-  const categories = (await fetchAPI(`/categories?populate=*`)) || {};
-  const articles = (await fetchAPI(`/articles?populate=*`)) || {};
+  const categories = (await fetchAPI(`/categories?populate=contents`)) || {};
+  const content = (await fetchAPI(`/contents?populate=*`)) || {};
 
   return {
-    props: { categories, articles },
+    props: { categories, content },
   };
 }
 
