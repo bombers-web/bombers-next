@@ -62,7 +62,7 @@ const News = ({ content, categories }) => {
           {categories.map((category) => {
             return (
               <TabPanel textTransform="capitalize">
-                {category.content?.length
+                {category.contents?.length
                   ? category.contents.map((content) => {
                       return (
                         <ArticleCard
@@ -82,7 +82,7 @@ const News = ({ content, categories }) => {
 };
 
 export async function getStaticProps() {
-  const categories = (await fetchAPI(`/categories?populate=contents`)) || {};
+  const categories = (await fetchAPI(`/categories?populate=*`)) || {};
   const content = (await fetchAPI(`/contents?populate=*`)) || {};
 
   return {
