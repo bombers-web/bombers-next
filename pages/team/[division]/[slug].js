@@ -8,7 +8,6 @@ import { getPosition } from "../../../src/components/Players/utils";
 import useBp from "../../../theme/useBp";
 
 const Player = ({ player }) => {
-  console.log(player);
   const [direction, setDirection] = useState("row");
   const [isDesktop] = useBp();
   const PLAYER_NAME = `${player?.first_name} ${player?.last_name}`;

@@ -58,10 +58,9 @@ const BgImage = ({
         <Image
           alt={imgalt}
           src={src}
-          layout="fill"
-          objectFit={fit}
+          style={{ objectFit: fit, objectPosition: position }}
           quality={80}
-          objectPosition={position}
+          fill={true}
         />
       ) : null}
       {children && <InnerContainer>{children}</InnerContainer>}
