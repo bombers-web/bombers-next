@@ -11,7 +11,7 @@ const Watch = () => {
     },
     {
       name: "Bombers Youtube",
-      href: "https://www.youtube.com/channel/UCHgkyW1v70rioXkrQJVdMWQ",
+      href: "https://www.youtube.com/@st.louisbombersrugby8391",
     },
     {
       name: "Bombers VEO",
