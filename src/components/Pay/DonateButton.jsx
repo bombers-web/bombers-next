@@ -21,6 +21,7 @@ const DonateButton = ({ onApprove }) => {
       type: "resetOptions",
       value: { ...options, intent: "capture" },
     });
+    console.log(1)
   }, [dispatch, options]);
 
   useEffect(() => {
