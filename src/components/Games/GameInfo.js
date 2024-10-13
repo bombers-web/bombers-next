@@ -37,8 +37,8 @@ const GameInfo = ({
   };
 
   const bgs = {
-    DIII: "brand.medium",
-    D3: "brand.medium",
+    DII: "brand.medium",
+    D2: "brand.medium",
     D1: "brand.black",
     DI: "brand.black",
   };
@@ -129,7 +129,7 @@ const GameInfo = ({
           justifyContent="center"
           textAlign="center"
         >
-          <Box>{formatDateTime(date).time || "FT"}</Box>
+          {/* <Box>{formatDateTime(date).time || "FT"}</Box> */}
 
           <Flex w="100%" justifyContent="center">
             <Box p="2" fontSize="xs">

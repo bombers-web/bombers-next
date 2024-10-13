@@ -76,7 +76,7 @@ const Schedule = ({ upcoming }) => {
                   </Text>
                 </Box>
                 <Divider size="xl" orientation="vertical"></Divider>
-                <Box flex="1">
+                <Box>
                   <Text
                     m={0}
                     fontWeight="bold"
@@ -87,6 +87,18 @@ const Schedule = ({ upcoming }) => {
                     {isHome(game?.home?.name)
                       ? `${game?.home?.name} - ${game?.away?.name}`
                       : `${game?.away?.name} @ ${game?.home?.name}`}
+                  </Text>
+                </Box>
+                <Divider size="xl" orientation="vertical"></Divider>
+                <Box flex="1">
+                  <Text
+                    m={0}
+                    fontWeight="light"
+                    fontSize="md"
+                    textTransform="uppercase"
+                    fontFamily="body"
+                  >
+                    {formatDateTime(game.date).time}
                   </Text>
                 </Box>
                 <AccordionIcon />
