@@ -2,7 +2,7 @@ import { Box, Flex, Heading, Link, Text } from "@chakra-ui/react";
 import Card from "common/Card";
 import React from "react";
 
-const WatchCard = ({ name, href }) => {
+const WatchCard = ({ name, href, bg }) => {
   return (
     <Link color="brand.highlight" href={href} isExternal>
       <Card
@@ -20,7 +20,7 @@ const WatchCard = ({ name, href }) => {
           backgroundRepeat: "no-repeat",
           backgroundColor: "gray",
         }}
-        bg="/static/logos/white_logo.png"
+        bg={bg || "/static/logos/white_logo.png"}
         border="1px solid #e2e2e2"
       >
         <Box
