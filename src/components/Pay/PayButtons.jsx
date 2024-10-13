@@ -1,4 +1,14 @@
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
+import { useState } from "react";
+import {
+  Flex,
+  Input,
+  InputGroup,
+  InputLeftAddon,
+  Radio,
+  RadioGroup,
+  SimpleGrid,
+} from "@chakra-ui/react";
 
 const PayButtons = () => {
   /**
@@ -7,7 +17,21 @@ const PayButtons = () => {
    * isResolved: successfully loaded
    * isRejected: failed to load
    */
-  const [{ isPending }] = usePayPalScriptReducer();
+  const [{ options, isPending }, dispatch] = usePayPalScriptReducer();
+
+  const [value, setValue] = useState("10");
+
+  const InEligibleError = ({ text }) => (
+    <h3 style={{ color: "#dc3545", textTransform: "capitalize" }}>
+      {text || "The component is ineligible to render"}
+    </h3>
+  );
+
+  const handleCustomAmount = (e) => {
+    e.preventDefault();
+    setValue(e.currentTarget.value);
+  };
+
   const paypalbuttonTransactionProps = {
     style: { layout: "vertical" },
     createOrder(data, actions) {
@@ -15,7 +39,7 @@ const PayButtons = () => {
         purchase_units: [
           {
             amount: {
-              value: "0.01",
+              value: value,
             },
           },
         ],
@@ -43,7 +67,28 @@ const PayButtons = () => {
   };
   return (
     <>
-      {isPending ? <h2>Load Smart Payment Button...</h2> : null}
+      {isPending ? <h2>Loading Payment Button...</h2> : null}
+      <Flex
+        direction="row"
+        justifyContent="space-evenly"
+        color="brand.light"
+        alignItems="center"
+      >
+        <InputGroup size="sm" ml="4" borderRadius="8">
+          <InputLeftAddon children="$" bg="brand.dark" color="brand.light" />
+          <Input
+            w="60%"
+            type="number"
+            placeholder="enter amount"
+            value={value}
+            onChange={handleCustomAmount}
+            color="brand.dark"
+          ></Input>
+        </InputGroup>
+      </Flex>
+      <PayPalButtons fundingSource="venmo" style={{ color: "blue" }}>
+        <InEligibleError text="You are not eligible to pay with Venmo." />
+      </PayPalButtons>
       <PayPalButtons {...paypalbuttonTransactionProps} />
     </>
   );

@@ -2,10 +2,7 @@
 import { Heading, SimpleGrid, Stack } from "@chakra-ui/react";
 import React, { useState } from "react";
 import Layout from "../src/common/Layout";
-import { PayPalButtons } from "@paypal/react-paypal-js";
 import PayButtons from "../src/components/Pay/PayButtons";
-import VenmoButton from "../src/components/Pay/VenmoButton";
-import DonateButton from "../src/components/Pay/DonateButton";
 
 const Pay = () => {
   const [_success, setSuccess] = useState(false);
@@ -39,7 +36,6 @@ const Pay = () => {
             Pay dues below. There is an option to sign up for a monthly
             subscription or you can pay in full
           </Heading>
-          {/* <VenmoButton></VenmoButton> */}
           <PayButtons></PayButtons>
         </Stack>
         <Stack minH="100%" w="100%" bg="brand.black" p="8" spacing="8">

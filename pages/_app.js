@@ -19,7 +19,8 @@ const MyApp = ({ Component, pageProps }) => {
     clientId:
       "AaRjAkY2Ls90p_WRh9UmKUKy4oEcbMtq6D8rjU2TUlNyBRzokh58qM7e8Ym1SNOv8w4LScDKCs5je3Hr",
     currency: "USD",
-    components: "buttons",
+    components: "buttons,funding-eligibility",
+    "enable-funding": "venmo",
     intent: "capture",
     vault: "true",
     // "data-client-token": "abc123xyz==",
