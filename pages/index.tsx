@@ -1,4 +1,4 @@
-import { Box, Button, Flex } from "@chakra-ui/react";
+import { Box, Button, Flex, Link } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import MatchTeams from "components/Games/MatchTeams";
 import PageContent from "src/common/PageContent";
@@ -118,7 +118,9 @@ const Home = (props) => {
               </NextMatchFont>
             </NextMatchText>
             <Box flex="1">
-              <Button variant="outline">Watch Info</Button>
+              <Link href="/watch">
+                <Button variant="outline">Watch Info</Button>
+              </Link>
             </Box>
           </Box>
         </Section>
@@ -142,7 +144,7 @@ const Home = (props) => {
 export async function getStaticProps() {
   // Run API calls in parallel
   const [
-    articles,
+    content,
     homepage,
     // d1Results,
     d1Upcoming,
@@ -152,7 +154,7 @@ export async function getStaticProps() {
   ] = await Promise.all([
     fetchAPI(
       // "/articles?populate=*&status=published&_sort=publishedAt:asc&_limit=3"
-      "/articles?populate=*&filters[status][$eq]=published&sort[1]=publishedAt:asc&pagination[limit]=3"
+      "/contents?populate=*&filters[status][$eq]=published&sort[1]=publishedAt:asc&pagination[limit]=3"
     ),
     fetchAPI("/homepage?populate=*"),
     fetchAPI(
@@ -164,7 +166,7 @@ export async function getStaticProps() {
   ]);
   return {
     props: {
-      articles,
+      content,
       homepage,
       // d1Results,
       d1Upcoming,

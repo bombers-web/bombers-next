@@ -54,7 +54,8 @@ const Results = ({ results }) => {
           },
           location: game.location,
         };
-
+        // console.log(game)
+        console.log(game.winner?.id);
         return (
           <AccordionItem key={game.slug}>
             <AccordionButton
@@ -79,7 +80,7 @@ const Results = ({ results }) => {
                   </Text>
                 </Box>
                 <Divider size="xl" orientation="vertical"></Divider>
-                <Box flex="1">
+                <Box>
                   <Text
                     m={0}
                     fontWeight="bold"
@@ -90,6 +91,26 @@ const Results = ({ results }) => {
                     {isHome(game.home?.name)
                       ? `${game.home?.name} - ${game.away?.name}`
                       : `${game.away?.name} @ ${game.home?.name}`}
+                  </Text>
+                </Box>
+                <Divider size="xl" orientation="vertical"></Divider>
+                <Box flex="1">
+                  <Text
+                    m={0}
+                    fontWeight="light"
+                    fontSize="xl"
+                    textTransform="uppercase"
+                    fontFamily="body"
+                    as="b"
+                    color={
+                      game.winner?.id === 17 || game.winner?.id === 23
+                        ? "green"
+                        : "red"
+                    }
+                  >
+                    {game.winner?.id === 17 || game.winner?.id === 23
+                      ? "W"
+                      : "L"}
                   </Text>
                 </Box>
                 <AccordionIcon />

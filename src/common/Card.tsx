@@ -78,7 +78,7 @@ const Card = ({
         cursor="pointer"
         sx={{ ...hoverStyles, ...overrideStyles }}
         bgGradient="gradient.main"
-        // _hover={{ ..._hover, transform: "scale(1.02)" }}
+        _hover={{ ..._hover, transform: "scale(1.02)" }}
         {...props}
       >
         {image && (

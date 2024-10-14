@@ -15,15 +15,17 @@ config.autoAddCss = false;
 const MyApp = ({ Component, pageProps }) => {
   const { global } = pageProps;
   const initialOptions = {
-    "client-id":
-      "Aa8a8BHzxUjISXFfxGInXx4ezL4lkg9BejzqRo7hHU--vRbG3Pq_qOLCm2aaHuoI6c9Z5Fx6Jv7nSawh",
+    // clientId: process.env.PAYPAL_CLIENT_ID,
+    clientId:
+      "AaRjAkY2Ls90p_WRh9UmKUKy4oEcbMtq6D8rjU2TUlNyBRzokh58qM7e8Ym1SNOv8w4LScDKCs5je3Hr",
     currency: "USD",
-    intent: "subscription",
+    components: "buttons,funding-eligibility",
+    "enable-funding": "venmo",
+    intent: "capture",
     vault: "true",
     // "data-client-token": "abc123xyz==",
-    "data-sdk-integration-source": "button-factory",
+    // "data-sdk-integration-source": "button-factory",
   };
-
   return (
     <>
       <Head>

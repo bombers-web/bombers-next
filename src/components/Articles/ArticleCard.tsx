@@ -3,12 +3,12 @@ import { toLower } from "lodash";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 
-const ArticleCard = ({ article, href }) => {
-  const link = `/articles/${toLower(article.category?.name)}/${toLower(
-    article?.uid
+const ArticleCard = ({ content, href }) => {
+  const link = `/content/${toLower(content.category?.name)}/${toLower(
+    content?.uid
   )}`;
 
-  const linkHref = `${href || "/articles/"}[category]/[id]`;
+  const linkHref = `${href || "/content/"}[category]/[id]`;
 
   return (
     <Link as={link} href={linkHref}>
@@ -32,7 +32,7 @@ const ArticleCard = ({ article, href }) => {
         >
           <Box
             className="image-container"
-            backgroundImage={article?.image?.url}
+            backgroundImage={content?.image?.url}
             flexGrow="1"
             backgroundPosition="center"
             backgroundSize="cover"
@@ -56,7 +56,7 @@ const ArticleCard = ({ article, href }) => {
                     color="brand.dark"
                     mb="4"
                   >
-                    {article?.title}
+                    {content?.title}
                   </Text>
                   <Box
                     overflowY="scroll"
@@ -69,13 +69,13 @@ const ArticleCard = ({ article, href }) => {
                     w="100%"
                     display={["none", "none", "block"]}
                   >
-                    <ReactMarkdown>{article?.description}</ReactMarkdown>
+                    <ReactMarkdown>{content?.description}</ReactMarkdown>
                   </Box>
                 </Flex>
               </Box>
-              {article?.category?.name && (
+              {content?.category?.name && (
                 <Badge bg="brand.medium" color="brand.light" mx="4">
-                  {article?.category?.name}
+                  {content?.category?.name}
                 </Badge>
               )}
             </Box>

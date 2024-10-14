@@ -52,7 +52,7 @@ const MatchTeams = ({ match }: { match: MatchType }) => {
         <Image
           alt={home?.name}
           src={home?.logo?.formats.small.url}
-          objectFit="contain"
+          style={{ objectFit: "cover" }}
           fill
         />
       </TeamLogoContainer>
@@ -61,7 +61,7 @@ const MatchTeams = ({ match }: { match: MatchType }) => {
         <Image
           alt={away?.name}
           src={away?.logo?.formats.small.url}
-          objectFit="contain"
+          style={{ objectFit: "cover" }}
           fill
         />
       </TeamLogoContainer>

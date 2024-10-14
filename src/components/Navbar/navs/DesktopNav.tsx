@@ -30,7 +30,6 @@ const MenuItem = styled(Box)`
 
 const DesktopNav = ({ homePage }: DesktopNavProps) => {
   const { navs } = useNav();
-
   return (
     <Flex
       id="desktop-nav-container"

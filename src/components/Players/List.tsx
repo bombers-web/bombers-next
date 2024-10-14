@@ -14,7 +14,7 @@ const List = ({ players, title }: ListProps) => {
   ) : (
     <Box m={[0, 0, 0, 8, 16]} id="players-list">
       <Heading m={[8, 16]}>{title}</Heading>
-      <SimpleGrid columns={[1, 3]} spacing={[0, 2]} m={[0]}>
+      <SimpleGrid columns={[1, 4]} spacing={[0, 2]} m={[0]}>
         {players?.length ? (
           players?.map((player) => {
             const { picture, division, position, first_name, last_name } =
