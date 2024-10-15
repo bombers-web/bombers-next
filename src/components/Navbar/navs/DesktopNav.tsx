@@ -1,4 +1,7 @@
+"use client";
+
 import { Box, Flex, Link } from "@chakra-ui/react";
+import { usePathname } from "next/navigation";
 import styled from "@emotion/styled";
 import NavLogo from "../../../common/NavLogo";
 import useNav from "../../../hooks/useNav";
@@ -30,6 +33,7 @@ const MenuItem = styled(Box)`
 
 const DesktopNav = ({ homePage }: DesktopNavProps) => {
   const { navs } = useNav();
+  const pathname = usePathname();
   return (
     <Flex
       id="desktop-nav-container"
