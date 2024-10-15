@@ -54,8 +54,6 @@ const Results = ({ results }) => {
           },
           location: game.location,
         };
-        // console.log(game)
-        console.log(game.winner?.id);
         return (
           <AccordionItem key={game.slug}>
             <AccordionButton

@@ -132,9 +132,9 @@ function useNav(type?: undefined | String | Array<string>): DefaultNavs {
 
   const getByType = (nav: NavItem) =>
     singleType ? nav.name === type : type.includes(nav.name);
-
   return {
-    navs: type ? navs.filter(getByType) : navs,
+    // renders baseNavs if there are no dynamic pages
+    navs: navs.length === 0 ? baseNavs : type ? navs.filter(getByType) : navs,
     shortest: navs
       .sort((a, b) => a.subMenus?.length - b.subMenus?.length)
       .map((item) => item.subMenus?.length || 0)
