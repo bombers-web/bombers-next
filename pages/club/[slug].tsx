@@ -13,8 +13,8 @@ const Dynamic = ({ page }) => {
   if (!page) return null;
   return (
     <Layout
-      seo={page.seo}
-      header={page.title}
+      seo={page.Seo}
+      header={page.Seo.metatitle}
       cover={{
         url: page.Seo?.shareImage?.url,
       }}
@@ -72,7 +72,7 @@ const Dynamic = ({ page }) => {
                     </Flex>
                   </Flex>
                   <div>
-                    {block.links.map((link) => (
+                    {block?.links?.map((link) => (
                       <Link href={`/${link.link}`} passHref>
                         {link.title}
                       </Link>
@@ -106,7 +106,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const [page] =
-    (await fetchAPI(`/pages?populate=*&slug=${params.slug}`)) || {};
+    (await fetchAPI(`/pages?populate[0]=block.image&populate[1]=Seo`)) || {};
 
   return {
     props: { key: page.id, page },

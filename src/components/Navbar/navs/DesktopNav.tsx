@@ -11,6 +11,7 @@ import Socials from "../../../common/Socials";
 type MenuItemProps = {
   theme: any;
   outlined?: boolean;
+  current?: boolean;
 };
 
 type DesktopNavProps = {
@@ -23,8 +24,11 @@ const MenuItem = styled(Box)`
     border: props.outlined ? "3px solid white" : "none",
     alignContent: "center",
     ...props.theme?.fonts?.menuItem,
+    color: props.current
+      ? "var(--chakra-colors-brand-highlight)"
+      : props.theme.fonts.menuItem.color,
   })}
-  opacity: .75;
+  opacity: 0.75;
   :hover {
     opacity: 1;
     color: var(--chakra-colors-brand-highlight);
@@ -71,7 +75,12 @@ const DesktopNav = ({ homePage }: DesktopNavProps) => {
                 }}
                 href={nav.slug}
               >
-                <MenuItem className="desktop-menu-item">{nav.name}</MenuItem>
+                <MenuItem
+                  className="desktop-menu-item"
+                  current={pathname === nav.slug ? true : false}
+                >
+                  {nav.name}
+                </MenuItem>
               </Link>
             );
           })}
