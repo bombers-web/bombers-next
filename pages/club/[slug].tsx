@@ -93,7 +93,6 @@ const Dynamic = ({ page }) => {
 
 export async function getStaticPaths() {
   const pages = await fetchAPI("/pages?populate=*");
-
   return {
     paths: pages.map((page) => ({
       params: {
@@ -105,9 +104,11 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
+  console.log(params.slug)
   const [page] =
-    (await fetchAPI(`/pages?populate[0]=block.image&populate[1]=Seo`)) || {};
-
+    (await fetchAPI(
+      `/pages?populate[0]=block.image&populate[1]=Seo&filters[slug][$eq]=${params.slug}`
+    )) || {};
   return {
     props: { key: page.id, page },
   };

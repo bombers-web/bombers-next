@@ -5,7 +5,6 @@ import useNav from "hooks/useNav";
 const ClubIndex = () => {
   const { navs } = useNav();
   const clubSubNav = navs[2].subMenus;
-
   return (
     <Layout
       header="club"

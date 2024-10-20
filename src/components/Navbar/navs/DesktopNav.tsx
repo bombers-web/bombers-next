@@ -37,7 +37,6 @@ const MenuItem = styled(Box)`
 
 const DesktopNav = ({ homePage }: DesktopNavProps) => {
   const { navs } = useNav();
-  // console.log(navs)
   const pathname = usePathname();
   return (
     <Flex

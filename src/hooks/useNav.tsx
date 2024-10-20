@@ -16,17 +16,17 @@ type DefaultNavs = {
 };
 
 function useNav(type?: undefined | String | Array<string>): DefaultNavs {
-  // const [dynamicPages, setDynamicPages] = useState([]);
+  const [dynamicPages, setDynamicPages] = useState([]);
 
-  // useEffect(() => {
-  //   fetchAPI("/pages")
-  //     .then((val) => {
-  //       if (val) {
-  //         setDynamicPages(val);
-  //       }
-  //     })
-  //     .catch((err) => console.error(err));
-  // }, []);
+  useEffect(() => {
+    fetchAPI("/pages?populate[1]=Seo.shareImage")
+      .then((val) => {
+        if (val) {
+          setDynamicPages(val);
+        }
+      })
+      .catch((err) => console.error(err));
+  }, []);
 
   const baseNavs = [
     {
@@ -55,12 +55,6 @@ function useNav(type?: undefined | String | Array<string>): DefaultNavs {
           id: "board",
           slug: "/club/board",
           bg: "",
-        },
-        {
-          name: "Youth Rugby",
-          id: "youth-rugby",
-          slug: "/club/youth-rugby",
-          bg: "/static/jets_mark.jpg",
         },
         // {
         //   name: "bombers career center",
@@ -122,8 +116,9 @@ function useNav(type?: undefined | String | Array<string>): DefaultNavs {
   //       slug: `${page.parent}/${page.slug}`,
   //       bg: page?.Seo?.ShareImage,
   //     };
-
-  //     if (nav.name === page.parent) {
+  //     // console.log(nav.id)
+  //     // console.log(page.parent)
+  //     if (nav.id === page.parent) {
   //       nav.subMenus.push(mapPageToNav);
   //       return nav;
   //     }
@@ -131,19 +126,30 @@ function useNav(type?: undefined | String | Array<string>): DefaultNavs {
   //   });
   //   return [...acc, ...newPages];
   // }, []);
-
+  dynamicPages.forEach((page) => {
+    baseNavs.forEach((nav) => {
+      if (nav.id === page.parent && nav.subMenus) {
+        nav.subMenus.push({
+          name: page.title,
+          id: page.slug,
+          slug: `club/${page.slug}`,
+          bg: page?.Seo?.shareImage?.url || undefined,
+        });
+      }
+    });
+  });
   // const singleType = typeof type === "string";
 
   // const getByType = (nav: NavItem) =>
   //   singleType ? nav.name === type : type.includes(nav.name);
   return {
     // renders baseNavs if there are no dynamic pages
-    // navs: navs.length === 0 ? baseNavs : type ? navs.filter(getByType) : navs,
     navs: baseNavs,
-    shortest: baseNavs
-      .sort((a, b) => a.subMenus?.length - b.subMenus?.length)
-      .map((item) => item.subMenus?.length || 0)
-      .filter((i) => i)[0],
+    shortest: 3,
+    // shortest: baseNavs
+    //   .sort((a, b) => a.subMenus?.length - b.subMenus?.length)
+    //   .map((item) => item.subMenus?.length || 0)
+    //   .filter((i) => i)[0],
   };
 }
 
