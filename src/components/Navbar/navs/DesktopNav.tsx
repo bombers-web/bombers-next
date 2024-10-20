@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 
 import { Box, Flex, Link } from "@chakra-ui/react";
 import { usePathname } from "next/navigation";
@@ -11,7 +11,7 @@ import Socials from "../../../common/Socials";
 type MenuItemProps = {
   theme: any;
   outlined?: boolean;
-  current?: boolean;
+  current_slug?: boolean;
 };
 
 type DesktopNavProps = {
@@ -24,7 +24,7 @@ const MenuItem = styled(Box)`
     border: props.outlined ? "3px solid white" : "none",
     alignContent: "center",
     ...props.theme?.fonts?.menuItem,
-    color: props.current
+    color: props.current_slug
       ? "var(--chakra-colors-brand-highlight)"
       : props.theme.fonts.menuItem.color,
   })}
@@ -37,6 +37,7 @@ const MenuItem = styled(Box)`
 
 const DesktopNav = ({ homePage }: DesktopNavProps) => {
   const { navs } = useNav();
+  // console.log(navs)
   const pathname = usePathname();
   return (
     <Flex
@@ -77,7 +78,7 @@ const DesktopNav = ({ homePage }: DesktopNavProps) => {
               >
                 <MenuItem
                   className="desktop-menu-item"
-                  current={pathname === nav.slug ? true : false}
+                  current_slug={pathname === nav.slug ? true : undefined}
                 >
                   {nav.name}
                 </MenuItem>
