@@ -62,12 +62,12 @@ function useNav(type?: undefined | String | Array<string>): DefaultNavs {
           slug: "/club/youth-rugby",
           bg: "/static/jets_mark.jpg",
         },
-        // {
-        //   name: "bombers career center",
-        //   id: "youth-rugby",
-        //   slug: "/club/career-center",
-        //   bg: "",
-        // },
+        {
+          name: "Practice Information",
+          id: "practice",
+          slug: "/club/practice",
+          bg: "",
+        },
       ],
     },
 
@@ -91,11 +91,12 @@ function useNav(type?: undefined | String | Array<string>): DefaultNavs {
           id: "coaches-and-staff",
           slug: "/team/coaches-and-staff",
         },
-        {
-          name: "Practice",
-          id: "practice",
-          slug: "/practice",
-        },
+        // {
+        //   name: "bombers career center",
+        //   id: "youth-rugby",
+        //   slug: "/club/career-center",
+        //   bg: "",
+        // },
       ],
     },
     {
@@ -110,26 +111,43 @@ function useNav(type?: undefined | String | Array<string>): DefaultNavs {
     },
   ];
 
-  const navs = baseNavs.reduce<NavItem[]>((acc, nav) => {
-    const newPages = dynamicPages.map((page) => {
-      const mapPageToNav = {
-        name: page.title,
-        id: page.slug,
-        slug: `${page.parent}/${page.slug}`,
-        bg: page?.Seo?.ShareImage,
-      };
+  const navs = baseNavs;
 
-      if (nav.name === page.parent) {
+  const newPages = dynamicPages.map((page) => {
+    const mapPageToNav = {
+      name: page.title,
+      id: page.slug,
+      slug: `${page.parent}/${page.slug}`,
+      bg: page?.Seo?.ShareImage,
+    };
+    navs.map((nav) => {
+      if (nav.id === page.parent) {
         nav.subMenus.push(mapPageToNav);
-        return nav;
+        return navs;
       }
-      return nav;
     });
-    return [...acc, ...newPages];
-  }, []);
+    return 
+  });
 
+  console.log(navs);
+
+  // const navs = baseNavs.reduce<NavItem[]>((acc, nav) => {
+  //   const newPages = dynamicPages.map((page) => {
+  //     const mapPageToNav = {
+  //       name: page.title,
+  //       id: page.slug,
+  //       slug: `${page.parent}/${page.slug}`,
+  //       bg: page?.Seo?.ShareImage,
+  //     };
+  //     if (nav.id === page.parent) {
+  //       nav.subMenus.push(mapPageToNav);
+  //       return nav;
+  //     }
+  //     return nav;
+  //   });
+  //   return [...acc, ...newPages];
+  // }, []);
   const singleType = typeof type === "string";
-
   const getByType = (nav: NavItem) =>
     singleType ? nav.name === type : type.includes(nav.name);
   return {
