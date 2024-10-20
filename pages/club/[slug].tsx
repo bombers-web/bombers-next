@@ -104,7 +104,6 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  console.log(params.slug)
   const [page] =
     (await fetchAPI(
       `/pages?populate[0]=block.image&populate[1]=Seo&filters[slug][$eq]=${params.slug}`
