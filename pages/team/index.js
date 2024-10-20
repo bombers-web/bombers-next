@@ -1,30 +1,34 @@
 import { Box, Flex, Heading, SimpleGrid } from "@chakra-ui/react";
+import useNav from "hooks/useNav";
 import Card from "../../src/common/Card";
 import Layout from "../../src/common/Layout";
 
 const TeamHome = () => {
-  const teams = [
-    {
-      displayName: "Division 1",
-      url: "d1",
-      bg: "/static/d1_team.jpeg",
-    },
-    {
-      displayName: "Division 2",
-      url: "d2",
-      bg: "/static/d3TeamPhoto.JPG",
-    },
-    {
-      displayName: "Coaches & Staff",
-      url: "coaches-and-staff",
-      bg: "/static/coach_pic1.jpeg",
-    },
-    {
-      displayName: "Legends",
-      url: "legends",
-      bg: "/static/jk_legends_pic.jpeg",
-    },
-  ];
+  const { navs } = useNav();
+  const teamsMenu = navs[3].subMenus;
+  console.log(teamsMenu)
+  // const teams = [
+  //   {
+  //     displayName: "Division 1",
+  //     url: "d1",
+  //     bg: "/static/d1_team.jpeg",
+  //   },
+  //   {
+  //     displayName: "Division 2",
+  //     url: "d2",
+  //     bg: "/static/d3TeamPhoto.JPG",
+  //   },
+  //   {
+  //     displayName: "Coaches & Staff",
+  //     url: "coaches-and-staff",
+  //     bg: "/static/coach_pic1.jpeg",
+  //   },
+  //   {
+  //     displayName: "Legends",
+  //     url: "legends",
+  //     bg: "/static/jk_legends_pic.jpeg",
+  //   },
+  // ];
   return (
     <Layout seo={{ metaTitle: "Team" }} header="Players and Staff">
       <SimpleGrid
@@ -33,13 +37,13 @@ const TeamHome = () => {
         spacing={[0, 0, 5, 10]}
         m={[0, 0, 8, 16]}
       >
-        {teams.map((team) => {
+        {teamsMenu.map((team) => {
           return (
             <Card
-              key={`${team.url}`}
+              key={`${team.slug}`}
               radius="8px"
               id="team-card"
-              as={`/team/${team?.url}`}
+              as={`/team/${team?.slug}`}
               link={"/team/[division]"}
               styles={{
                 minHeight: "370px",
@@ -85,7 +89,7 @@ const TeamHome = () => {
                     wordSpacing="6px"
                     fontSize="2em"
                   >
-                    {team.displayName}
+                    {team.name}
                   </Heading>
                 </Flex>
               </Box>

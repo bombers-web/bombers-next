@@ -16,17 +16,17 @@ type DefaultNavs = {
 };
 
 function useNav(type?: undefined | String | Array<string>): DefaultNavs {
-  const [dynamicPages, setDynamicPages] = useState([]);
+  // const [dynamicPages, setDynamicPages] = useState([]);
 
-  useEffect(() => {
-    fetchAPI("/pages")
-      .then((val) => {
-        if (val) {
-          setDynamicPages(val);
-        }
-      })
-      .catch((err) => console.error(err));
-  }, []);
+  // useEffect(() => {
+  //   fetchAPI("/pages")
+  //     .then((val) => {
+  //       if (val) {
+  //         setDynamicPages(val);
+  //       }
+  //     })
+  //     .catch((err) => console.error(err));
+  // }, []);
 
   const baseNavs = [
     {
@@ -79,22 +79,26 @@ function useNav(type?: undefined | String | Array<string>): DefaultNavs {
         {
           name: "Division I",
           id: "d1",
-          slug: "/team/d1",
+          slug: "d1",
+          bg: "/static/d1_team.jpeg",
         },
         {
-          name: "Division III",
-          id: "d3",
-          slug: "/team/d3",
+          name: "Division II",
+          id: "d2",
+          slug: "d2",
+          bg: "/static/d3TeamPhoto.JPG",
         },
         {
           name: "Coaches and Staff",
           id: "coaches-and-staff",
-          slug: "/team/coaches-and-staff",
+          slug: "coaches-and-staff",
+          bg: "/static/coach_pic1.jpeg",
         },
         {
           name: "Practice",
           id: "practice",
-          slug: "/practice",
+          slug: "practice",
+          bg: "/static/logos/white_logo.png",
         },
       ],
     },
@@ -110,32 +114,33 @@ function useNav(type?: undefined | String | Array<string>): DefaultNavs {
     },
   ];
 
-  const navs = baseNavs.reduce<NavItem[]>((acc, nav) => {
-    const newPages = dynamicPages.map((page) => {
-      const mapPageToNav = {
-        name: page.title,
-        id: page.slug,
-        slug: `${page.parent}/${page.slug}`,
-        bg: page?.Seo?.ShareImage,
-      };
+  // const navs = baseNavs.reduce<NavItem[]>((acc, nav) => {
+  //   const newPages = dynamicPages.map((page) => {
+  //     const mapPageToNav = {
+  //       name: page.title,
+  //       id: page.slug,
+  //       slug: `${page.parent}/${page.slug}`,
+  //       bg: page?.Seo?.ShareImage,
+  //     };
 
-      if (nav.name === page.parent) {
-        nav.subMenus.push(mapPageToNav);
-        return nav;
-      }
-      return nav;
-    });
-    return [...acc, ...newPages];
-  }, []);
+  //     if (nav.name === page.parent) {
+  //       nav.subMenus.push(mapPageToNav);
+  //       return nav;
+  //     }
+  //     return nav;
+  //   });
+  //   return [...acc, ...newPages];
+  // }, []);
 
-  const singleType = typeof type === "string";
+  // const singleType = typeof type === "string";
 
-  const getByType = (nav: NavItem) =>
-    singleType ? nav.name === type : type.includes(nav.name);
+  // const getByType = (nav: NavItem) =>
+  //   singleType ? nav.name === type : type.includes(nav.name);
   return {
     // renders baseNavs if there are no dynamic pages
-    navs: navs.length === 0 ? baseNavs : type ? navs.filter(getByType) : navs,
-    shortest: navs
+    // navs: navs.length === 0 ? baseNavs : type ? navs.filter(getByType) : navs,
+    navs: baseNavs,
+    shortest: baseNavs
       .sort((a, b) => a.subMenus?.length - b.subMenus?.length)
       .map((item) => item.subMenus?.length || 0)
       .filter((i) => i)[0],
