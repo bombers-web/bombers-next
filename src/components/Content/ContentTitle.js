@@ -21,7 +21,7 @@ export default styled(Text)`
   }
 `;
 
-export const ArticleSummary = styled(Text)`
+export const ContentSummary = styled(Text)`
   margin: 0 auto 4rem;
   max-width: 66.8rem;
   font-size: 1.7rem;

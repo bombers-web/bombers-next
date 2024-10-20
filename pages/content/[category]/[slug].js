@@ -21,13 +21,13 @@ import { ContentTag, ContentTime } from "src/components/NewsReel/styles";
 import styled from "styled-components";
 import Layout from "../../../src/common/Layout";
 import Pic from "../../../src/common/Pic";
-import ArticleTitle, {
-  ArticleSummary,
-} from "../../../src/components/Articles/ArticleTitle";
+import ContentTitle, {
+  ContentSummary,
+} from "../../../src/components/Content/ContentTitle";
 import { fetchAPI } from "../../../src/lib/api";
 import { getStrapiMedia } from "../../../src/lib/media";
 
-const ArticleHeader = styled.div`
+const ContentHeader = styled.div`
   font-size: 44px;
   color: white;
   font-weight: 600;
@@ -43,7 +43,7 @@ const ArticleHeader = styled.div`
   text-align: center;
 `;
 
-const defaultArticle = {
+const defaultContent = {
   image: {
     url: "",
   },
@@ -54,16 +54,16 @@ const defaultArticle = {
   content: "",
 };
 
-const Article = ({ article, context }) => {
+const Content = ({ content, context }) => {
   const router = useRouter();
 
-  const imageUrl = getStrapiMedia(article?.image);
+  const imageUrl = getStrapiMedia(content?.image);
 
   const seo = {
-    metaTitle: article.title,
-    metaDescription: article.description,
-    shareImage: article.image,
-    article: true,
+    metaTitle: content.title,
+    metaDescription: content.description,
+    shareImage: content.image,
+    content: true,
   };
 
   const meta = [
@@ -71,13 +71,13 @@ const Article = ({ article, context }) => {
       name: "category",
       type: "categoryTag",
       Component: ContentTag,
-      content: article?.category?.name || "Story",
+      content: content?.category?.name || "Story",
     },
     {
       name: "publishedAt",
       type: "dateTag",
       Component: ContentTime,
-      content: formatDistanceToNow(new Date(article?.publishedAt), {
+      content: formatDistanceToNow(new Date(content?.publishedAt), {
         addSuffix: true,
         locale: {
           ...enUS,
@@ -119,7 +119,7 @@ const Article = ({ article, context }) => {
 
   return (
     <Layout
-      cover={{ url: imageUrl, alternativeText: article.description }}
+      cover={{ url: imageUrl, alternativeText: content.description }}
       seo={seo}
       mainBg="brand.black"
     >
@@ -129,7 +129,7 @@ const Article = ({ article, context }) => {
           py="70px"
           justifyContent="flex-start"
           h="100%"
-          id={article?.uid || "start"}
+          id={content?.uid || "start"}
           borderRadius="20px 20px 0 0"
           position="relative"
           top="-10px"
@@ -137,14 +137,14 @@ const Article = ({ article, context }) => {
           m="auto"
         >
           <Box w="70%" m="auto" p="8" h="100%">
-            <ArticleTitle fontSize={["2xl", "3xl", "4xl"]}>
-              {article?.title}
-            </ArticleTitle>
-            <ArticleSummary as="p">{article?.description}</ArticleSummary>
+            <ContentTitle fontSize={["2xl", "3xl", "4xl"]}>
+              {content?.title}
+            </ContentTitle>
+            <ContentSummary as="p">{content?.description}</ContentSummary>
             <Flex gap="4" alignItems="center">
               <Box>
                 <Pic
-                  image={article.author?.picture || ""}
+                  image={content.author?.picture || ""}
                   style={{
                     position: "static",
                     borderRadius: "50%",
@@ -159,9 +159,9 @@ const Article = ({ article, context }) => {
                 w="100%"
               >
                 <Box>
-                  <p>By {article?.author?.name || "Anonymous"}</p>
+                  <p>By {content?.author?.name || "Anonymous"}</p>
                   <p className="uk-text-meta uk-margin-remove-top">
-                    {format(new Date(article.publishedAt), "PPPp")}
+                    {format(new Date(content.publishedAt), "PPPp")}
                   </p>
                 </Box>
               </Box>
@@ -203,13 +203,13 @@ const Article = ({ article, context }) => {
               alignItems="flex-start"
               direction="column"
             >
-              {article?.tagline && (
+              {content?.tagline && (
                 <Heading as="h3" size="lg" color="brand.highlight" my="4">
-                  {article.tagline || ""}
+                  {content.tagline || ""}
                 </Heading>
               )}
               <Box textAlign="justify" mb="10" pb="10">
-                <Mdx>{article?.content}</Mdx>
+                <Mdx>{content?.content}</Mdx>
               </Box>
             </Flex>
           </Box>
@@ -220,13 +220,13 @@ const Article = ({ article, context }) => {
 };
 
 export async function getStaticPaths() {
-  const articles = await fetchAPI("/articles?populate=*");
+  const contents = await fetchAPI("/contents?populate=*");
 
   return {
-    paths: articles.map((article) => ({
+    paths: contents.map((content) => ({
       params: {
-        slug: article.uid,
-        category: article.category.name,
+        slug: content.uid,
+        category: content.category.name,
       },
     })),
     fallback: false,
@@ -234,16 +234,16 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const [article] =
+  const [content] =
     (await fetchAPI(
-      `/articles?populate=*&uid=${params.slug}&status=published`
+      `/contents?populate=*&uid=${params.slug}&status=published`
     )) || {};
 
   return {
-    props: { article },
+    props: { content },
     // refetch every hr
     revalidate: 3600000,
   };
 }
 
-export default Article;
+export default Content;

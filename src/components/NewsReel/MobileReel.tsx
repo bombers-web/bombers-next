@@ -6,19 +6,19 @@ import {
   MobileCardTitle,
   MobileReelContainer,
 } from "./styles";
-import { Article } from "../../types/newsTypes";
+import { Content } from "../../types/newsTypes";
 
-const MobileReel = ({ articles }) => {
+const MobileReel = ({ contents }) => {
   return (
     <MobileReelContainer>
-      {articles.map((article: Article) => {
+      {contents.map((content: Content) => {
         return (
           <MobileCard
-            bg={article?.image?.formats.large.url}
-            key={article.title}
+            bg={content?.image?.formats.large.url}
+            key={content.title}
           >
             <MobileCardDescription>
-              <MobileCardTitle>{article.title}</MobileCardTitle>
+              <MobileCardTitle>{content.title}</MobileCardTitle>
               <MobileCardCta>Read More</MobileCardCta>
             </MobileCardDescription>
           </MobileCard>

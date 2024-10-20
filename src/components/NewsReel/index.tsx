@@ -20,11 +20,11 @@ import { useCallback } from "react";
 import { useMediaQuery } from "@chakra-ui/react";
 import MobileReel from "./MobileReel";
 import React from "react";
-import { Article } from "../../types/newsTypes";
+import { Content } from "../../types/newsTypes";
 import { Formats } from "../../types/imageTypes";
 
-const NewsReel = ({ articles }) => {
-  const features = useFeatures(articles);
+const NewsReel = ({ contents }) => {
+  const features = useFeatures(contents);
 
   const reduceFormats = (formats: Formats) =>
     Object.entries(formats).reduce((acc, [k, v]) => {
@@ -55,13 +55,13 @@ const NewsReel = ({ articles }) => {
   );
 
   return isSmallerThan425 ? (
-    <MobileReel articles={articles} />
+    <MobileReel contents={contents} />
   ) : (
     <HeroContainer id="hero-container">
-      {features?.map((feature: Article, i: number) => {
+      {features?.map((feature: Content, i: number) => {
         return (
           <Link
-            href={`/articles/${feature.category.name}/${feature.uid}`}
+            href={`/contents/${feature.category.name}/${feature.uid}`}
             passHref
             key={feature?.uid}
             legacyBehavior

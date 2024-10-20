@@ -32,17 +32,17 @@ function useNav(type?: undefined | String | Array<string>): DefaultNavs {
     {
       name: "Latest",
       id: "content",
-      slug: "/content",
+      slug: "content",
     },
     {
       name: "Schedule",
       id: "schedule",
-      slug: "/schedule",
+      slug: "schedule",
     },
     {
       name: "Club",
       id: "club",
-      slug: "/club",
+      slug: "club",
       subMenus: [
         {
           name: "History",
@@ -53,7 +53,7 @@ function useNav(type?: undefined | String | Array<string>): DefaultNavs {
         {
           name: "Board",
           id: "board",
-          slug: "/club/board",
+          slug: "club/board",
           bg: "",
         },
         // {
@@ -68,7 +68,7 @@ function useNav(type?: undefined | String | Array<string>): DefaultNavs {
     {
       name: "Team",
       id: "team",
-      slug: "/team",
+      slug: "team",
       subMenus: [
         {
           name: "Division I",
@@ -99,12 +99,12 @@ function useNav(type?: undefined | String | Array<string>): DefaultNavs {
     {
       name: "Contact",
       id: "contact",
-      slug: "/contact",
+      slug: "contact",
     },
     {
       name: "Donate",
       id: "donate",
-      slug: "/pay",
+      slug: "pay",
     },
   ];
 

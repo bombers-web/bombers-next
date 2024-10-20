@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars */
 import { SimpleGrid } from "@chakra-ui/react";
-import ArticleCard from "src/components/Articles/ArticleCard";
+import ContentCard from "src/components/Contents/ContentCard";
 import styled from "styled-components";
 import Layout from "../../../src/common/Layout";
 import { fetchAPI } from "../../../src/lib/api";
 
-const ArticleHeader = styled.div`
+const ContentHeader = styled.div`
   font-size: 44px;
   color: white;
   font-weight: 600;
@@ -21,7 +21,7 @@ const ArticleHeader = styled.div`
   text-align: center;
 `;
 
-const defaultArticle = {
+const defaultContent = {
   image: {
     url: "",
   },
@@ -32,14 +32,12 @@ const defaultArticle = {
   content: "",
 };
 
-const Article = ({ articles, category }) => {
+const Content = ({ contents, category }) => {
   return (
     <Layout seo={{ mainTitle: category }} header={category}>
       <SimpleGrid m={[0, 0, 2, 2, 4]} spacing="8" minChildWidth="300px">
-        {articles.map((article) => {
-          return (
-            <ArticleCard article={article} href="/articles/"></ArticleCard>
-          );
+        {contents.map((content) => {
+          return <ContentCard content={content} href="/contents"></ContentCard>;
         })}
       </SimpleGrid>
     </Layout>
@@ -60,14 +58,14 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const articles = await fetchAPI(
-    `/articles?[category.name]=${params.category}&status=published`
+  const contents = await fetchAPI(
+    `/contents?[category.name]=${params.category}&status=published`
   );
 
   return {
-    props: { articles, category: params.category },
+    props: { contents, category: params.category },
     revalidate: 60 * 60 * 60,
   };
 }
 
-export default Article;
+export default Content;
