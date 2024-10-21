@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { Box, Divider, Flex, Heading } from "@chakra-ui/react";
+import { Box, Divider, Flex, Heading, Text } from "@chakra-ui/react";
 import { format, formatDistanceToNow } from "date-fns";
 import { enUS } from "date-fns/locale";
 import { useRouter } from "next/router";
@@ -136,13 +136,28 @@ const Content = ({ content, context }) => {
           w="100%"
           m="auto"
         >
-          <Box w="70%" m="auto" p="8" h="100%">
+          <Flex
+            w="70%"
+            m="auto"
+            p="8"
+            h="100%"
+            direction="column"
+            justifyContent="center"
+          >
             <ContentTitle fontSize={["2xl", "3xl", "4xl"]}>
               {content?.title}
             </ContentTitle>
             <ContentSummary as="p">{content?.description}</ContentSummary>
-            <Flex gap="4" direction="row">
-              <Box>
+            <Pic
+              image={content?.image || ""}
+              style={{
+                position: "static",
+                width: "100%",
+                height: "50vh",
+              }}
+            />
+            <Flex gap="4" justify="flex-end">
+              <Box m="0">
                 <Pic
                   image={content?.writer.picture || ""}
                   style={{
@@ -159,14 +174,16 @@ const Content = ({ content, context }) => {
                 w="100%"
               >
                 <Box>
-                  <p>By {content?.author?.name || "Anonymous"}</p>
-                  <p className="uk-text-meta uk-margin-remove-top">
+                  <Text margin="0">
+                    By {content?.writer?.name || "Anonymous"}
+                  </Text>
+                  <Text className="uk-text-meta uk-margin-remove-top">
                     {format(new Date(content.publishedAt), "PPPp")}
-                  </p>
+                  </Text>
                 </Box>
               </Box>
             </Flex>
-            <Flex py="8" gap="4px">
+            <Flex py="4" gap="4px">
               <EmailShareButton>
                 <EmailIcon size={32} round></EmailIcon>
               </EmailShareButton>
@@ -212,14 +229,7 @@ const Content = ({ content, context }) => {
                 <Mdx>{content?.content}</Mdx>
               </Box>
             </Flex>
-          </Box>
-          <Pic
-            image={content?.image || ""}
-            style={{
-              position: "static",
-              height: "40vh",
-            }}
-          />
+          </Flex>
         </Flex>
       </>
     </Layout>
