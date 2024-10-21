@@ -1,0 +1,256 @@
+/* eslint-disable no-unused-vars */
+import { Box, Divider, Flex, Heading } from "@chakra-ui/react";
+import { format, formatDistanceToNow } from "date-fns";
+import { enUS } from "date-fns/locale";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import {
+  EmailIcon,
+  EmailShareButton,
+  FacebookIcon,
+  FacebookMessengerIcon,
+  FacebookMessengerShareButton,
+  FacebookShareButton,
+  TwitterIcon,
+  TwitterShareButton,
+  WhatsappIcon,
+  WhatsappShareButton,
+} from "react-share";
+import Mdx from "src/common/Mdx";
+import { ContentTag, ContentTime } from "src/components/NewsReel/styles";
+import styled from "styled-components";
+import Layout from "../../src/common/Layout";
+import Pic from "../../src/common/Pic";
+import ContentTitle, {
+  ContentSummary,
+} from "../../src/components/Content/ContentTitle";
+import { fetchAPI } from "../../src/lib/api";
+import { getStrapiMedia } from "../../src/lib/media";
+
+const ContentHeader = styled.div`
+  font-size: 44px;
+  color: white;
+  font-weight: 600;
+  background: linear-gradient(
+    90deg,
+    rgba(24, 24, 24, 1) 0%,
+    rgba(33, 33, 33, 1) 35%,
+    rgba(48, 48, 48, 1) 100%
+  );
+  padding: 16px;
+  border: 4px solid white;
+  width: 100%;
+  text-align: center;
+`;
+
+const defaultContent = {
+  image: {
+    url: "",
+  },
+  title: "",
+  description: "",
+  author: {},
+  published_at: "",
+  content: "",
+};
+
+const Content = ({ content, context }) => {
+  const router = useRouter();
+  console.log(content);
+  const imageUrl = content?.image;
+
+  const seo = {
+    metaTitle: content.title,
+    metaDescription: content.description,
+    shareImage: content.image,
+    content: true,
+  };
+
+  const meta = [
+    {
+      name: "category",
+      type: "categoryTag",
+      Component: ContentTag,
+      content: content?.category?.name || "Story",
+    },
+    {
+      name: "publishedAt",
+      type: "dateTag",
+      Component: ContentTime,
+      content: formatDistanceToNow(new Date(content?.publishedAt), {
+        addSuffix: true,
+        locale: {
+          ...enUS,
+          formatDistance: (unit, count) => {
+            switch (true) {
+              case unit === "xDays":
+                return `${count} d`;
+
+              case unit === "aboutXDays":
+                return `${count} days ago`;
+
+              case unit === "aboutXHours":
+                return `${count} hrs ago`;
+              case unit === "aboutXYears":
+                return `${count} years ago`;
+
+              case unit === "xMinutes":
+                return `${count} min ago`;
+
+              case unit === "xMonths":
+                return `${count} mo. ago`;
+              case unit === "aboutXMonths":
+                return `${count} mo. ago`;
+
+              case unit === "xSeconds":
+                return "just now";
+
+              case unit === "xYears":
+                return `${count} y`;
+
+              default:
+                return "%d hours";
+            }
+          },
+        },
+      }),
+    },
+  ];
+
+  return (
+    <Layout
+      cover={{ url: imageUrl, alternativeText: content.description }}
+      seo={seo}
+      mainBg="brand.black"
+    >
+      <>
+        <Flex
+          bg="brand.light"
+          py="70px"
+          justifyContent="flex-start"
+          h="100%"
+          id={content?.uid || "start"}
+          borderRadius="20px 20px 0 0"
+          position="relative"
+          top="-10px"
+          w="100%"
+          m="auto"
+        >
+          <Box w="70%" m="auto" p="8" h="100%">
+            <ContentTitle fontSize={["2xl", "3xl", "4xl"]}>
+              {content?.title}
+            </ContentTitle>
+            <ContentSummary as="p">{content?.description}</ContentSummary>
+            <Flex gap="4" direction="row">
+              <Box>
+                <Pic
+                  image={content?.writer.picture || ""}
+                  style={{
+                    position: "static",
+                    borderRadius: "50%",
+                    height: 30,
+                  }}
+                />
+              </Box>
+              <Box
+                display="flex"
+                flexDirection="row"
+                justifyContent="space-between"
+                w="100%"
+              >
+                <Box>
+                  <p>By {content?.author?.name || "Anonymous"}</p>
+                  <p className="uk-text-meta uk-margin-remove-top">
+                    {format(new Date(content.publishedAt), "PPPp")}
+                  </p>
+                </Box>
+              </Box>
+            </Flex>
+            <Flex py="8" gap="4px">
+              <EmailShareButton>
+                <EmailIcon size={32} round></EmailIcon>
+              </EmailShareButton>
+              <FacebookShareButton
+                url={`${process.env.HOST_URL || "http://localhost:3000"}${
+                  router.asPath
+                }`}
+                quote={"Dummy text!"}
+                hashtag="#muo"
+              >
+                <FacebookIcon size={32} round />
+              </FacebookShareButton>
+              <TwitterShareButton
+                url={`${process.env.HOST_URL || "http://localhost:3000"}${
+                  router.asPath
+                }`}
+                quote={"Dummy text!"}
+                hashtag="#muo"
+              >
+                <TwitterIcon size={32} round />
+              </TwitterShareButton>
+
+              <WhatsappShareButton>
+                <WhatsappIcon size={32} round></WhatsappIcon>
+              </WhatsappShareButton>
+              <FacebookMessengerShareButton>
+                <FacebookMessengerIcon size={32} round></FacebookMessengerIcon>
+              </FacebookMessengerShareButton>
+            </Flex>
+            <Divider size="1px" variant="solid" m="8" color="brand.black" />
+            <Flex
+              justifyContent="flex-start"
+              m="auto"
+              alignItems="flex-start"
+              direction="column"
+            >
+              {content?.tagline && (
+                <Heading as="h3" size="lg" color="brand.highlight" my="4">
+                  {content.tagline || ""}
+                </Heading>
+              )}
+              <Box textAlign="justify" mb="10" pb="10">
+                <Mdx>{content?.content}</Mdx>
+              </Box>
+            </Flex>
+          </Box>
+          <Pic
+            image={content?.image || ""}
+            style={{
+              position: "static",
+              height: "40vh",
+            }}
+          />
+        </Flex>
+      </>
+    </Layout>
+  );
+};
+
+export async function getStaticPaths() {
+  const contents = await fetchAPI("/contents?populate=*");
+
+  return {
+    paths: contents.map((content) => ({
+      params: {
+        slug: content.uid,
+        category: content.category.name,
+      },
+    })),
+    fallback: false,
+  };
+}
+
+export async function getStaticProps({ params }) {
+  const [content] =
+    (await fetchAPI(
+      `/contents?populate[0]=writer.picture&populate[1]=image&filter[uid][$eq]=${params.slug}`
+    )) || {};
+
+  return {
+    props: { content },
+    // refetch every hr
+    revalidate: 3600000,
+  };
+}
+
+export default Content;
