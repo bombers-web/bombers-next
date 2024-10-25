@@ -3,12 +3,9 @@ import { toLower } from "lodash";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 
-const ArticleCard = ({ content, href }) => {
-  const link = `/content/${toLower(content.category?.name)}/${toLower(
-    content?.uid
-  )}`;
-
-  const linkHref = `${href || "/content/"}[category]/[id]`;
+const ContentCard = ({ content, href }) => {
+  const link = `/content/${toLower(content?.uid)}`;
+  const linkHref = `${href || "/content/"}[id]`;
 
   return (
     <Link as={link} href={linkHref}>
@@ -86,4 +83,4 @@ const ArticleCard = ({ content, href }) => {
   );
 };
 
-export default ArticleCard;
+export default ContentCard;

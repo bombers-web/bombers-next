@@ -17,7 +17,7 @@ export type Category = {
   updated_at: string;
 };
 
-export type Article = {
+export type Content = {
   author: Author;
   category: Category;
   comments: any;

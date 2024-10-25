@@ -2,7 +2,7 @@ import { chunk, concat } from "lodash";
 
 const useFeatures = (items) => {
   const featured = items
-    .filter((article) => article.highlight)
+    .filter((content) => content.highlight)
     .sort((a, b) => b.publishedAt - a.publishedAt);
 
   if (featured.length === 3) {

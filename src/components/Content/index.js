@@ -6,9 +6,9 @@ import {
   Text,
 } from "@chakra-ui/react";
 import Link from "next/link";
-import ArticleCard from "./ArticleCard";
+import ContentCard from "./ContentCard";
 
-const Articles = ({ articles }) => {
+const Contents = ({ contents }) => {
   return (
     <Box flexDirection="column" w="100%">
       <Stack
@@ -18,7 +18,7 @@ const Articles = ({ articles }) => {
         w="100%"
         p="8"
       >
-        <Link href="/articles" passHref legacyBehavior>
+        <Link href="/contents" passHref legacyBehavior>
           <ChakraLink>
             <Text fontFamily="Helvetica Neue">See All</Text>
           </ChakraLink>
@@ -32,13 +32,13 @@ const Articles = ({ articles }) => {
         flexWrap="wrap"
         direction="column"
       >
-        {articles.map((article, i) => {
+        {contents.map((content, i) => {
           return (
             <>
-              <ArticleCard
+              <ContentCard
                 styles={{ maxHeight: 500 }}
-                article={article}
-                key={`article__left__${article?.slug}`}
+                content={content}
+                key={`content__left__${content?.slug}`}
               />
               <Divider />
             </>
@@ -49,4 +49,4 @@ const Articles = ({ articles }) => {
   );
 };
 
-export default Articles;
+export default Contents;

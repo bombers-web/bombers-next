@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { Box, Divider, Flex, Heading } from "@chakra-ui/react";
+import { Box, Divider, Flex, Heading, Text } from "@chakra-ui/react";
 import { format, formatDistanceToNow } from "date-fns";
 import { enUS } from "date-fns/locale";
 import { useRouter } from "next/router";
@@ -19,15 +19,15 @@ import {
 import Mdx from "src/common/Mdx";
 import { ContentTag, ContentTime } from "src/components/NewsReel/styles";
 import styled from "styled-components";
-import Layout from "../../../src/common/Layout";
-import Pic from "../../../src/common/Pic";
-import ArticleTitle, {
-  ArticleSummary,
-} from "../../../src/components/Articles/ArticleTitle";
-import { fetchAPI } from "../../../src/lib/api";
-import { getStrapiMedia } from "../../../src/lib/media";
+import Layout from "../../src/common/Layout";
+import Pic from "../../src/common/Pic";
+import ContentTitle, {
+  ContentSummary,
+} from "../../src/components/Content/ContentTitle";
+import { fetchAPI } from "../../src/lib/api";
+import { getStrapiMedia } from "../../src/lib/media";
 
-const ArticleHeader = styled.div`
+const ContentHeader = styled.div`
   font-size: 44px;
   color: white;
   font-weight: 600;
@@ -43,7 +43,7 @@ const ArticleHeader = styled.div`
   text-align: center;
 `;
 
-const defaultArticle = {
+const defaultContent = {
   image: {
     url: "",
   },
@@ -54,16 +54,16 @@ const defaultArticle = {
   content: "",
 };
 
-const Article = ({ article, context }) => {
+const Content = ({ content, context }) => {
   const router = useRouter();
-
-  const imageUrl = getStrapiMedia(article?.image);
+  console.log(content);
+  const imageUrl = content?.image;
 
   const seo = {
-    metaTitle: article.title,
-    metaDescription: article.description,
-    shareImage: article.image,
-    article: true,
+    metaTitle: content.title,
+    metaDescription: content.description,
+    shareImage: content.image,
+    content: true,
   };
 
   const meta = [
@@ -71,13 +71,13 @@ const Article = ({ article, context }) => {
       name: "category",
       type: "categoryTag",
       Component: ContentTag,
-      content: article?.category?.name || "Story",
+      content: content?.category?.name || "Story",
     },
     {
       name: "publishedAt",
       type: "dateTag",
       Component: ContentTime,
-      content: formatDistanceToNow(new Date(article?.publishedAt), {
+      content: formatDistanceToNow(new Date(content?.publishedAt), {
         addSuffix: true,
         locale: {
           ...enUS,
@@ -119,7 +119,7 @@ const Article = ({ article, context }) => {
 
   return (
     <Layout
-      cover={{ url: imageUrl, alternativeText: article.description }}
+      cover={{ url: imageUrl, alternativeText: content.description }}
       seo={seo}
       mainBg="brand.black"
     >
@@ -129,22 +129,37 @@ const Article = ({ article, context }) => {
           py="70px"
           justifyContent="flex-start"
           h="100%"
-          id={article?.uid || "start"}
+          id={content?.uid || "start"}
           borderRadius="20px 20px 0 0"
           position="relative"
           top="-10px"
           w="100%"
           m="auto"
         >
-          <Box w="70%" m="auto" p="8" h="100%">
-            <ArticleTitle fontSize={["2xl", "3xl", "4xl"]}>
-              {article?.title}
-            </ArticleTitle>
-            <ArticleSummary as="p">{article?.description}</ArticleSummary>
-            <Flex gap="4" alignItems="center">
-              <Box>
+          <Flex
+            w="70%"
+            m="auto"
+            p="8"
+            h="100%"
+            direction="column"
+            justifyContent="center"
+          >
+            <ContentTitle fontSize={["2xl", "3xl", "4xl"]}>
+              {content?.title}
+            </ContentTitle>
+            <ContentSummary as="p">{content?.description}</ContentSummary>
+            <Pic
+              image={content?.image || ""}
+              style={{
+                position: "static",
+                width: "100%",
+                height: "50vh",
+              }}
+            />
+            <Flex gap="4" justify="flex-end" marginTop="4">
+              <Box m="0">
                 <Pic
-                  image={article.author?.picture || ""}
+                  image={content?.writer.picture || ""}
                   style={{
                     position: "static",
                     borderRadius: "50%",
@@ -159,14 +174,16 @@ const Article = ({ article, context }) => {
                 w="100%"
               >
                 <Box>
-                  <p>By {article?.author?.name || "Anonymous"}</p>
-                  <p className="uk-text-meta uk-margin-remove-top">
-                    {format(new Date(article.publishedAt), "PPPp")}
-                  </p>
+                  <Text margin="0">
+                    By {content?.writer?.name || "Anonymous"}
+                  </Text>
+                  <Text className="uk-text-meta uk-margin-remove-top">
+                    {format(new Date(content.publishedAt), "PPPp")}
+                  </Text>
                 </Box>
               </Box>
             </Flex>
-            <Flex py="8" gap="4px">
+            <Flex py="4" gap="4px">
               <EmailShareButton>
                 <EmailIcon size={32} round></EmailIcon>
               </EmailShareButton>
@@ -203,16 +220,16 @@ const Article = ({ article, context }) => {
               alignItems="flex-start"
               direction="column"
             >
-              {article?.tagline && (
+              {content?.tagline && (
                 <Heading as="h3" size="lg" color="brand.highlight" my="4">
-                  {article.tagline || ""}
+                  {content.tagline || ""}
                 </Heading>
               )}
               <Box textAlign="justify" mb="10" pb="10">
-                <Mdx>{article?.content}</Mdx>
+                <Mdx>{content?.content}</Mdx>
               </Box>
             </Flex>
-          </Box>
+          </Flex>
         </Flex>
       </>
     </Layout>
@@ -220,13 +237,13 @@ const Article = ({ article, context }) => {
 };
 
 export async function getStaticPaths() {
-  const articles = await fetchAPI("/articles?populate=*");
+  const contents = await fetchAPI("/contents?populate=*");
 
   return {
-    paths: articles.map((article) => ({
+    paths: contents.map((content) => ({
       params: {
-        slug: article.uid,
-        category: article.category.name,
+        slug: content.uid,
+        category: content.category.name,
       },
     })),
     fallback: false,
@@ -234,16 +251,16 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const [article] =
+  const [content] =
     (await fetchAPI(
-      `/articles?populate=*&uid=${params.slug}&status=published`
+      `/contents?populate[0]=writer.picture&populate[1]=image&filter[uid][$eq]=${params.slug}`
     )) || {};
 
   return {
-    props: { article },
+    props: { content },
     // refetch every hr
     revalidate: 3600000,
   };
 }
 
-export default Article;
+export default Content;

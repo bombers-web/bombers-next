@@ -3,7 +3,7 @@ import { fetchAPI } from "lib/api";
 import { sortBy } from "lodash";
 import React, { useCallback, useState } from "react";
 import Layout from "../../src/common/Layout";
-import ArticleCard from "../../src/components/Articles/ArticleCard";
+import ContentCard from "../../src/components/Content/ContentCard";
 
 const News = ({ content, categories }) => {
   const [selectedTab, setSelectedTab] = useState("Latest");
@@ -56,7 +56,7 @@ const News = ({ content, categories }) => {
             {content.length
               ? sortBy(content, (content) =>
                   new Date(content.published).toLocaleDateString("en")
-                ).map((item) => <ArticleCard content={item} />)
+                ).map((item) => <ContentCard content={item} />)
               : "No Content"}
           </TabPanel>
           {categories.map((category) => {
@@ -65,10 +65,10 @@ const News = ({ content, categories }) => {
                 {category.contents?.length
                   ? category.contents.map((content) => {
                       return (
-                        <ArticleCard
-                          href={"/content/"}
+                        <ContentCard
+                          href={`/content/${content.uid}`}
                           content={content}
-                        ></ArticleCard>
+                        ></ContentCard>
                       );
                     })
                   : `No ${category.name} content`}

@@ -19,7 +19,7 @@ function useNav(type?: undefined | String | Array<string>): DefaultNavs {
   const [dynamicPages, setDynamicPages] = useState([]);
 
   useEffect(() => {
-    fetchAPI("/pages")
+    fetchAPI("/pages?populate[1]=Seo.shareImage")
       .then((val) => {
         if (val) {
           setDynamicPages(val);
@@ -37,12 +37,12 @@ function useNav(type?: undefined | String | Array<string>): DefaultNavs {
     {
       name: "Schedule",
       id: "schedule",
-      slug: "/schedule",
+      slug: "schedule",
     },
     {
       name: "Club",
       id: "club",
-      slug: "/club",
+      slug: "club",
       subMenus: [
         {
           name: "History",
@@ -53,14 +53,8 @@ function useNav(type?: undefined | String | Array<string>): DefaultNavs {
         {
           name: "Board",
           id: "board",
-          slug: "/club/board",
+          slug: "club/board",
           bg: "",
-        },
-        {
-          name: "Youth Rugby",
-          id: "youth-rugby",
-          slug: "/club/youth-rugby",
-          bg: "/static/jets_mark.jpg",
         },
         // {
         //   name: "bombers career center",
@@ -79,63 +73,53 @@ function useNav(type?: undefined | String | Array<string>): DefaultNavs {
         {
           name: "Division I",
           id: "d1",
-          slug: "/team/d1",
+          slug: "team/d1",
+          bg: "/static/d1_team.jpeg",
         },
         {
-          name: "Division III",
-          id: "d3",
-          slug: "/team/d3",
+          name: "Division II",
+          id: "d2",
+          slug: "team/d2",
+          bg: "/static/d3TeamPhoto.JPG",
         },
         {
           name: "Coaches and Staff",
           id: "coaches-and-staff",
-          slug: "/team/coaches-and-staff",
-        },
-        {
-          name: "Practice",
-          id: "practice",
-          slug: "/practice",
+          slug: "team/coaches-and-staff",
+          bg: "/static/coach_pic1.jpeg",
         },
       ],
     },
     {
       name: "Contact",
       id: "contact",
-      slug: "/contact",
+      slug: "contact",
     },
     {
       name: "Donate",
       id: "donate",
-      slug: "/pay",
+      slug: "pay",
     },
   ];
 
-  const navs = baseNavs.reduce<NavItem[]>((acc, nav) => {
-    const newPages = dynamicPages.map((page) => {
-      const mapPageToNav = {
-        name: page.title,
-        id: page.slug,
-        slug: `${page.parent}/${page.slug}`,
-        bg: page?.Seo?.ShareImage,
-      };
-
-      if (nav.name === page.parent) {
-        nav.subMenus.push(mapPageToNav);
-        return nav;
+  dynamicPages.forEach((page) => {
+    baseNavs.forEach((nav) => {
+      if (nav.id === page.parent && nav.subMenus) {
+        nav.subMenus.push({
+          name: page.title,
+          id: page.slug,
+          slug: `club/${page.slug}`,
+          bg: page?.Seo?.shareImage?.url || undefined,
+        });
       }
-      return nav;
     });
-    return [...acc, ...newPages];
-  }, []);
+  });
 
-  const singleType = typeof type === "string";
-
-  const getByType = (nav: NavItem) =>
-    singleType ? nav.name === type : type.includes(nav.name);
   return {
     // renders baseNavs if there are no dynamic pages
-    navs: navs.length === 0 ? baseNavs : type ? navs.filter(getByType) : navs,
-    shortest: navs
+    navs: baseNavs,
+    // shortest: 3,
+    shortest: baseNavs
       .sort((a, b) => a.subMenus?.length - b.subMenus?.length)
       .map((item) => item.subMenus?.length || 0)
       .filter((i) => i)[0],
