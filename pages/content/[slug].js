@@ -156,7 +156,7 @@ const Content = ({ content, context }) => {
                 height: "50vh",
               }}
             />
-            <Flex gap="4" justify="flex-end">
+            <Flex gap="4" justify="flex-end" marginTop="4">
               <Box m="0">
                 <Pic
                   image={content?.writer.picture || ""}
