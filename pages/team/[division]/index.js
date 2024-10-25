@@ -44,10 +44,9 @@ export async function getStaticProps({ params, ...ctx }) {
   // add picture to api (got error) "poppulate=picutre"
   const list = await fetchAPI(
     ["d1", "d2"].includes(division)
-      ? `/players?filters[division][$eqi]=${division}`
+      ? `/players?filters[division][$eqi]=${division}&populate=*`
       : `/coaches?populate=picture`
   );
-
   return {
     props: { list, division },
   };

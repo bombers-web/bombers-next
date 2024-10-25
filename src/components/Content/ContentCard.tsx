@@ -4,11 +4,8 @@ import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 
 const ContentCard = ({ content, href }) => {
-  const link = `/content/${toLower(content.category?.name)}/${toLower(
-    content?.uid
-  )}`;
-
-  const linkHref = `${href || "/content/"}[category]/[id]`;
+  const link = `/content/${toLower(content?.uid)}`;
+  const linkHref = `${href || "/content/"}[id]`;
 
   return (
     <Link as={link} href={linkHref}>

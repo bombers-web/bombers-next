@@ -32,7 +32,7 @@ function useNav(type?: undefined | String | Array<string>): DefaultNavs {
     {
       name: "Latest",
       id: "content",
-      slug: "content",
+      slug: "/content",
     },
     {
       name: "Schedule",
@@ -68,31 +68,25 @@ function useNav(type?: undefined | String | Array<string>): DefaultNavs {
     {
       name: "Team",
       id: "team",
-      slug: "team",
+      slug: "/team",
       subMenus: [
         {
           name: "Division I",
           id: "d1",
-          slug: "d1",
+          slug: "team/d1",
           bg: "/static/d1_team.jpeg",
         },
         {
           name: "Division II",
           id: "d2",
-          slug: "d2",
+          slug: "team/d2",
           bg: "/static/d3TeamPhoto.JPG",
         },
         {
           name: "Coaches and Staff",
           id: "coaches-and-staff",
-          slug: "coaches-and-staff",
+          slug: "team/coaches-and-staff",
           bg: "/static/coach_pic1.jpeg",
-        },
-        {
-          name: "Practice",
-          id: "practice",
-          slug: "practice",
-          bg: "/static/logos/white_logo.png",
         },
       ],
     },
@@ -108,24 +102,6 @@ function useNav(type?: undefined | String | Array<string>): DefaultNavs {
     },
   ];
 
-  // const navs = baseNavs.reduce<NavItem[]>((acc, nav) => {
-  //   const newPages = dynamicPages.map((page) => {
-  //     const mapPageToNav = {
-  //       name: page.title,
-  //       id: page.slug,
-  //       slug: `${page.parent}/${page.slug}`,
-  //       bg: page?.Seo?.ShareImage,
-  //     };
-  //     // console.log(nav.id)
-  //     // console.log(page.parent)
-  //     if (nav.id === page.parent) {
-  //       nav.subMenus.push(mapPageToNav);
-  //       return nav;
-  //     }
-  //     return nav;
-  //   });
-  //   return [...acc, ...newPages];
-  // }, []);
   dynamicPages.forEach((page) => {
     baseNavs.forEach((nav) => {
       if (nav.id === page.parent && nav.subMenus) {
@@ -138,18 +114,15 @@ function useNav(type?: undefined | String | Array<string>): DefaultNavs {
       }
     });
   });
-  // const singleType = typeof type === "string";
 
-  // const getByType = (nav: NavItem) =>
-  //   singleType ? nav.name === type : type.includes(nav.name);
   return {
     // renders baseNavs if there are no dynamic pages
     navs: baseNavs,
-    shortest: 3,
-    // shortest: baseNavs
-    //   .sort((a, b) => a.subMenus?.length - b.subMenus?.length)
-    //   .map((item) => item.subMenus?.length || 0)
-    //   .filter((i) => i)[0],
+    // shortest: 3,
+    shortest: baseNavs
+      .sort((a, b) => a.subMenus?.length - b.subMenus?.length)
+      .map((item) => item.subMenus?.length || 0)
+      .filter((i) => i)[0],
   };
 }
 
