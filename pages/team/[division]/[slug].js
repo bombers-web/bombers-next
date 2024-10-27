@@ -1,4 +1,4 @@
-import { Center, Stack, Text, Flex } from "@chakra-ui/react";
+import { Center, Stack, Flex } from "@chakra-ui/react";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { fetchAPI } from "src/lib/api";
