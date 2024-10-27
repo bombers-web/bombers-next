@@ -56,7 +56,6 @@ const defaultContent = {
 
 const Content = ({ content, context }) => {
   const router = useRouter();
-  console.log(content);
   const imageUrl = content?.image;
 
   const seo = {
