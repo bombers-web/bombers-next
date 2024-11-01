@@ -37,12 +37,12 @@ function useNav(type?: undefined | String | Array<string>): DefaultNavs {
     {
       name: "Schedule",
       id: "schedule",
-      slug: "schedule",
+      slug: "/schedule",
     },
     {
       name: "Club",
       id: "club",
-      slug: "club",
+      slug: "/club",
       subMenus: [
         {
           name: "History",
@@ -93,12 +93,12 @@ function useNav(type?: undefined | String | Array<string>): DefaultNavs {
     {
       name: "Contact",
       id: "contact",
-      slug: "contact",
+      slug: "/contact",
     },
     {
       name: "Donate",
       id: "donate",
-      slug: "pay",
+      slug: "/pay",
     },
   ];
 
