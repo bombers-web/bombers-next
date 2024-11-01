@@ -111,12 +111,13 @@ export const FooterLinks = styled.div`
   row-gap: 20px;
   font-family: "Montserrat", sans-serif;
   text-transform: capitalize;
+  grid-template-columns: repeat(2, 1fr);
   & ul {
     display: grid;
     row-gap: 8px;
     list-style: none;
     align-content: center;
-
+    margin-top: 10px;
     & li:first-child {
       font-size: 1.25rem;
       color: var(--chakra-colors-brand-light);
@@ -127,9 +128,6 @@ export const FooterLinks = styled.div`
       cursor: pointer;
     }
   }
-  @media (min-width: 648px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
 `;
 
 export const FooterIcons = styled.div`
@@ -137,7 +135,6 @@ export const FooterIcons = styled.div`
   align-items: center;
   column-gap: 0.75rem;
   justify-content: start;
-
   & svg {
     padding: 0.75rem;
     height: calc(32px + $padding);
