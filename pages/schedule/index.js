@@ -23,7 +23,7 @@ const Schedule = ({ games }) => {
           id="schedule"
           isFitted
           size="lg"
-          colorScheme="gray"
+          colorScheme="brand.meta"
           fontWeight="bold"
           fontFamily="Big Shoulders Display"
           fontSize="xl"

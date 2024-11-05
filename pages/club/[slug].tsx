@@ -11,7 +11,6 @@ import { Block } from "src/types/pageTypes";
 
 // TODO: causing build failures, IS IT NEEDED?
 const Dynamic = ({ page }) => {
-  console.log(page)
   if (!page) return null;
   return (
     <Layout
