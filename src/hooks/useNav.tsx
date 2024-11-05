@@ -12,7 +12,7 @@ export type NavItem = {
 type DefaultNavs = {
   navs: Array<NavItem>;
   subMenus?: Array<NavItem>;
-  shortest: number;
+  // shortest: number;
 };
 
 function useNav(type?: undefined | String | Array<string>): DefaultNavs {
@@ -118,11 +118,12 @@ function useNav(type?: undefined | String | Array<string>): DefaultNavs {
   return {
     // renders baseNavs if there are no dynamic pages
     navs: baseNavs,
+    // TODO: shortest causes nave for team and club to interchange
     // shortest: 3,
-    shortest: baseNavs
-      .sort((a, b) => a.subMenus?.length - b.subMenus?.length)
-      .map((item) => item.subMenus?.length || 0)
-      .filter((i) => i)[0],
+    // shortest: baseNavs
+    //   .sort((a, b) => a.subMenus?.length - b.subMenus?.length)
+    //   .map((item) => item.subMenus?.length || 0)
+    //   .filter((i) => i)[0],
   };
 }
 

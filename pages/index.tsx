@@ -93,12 +93,13 @@ const Home = (props) => {
           <Box
             py="24px"
             display="flex"
+            flexWrap="wrap"
             justifyContent="center"
             flexDirection="row"
             alignItems="center"
             maxW="1180px"
             w="100%"
-            mx={8}
+            my={10}
           >
             <NextMatchFont size="lg">Next Up: </NextMatchFont>
             <MatchTeams match={d1Upcoming?.[0]} />
@@ -125,18 +126,6 @@ const Home = (props) => {
           </Box>
         </Section>
       </PageContent>
-
-      <Section
-        bg="light"
-        padding="0px 0px"
-        style={{
-          alignItems: "flex-start",
-          display: "flex",
-          flexDirection: "column",
-        }}
-      >
-        {/* <NewsReel articles={articles} /> */}
-      </Section>
     </Layout>
   );
 };

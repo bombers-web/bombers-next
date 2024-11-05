@@ -14,11 +14,12 @@ const BoardCard = ({ size, url, bg, displayName, position, email }) => {
         maxWidth: "300px",
         display: "flex",
         justifyContent: "space-around",
-        cursor: "pointer",
+        cursor: "auto",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
         backgroundSize: size > 3000 ? "cover" : "contain",
         backgroundColor: "gray",
+        _hover: "none",
       }}
       bg={bg}
       border="1px solid #e2e2e2"
