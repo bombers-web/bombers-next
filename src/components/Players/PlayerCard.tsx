@@ -3,14 +3,22 @@ import Card from "common/Card";
 import React from "react";
 import { getPosition } from "./utils";
 
-const PlayerCard = ({ size, url, bg, division, position, displayName }) => {
+const PlayerCard = ({
+  size,
+  url,
+  bg,
+  division,
+  position,
+  displayName,
+  noClick,
+}) => {
   return (
     <Card
       key={displayName}
       radius="8px"
       id="team-card"
       as={`/team/${division}/${url}`}
-      link={"/team/[division]/[slug]"}
+      link={noClick ? null : "/team/[division]/[slug]"}
       styles={{
         minHeight: "370px",
         height: "auto",

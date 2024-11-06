@@ -6,7 +6,6 @@ import BoardCard from "../../../src/components/Board/BoardCard";
 
 const Board = (props) => {
   const { members } = props;
-  console.log(members)
   return (
     <>
       <Layout
@@ -45,8 +44,7 @@ const Board = (props) => {
 };
 
 export async function getStaticProps({ params }) {
-  const members =
-    (await fetchAPI("/board-members?populate=photo")) || {};
+  const members = (await fetchAPI("/board-members?populate=photo")) || {};
   return {
     props: { members },
   };

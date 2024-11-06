@@ -120,7 +120,9 @@ const Home = (props) => {
             </NextMatchText>
             <Box flex="1">
               <Link href="/watch">
-                <Button variant="outline">Watch Info</Button>
+                <Button m={5} variant="outline">
+                  Watch Info
+                </Button>
               </Link>
             </Box>
           </Box>
