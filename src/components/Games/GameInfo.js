@@ -55,7 +55,7 @@ const GameInfo = ({
       alignItems="center"
     >
       <Flex direction="column" m="0" py="4" minH="100%">
-        <Flex alignItems="center" justifyContent="space-between">
+        <Flex alignItems="center" justifyContent="start">
           <Stack
             w="100%"
             direction="horizontal"
@@ -84,42 +84,9 @@ const GameInfo = ({
         <Team team={homeTeam} preview></Team>
         <Team team={awayTeam} preview></Team>
       </Flex>
-      {/* <Stack>
-        <div>
-          <Heading
-            as="p"
-            fontSize="md"
-            color="brand.light"
-            textTransform="uppercase"
-          >
-            {formatDateTime(date, "short").date}
-          </Heading>
-        </div>
-        <div>
-          <Heading
-            as="p"
-            fontSize="md"
-            color="brand.light"
-            textTransform="uppercase"
-          >
-            {formatDateTime(date, "short").time}
-          </Heading>
-        </div>
-        <div>
-          <Heading
-            as="p"
-            fontSize="md"
-            color="brand.light"
-            textTransform="uppercase"
-          >
-            {location}
-          </Heading>
-        </div>
-      </Stack> */}
     </Box>
   ) : (
-    <Stack direction="row" justifyContent="center" alignItems="start" pt={8}>
-      <Team team={homeTeam}></Team>
+    <Stack direction="column" justifyContent="center" pt={4}>
       {!homeTeam.score && (
         <Stack
           borderRadius="8px"
@@ -129,8 +96,6 @@ const GameInfo = ({
           justifyContent="center"
           textAlign="center"
         >
-          {/* <Box>{formatDateTime(date).time || "FT"}</Box> */}
-
           <Flex w="100%" justifyContent="center">
             <Box p="2" fontSize="xs">
               {location}
@@ -138,6 +103,8 @@ const GameInfo = ({
           </Flex>
         </Stack>
       )}
+      <Team team={homeTeam}></Team>
+
       <Team team={awayTeam} away></Team>
     </Stack>
   );

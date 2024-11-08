@@ -38,7 +38,7 @@ const Card = ({
   ...props
 }: PropsWithChildren<CardProps>) => {
   const makeClickable = (component) =>
-    link ? (
+    link || !link === null ? (
       <Link as={as} href={toLower(link)} legacyBehavior>
         <LinkBox>{component}</LinkBox>
       </Link>
@@ -47,17 +47,18 @@ const Card = ({
     );
 
   //TODO: make these lazy loading also maybe look into cloudfront CDN,
-  const hoverStyles = link
-    ? {
-        transition: "all .2s ease-in-out",
-        _hover: hoverBg
-          ? {
-              transform: "scale(1.02)",
-              boxShadow: "0px 5px 10px #21212150",
-            }
-          : {},
-      }
-    : {};
+  const hoverStyles =
+    link || !link === null
+      ? {
+          transition: "all .2s ease-in-out",
+          _hover: hoverBg
+            ? {
+                transform: "scale(1.02)",
+                boxShadow: "0px 5px 10px #21212150",
+              }
+            : {},
+        }
+      : {};
 
   const overrideStyles = {
     ...styles,
@@ -78,7 +79,6 @@ const Card = ({
         cursor="pointer"
         sx={{ ...hoverStyles, ...overrideStyles }}
         bgGradient="gradient.main"
-        _hover={{ ..._hover, transform: "scale(1.02)" }}
         {...props}
       >
         {image && (

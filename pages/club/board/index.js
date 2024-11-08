@@ -17,15 +17,15 @@ const Board = (props) => {
           <SimpleGrid columns={[1, 3]} spacing={[2, 2]} m={[3]}>
             {members?.length ? (
               members?.map((member) => {
-                const { picture, first_name, last_name, position, email } =
+                const { photo, first_name, last_name, position, email } =
                   member;
                 const background =
-                  picture?.url || "/static/default/defaultpic.png";
+                  photo?.url || "/static/default/defaultpic.png";
                 const displayName = `${first_name} ${last_name}`;
 
                 return (
                   <BoardCard
-                    size={picture?.size}
+                    size={photo?.size}
                     position={position}
                     email={email}
                     bg={background}
@@ -44,7 +44,7 @@ const Board = (props) => {
 };
 
 export async function getStaticProps({ params }) {
-  const members = (await fetchAPI("/board-members?populate=*")) || {};
+  const members = (await fetchAPI("/board-members?populate=photo")) || {};
   return {
     props: { members },
   };

@@ -42,7 +42,7 @@ const ContactForm = () => {
     try {
       await axios.post(`${process.env.strapi}/email`, {
         from: "",
-        to: "contact@stlouisbombers.com",
+        to: "marcom@stlouisbombers.com",
         subject: "New Contact",
         html: contactTemplate(contact),
       });

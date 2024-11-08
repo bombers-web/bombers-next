@@ -1,9 +1,9 @@
 import { Link, Text } from "@chakra-ui/react";
 import { FC } from "react";
 import useNav from "../hooks/useNav";
-import { Sponsors } from "../types/sponsors";
 import NavLogo from "./NavLogo";
 import Socials from "./Socials";
+import Sponsors from "../components/Sponsors";
 import {
   Copyright,
   FooterContainer,
@@ -12,17 +12,16 @@ import {
   FooterLinks,
 } from "./styles";
 
-const Footer: FC<{ sponsors: Array<Sponsors> }> = (_props) => {
+const Footer = (_props) => {
   const { navs, shortest } = useNav(["Club", "Team"]);
-
   return (
     <>
       <FooterContainer id="footer">
         <FooterInfo>
           <NavLogo color="brand.light" />
-
           <FooterIcons>
             <Socials size="" />
+            <Sponsors forFooter={true} />
           </FooterIcons>
         </FooterInfo>
         <FooterLinks>

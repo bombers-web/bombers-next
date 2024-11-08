@@ -8,7 +8,7 @@ type ListProps = {
   title: string;
 };
 
-const List = ({ players, title }: ListProps) => {
+const List = ({ players, title, noClick }: ListProps) => {
   return !players ? (
     <div>Nothing found here</div>
   ) : (
@@ -31,6 +31,7 @@ const List = ({ players, title }: ListProps) => {
                 bg={background}
                 division={division}
                 displayName={displayName}
+                noClick={noClick}
               />
             );
           })

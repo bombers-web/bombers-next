@@ -1,20 +1,34 @@
-import { Box, Flex, Heading, Text, Avatar } from "@chakra-ui/react";
-import React from "react";
+import {
+  Box,
+  Flex,
+  Heading,
+  Text,
+  Avatar,
+  useMediaQuery,
+} from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
 
 const Team = ({ team: { name, score, logo, ...teamData }, away, preview }) => {
-  const direction = away ? "row-reverse" : "row";
+  // const [loaded, setLoaded] = useState(false);
+  // useEffect(() => {
+  //   if (!loaded) setLoaded(true);
+  // }, [loaded]);
+  // const [isMobile] = useMediaQuery("(max-width: 800px)", {
+  //   ssr: true,
+  //   fallback: false, // return false on the server, and re-evaluate on the client side
+  // });
   return (
     <>
       <Flex
-        justifyContent="space-between"
+        justifyContent="start"
         alignItems="center"
-        direction={direction}
+        direction="row"
         width="100%"
       >
         <Flex
           justifyContent="space-between"
           alignItems="center"
-          direction={preview ? "row" : direction}
+          direction="row"
         >
           <Box m={2}>
             <Avatar

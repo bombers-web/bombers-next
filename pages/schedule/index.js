@@ -23,7 +23,7 @@ const Schedule = ({ games }) => {
           id="schedule"
           isFitted
           size="lg"
-          colorScheme="gray"
+          colorScheme="brand.meta"
           fontWeight="bold"
           fontFamily="Big Shoulders Display"
           fontSize="xl"
@@ -48,7 +48,6 @@ const Schedule = ({ games }) => {
 };
 
 export async function getStaticProps() {
-  // Run API calls in parallel
   const [games] = await Promise.all([
     fetchAPI(
       "/games?populate[0]=home.logo&populate[1]=away.logo&populate=winner&sort[0]=date:asc"
