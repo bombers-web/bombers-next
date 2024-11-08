@@ -76,6 +76,7 @@ const NextMatchFont = styled(Box)<{ size?: "xs" | "sm" | "md" | "lg" }>`
 const Home = (props) => {
   const { homepage, highlight, d1Upcoming } = props;
   const { getLongDate } = new Utils();
+
   return (
     <Layout seo={homepage?.seo} bg="brand.light" id="homepage">
       <PageContent>
@@ -85,13 +86,13 @@ const Home = (props) => {
           padding="0px"
           style={{
             display: "flex",
-            height: "150px",
+            // height: "150px",
             justifyContent: "center",
           }}
           align="center"
         >
           <Box
-            py="24px"
+            py="12px"
             display="flex"
             flexWrap="wrap"
             justifyContent="center"
@@ -99,7 +100,7 @@ const Home = (props) => {
             alignItems="center"
             maxW="1180px"
             w="100%"
-            my={10}
+            // my={10}
           >
             <NextMatchFont size="lg">Next Up: </NextMatchFont>
             <MatchTeams match={d1Upcoming?.[0]} />
@@ -134,35 +135,21 @@ const Home = (props) => {
 
 export async function getStaticProps() {
   // Run API calls in parallel
-  const [
-    content,
-    homepage,
-    // d1Results,
-    d1Upcoming,
-    // d3Results,
-    // d3Upcoming,
-    homeCta,
-  ] = await Promise.all([
+  const [content, homepage, d1Upcoming, homeCta] = await Promise.all([
     fetchAPI(
-      // "/articles?populate=*&status=published&_sort=publishedAt:asc&_limit=3"
       "/contents?populate=*&filters[status][$eq]=published&sort[1]=publishedAt:asc&pagination[limit]=3"
     ),
     fetchAPI("/homepage?populate=*"),
     fetchAPI(
       "/games?populate=*,home.logo,away.logo&filters[division][$eq}=d1&filters[finished][$eq]=false&sort[1]=date"
     ),
-    // fetchAPI("/games?division=d3&finished=true&_sort=date:asc&_limit=3"),
-    // fetchAPI("/games?division=d3&finished=false&_sort=date:asc&_limit=3"),
     fetchAPI("/home-cta?populate=content.image.format"),
   ]);
   return {
     props: {
       content,
       homepage,
-      // d1Results,
       d1Upcoming,
-      // d3Results,
-      // d3Upcoming,
       highlight: homeCta?.content || null,
     },
   };

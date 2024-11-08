@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { Box, Wrap, WrapItem } from "@chakra-ui/react";
+import { Box, Wrap, WrapItem, Flex } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import Pic from "../../common/Pic";
 import useBp from "../../../theme/useBp";
@@ -7,7 +7,8 @@ import { SponsorContainer, SponsorsTitle, SponsorList } from "./styles";
 import { fetchAPI } from "../../lib/api";
 import Image from "next/image";
 
-const Sponsors = ({ level, forFooter, sponsors = [], ...props }) => {
+const Sponsors = ({ forFooter, ...props }) => {
+  const [sponsors, setSponsors] = useState([]);
   const [_columns, setColumns] = useState(sponsors.length);
   const [isDesktop] = useBp();
 
@@ -15,18 +16,28 @@ const Sponsors = ({ level, forFooter, sponsors = [], ...props }) => {
     setColumns(isDesktop ? sponsors?.length : 2);
   }, [isDesktop, sponsors.length]);
 
+  useEffect(() => {
+    fetchAPI("/sponsors?populate=*")
+      .then((val) => {
+        if (val) {
+          setSponsors(val);
+        }
+      })
+      .catch((err) => console.error(err));
+  }, []);
+
   return forFooter ? (
-    <Wrap direction="row" spacing="6" w="100%">
+    <Flex direction="row">
+      {/* <Wrap> */}
       {sponsors?.map((sponsor) => {
         const logo = sponsor?.image?.url || sponsor.logo;
         return (
           <WrapItem key={sponsor?.name}>
             <Pic
               style={{
-                width: 40,
-                height: 40,
-                // filter: `contrast(0)`,
-                opacity: 0.4,
+                width: 60,
+                height: 60,
+                opacity: 0.7,
                 zoom: 1,
               }}
               src={logo}
@@ -35,7 +46,8 @@ const Sponsors = ({ level, forFooter, sponsors = [], ...props }) => {
           </WrapItem>
         );
       })}
-    </Wrap>
+      {/* </Wrap> */}
+    </Flex>
   ) : (
     <SponsorContainer>
       <SponsorList>
