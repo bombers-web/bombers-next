@@ -21,7 +21,7 @@ const PlayerList = ({ list = [], type }) => {
 
   return (
     <Flex direction="column" gap="8" bg="brand.white">
-      <Stack direction="column" spacing="16">
+      <Stack direction="column" spacing="16" m="8">
         {type === "coaches-and-staff" ? (
           <List players={players} title="Coaches and Staff" noClick />
         ) : (

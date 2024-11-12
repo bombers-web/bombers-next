@@ -1,5 +1,4 @@
 import { Link, Text } from "@chakra-ui/react";
-import { FC } from "react";
 import useNav from "../hooks/useNav";
 import NavLogo from "./NavLogo";
 import Socials from "./Socials";
@@ -11,6 +10,7 @@ import {
   FooterInfo,
   FooterLinks,
 } from "./styles";
+import { usePathname } from "next/navigation";
 
 const Footer = (_props) => {
   const { navs, shortest } = useNav(["Club", "Team"]);
@@ -38,7 +38,7 @@ const Footer = (_props) => {
                           textDecoration: "none",
                           alignSelf: "center",
                         }}
-                        href={link.slug}
+                        href={"/" + link.slug}
                       >
                         {link.name}
                       </Link>
