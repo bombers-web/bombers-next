@@ -1,7 +1,6 @@
 import React from "react";
 import Layout from "../../../src/common/Layout";
 import PlayerList from "../../../src/components/Players/PlayerList";
-import Sponsors from "../../../src/components/Sponsors";
 import { fetchAPI } from "../../../src/lib/api";
 import { startCase } from "lodash";
 
@@ -25,7 +24,6 @@ const Players = ({ list, division }) => {
         margin
       >
         <PlayerList list={list} type={division} />
-        <Sponsors />
       </Layout>
     </>
   );

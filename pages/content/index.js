@@ -81,6 +81,19 @@ const News = ({ content, categories }) => {
   );
 };
 
+// export async function getStaticPaths() {
+//   const contents = await fetchAPI("/contents?populate=*");
+//   return {
+//     paths: contents.map((content) => ({
+//       params: {
+//         slug: content?.slug || "2024-champs",
+//       },
+//     })),
+
+//     fallback: true,
+//   };
+// }
+
 export async function getStaticProps() {
   const categories = (await fetchAPI(`/categories?populate=*`)) || {};
   const content = (await fetchAPI(`/contents?populate=*`)) || {};
