@@ -116,6 +116,12 @@ const Content = ({ content, context }) => {
     },
   ];
 
+  // If the page is not yet generated, this will be displayed
+  // initially until getStaticProps() finishes running
+  if (router.isFallback) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <Layout
       cover={{ url: imageUrl, alternativeText: content.description }}
@@ -243,7 +249,6 @@ export async function getStaticPaths() {
         slug: content?.slug || "2024-champs",
       },
     })),
-
     fallback: false,
   };
 }
@@ -251,13 +256,12 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   const [content] =
     (await fetchAPI(
-      `/contents?populate[0]=writer.picture&populate[1]=image&filter[uid][$eq]=${params.slug}`
+      `/contents?populate[0]=writer.picture&populate[1]=image&filters[slug][$eq]=${params.slug}`
     )) || {};
-
   return {
     props: { content },
-    // refetch every hr
-    revalidate: 3600000,
+    // refetch every 2 weeks
+    revalidate: 1209600,
   };
 }
 

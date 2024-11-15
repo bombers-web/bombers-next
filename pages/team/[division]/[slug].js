@@ -88,7 +88,6 @@ export async function getStaticPaths() {
         slug: player?.slug || "shawn-caradine",
       },
     })),
-
     fallback: true,
   };
 }
