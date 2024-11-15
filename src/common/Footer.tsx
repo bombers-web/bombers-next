@@ -10,7 +10,6 @@ import {
   FooterInfo,
   FooterLinks,
 } from "./styles";
-import { usePathname } from "next/navigation";
 
 const Footer = (_props) => {
   const { navs, shortest } = useNav(["Club", "Team"]);

@@ -11,12 +11,12 @@ const Watch = () => {
     {
       name: "Bombers Youtube",
       href: "https://www.youtube.com/@st.louisbombersrugby8391",
-      bg: "/static/schoeman_dallas.jpg",
+      bg: "/static/schoeman_dallas.JPG",
     },
     {
       name: "Bombers VEO",
       href: "https://veolive.page.link/R72N",
-      bg: "/static/feakes_belmont.jpg",
+      bg: "/static/feakes_belmont.JPG",
     },
   ];
 

@@ -18,18 +18,18 @@ const ScheduleTabs = ({ games = [] }) => {
   const division = "d3";
 
   return (
-    <Tabs align="center" variant="unstyled">
+    <Tabs align="center" colorScheme="brand.meta">
       <TabList>
         {tabs.map((tab) => (
           <Tab key={tab + "tab"}>{tab}</Tab>
         ))}
       </TabList>
-      <TabIndicator
+      {/* <TabIndicator
         mt="-5px"
         height="2px"
         bg="brand.black"
         borderRadius="1px"
-      />
+      /> */}
       <TabPanels>
         <TabPanel>
           <Schedule upcoming={upcoming} />

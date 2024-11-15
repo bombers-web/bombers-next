@@ -7,7 +7,6 @@ import ContentCard from "../../src/components/Content/ContentCard";
 
 const News = ({ content, categories }) => {
   const [selectedTab, setSelectedTab] = useState("Latest");
-  console.log(categories);
   const onTabChange = useCallback((e, d) => {
     setSelectedTab(e);
   }, []);
