@@ -10,7 +10,7 @@ const Board = (props) => {
     <>
       <Layout
         header="Executive Board"
-        seo={{ metaTitle: "executive board" }}
+        seo={{ metaTitle: "Executive Board" }}
         margin
       >
         <Box h="100vh">

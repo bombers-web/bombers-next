@@ -33,7 +33,7 @@ const Schedule = ({ upcoming }) => {
   const isBombers = (team) => team === "Bombers";
   const isHome = (homeTeam) => isBombers(homeTeam);
 
-  return (
+  return upcoming.length > 0 ? (
     <Accordion allowMultiple defaultIndex={[0]}>
       {upcoming?.map((game) => {
         const gameInfoProps = {
@@ -111,6 +111,8 @@ const Schedule = ({ upcoming }) => {
         );
       })}
     </Accordion>
+  ) : (
+    <div>No Games Currently Scheduled!</div>
   );
 };
 

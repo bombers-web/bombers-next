@@ -7,7 +7,6 @@ import ContentCard from "../../src/components/Content/ContentCard";
 
 const News = ({ content, categories }) => {
   const [selectedTab, setSelectedTab] = useState("Latest");
-
   const onTabChange = useCallback((e, d) => {
     setSelectedTab(e);
   }, []);
@@ -52,7 +51,7 @@ const News = ({ content, categories }) => {
           ))}
         </TabList>
         <TabPanels my="24px">
-          <TabPanel>
+          <TabPanel textTransform="capitalize">
             {content.length
               ? sortBy(content, (content) =>
                   new Date(content.published).toLocaleDateString("en")
@@ -66,7 +65,7 @@ const News = ({ content, categories }) => {
                   ? category.contents.map((content) => {
                       return (
                         <ContentCard
-                          href={`/content/${content.uid}`}
+                          // href={`/content/${content.uid}`}
                           content={content}
                         ></ContentCard>
                       );
@@ -81,21 +80,11 @@ const News = ({ content, categories }) => {
   );
 };
 
-// export async function getStaticPaths() {
-//   const contents = await fetchAPI("/contents?populate=*");
-//   return {
-//     paths: contents.map((content) => ({
-//       params: {
-//         slug: content?.slug || "2024-champs",
-//       },
-//     })),
-
-//     fallback: true,
-//   };
-// }
-
 export async function getStaticProps() {
-  const categories = (await fetchAPI(`/categories?populate=*`)) || {};
+  const categories =
+    (await fetchAPI(
+      `/categories?populate[0]=contents&populate[1]=contents.image`
+    )) || {};
   const content = (await fetchAPI(`/contents?populate=*`)) || {};
 
   return {

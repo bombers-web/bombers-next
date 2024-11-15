@@ -1,12 +1,4 @@
-import {
-  Box,
-  Flex,
-  Heading,
-  Text,
-  Avatar,
-  useMediaQuery,
-} from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import { Box, Flex, Heading, Text, Avatar } from "@chakra-ui/react";
 
 const Team = ({ team: { name, score, logo, ...teamData }, away, preview }) => {
   // const [loaded, setLoaded] = useState(false);
