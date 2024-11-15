@@ -20,7 +20,6 @@ const Fof = () => {
           <Image
             alt="404 error"
             src="/static/hinson_404.JPG"
-            // style={{ objectFit: fit, objectPosition: position }}
             quality={80}
             width={800}
             height={800}
