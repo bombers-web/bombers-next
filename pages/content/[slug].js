@@ -237,14 +237,13 @@ const Content = ({ content, context }) => {
 
 export async function getStaticPaths() {
   const contents = await fetchAPI("/contents?populate=*");
-
   return {
     paths: contents.map((content) => ({
       params: {
-        slug: content.uid,
-        category: content.category.name,
+        slug: content?.slug || "2024-champs",
       },
     })),
+
     fallback: false,
   };
 }
