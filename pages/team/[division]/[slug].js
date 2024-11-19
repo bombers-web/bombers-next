@@ -33,33 +33,6 @@ const Player = ({ player }) => {
         url: player?.hoverPic?.url,
       }}
     >
-      {/* <Hero backButton text={text} /> */}
-      {/* <Stack minH="100%" w="100%" bg="brand.light" spacing="0">
-        <Stack direction={direction} spacing="4" m="0" bg={"gradient.regular"}>
-          <Center flex={1}>
-            <Image
-              width={1000}
-              height={1000}
-              fit={player?.picture?.size > 3000 ? "cover" : "contain"}
-              src={player?.picture?.url || "/static/default/defaultpic.png"}
-              size="xl"
-              alt={PLAYER_NAME + " profile pic"}
-            />
-          </Center>
-          <Center flex={1} p={8} lineHeight={2}>
-            <Text
-              color="brand.lightSecondary"
-              size="lg"
-              textTransform="capitalize"
-              fontWeight="hairline"
-            >
-              {player?.bio}
-            </Text>
-          </Center>
-          {player?.bio}
-        </Stack>
-        <PlayerInfo w="50%" player={player} />
-      </Stack> */}
       <Stack direction={direction}>
         <Center flex={1} bg={"gradient.regular"}>
           <Image

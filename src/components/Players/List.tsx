@@ -13,7 +13,9 @@ const List = ({ players, title, noClick }: ListProps) => {
     <div>Nothing found here</div>
   ) : (
     <Box m={[0, 0, 0, 8, 16]} id="players-list">
-      <Heading m={[8, 16]}>{title}</Heading>
+      <Heading m={[8, 8]} mt={[2, 4]}>
+        {title}
+      </Heading>
       <SimpleGrid columns={[1, 4]} spacing={[0, 2]} m={[0]}>
         {players?.length ? (
           players?.map((player) => {
