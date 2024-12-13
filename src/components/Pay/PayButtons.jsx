@@ -27,9 +27,9 @@ const PayButtons = () => {
     </h3>
   );
 
-  const handleCustomAmount = (e) => {
-    e.preventDefault();
-    setValue(e.currentTarget.value);
+  const handleCustomAmount = (event) => {
+    const newValue = event.target.value;
+    setValue(newValue);
   };
 
   const paypalbuttonTransactionProps = {
@@ -60,7 +60,6 @@ const PayButtons = () => {
           "Transaction completed by" +
             (details?.payer.name.given_name ?? "No details")
         );
-
         alert("Data details: " + JSON.stringify(data, null, 2));
       });
     },
@@ -79,7 +78,7 @@ const PayButtons = () => {
           <Input
             w="60%"
             type="number"
-            placeholder="enter amount"
+            placeholder="Enter Amount"
             value={value}
             onChange={handleCustomAmount}
             color="brand.dark"
@@ -89,7 +88,10 @@ const PayButtons = () => {
       <PayPalButtons fundingSource="venmo" style={{ color: "blue" }}>
         <InEligibleError text="You are not eligible to pay with Venmo." />
       </PayPalButtons>
-      <PayPalButtons {...paypalbuttonTransactionProps} />
+      <PayPalButtons
+        forceReRender={[value]}
+        {...paypalbuttonTransactionProps}
+      />
     </>
   );
 };
