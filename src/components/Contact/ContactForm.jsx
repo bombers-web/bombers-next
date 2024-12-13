@@ -12,7 +12,6 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useState } from "react";
-import contactTemplate from "../../../utils/contactTemplate";
 
 const ContactForm = () => {
   const toast = useToast();
@@ -52,10 +51,8 @@ const ContactForm = () => {
             duration: 3000,
             isClosable: true,
           });
-          console.log(response);
         });
     } catch (error) {
-      console.log(error);
       toast({
         title: "Oh no!",
         description: "Something went wrong.",
