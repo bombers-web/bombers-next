@@ -13,8 +13,11 @@ const Board = (props) => {
         seo={{ metaTitle: "Executive Board" }}
         margin
       >
-        <Box h="100vh">
-          <SimpleGrid columns={[1, 3]} spacing={[2, 2]} m={[3]}>
+        <Box m={[0, 0, 0, 8, 16]} id="players-list">
+          <Heading m={[8, 8]} mt={[2, 4]}>
+            Executive Board
+          </Heading>
+          <SimpleGrid columns={[1, 4]} spacing={[0, 2]} m={[3]}>
             {members?.length ? (
               members?.map((member) => {
                 const { photo, first_name, last_name, position, email } =
