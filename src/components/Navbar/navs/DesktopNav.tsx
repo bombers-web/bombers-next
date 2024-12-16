@@ -77,7 +77,7 @@ const DesktopNav = ({ homePage }: DesktopNavProps) => {
               >
                 <MenuItem
                   className="desktop-menu-item"
-                  current_slug={pathname === nav.slug ? true : undefined}
+                  current_slug={pathname === nav.slug ? "true" : undefined}
                 >
                   {nav.name}
                 </MenuItem>

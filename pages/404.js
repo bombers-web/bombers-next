@@ -12,9 +12,9 @@ const Fof = () => {
       header="Page not found"
       mainBg="#fff"
     >
-      <Flex flexDirection="column" alignItems="center">
+      <Flex flexDirection="column" alignItems="center" textAlign="center">
         <Text fontWeight="bold" fontSize="3xl" fontFamily="body">
-          404: This is obviously not the page you are looking for...
+          404: This is not the page you are looking for...
         </Text>
         <Box objectFit="cover">
           <Image
@@ -25,8 +25,11 @@ const Fof = () => {
             height={800}
           ></Image>
         </Box>
+        <Text fontWeight="bold" fontSize="3xl" fontFamily="body">
+          or is it...?
+        </Text>
         <Text fontWeight="bold" fontSize="xl" fontFamily="body">
-          Here are some links to get you back on track...
+          Click a STL Bombers logo to head back to Home...
         </Text>
       </Flex>
     </Layout>

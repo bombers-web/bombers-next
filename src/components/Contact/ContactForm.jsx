@@ -12,7 +12,6 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useState } from "react";
-import contactTemplate from "../../../utils/contactTemplate";
 
 const ContactForm = () => {
   const toast = useToast();
@@ -32,20 +31,27 @@ const ContactForm = () => {
   };
 
   const handleSubmit = async () => {
-    toast({
-      title: "Email Sent!",
-      description: "We will get back to you ASAP",
-      status: "success",
-      duration: 3000,
-      isClosable: true,
-    });
     try {
-      await axios.post(`${process.env.strapi}/email`, {
-        from: "",
-        to: "marcom@stlouisbombers.com",
-        subject: "New Contact",
-        html: contactTemplate(contact),
-      });
+      await axios
+        .post(`/api/email`, {
+          from: "eric.davidson.dev@gmail.com",
+          // to: "marcom@stlouisbombers.com",
+          to: "eric.davidson.dev@gmail.com",
+          subject: "New Contact Message",
+          message: `Name: ${contact.name}\n
+                Email: ${contact.email}\n
+                Phone Number: ${contact.phone}\n
+                Message: ${contact.message}`,
+        })
+        .then((response) => {
+          toast({
+            title: "Email Sent!",
+            description: "We will get back to you ASAP",
+            status: "success",
+            duration: 3000,
+            isClosable: true,
+          });
+        });
     } catch (error) {
       toast({
         title: "Oh no!",
@@ -55,7 +61,6 @@ const ContactForm = () => {
         isClosable: true,
       });
     }
-
     setContact(initialState);
   };
 
