@@ -21,9 +21,9 @@ const Pay = () => {
   return (
     <Layout seo={{ metaTitle: "Pay" }}>
       <SimpleGrid columns={[1, 1, 2, 2]} minH="100vh" spacing="0">
-        <Stack minH="100%" w="100%" bg="brand.light" p="8" spacing="8">
+        <Stack minH="100%" w="100%" bg="brand.light" p="8" spacing="0">
           <Heading color="brand.medium" size="xl">
-            Current Players
+            Donations
           </Heading>
           <Heading
             fontFamily="Staatliches"
@@ -32,15 +32,16 @@ const Pay = () => {
             color="brand.black"
             minH="10%"
             maxH="25%"
+            marginTop="6"
           >
-            Pay dues below. There is an option to sign up for a monthly
-            subscription or you can pay in full
+            Donate to the Club! Whether you're paying your club dues or simply
+            looking to donate to a good cause!
           </Heading>
           <PayButtons></PayButtons>
         </Stack>
-        <Stack minH="100%" w="100%" bg="brand.black" p="8" spacing="8">
+        <Stack minH="100%" w="100%" bg="brand.black" p="8" spacing="0">
           <Heading color="brand.light" size="xl">
-            Donations
+            Sponsorships
           </Heading>
           <Heading
             fontFamily="Staatliches"
@@ -49,9 +50,9 @@ const Pay = () => {
             color="brand.medium"
             minH="10%"
             maxH="25%"
+            marginTop="6"
           >
-            If you would like to donate you can reach out to us or click on the
-            paypal below
+            Check out our sponsorship tiers and information!
           </Heading>
           {/* <DonateButton onApprove={onApprove}></DonateButton> */}
         </Stack>
