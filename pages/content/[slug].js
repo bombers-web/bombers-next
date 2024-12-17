@@ -249,7 +249,7 @@ export async function getStaticPaths() {
         slug: content?.slug || "2024-champs",
       },
     })),
-    fallback: false,
+    fallback: true,
   };
 }
 
