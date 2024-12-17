@@ -65,6 +65,7 @@ const News = ({ content, categories }) => {
                   ? category.contents.map((content) => {
                       return (
                         <ContentCard
+                          key={content?.title}
                           // href={`/content/${content.uid}`}
                           content={content}
                         ></ContentCard>

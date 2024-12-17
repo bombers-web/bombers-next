@@ -59,62 +59,62 @@ const Content = ({ content, context }) => {
   const imageUrl = content?.image;
 
   const seo = {
-    metaTitle: content.title,
-    metaDescription: content.description,
-    shareImage: content.image,
+    metaTitle: content?.title,
+    metaDescription: content?.description,
+    shareImage: content?.image,
     content: true,
   };
 
-  const meta = [
-    {
-      name: "category",
-      type: "categoryTag",
-      Component: ContentTag,
-      content: content?.category?.name || "Story",
-    },
-    {
-      name: "publishedAt",
-      type: "dateTag",
-      Component: ContentTime,
-      content: formatDistanceToNow(new Date(content?.publishedAt), {
-        addSuffix: true,
-        locale: {
-          ...enUS,
-          formatDistance: (unit, count) => {
-            switch (true) {
-              case unit === "xDays":
-                return `${count} d`;
+  // const meta = [
+  //   {
+  //     name: "category",
+  //     type: "categoryTag",
+  //     Component: ContentTag,
+  //     content: content?.category?.name || "Story",
+  //   },
+  //   {
+  //     name: "publishedAt",
+  //     type: "dateTag",
+  //     Component: ContentTime,
+  //     content: formatDistanceToNow(new Date(1995, 6, 2), {
+  //       addSuffix: true,
+  //       locale: {
+  //         ...enUS,
+  //         formatDistance: (unit, count) => {
+  //           switch (true) {
+  //             case unit === "xDays":
+  //               return `${count} d`;
 
-              case unit === "aboutXDays":
-                return `${count} days ago`;
+  //             case unit === "aboutXDays":
+  //               return `${count} days ago`;
 
-              case unit === "aboutXHours":
-                return `${count} hrs ago`;
-              case unit === "aboutXYears":
-                return `${count} years ago`;
+  //             case unit === "aboutXHours":
+  //               return `${count} hrs ago`;
+  //             case unit === "aboutXYears":
+  //               return `${count} years ago`;
 
-              case unit === "xMinutes":
-                return `${count} min ago`;
+  //             case unit === "xMinutes":
+  //               return `${count} min ago`;
 
-              case unit === "xMonths":
-                return `${count} mo. ago`;
-              case unit === "aboutXMonths":
-                return `${count} mo. ago`;
+  //             case unit === "xMonths":
+  //               return `${count} mo. ago`;
+  //             case unit === "aboutXMonths":
+  //               return `${count} mo. ago`;
 
-              case unit === "xSeconds":
-                return "just now";
+  //             case unit === "xSeconds":
+  //               return "just now";
 
-              case unit === "xYears":
-                return `${count} y`;
+  //             case unit === "xYears":
+  //               return `${count} y`;
 
-              default:
-                return "%d hours";
-            }
-          },
-        },
-      }),
-    },
-  ];
+  //             default:
+  //               return "%d hours";
+  //           }
+  //         },
+  //       },
+  //     }),
+  //   },
+  // ];
 
   // If the page is not yet generated, this will be displayed
   // initially until getStaticProps() finishes running
