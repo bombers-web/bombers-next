@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Link } from "@chakra-ui/react";
+import { Box, Button, Flex, Link, Text } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import MatchTeams from "components/Games/MatchTeams";
 import PageContent from "src/common/PageContent";
@@ -70,7 +70,7 @@ const NextMatchFont = styled(Box)<{ size?: "xs" | "sm" | "md" | "lg" }>`
       md: "0 12px",
       lg: "0 15px",
     }[props.size || "xs"])};
-  flex: 1;
+  flex: 0;
 `;
 
 const Home = (props) => {
@@ -102,30 +102,37 @@ const Home = (props) => {
             w="100%"
             // my={10}
           >
-            <NextMatchFont size="lg">Next Up: </NextMatchFont>
-            <MatchTeams match={d1Upcoming?.[0]} />
-            <NextMatchText flex="2" className="next-match__text--date">
-              <Flex gap="3" flex="2">
-                <NextMatchFont size="sm" color="white">
-                  {getLongDate(d1Upcoming?.[0].date)[0]}
-                </NextMatchFont>
-                <NextMatchFont size="sm" color="white">
-                  {getLongDate(d1Upcoming?.[0].date)[1]}
-                </NextMatchFont>
-              </Flex>
-            </NextMatchText>
-            <NextMatchText flex="2">
-              <NextMatchFont size="md" color="white">
-                {d1Upcoming?.[0].location}
-              </NextMatchFont>
-            </NextMatchText>
-            <Box flex="1">
-              <Link href="/watch">
-                <Button m={5} variant="outline">
-                  Watch Info
-                </Button>
-              </Link>
-            </Box>
+            <NextMatchFont size="lg">Next Up:</NextMatchFont>
+            {d1Upcoming[0] ? (
+              <>
+                <MatchTeams match={d1Upcoming?.[0]} />
+                <NextMatchText flex="2" className="next-match__text--date">
+                  <Flex gap="3" flex="2">
+                    <NextMatchFont size="sm" color="white">
+                      {getLongDate(d1Upcoming?.[0].date)[0] ||
+                        "No upcoming games"}
+                    </NextMatchFont>
+                    <NextMatchFont size="sm" color="white">
+                      {getLongDate(d1Upcoming?.[0].date)[1] || "no"}
+                    </NextMatchFont>
+                  </Flex>
+                </NextMatchText>
+                <NextMatchText flex="2">
+                  <NextMatchFont size="md" color="white">
+                    {d1Upcoming?.[0].location}
+                  </NextMatchFont>
+                </NextMatchText>
+                <Box flex="1">
+                  <Link href="/watch">
+                    <Button m={5} variant="outline">
+                      Watch Info
+                    </Button>
+                  </Link>
+                </Box>
+              </>
+            ) : (
+              <Text color="gold">There are no upcoming scheduled games</Text>
+            )}
           </Box>
         </Section>
       </PageContent>
