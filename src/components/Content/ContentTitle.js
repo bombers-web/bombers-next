@@ -8,6 +8,7 @@ export default styled(Text)`
   font-family: "Montserrat", sans-serif;
   font-weight: bold;
   text-transform: capitalize;
+  text-align: center;
   @supports (-webkit-background-clip: text) or
     (-webkit-text-fill-color: transparent) {
     background: linear-gradient(

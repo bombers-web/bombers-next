@@ -1,5 +1,6 @@
 import { Badge, Box, Flex, LinkBox, Text } from "@chakra-ui/react";
 import { toLower } from "lodash";
+import { format } from "date-fns";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 
@@ -8,7 +9,7 @@ const ContentCard = ({ content, href }) => {
   const linkHref = `${href || "/content/"}[id]`;
 
   return (
-    <Link as={link} href={linkHref}>
+    <Link as={link} href={linkHref} style={{ textDecoration: "none" }}>
       <LinkBox>
         <Flex
           transition={`all .2s ease-in-out`}
@@ -17,12 +18,14 @@ const ContentCard = ({ content, href }) => {
           p={[0, 0, 2, 4]}
           minH="350px"
           maxH="350px"
+          maxW="1200px"
           borderWidth="1px"
           overflow="hidden"
-          borderColor="brand.lightSecondary"
+          borderColor="brand.medium"
           cursor="pointer"
           _hover={{
             transform: `scale(1.05)`,
+            boxShadow: "5px 3px 3px grey",
           }}
           bg="brand.light"
           borderRadius={8}
@@ -66,7 +69,15 @@ const ContentCard = ({ content, href }) => {
                     w="100%"
                     display={["none", "none", "block"]}
                   >
-                    <ReactMarkdown>{content?.description}</ReactMarkdown>
+                    {content?.category?.name === "Events" ? (
+                      <ReactMarkdown>{content?.description}</ReactMarkdown>
+                    ) : null}
+                    <Text margin="0">
+                      By {content?.writer?.name || "Anonymous"}
+                    </Text>
+                    <Text className="uk-text-meta uk-margin-remove-top">
+                      {format(new Date(content.published), "PPPp")}
+                    </Text>
                   </Box>
                 </Flex>
               </Box>
