@@ -103,7 +103,7 @@ const DesktopNav = ({ homePage }: DesktopNavProps) => {
             href="/pay"
           ></Link>
           <Socials />
-          <LoginButton />
+          {/* <LoginButton /> */}
         </Flex>
       </Flex>
     </Flex>
