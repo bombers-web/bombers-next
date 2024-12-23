@@ -1,6 +1,5 @@
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 import { fetchAPI } from "lib/api";
-import { sortBy } from "lodash";
 import React, { useCallback, useState } from "react";
 import Layout from "../../src/common/Layout";
 import ContentCard from "../../src/components/Content/ContentCard";
@@ -60,7 +59,7 @@ const News = ({ content, categories }) => {
           </TabPanel>
           {categories.map((category) => {
             return (
-              <TabPanel textTransform="capitalize">
+              <TabPanel textTransform="capitalize" key={category}>
                 {category.contents?.length
                   ? category.contents.map((content) => {
                       return (

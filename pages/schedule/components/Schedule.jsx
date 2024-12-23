@@ -53,7 +53,7 @@ const Schedule = ({ upcoming }) => {
         };
 
         return (
-          <AccordionItem key={game.slug}>
+          <AccordionItem key={game.slug} maxW="1200px">
             <AccordionButton
               _expanded={{ bg: "brand.800", color: "brand.400" }}
             >
