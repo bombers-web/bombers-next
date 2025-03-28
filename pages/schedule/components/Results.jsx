@@ -55,7 +55,7 @@ const Results = ({ results }) => {
           location: game.location,
         };
         return (
-          <AccordionItem key={game.slug}>
+          <AccordionItem key={game.slug} maxW="1200px">
             <AccordionButton
               _expanded={{ bg: "brand.800", color: "brand.400" }}
             >
@@ -101,12 +101,16 @@ const Results = ({ results }) => {
                     fontFamily="body"
                     as="b"
                     color={
-                      game.winner?.id === 17 || game.winner?.id === 23
+                      game.winner?.id === undefined
+                        ? "gray"
+                        : game.winner?.id === 17 || game.winner?.id === 23
                         ? "green"
                         : "red"
                     }
                   >
-                    {game.winner?.id === 17 || game.winner?.id === 23
+                    {game.winner?.id === undefined
+                      ? "T"
+                      : game.winner?.id === 17 || game.winner?.id === 23
                       ? "W"
                       : "L"}
                   </Text>

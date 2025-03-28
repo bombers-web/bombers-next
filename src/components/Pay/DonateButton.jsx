@@ -67,52 +67,24 @@ const DonateButton = ({ onApprove }) => {
 
   return (
     <>
-      <Flex
-        direction="row"
-        justifyContent="space-evenly"
-        color="brand.light"
-        alignItems="center"
-      >
-        <RadioGroup
-          defaultValue={10}
-          value={donationAmount}
-          onChange={handleChange}
-        >
-          <SimpleGrid direction="row" spacing={4} columns={[3, 3, 3, 5]}>
-            <Radio value={"10"}>$10</Radio>
-            <Radio value={"20"}>$20</Radio>
-            <Radio value={"50"}>$50</Radio>
-            <Radio value={"100"}>$100</Radio>
-            <Radio value={"custom"}>
-              <InputGroup size="sm" ml="4" borderRadius="8">
-                <InputLeftAddon
-                  children="$"
-                  bg="brand.medium"
-                  color="brand.light"
-                />
-                <Input
-                  w="60%"
-                  type="number"
-                  placeholder="enter amount"
-                  value={customAmount}
-                  onChange={handleCustomAmount}
-                  color="brand.light"
-                ></Input>
-              </InputGroup>
-            </Radio>
-          </SimpleGrid>
-        </RadioGroup>
-      </Flex>
-      <PayPalButtons
-        forceReRender={[value]}
-        style={{
-          color: "gold",
-          layout: "vertical",
-          label: `donate`,
-        }}
-        createOrder={createOrder}
-        onApprove={onApprove}
-      ></PayPalButtons>
+      <form action="https://www.paypal.com/donate" method="post" target="_top">
+        <input type="hidden" name="hosted_button_id" value="5JQ4TPW3RQ9UA" />
+        <input
+          type="image"
+          src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif"
+          border="0"
+          name="submit"
+          title="PayPal - The safer, easier way to pay online!"
+          alt="Donate with PayPal button"
+        />
+        <img
+          alt=""
+          border="0"
+          src="https://www.paypal.com/en_US/i/scr/pixel.gif"
+          width="1"
+          height="1"
+        />
+      </form>
     </>
   );
 };

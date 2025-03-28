@@ -1,6 +1,5 @@
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 import { fetchAPI } from "lib/api";
-import { sortBy } from "lodash";
 import React, { useCallback, useState } from "react";
 import Layout from "../../src/common/Layout";
 import ContentCard from "../../src/components/Content/ContentCard";
@@ -52,15 +51,15 @@ const News = ({ content, categories }) => {
         </TabList>
         <TabPanels my="24px">
           <TabPanel textTransform="capitalize">
-            {content.length
-              ? sortBy(content, (content) =>
-                  new Date(content.published).toLocaleDateString("en")
-                ).map((item) => <ContentCard content={item} />)
+            {content?.length
+              ? content.map((item) => (
+                  <ContentCard key={content?.title} content={item} />
+                ))
               : "No Content"}
           </TabPanel>
           {categories.map((category) => {
             return (
-              <TabPanel textTransform="capitalize">
+              <TabPanel textTransform="capitalize" key={category}>
                 {category.contents?.length
                   ? category.contents.map((content) => {
                       return (
@@ -84,9 +83,12 @@ const News = ({ content, categories }) => {
 export async function getStaticProps() {
   const categories =
     (await fetchAPI(
-      `/categories?populate[0]=contents&populate[1]=contents.image`
+      `/categories?populate[0]=contents&populate[1]=contents.image&populate[2]=contents.category&populate[3]=contents.writer`
     )) || {};
-  const content = (await fetchAPI(`/contents?populate=*`)) || {};
+  const content =
+    (await fetchAPI(
+      `/contents?populate[0]=writer.picture&populate[1]=image&populate[2]=category&sort[0]=published:desc`
+    )) || {};
 
   return {
     props: { categories, content },

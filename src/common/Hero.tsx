@@ -126,14 +126,20 @@ const Hero = ({
             )}
           </Stack>
           <Box>
-            {links.length &&
-              links.map((link) => {
-                return (
-                  <Link variant="solid" as="a" href={link.url} target="_blank">
-                    {link.display}
-                  </Link>
-                );
-              })}
+            {links.length
+              ? links.map((link) => {
+                  return (
+                    <Link
+                      variant="solid"
+                      as="a"
+                      href={link.url}
+                      target="_blank"
+                    >
+                      {link.display}
+                    </Link>
+                  );
+                })
+              : null}
           </Box>
         </Flex>
       </HeroContainer>

@@ -74,8 +74,9 @@ const NextMatchFont = styled(Box)<{ size?: "xs" | "sm" | "md" | "lg" }>`
 `;
 
 const Home = (props) => {
-  const { homepage, highlight, d1Upcoming } = props;
+  const { homepage, highlight, d1Upcoming, d2Upcoming } = props;
   const { getLongDate } = new Utils();
+  const upcoming = d1Upcoming[0] ? d1Upcoming : d2Upcoming;
 
   return (
     <Layout seo={homepage?.seo} bg="brand.light" id="homepage">
@@ -103,23 +104,23 @@ const Home = (props) => {
             // my={10}
           >
             <NextMatchFont size="lg">Next Up:</NextMatchFont>
-            {d1Upcoming[0] ? (
+            {upcoming[0] ? (
               <>
-                <MatchTeams match={d1Upcoming?.[0]} />
+                <MatchTeams match={upcoming?.[0]} />
                 <NextMatchText flex="2" className="next-match__text--date">
                   <Flex gap="3" flex="2">
                     <NextMatchFont size="sm" color="white">
-                      {getLongDate(d1Upcoming?.[0].date)[0] ||
+                      {getLongDate(upcoming?.[0].date)[0] ||
                         "No upcoming games"}
                     </NextMatchFont>
                     <NextMatchFont size="sm" color="white">
-                      {getLongDate(d1Upcoming?.[0].date)[1] || "no"}
+                      {getLongDate(upcoming?.[0].date)[1] || "no"}
                     </NextMatchFont>
                   </Flex>
                 </NextMatchText>
                 <NextMatchText flex="2">
                   <NextMatchFont size="md" color="white">
-                    {d1Upcoming?.[0].location}
+                    {upcoming?.[0].location}
                   </NextMatchFont>
                 </NextMatchText>
                 <Box flex="1">
@@ -142,21 +143,26 @@ const Home = (props) => {
 
 export async function getStaticProps() {
   // Run API calls in parallel
-  const [content, homepage, d1Upcoming, homeCta] = await Promise.all([
-    fetchAPI(
-      "/contents?populate=*&filters[status][$eq]=published&sort[1]=publishedAt:asc&pagination[limit]=3"
-    ),
-    fetchAPI("/homepage?populate=*"),
-    fetchAPI(
-      "/games?populate=*,home.logo,away.logo&filters[division][$eq}=d1&filters[finished][$eq]=false&sort[1]=date"
-    ),
-    fetchAPI("/home-cta?populate=content.image.format"),
-  ]);
+  const [content, homepage, d1Upcoming, d2Upcoming, homeCta] =
+    await Promise.all([
+      fetchAPI(
+        "/contents?populate=*&filters[status][$eq]=published&sort[1]=publishedAt:asc&pagination[limit]=3"
+      ),
+      fetchAPI("/homepage?populate=*"),
+      fetchAPI(
+        "/games?populate=*,home.logo,away.logo&filters[division][$eq}=d1&filters[finished][$eq]=false&sort[1]=date"
+      ),
+      fetchAPI(
+        "/games?populate=*,home.logo,away.logo&filters[division][$eq}=d2&filters[finished][$eq]=false&sort[1]=date"
+      ),
+      fetchAPI("/home-cta?populate=content.image.format"),
+    ]);
   return {
     props: {
       content,
       homepage,
       d1Upcoming,
+      d2Upcoming,
       highlight: homeCta?.content || null,
     },
   };

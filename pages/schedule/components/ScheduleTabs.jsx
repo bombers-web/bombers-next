@@ -17,12 +17,6 @@ const ScheduleTabs = ({ games = [] }) => {
           <Tab key={tab + "tab"}>{tab}</Tab>
         ))}
       </TabList>
-      {/* <TabIndicator
-        mt="-5px"
-        height="2px"
-        bg="brand.black"
-        borderRadius="1px"
-      /> */}
       <TabPanels>
         <TabPanel>
           <Schedule upcoming={upcoming} />

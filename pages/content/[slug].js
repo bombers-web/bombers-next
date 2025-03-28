@@ -256,7 +256,7 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   const [content] =
     (await fetchAPI(
-      `/contents?populate[0]=writer.picture&populate[1]=image&filters[slug][$eq]=${params.slug}`
+      `/contents?populate[0]=writer.picture&populate[1]=image&sort[0]=published:desc&filters[slug][$eq]=${params.slug}`
     )) || {};
   return {
     props: { content },
