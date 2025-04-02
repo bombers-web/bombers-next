@@ -5,10 +5,11 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
   sgMail.setApiKey(process.env.SENDGRID_API_KEY as string);
 
   if (req.method === "POST") {
-    const { to, from, subject, message } = req.body;
+    const { to, from, replyTo, subject, message } = req.body;
     const msg = {
       to: to,
       from: from,
+      replyTo: replyTo,
       subject: subject,
       html: message,
     };

@@ -27,7 +27,7 @@ const ContentCard = ({ content, href }) => {
             transform: `scale(1.05)`,
             boxShadow: "5px 3px 3px grey",
           }}
-          bg="brand.light"
+          bg="brand.white"
           borderRadius={8}
         >
           <Box

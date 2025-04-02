@@ -73,7 +73,7 @@ const Pay = () => {
         align="center"
         variant="line"
         size="lg"
-        colorScheme="gray"
+        colorScheme="brand.highlight"
         value={selectedTab}
         onChange={onTabChange}
         id="content-tabs"
@@ -92,11 +92,9 @@ const Pay = () => {
         </TabList>
         <TabPanels my="24px">
           <TabPanel textTransform="capitalize">
-            Donations
             <DonateButton></DonateButton>
           </TabPanel>
           <TabPanel textTransform="capitalize">
-            Dues
             <DuesButtons></DuesButtons>
           </TabPanel>
           <TabPanel textTransform="capitalize">Sponsorships</TabPanel>
