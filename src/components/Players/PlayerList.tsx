@@ -21,13 +21,13 @@ const PlayerList = ({ list = [], type }) => {
 
   return (
     <Flex direction="column" gap="8" bg="brand.white">
-      <Stack direction="column" spacing="16" m="8">
+      <Stack direction="column" m="8">
         {type === "coaches-and-staff" ? (
           <List players={players} title="Coaches and Staff" noClick />
         ) : (
           <>
-            <List players={forwards} title="Forwards" />
-            <List players={backs} title="Backs" />
+            <List players={forwards} title="Forwards" collapsible />
+            <List players={backs} title="Backs" collapsible />
           </>
         )}
       </Stack>

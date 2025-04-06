@@ -2,12 +2,14 @@ import Head from "next/head";
 import { useContext } from "react";
 import { GlobalContext } from "../../pages/_app";
 import { getStrapiMedia } from "../lib/media";
+import { capitalize } from "lodash";
 
 const Seo = ({ seo }) => {
   const { defaultSeo, siteName } = useContext(GlobalContext) || {
-    defaultSeo: "",
-    siteName: "",
+    defaultSeo: "Home",
+    siteName: "Bombers RFC",
   };
+
   const seoWithDefaults = {
     ...defaultSeo,
     ...seo,
@@ -15,7 +17,7 @@ const Seo = ({ seo }) => {
   const fullSeo = {
     ...seoWithDefaults,
     // Add title suffix
-    metaTitle: `${seoWithDefaults.metaTitle} | ${siteName}`,
+    metaTitle: `${capitalize(seoWithDefaults.metaTitle)} | ${siteName}`,
     // Get full image URL
     shareImage: getStrapiMedia(
       seoWithDefaults.shareImage || "/images/nationals17.png"

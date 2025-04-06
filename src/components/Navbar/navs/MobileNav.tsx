@@ -115,6 +115,7 @@ const MobileNav = ({ homePage }: MobileNavProps) => {
                       onClick={(e) => {
                         if (!nav.subMenus) {
                           router.push(nav.slug);
+                          onClose();
                         }
                       }}
                       _disabled={{

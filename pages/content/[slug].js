@@ -188,7 +188,7 @@ const Content = ({ content, context }) => {
                 </Box>
               </Box>
             </Flex>
-            <Flex py="4" gap="4px">
+            <Flex py="4" gap="8px">
               <EmailShareButton>
                 <EmailIcon size={32} round></EmailIcon>
               </EmailShareButton>
