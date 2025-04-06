@@ -5,7 +5,6 @@ import {
   AccordionItem,
   AccordionPanel,
   Box,
-  Fade,
   Heading,
   SimpleGrid,
 } from "@chakra-ui/react";

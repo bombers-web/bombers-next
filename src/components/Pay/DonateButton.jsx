@@ -1,13 +1,4 @@
-import {
-  Flex,
-  Input,
-  InputGroup,
-  InputLeftAddon,
-  Radio,
-  RadioGroup,
-  SimpleGrid,
-} from "@chakra-ui/react";
-import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
+import { usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import { useEffect, useState } from "react";
 
 const DonateButton = ({ onApprove }) => {

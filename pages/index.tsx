@@ -7,9 +7,9 @@ import Layout from "../src/common/Layout";
 import Section from "../src/components/Section";
 import { fetchAPI } from "../src/lib/api";
 import Utils from "../utils/Utils";
-import useBp from "../theme/useBp";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
+import useBp from "../theme/useBp";
 
 const NextMatchText = styled(Box)`
   color: "#fff";
@@ -104,7 +104,7 @@ const Home = (props) => {
             {upcomingMatches.length > 0 ? (
               upcomingMatches.map((upcomingMatch, idx) => (
                 <>
-                  <Flex alignItems="center" size="xl">
+                  <Flex alignItems="center">
                     <MatchTeams match={upcomingMatch} />
                     <NextMatchText flex="3" className="next-match__text--date">
                       <NextMatchFont size="sm" color="white">
