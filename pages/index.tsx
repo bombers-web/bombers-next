@@ -42,43 +42,43 @@ const NextMatchText = styled(Box)`
   }
 `;
 
-const NextMatchFont = styled(Box)<{ size?: "xs" | "sm" | "md" | "lg" }>`
+const NextMatchFont = styled(Box) <{ size?: "xs" | "sm" | "md" | "lg" }>`
   margin-right: ${(props) =>
-    ({
-      xs: "0px",
-      sm: "0px",
-      md: "32px",
-      lg: "52px",
-    }[props.size || "xs"])};
+  ({
+    xs: "0px",
+    sm: "0px",
+    md: "32px",
+    lg: "52px",
+  }[props.size || "xs"])};
   line-height: ${(props) =>
-    ({
-      xs: "20px",
-      sm: "22px",
-      md: "26px",
-      lg: "34px",
-    }[props.size || "xs"])};
+  ({
+    xs: "14px",
+    sm: "16px",
+    md: "20px",
+    lg: "24px",
+  }[props.size || "xs"])};
   font-weight: ${(props) => (props.size !== "lg" ? "400" : "700")};
   font-size: ${(props) =>
-    ({
-      xs: "12px",
-      sm: "14px",
-      md: "18px",
-      lg: "26px",
-    }[props.size || "xs"])};
+  ({
+    xs: "12px",
+    sm: "14px",
+    md: "18px",
+    lg: "26px",
+  }[props.size || "xs"])};
   color: var(--chakra-colors-brand-light);
   width: 100%;
   padding: ${(props) =>
-    ({
-      xs: "0 4px",
-      sm: "0 8px",
-      md: "0 0 8px 12px",
-      lg: "0 0 10px 15px",
-    }[props.size || "xs"])};
+  ({
+    xs: "0 4px",
+    sm: "0 8px",
+    md: "0 0 8px 12px",
+    lg: "0 0 10px 15px",
+  }[props.size || "xs"])};
 `;
 
 const Home = (props) => {
   const { homepage, highlight, d1Upcoming, d2Upcoming } = props;
-  const [_isDesktop, _isTablet, isMobile] = useBp();
+  const { isMobile } = useBp();
 
   const { getLongDate } = new Utils();
   const upcomingMatches = [
@@ -104,16 +104,25 @@ const Home = (props) => {
             {upcomingMatches.length > 0 ? (
               upcomingMatches.map((upcomingMatch, idx) => (
                 <>
-                  <Flex alignItems="center">
+                  <Flex alignItems="center" key={idx}>
                     <MatchTeams match={upcomingMatch} />
                     <NextMatchText flex="3" className="next-match__text--date">
                       <NextMatchFont size="sm" color="white">
                         {getLongDate(upcomingMatch.date)[0] ||
                           "No upcoming games"}
+                        {
+                          isMobile &&
+                          <NextMatchFont size="sm" color="white" mt={2}>
+                            {getLongDate(upcomingMatch.date)[1] || "no"}
+                          </NextMatchFont>
+                        }
                       </NextMatchFont>
-                      <NextMatchFont size="sm" color="white">
-                        {getLongDate(upcomingMatch.date)[1] || "no"}
-                      </NextMatchFont>
+                      {
+                        !isMobile &&
+                        <NextMatchFont size="sm" color="white">
+                          {getLongDate(upcomingMatch.date)[1] || "no"}
+                        </NextMatchFont>
+                      }
                       <NextMatchFont size="sm" color="white">
                         {upcomingMatch.location}
                       </NextMatchFont>
@@ -135,6 +144,7 @@ const Home = (props) => {
                     </Box>
                   </Flex>
                   <Divider
+                    mt={2}
                     width={isMobile ? "95%" : "100%"}
                     alignSelf="center"
                     visibility={

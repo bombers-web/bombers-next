@@ -8,7 +8,12 @@ const useBp = () => {
     "(display-mode: browser)",
   ]);
 
-  return [isDesktop, isTablet, isMobile, isDisplayingInBrowser];
+  return {
+    isDesktop,
+    isTablet,
+    isMobile,
+    isDisplayingInBrowser,
+  };
 };
 
 export default useBp;

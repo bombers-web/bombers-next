@@ -9,7 +9,7 @@ import useBp from "../../../theme/useBp";
 
 const Player = ({ player }) => {
   const [direction, setDirection] = useState("row");
-  const [isDesktop] = useBp();
+  const { isDesktop } = useBp();
   const PLAYER_NAME = `${player?.first_name} ${player?.last_name}`;
 
   useEffect(() => {
