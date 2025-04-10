@@ -1,23 +1,26 @@
 // base icon class definition
 // -------------------------
+@use 'variables' as vars;
+@use 'functions' as fa;
+@use 'mixins' as mixins;
 
-.#{$fa-css-prefix} {
-  font-family: var(--#{$fa-css-prefix}-style-family, "#{$fa-style-family}");
-  font-weight: var(--#{$fa-css-prefix}-style, #{$fa-style});
+.#{vars.$fa-css-prefix} {
+  font-family: var(--#{vars.$fa-css-prefix}-style-family, "#{vars.$fa-style-family}");
+  font-weight: var(--#{vars.$fa-css-prefix}-style, #{vars.$fa-style});
 }
 
-.#{$fa-css-prefix},
-.#{$fa-css-prefix}-classic,
-.#{$fa-css-prefix}-sharp,
+.#{vars.$fa-css-prefix},
+.#{vars.$fa-css-prefix}-classic,
+.#{vars.$fa-css-prefix}-sharp,
 .fas,
-.#{$fa-css-prefix}-solid,
+.#{vars.$fa-css-prefix}-solid,
 .far,
-.#{$fa-css-prefix}-regular,
+.#{vars.$fa-css-prefix}-regular,
 .fab,
-.#{$fa-css-prefix}-brands {
+.#{vars.$fa-css-prefix}-brands {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
-  display: var(--#{$fa-css-prefix}-display, #{$fa-display});
+  display: var(--#{vars.$fa-css-prefix}-display, #{vars.$fa-display});
   font-style: normal;
   font-variant: normal;
   line-height: 1;
@@ -25,18 +28,18 @@
 }
 
 .fas,
-.#{$fa-css-prefix}-classic,
-.#{$fa-css-prefix}-solid,
+.#{vars.$fa-css-prefix}-classic,
+.#{vars.$fa-css-prefix}-solid,
 .far,
-.#{$fa-css-prefix}-regular {
+.#{vars.$fa-css-prefix}-regular {
   font-family: "Font Awesome 6 Free";
 }
 
 .fab,
-.#{$fa-css-prefix}-brands {
+.#{vars.$fa-css-prefix}-brands {
   font-family: "Font Awesome 6 Brands";
 }
 
 %fa-icon {
-  @include fa-icon;
+  @include mixins.fa-icon;
 }

@@ -1,13 +1,17 @@
 // variables
 // --------------------------
 
-$fa-css-prefix: fa !default;
+@use 'functions' as fa;
+@use 'sass:string';
+
+
+$fa-css-prefix: 'fa' !default;
 $fa-style: 900 !default;
 $fa-style-family: "Font Awesome 6 Free" !default;
 
 $fa-display: inline-block !default;
 
-$fa-fw-width: fa-divide(20em, 16) !default;
+$fa-fw-width: fa.fa-divide(20em, 16) !default;
 $fa-inverse: #fff !default;
 
 $fa-border-color: #eee !default;
@@ -34,7 +38,7 @@ $fa-sizes: (
 ) !default;
 
 $fa-li-width: 2em !default;
-$fa-li-margin: $fa-li-width * fa-divide(5, 4) !default;
+$fa-li-margin: $fa-li-width * fa.fa-divide(5, 4) !default;
 
 $fa-pull-margin: 0.3em !default;
 

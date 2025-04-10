@@ -100,10 +100,10 @@ export const FooterImage = styled.div`
 export const Copyright = styled(Box)`
   display: grid;
   color: var(--chakra-colors-brand-white);
-  ${(props) => ({
-    ...props,
-  })}
+  ${(props) => props.customStyles && props.customStyles}
 `;
+
+
 
 export const FooterLinks = styled.div`
   display: grid;

@@ -3,8 +3,9 @@
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  * Copyright 2022 Fonticons, Inc.
  */
-@import "functions";
-@import "variables";
+@use "functions" as *;
+@use "variables" as *;
+@use "sass:string";
 
 :root,
 :host {
@@ -28,6 +29,6 @@
 
 @each $name, $icon in $fa-brand-icons {
   .#{$fa-css-prefix}-#{$name}:before {
-    content: unquote('"#{ $icon }"');
+    content: string.unquote('"#{ $icon }"');
   }
 }

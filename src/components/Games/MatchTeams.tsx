@@ -7,7 +7,7 @@ import { MatchType } from "src/types/matchTypes";
 const MatchTeamsContainer = styled(Box)`
   display: flex;
   align-items: center;
-flex: 1;
+  flex: 1;
   margin: 8px 0;
   @media (min-width: 992px) {
     margin: 0 40px 0 0;
@@ -17,7 +17,7 @@ flex: 1;
 const TeamLogoContainer = styled(Box)`
   width: 48px;
   height: 48px;
-display: flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
@@ -58,8 +58,6 @@ const TeamName = styled(Text)`
   text-align: center;
   line-height: 1;
 `;
-
-
 
 const MatchTeams = ({ match }: { match: MatchType }) => {
   const { home, away } = match;

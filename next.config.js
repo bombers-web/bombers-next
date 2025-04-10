@@ -17,4 +17,8 @@ module.exports = {
   images: {
     domains: ["bombers.s3.us-east-1.amazonaws.com", "bombers.s3.amazonaws.com"],
   },
+  sassOptions: {
+    includePaths: ['./public/scss', './theme'],
+    prependData: `@use "sass:math"; @use "sass:string";`
+  },
 };

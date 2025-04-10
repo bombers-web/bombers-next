@@ -2,59 +2,59 @@ import { usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import { useEffect, useState } from "react";
 
 const DonateButton = ({ onApprove }) => {
-  const [{ options }, dispatch] = usePayPalScriptReducer();
-  const [donationAmount, setDonationAmount] = useState("10");
-  const [customAmount, setCustomAmount] = useState(0);
-  const [value, setValue] = useState(10);
+  // const [{ options }, dispatch] = usePayPalScriptReducer();
+  // const [donationAmount, setDonationAmount] = useState("10");
+  // const [customAmount, setCustomAmount] = useState(0);
+  // const [value, setValue] = useState(10);
 
-  useEffect(() => {
-    dispatch({
-      type: "resetOptions",
-      value: { ...options, intent: "capture" },
-    });
-  }, [dispatch, options]);
+  // useEffect(() => {
+  //   dispatch({
+  //     type: "resetOptions",
+  //     value: { ...options, intent: "capture" },
+  //   });
+  // }, [dispatch, options]);
 
-  useEffect(() => {
-    setValue(donationAmount === "custom" ? customAmount : donationAmount);
-  }, [donationAmount, customAmount]);
+  // useEffect(() => {
+  //   setValue(donationAmount === "custom" ? customAmount : donationAmount);
+  // }, [donationAmount, customAmount]);
 
-  const createOrder = (data, actions) => {
-    return actions.order
-      .create({
-        purchase_units: [
-          {
-            amount: {
-              value,
-              breakdown: {
-                item_total: {
-                  currency_code: "USD",
-                  value,
-                },
-              },
-            },
-            items: [
-              {
-                name: "Donation to St. Louis Bombers",
-                quantity: "1",
-                unit_amount: {
-                  currency_code: "USD",
-                  value,
-                },
-                category: "DONATION",
-              },
-            ],
-          },
-        ],
-      })
-      .then((orderId) => orderId);
-  };
+  // const createOrder = (data, actions) => {
+  //   return actions.order
+  //     .create({
+  //       purchase_units: [
+  //         {
+  //           amount: {
+  //             value,
+  //             breakdown: {
+  //               item_total: {
+  //                 currency_code: "USD",
+  //                 value,
+  //               },
+  //             },
+  //           },
+  //           items: [
+  //             {
+  //               name: "Donation to St. Louis Bombers",
+  //               quantity: "1",
+  //               unit_amount: {
+  //                 currency_code: "USD",
+  //                 value,
+  //               },
+  //               category: "DONATION",
+  //             },
+  //           ],
+  //         },
+  //       ],
+  //     })
+  //     .then((orderId) => orderId);
+  // };
 
-  const handleChange = (value) => setDonationAmount(value);
-  const handleCustomAmount = (e) => {
-    e.preventDefault();
-    setCustomAmount(e.currentTarget.value);
-    setDonationAmount("custom");
-  };
+  // const handleChange = (value) => setDonationAmount(value);
+  // const handleCustomAmount = (e) => {
+  //   e.preventDefault();
+  //   setCustomAmount(e.currentTarget.value);
+  //   setDonationAmount("custom");
+  // };
 
   return (
     <>
