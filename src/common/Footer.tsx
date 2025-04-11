@@ -1,4 +1,4 @@
-import { Link, Text } from "@chakra-ui/react";
+import { Link, Text, Box } from "@chakra-ui/react";
 import useNav from "../hooks/useNav";
 import NavLogo from "./NavLogo";
 import Socials from "./Socials";
@@ -14,7 +14,7 @@ import {
 const Footer = (_props) => {
   const { navs, shortest } = useNav(["Club", "Team"]);
   return (
-    <>
+    <Box>
       <FooterContainer id="footer">
         <FooterInfo>
           <NavLogo color="brand.light" />
@@ -48,13 +48,13 @@ const Footer = (_props) => {
             ) : null;
           })}
         </FooterLinks>
-      </FooterContainer>{" "}
-      <Copyright backgroundColor="brand.dark" p="4">
-        <Text size="xs" textAlign="center">
-          <span> © {new Date().getFullYear()} St. Louis Bombers.</span>
+      </FooterContainer>
+      <Copyright backgroundColor="brand.dark">
+        <Text size="xs" textAlign="center" mt={4}>
+          © {new Date().getFullYear()} St. Louis Bombers.
         </Text>
       </Copyright>
-    </>
+    </Box>
   );
 };
 

@@ -10,7 +10,7 @@ import Image from "next/image";
 const Sponsors = ({ forFooter, ...props }) => {
   const [sponsors, setSponsors] = useState([]);
   const [_columns, setColumns] = useState(sponsors.length);
-  const [isDesktop] = useBp();
+  const { isDesktop } = useBp();
 
   useEffect(() => {
     setColumns(isDesktop ? sponsors?.length : 2);

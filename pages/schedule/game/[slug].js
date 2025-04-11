@@ -6,7 +6,7 @@ import Layout from "../../../src/common/Layout";
 import useBp from "../../../theme/useBp";
 
 const ScheduleGame = (props) => {
-  const [isDesktop] = useBp();
+  const { isDesktop } = useBp();
   const router = useRouter();
   const [size, setSize] = useState("md");
   const [game, setGame] = useState({});

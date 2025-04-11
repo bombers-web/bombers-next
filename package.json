@@ -2,6 +2,9 @@
   "name": "stlbombers-web",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=16"
+  },
   "scripts": {
     "init:hard": "rm -rf ./node_modules && rm -rf ./package-lock.json && npm i",
     "develop": "concurrently --kill-others \"next dev\" \"./scripts/mobiledev.sh\"",
@@ -12,7 +15,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "pretty": "prettier . -c",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "lint-staged": "lint-staged"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.0.1",
@@ -64,12 +68,11 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.30.0",
     "eslint-plugin-react-hooks": "^4.5.0",
-    "husky": "^9.0.11",
-    "lint-staged": "^15.2.5",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.0",
     "prettier": "^2.6.2"
   },
   "lint-staged": {
-    "*.{js,jsx}": "eslint --cache --fix",
-    "*.{ts,tsx}": "eslint --cache --fix"
+    "*.{js,jsx, ts, tsx}": "eslint --cache --fix"
   }
 }
