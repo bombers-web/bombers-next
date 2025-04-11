@@ -146,6 +146,8 @@ const Content = ({ content, context }) => {
             m="auto"
             p="8"
             h="100%"
+            bg="brand.white"
+            boxShadow="lg"
             direction="column"
             justifyContent="center"
           >

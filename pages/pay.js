@@ -5,6 +5,7 @@ import React, { useCallback, useState } from "react";
 import Layout from "../src/common/Layout";
 import DuesButtons from "../src/components/Pay/DuesButtons";
 import DonateButton from "../src/components/Pay/DonateButton";
+import Sponsorships from "../src/components/Pay/Sponsorships";
 
 const Pay = () => {
   const [_success, setSuccess] = useState(false);
@@ -73,7 +74,7 @@ const Pay = () => {
         align="center"
         variant="line"
         size="lg"
-        colorScheme="gray"
+        colorScheme="brand.highlight"
         value={selectedTab}
         onChange={onTabChange}
         id="content-tabs"
@@ -92,14 +93,14 @@ const Pay = () => {
         </TabList>
         <TabPanels my="24px">
           <TabPanel textTransform="capitalize">
-            Donations
             <DonateButton></DonateButton>
           </TabPanel>
           <TabPanel textTransform="capitalize">
-            Dues
             <DuesButtons></DuesButtons>
           </TabPanel>
-          <TabPanel textTransform="capitalize">Sponsorships</TabPanel>
+          <TabPanel textTransform="capitalize">
+            <Sponsorships></Sponsorships>
+          </TabPanel>
         </TabPanels>
       </Tabs>
     </Layout>
