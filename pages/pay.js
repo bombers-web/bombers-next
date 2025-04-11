@@ -5,6 +5,7 @@ import React, { useCallback, useState } from "react";
 import Layout from "../src/common/Layout";
 import DuesButtons from "../src/components/Pay/DuesButtons";
 import DonateButton from "../src/components/Pay/DonateButton";
+import Sponsorships from "../src/components/Pay/Sponsorships";
 
 const Pay = () => {
   const [_success, setSuccess] = useState(false);
@@ -97,7 +98,9 @@ const Pay = () => {
           <TabPanel textTransform="capitalize">
             <DuesButtons></DuesButtons>
           </TabPanel>
-          <TabPanel textTransform="capitalize">Sponsorships</TabPanel>
+          <TabPanel textTransform="capitalize">
+            <Sponsorships></Sponsorships>
+          </TabPanel>
         </TabPanels>
       </Tabs>
     </Layout>
