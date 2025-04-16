@@ -40,7 +40,13 @@ const PlayerInfo = ({ player }) => {
   ];
   return (
     <>
-      <SimpleGrid columns={[2, 1, 2]} pl={8} pt={[8, 16]} pr={[0, 36]} pb={[0, 36]}>
+      <SimpleGrid
+        columns={[2, 1, 2]}
+        pl={8}
+        pt={[8, 16]}
+        pr={[0, 36]}
+        pb={[0, 36]}
+      >
         {data?.map(({ label, value }) => {
           return (
             <Stack
