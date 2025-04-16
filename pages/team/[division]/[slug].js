@@ -33,7 +33,7 @@ const Player = ({ player }) => {
         url: player?.hoverPic?.url,
       }}
     >
-      <Stack direction={direction} minH={'inherit'}>
+      <Stack direction={direction} minH={"inherit"}>
         <Center flex={1} bg={"gradient.regular"}>
           <Image
             width={500}
