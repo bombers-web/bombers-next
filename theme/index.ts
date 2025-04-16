@@ -15,7 +15,16 @@ export default extendTheme({
   styles: {
     html: {
       height: "100vh",
-      width: "100%",
+      width: "100vw",
+    },
+    global: {
+      "*": {
+        "&::-webkit-scrollbar": {
+          display: "none",
+        },
+        scrollbarWidth: "none",
+        msOverflowStyle: "none",
+      },
     },
   },
   colors: {

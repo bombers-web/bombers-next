@@ -40,9 +40,7 @@ export default class MyDocument extends Document {
           />
           <link
             rel="shortcut icon"
-            href={getStrapiMedia(
-              global?.favicon || "../public/static/logos/white_logo.png"
-            )}
+            href={getStrapiMedia(global?.favicon || "/favicon.ico")}
           />
           <link
             rel="stylesheet"

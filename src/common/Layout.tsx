@@ -45,7 +45,7 @@ const Layout = ({
           h="100%"
           flex="1 0 100%"
           minH={"80vh"}
-          overflowY="scroll"
+          overflowY="hidden"
           bg={mainBg || "brand.light"}
         >
           {children}

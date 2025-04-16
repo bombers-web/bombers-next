@@ -36,6 +36,7 @@ export const countryCodes = {
   "new zealand": { nationality: "NZ" },
   "south africa": { nationality: "SA" },
   "south african": { nationality: "SA" },
+  peru: { nationality: "PERU" },
   england: { nationality: "ENG" },
   english: { nationality: "ENG" },
   australia: { nationality: "AUS" },
@@ -61,6 +62,7 @@ const flags = {
   SCOTLAND: "🏴󠁧󠁢󠁳󠁣󠁴󠁿",
   COLOMBIA: "🇨🇴",
   SPAIN: "🇪🇸",
+  PERU: "🇵🇪",
 };
 
 export const getNationality = (nationality) => {
