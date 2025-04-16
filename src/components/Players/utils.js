@@ -45,6 +45,8 @@ export const countryCodes = {
   colombia: { nationality: "COLOMBIA" },
   colombian: { nationality: "COLOMBIA" },
   "united states": { nationality: "USA" },
+  usa: { nationality: "USA" },
+  us: { nationality: "USA" },
   spanish: { nationality: "SPAIN" },
   spain: { nationality: "SPAIN" },
 };
