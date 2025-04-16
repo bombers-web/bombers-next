@@ -74,6 +74,12 @@
     "prettier": "^2.8.8"
   },
   "lint-staged": {
-    "*.{js,jsx, ts, tsx}": "eslint --cache --fix"
+    "*.{js,jsx, ts, tsx}": [
+      "eslint --cache --fix",
+      "prettier --write"
+    ],
+    "*.{json,css,md}": [
+      "prettier --write"
+    ]
   }
 }

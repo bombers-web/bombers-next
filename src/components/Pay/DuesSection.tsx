@@ -10,6 +10,7 @@ import {
   Divider,
 } from "@chakra-ui/react";
 import React from "react";
+import Image from "next/image"
 
 interface DuesSubscription {
   description: string;
@@ -109,9 +110,22 @@ const DuesSection = () => {
                   </Text>
                 </VStack>
                 <Link href={`${basePaypalUrl}${planId}`} isExternal w="50%">
-                  <Button w="full" variant="solid">
-                    {description}
-                  </Button>
+                  <Button
+
+
+
+                    w="fit-content"
+                    minW="50%"
+                    variant="solid"
+                    leftIcon={
+                      <Image
+                        src="/icons/paypal_logo.png"
+                        alt="Venmo"
+                        width={100}
+                        height={24}
+                        style={{ paddingRight: 12 }}
+                      />
+                    }/>
                 </Link>
               </Flex>
               <Divider borderColor="brand.light" borderWidth="1px" />

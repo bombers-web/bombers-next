@@ -7,6 +7,7 @@ import {
   Link,
   Button,
 } from "@chakra-ui/react";
+import Image from "next/image";
 
 const DonateSection = () => {
   return (
@@ -45,8 +46,21 @@ const DonateSection = () => {
             isExternal
             w="50%"
           >
-            <Button w="full" variant="solid" size="lg">
-              Donate through PayPal
+            <Button
+              w="full"
+              variant="solid"
+              size="lg"
+              leftIcon={
+                <Image
+                  src="/icons/paypal_logo.png"
+                  alt="Venmo"
+                  width={100}
+                  height={24}
+                  style={{ paddingRight: 12 }}
+                />
+              }
+            >
+              Donate
             </Button>
           </Link>
           <Link
@@ -60,8 +74,17 @@ const DonateSection = () => {
               size="lg"
               backgroundColor="#0074DE"
               color="brand.white"
+              leftIcon={
+                <Image
+                  src="/icons/venmo_logo.png"
+                  alt="Venmo"
+                  width={100}
+                  height={24}
+                  style={{ paddingRight: 12 }}
+                />
+              }
             >
-              Donate through Venmo
+              Donate
             </Button>
           </Link>
         </Flex>
