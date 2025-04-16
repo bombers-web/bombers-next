@@ -49,6 +49,7 @@ const Player = ({ player }) => {
                 base: "contain",
                 sm: "contain",
                 lg: "cover",
+                xl: "contain",
               }),
             }}
             src={player?.picture?.url || "/static/default/defaultpic.png"}
