@@ -40,7 +40,7 @@ const PlayerInfo = ({ player }) => {
   ];
   return (
     <>
-      <SimpleGrid columns={[2, 1, 2]} p={16}>
+      <SimpleGrid columns={[2, 1, 2]} pl={8} pt={[8, 16]} pr={[0, 36]} pb={[0, 36]}>
         {data?.map(({ label, value }) => {
           return (
             <Stack
@@ -59,6 +59,7 @@ const PlayerInfo = ({ player }) => {
                 size="lg"
                 textTransform="capitalize"
                 fontWeight="hairline"
+                mt={0}
               >
                 {value} {getFlag(value)}
               </Heading>

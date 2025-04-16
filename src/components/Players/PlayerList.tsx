@@ -20,8 +20,8 @@ const PlayerList = ({ list = [], type }) => {
   const { forwards, backs } = splitForwardsAndBacks(players);
 
   return (
-    <Flex direction="column" gap="8" bg="brand.white">
-      <Stack direction="column" m="8">
+    <Flex direction="column" gap="8" bg="brand.white" minH={'inherit'}>
+      <Stack direction="column" m="8" >
         {type === "coaches-and-staff" ? (
           <List players={players} title="Coaches and Staff" noClick />
         ) : (
