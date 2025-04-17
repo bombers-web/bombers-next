@@ -8,6 +8,36 @@ import {
   Button,
 } from "@chakra-ui/react";
 import Image from "next/image";
+import { ReactElement } from "react-markdown/lib/react-markdown";
+
+const DonateButton: React.FC<{
+  link: string;
+  leftIcon: ReactElement;
+  textColor?: string;
+  buttonText?: string;
+  backgroundColor?: string;
+}> = ({
+  link,
+  leftIcon,
+  textColor,
+  buttonText = "Donate",
+  backgroundColor,
+}) => {
+  return (
+    <Link href={link} isExternal w={{ base: "100%", md: "50%" }}>
+      <Button
+        w="full"
+        variant="solid"
+        size="lg"
+        backgroundColor={backgroundColor}
+        color={textColor}
+        leftIcon={leftIcon}
+      >
+        {buttonText}
+      </Button>
+    </Link>
+  );
+};
 
 const DonateSection = () => {
   return (
@@ -41,52 +71,32 @@ const DonateSection = () => {
           flexDirection={"column"}
           gap={8}
         >
-          <Link
-            href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=5JQ4TPW3RQ9UA"
-            isExternal
-            w="50%"
-          >
-            <Button
-              w="full"
-              variant="solid"
-              size="lg"
-              leftIcon={
-                <Image
-                  src="/icons/paypal_logo.png"
-                  alt="Venmo"
-                  width={100}
-                  height={24}
-                  style={{ paddingRight: 12 }}
-                />
-              }
-            >
-              Donate
-            </Button>
-          </Link>
-          <Link
-            href="https://account.venmo.com/u/stlbombersrfc"
-            isExternal
-            w="50%"
-          >
-            <Button
-              w="full"
-              variant="solid"
-              size="lg"
-              backgroundColor="#0074DE"
-              color="brand.white"
-              leftIcon={
-                <Image
-                  src="/icons/venmo_logo.png"
-                  alt="Venmo"
-                  width={100}
-                  height={24}
-                  style={{ paddingRight: 12 }}
-                />
-              }
-            >
-              Donate
-            </Button>
-          </Link>
+          <DonateButton
+            link="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=5JQ4TPW3RQ9UA"
+            leftIcon={
+              <Image
+                src="/icons/paypal_logo.png"
+                alt="Paypal"
+                width={100}
+                height={24}
+                style={{ paddingRight: 12 }}
+              />
+            }
+          />
+          <DonateButton
+            link="https://account.venmo.com/u/stlbombersrfc"
+            backgroundColor="#0074DE"
+            textColor="brand.white"
+            leftIcon={
+              <Image
+                src="/icons/venmo_logo.png"
+                alt="Venmo"
+                width={100}
+                height={24}
+                style={{ paddingRight: 12 }}
+              />
+            }
+          />
         </Flex>
       </VStack>
     </Box>
