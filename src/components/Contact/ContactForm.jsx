@@ -10,7 +10,6 @@ import {
   Textarea,
   useToast,
 } from "@chakra-ui/react";
-import { sendEmail } from "src/lib/ses.js";
 import React, { useState } from "react";
 
 const ContactForm = () => {
@@ -32,29 +31,35 @@ const ContactForm = () => {
 
   const handleSubmit = async () => {
     try {
-      await sendEmail({
-        to: "marcom@stlouisbombers.com",
-        subject: "Contact from Website",
-        html: `
-          <!DOCTYPE html>
-          <html lang="en">
-          <head>
+      await fetch("/api/email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          to: "marcom@stlouisbombers.com",
+          subject: "Contact from Website",
+          html: `
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
               <meta charset="UTF-8">
               <meta name="viewport" content="width=device-width, initial-scale=1.0">
               <title>Contact Form Submission</title>
               <style>
-                  body { font-family: sans-serif; }
+                body { font-family: sans-serif; }
               </style>
-          </head>
-          <body>
+            </head>
+            <body>
               <h2>New Contact Form Submission</h2>
               <p><strong>Name:</strong> ${contact.name}</p>
               <p><strong>Phone Number:</strong> ${contact.phone}</p>
               <p><strong>Message:</strong></p> <pre>${contact.message}</pre>
-          </body>
-          </html>
-        `,
-        text: "This is a test email sent using Amazon SES from Next.js!",
+            </body>
+            </html>
+          `,
+          text: "This is a test email sent using Amazon SES from Next.js!",
+        }),
       }).then((response) => {
         toast({
           title: "Email Sent!",
