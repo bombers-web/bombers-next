@@ -2,9 +2,9 @@
 import AWS from "aws-sdk";
 
 const ses = new AWS.SES({
-  accessKeyId: process.env.NEXT_PUBLIC_AWS_ACCESS_KEY_ID,
-  secretAccessKey: process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY,
-  region: process.env.NEXT_PUBLIC_AWS_REGION,
+  accessKeyId: process.env.SES_ACCESS_KEY_ID,
+  secretAccessKey: process.env.SES_SECRET_ACCESS_KEY,
+  region: process.env.SES_REGION,
 });
 
 export async function sendEmail({ to, subject, html, text }) {
@@ -28,7 +28,7 @@ export async function sendEmail({ to, subject, html, text }) {
         Data: subject,
       },
     },
-    Source: process.env.NEXT_PUBLIC_AWS_SES_SENDER_EMAIL,
+    Source: process.env.SES_SENDER_EMAIL,
     // Source: "marcome@stlouisbombers.com",
   };
 
