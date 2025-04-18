@@ -1,24 +1,16 @@
-import * as sgMail from "@sendgrid/mail";
-import { NextApiRequest, NextApiResponse } from "next";
+// pages/api/send-email.js
+import { sendEmail } from "src/lib/ses.js";
 
-export default async function POST(req: NextApiRequest, res: NextApiResponse) {
-  sgMail.setApiKey(process.env.SENDGRID_API_KEY as string);
-
+export default async function handler(req, res) {
   if (req.method === "POST") {
-    const { to, from, replyTo, subject, message } = req.body;
-    const msg = {
-      to: to,
-      from: from,
-      replyTo: replyTo,
-      subject: subject,
-      html: message,
-    };
+    const { to, subject, html, text } = req.body;
+
     try {
-      await sgMail.send(msg);
-      // return NextResponse.json({}, { status: 200 });
-      res.status(200).json({ message: "Hello from the API!" });
+      await sendEmail({ to, subject, html, text });
+      res.status(200).json({ message: "Email sent successfully!" });
     } catch (error) {
-      res.status(200).json({ message: "Oh No!" });
+      console.error("Error sending email:", error);
+      res.status(500).json({ error: "Failed to send email" });
     }
   } else {
     res.setHeader("Allow", ["POST"]);
