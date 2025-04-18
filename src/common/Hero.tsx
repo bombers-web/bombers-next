@@ -106,7 +106,7 @@ const Hero = ({
                 color="brand.light"
                 align={textAlign}
               >
-                {subTitle}
+                {title}
               </Text>
             )}
             {title && (
@@ -121,7 +121,7 @@ const Hero = ({
                 color="white"
                 align={textAlign}
               >
-                {title}
+                {subTitle}
               </Text>
             )}
           </Stack>
