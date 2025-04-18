@@ -103,14 +103,18 @@ const Results = ({ results }) => {
                     color={
                       game.winner?.id === undefined
                         ? "gray"
-                        : game.winner?.id === 17 || game.winner?.id === 23
+                        : game.winner?.id === 2 ||
+                          game.winner?.id === 1 ||
+                          game.winner?.id === 13
                         ? "green"
                         : "red"
                     }
                   >
                     {game.winner?.id === undefined
                       ? "T"
-                      : game.winner?.id === 17 || game.winner?.id === 23
+                      : game.winner?.id === 2 ||
+                        game.winner?.id === 1 ||
+                        game.winner?.id === 13
                       ? "W"
                       : "L"}
                   </Text>
