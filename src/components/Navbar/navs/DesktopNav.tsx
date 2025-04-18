@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 import styled from "@emotion/styled";
 import NavLogo from "../../../common/NavLogo";
 import useNav from "../../../hooks/useNav";
-import LoginButton from "src/common/LoginButton";
 import Socials from "../../../common/Socials";
 
 type MenuItemProps = {

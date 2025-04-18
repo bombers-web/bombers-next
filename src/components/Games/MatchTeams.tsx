@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import Image from "next/image";
 import React from "react";
@@ -43,28 +43,50 @@ const TeamMatchVs = styled.h2`
   }
 `;
 
+const TeamContainer = styled(Box)`
+  margin: 0;
+  padding: 0;
+  justify-items: center;
+`;
+
+const TeamName = styled(Text)`
+  color: var(--chakra-colors-brand-lightSecondary);
+  margin: 0;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  font-size: small;
+  text-align: center;
+  line-height: 1;
+`;
+
 const MatchTeams = ({ match }: { match: MatchType }) => {
   const { home, away } = match;
 
   return (
     <MatchTeamsContainer>
-      <TeamLogoContainer>
-        <Image
-          alt={home?.name}
-          src={home?.logo?.formats.small.url}
-          style={{ objectFit: "cover" }}
-          fill
-        />
-      </TeamLogoContainer>
+      <TeamContainer>
+        <TeamLogoContainer>
+          <Image
+            alt={home?.name}
+            src={home?.logo?.formats.small.url}
+            style={{ objectFit: "cover" }}
+            fill
+          />
+        </TeamLogoContainer>
+        <TeamName>{home.name}</TeamName>
+      </TeamContainer>
       <TeamMatchVs>v</TeamMatchVs>
-      <TeamLogoContainer>
-        <Image
-          alt={away?.name}
-          src={away?.logo?.formats.small.url}
-          style={{ objectFit: "cover" }}
-          fill
-        />
-      </TeamLogoContainer>
+      <TeamContainer>
+        <TeamLogoContainer>
+          <Image
+            alt={away?.name}
+            src={away?.logo?.formats.small.url}
+            style={{ objectFit: "cover" }}
+            fill
+          />
+        </TeamLogoContainer>
+        <TeamName>{away.name}</TeamName>
+      </TeamContainer>
     </MatchTeamsContainer>
   );
 };

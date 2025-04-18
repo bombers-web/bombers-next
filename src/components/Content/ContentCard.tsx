@@ -27,7 +27,7 @@ const ContentCard = ({ content, href }) => {
             transform: `scale(1.05)`,
             boxShadow: "5px 3px 3px grey",
           }}
-          bg="brand.light"
+          bg="brand.white"
           borderRadius={8}
         >
           <Box
@@ -39,8 +39,14 @@ const ContentCard = ({ content, href }) => {
             minW="30%"
             maxW={["container.xl", "100%", "30%"]}
           ></Box>
-          <Flex direction="column">
-            <Box display="flex" alignItems="baseline" m={4} textAlign="start">
+          <Flex direction="column" width="100%">
+            <Box
+              display="flex"
+              alignItems="baseline"
+              m={4}
+              textAlign="start"
+              justifyContent="space-between"
+            >
               <Box fontWeight="semibold" lineHeight="tight" maxW="100%">
                 <Flex
                   alignItems="start"

@@ -10,7 +10,6 @@ import {
   Textarea,
   useToast,
 } from "@chakra-ui/react";
-import axios from "axios";
 import React, { useState } from "react";
 
 const ContactForm = () => {
@@ -32,27 +31,47 @@ const ContactForm = () => {
 
   const handleSubmit = async () => {
     try {
-      await axios
-        .post(`/api/email`, {
-          from: "eric.davidson.dev@gmail.com",
-          // to: "marcom@stlouisbombers.com",
-          to: "eric.davidson.dev@gmail.com",
-          subject: "New Contact Message",
-          message: `Name: ${contact.name}\n
-                Email: ${contact.email}\n
-                Phone Number: ${contact.phone}\n
-                Message: ${contact.message}`,
-        })
-        .then((response) => {
-          toast({
-            title: "Email Sent!",
-            description: "We will get back to you ASAP",
-            status: "success",
-            duration: 3000,
-            isClosable: true,
-          });
+      await fetch("/api/email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          to: "marcom@stlouisbombers.com",
+          subject: "Contact from Website",
+          html: `
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <title>Contact Form Submission</title>
+              <style>
+                body { font-family: sans-serif; }
+              </style>
+            </head>
+            <body>
+              <h2>New Contact Form Submission</h2>
+              <p><strong>Name:</strong> ${contact.name}</p>
+              <p><strong>Email:</strong> ${contact.email}</p>
+              <p><strong>Phone Number:</strong> ${contact.phone}</p>
+              <p><strong>Message:</strong></p> <pre>${contact.message}</pre>
+            </body>
+            </html>
+          `,
+          text: "This is a test email sent using Amazon SES from Next.js!",
+        }),
+      }).then((response) => {
+        toast({
+          title: "Email Sent!",
+          description: "We will get back to you ASAP",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
         });
+      });
     } catch (error) {
+      console.log(error);
       toast({
         title: "Oh no!",
         description: "Something went wrong.",

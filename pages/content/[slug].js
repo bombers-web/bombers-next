@@ -146,6 +146,8 @@ const Content = ({ content, context }) => {
             m="auto"
             p="8"
             h="100%"
+            bg="brand.white"
+            boxShadow="lg"
             direction="column"
             justifyContent="center"
           >
@@ -188,7 +190,7 @@ const Content = ({ content, context }) => {
                 </Box>
               </Box>
             </Flex>
-            <Flex py="4" gap="4px">
+            <Flex py="4" gap="8px">
               <EmailShareButton>
                 <EmailIcon size={32} round></EmailIcon>
               </EmailShareButton>

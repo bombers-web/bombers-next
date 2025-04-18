@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Link, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Divider, Link, Text } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import MatchTeams from "components/Games/MatchTeams";
 import PageContent from "src/common/PageContent";
@@ -7,6 +7,9 @@ import Layout from "../src/common/Layout";
 import Section from "../src/components/Section";
 import { fetchAPI } from "../src/lib/api";
 import Utils from "../utils/Utils";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlay } from "@fortawesome/free-solid-svg-icons";
+import useBp from "../theme/useBp";
 
 const NextMatchText = styled(Box)`
   color: "#fff";
@@ -15,6 +18,7 @@ const NextMatchText = styled(Box)`
   line-height: 22px;
   display: flex;
   align-items: center;
+  justify-content: space-evenly;
   .next-match__text--date {
     margin-bottom: 4px;
     display: -webkit-box;
@@ -48,16 +52,16 @@ const NextMatchFont = styled(Box)<{ size?: "xs" | "sm" | "md" | "lg" }>`
     }[props.size || "xs"])};
   line-height: ${(props) =>
     ({
-      xs: "20px",
-      sm: "22px",
-      md: "26px",
-      lg: "34px",
+      xs: "14px",
+      sm: "16px",
+      md: "20px",
+      lg: "24px",
     }[props.size || "xs"])};
   font-weight: ${(props) => (props.size !== "lg" ? "400" : "700")};
   font-size: ${(props) =>
     ({
       xs: "12px",
-      sm: "16px",
+      sm: "14px",
       md: "18px",
       lg: "26px",
     }[props.size || "xs"])};
@@ -67,16 +71,20 @@ const NextMatchFont = styled(Box)<{ size?: "xs" | "sm" | "md" | "lg" }>`
     ({
       xs: "0 4px",
       sm: "0 8px",
-      md: "0 12px",
-      lg: "0 15px",
+      md: "0 0 8px 12px",
+      lg: "0 0 10px 15px",
     }[props.size || "xs"])};
-  flex: 0;
 `;
 
 const Home = (props) => {
   const { homepage, highlight, d1Upcoming, d2Upcoming } = props;
+  const { isMobile } = useBp();
+
   const { getLongDate } = new Utils();
-  const upcoming = d1Upcoming[0] ? d1Upcoming : d2Upcoming;
+  const upcomingMatches = [
+    ...d1Upcoming.slice(0, 1),
+    ...d2Upcoming.slice(0, 1),
+  ];
 
   return (
     <Layout seo={homepage?.seo} bg="brand.light" id="homepage">
@@ -87,54 +95,66 @@ const Home = (props) => {
           padding="0px"
           style={{
             display: "flex",
-            // height: "150px",
             justifyContent: "center",
           }}
           align="center"
         >
-          <Box
-            py="12px"
-            display="flex"
-            flexWrap="wrap"
-            justifyContent="center"
-            flexDirection="row"
-            alignItems="center"
-            maxW="1180px"
-            w="100%"
-            // my={10}
-          >
+          <Flex flexDirection="column" textAlign="center" my="10px">
             <NextMatchFont size="lg">Next Up:</NextMatchFont>
-            {upcoming[0] ? (
-              <>
-                <MatchTeams match={upcoming?.[0]} />
-                <NextMatchText flex="2" className="next-match__text--date">
-                  <Flex gap="3" flex="2">
-                    <NextMatchFont size="sm" color="white">
-                      {getLongDate(upcoming?.[0].date)[0] ||
-                        "No upcoming games"}
-                    </NextMatchFont>
-                    <NextMatchFont size="sm" color="white">
-                      {getLongDate(upcoming?.[0].date)[1] || "no"}
-                    </NextMatchFont>
+            {upcomingMatches.length > 0 ? (
+              upcomingMatches.map((upcomingMatch, idx) => (
+                <>
+                  <Flex alignItems="center" key={idx}>
+                    <MatchTeams match={upcomingMatch} />
+                    <NextMatchText flex="3" className="next-match__text--date">
+                      <NextMatchFont size="sm" color="white">
+                        {getLongDate(upcomingMatch.date)[0] ||
+                          "No upcoming games"}
+                        {isMobile && (
+                          <NextMatchFont size="sm" color="white" mt={2}>
+                            {getLongDate(upcomingMatch.date)[1] || "no"}
+                          </NextMatchFont>
+                        )}
+                      </NextMatchFont>
+                      {!isMobile && (
+                        <NextMatchFont size="sm" color="white">
+                          {getLongDate(upcomingMatch.date)[1] || "no"}
+                        </NextMatchFont>
+                      )}
+                      <NextMatchFont size="sm" color="white">
+                        {upcomingMatch.location}
+                      </NextMatchFont>
+                    </NextMatchText>
+                    <Box flex="1" justifyContent="space-around" p="0 8px">
+                      <Link href="/watch">
+                        <Button variant="outline" p={isMobile ? 0 : "auto"}>
+                          {isMobile ? (
+                            <FontAwesomeIcon
+                              icon={faPlay}
+                              color="gold"
+                              size="sm"
+                            />
+                          ) : (
+                            <>Watch Info</>
+                          )}
+                        </Button>
+                      </Link>
+                    </Box>
                   </Flex>
-                </NextMatchText>
-                <NextMatchText flex="2">
-                  <NextMatchFont size="md" color="white">
-                    {upcoming?.[0].location}
-                  </NextMatchFont>
-                </NextMatchText>
-                <Box flex="1">
-                  <Link href="/watch">
-                    <Button m={5} variant="outline">
-                      Watch Info
-                    </Button>
-                  </Link>
-                </Box>
-              </>
+                  <Divider
+                    mt={2}
+                    width={isMobile ? "95%" : "100%"}
+                    alignSelf="center"
+                    visibility={
+                      idx === upcomingMatches.length - 1 ? "hidden" : "visible"
+                    }
+                  />
+                </>
+              ))
             ) : (
               <Text color="gold">There are no upcoming scheduled games</Text>
             )}
-          </Box>
+          </Flex>
         </Section>
       </PageContent>
     </Layout>

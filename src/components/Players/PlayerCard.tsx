@@ -50,21 +50,31 @@ const PlayerCard = ({
       >
         <Flex
           id="text-content"
-          p="0 0 16px 20px"
+          pl={[4, 2, 3, 4]}
+          pb={[4, 2, 3, 4]}
           direction="column"
           w="100%"
-          alignSelf="flex-end"
+          position="absolute"
+          bottom={0}
+          left={0}
         >
           <Heading
             m={0}
             color="brand.white"
             fontWeight="bold"
             textTransform="uppercase"
-            fontSize="2em"
+            fontSize={[24, 14, 24, 34]}
           >
             {displayName}
           </Heading>
-          <Text color="brand.meta" textTransform="capitalize" fontWeight="300">
+          <Text
+            color="brand.meta"
+            textTransform="capitalize"
+            fontWeight="300"
+            mt={0}
+            mb={[3, 0, 2, 3]}
+            fontSize={[20, 12, 18, 24]}
+          >
             {getPosition(position)}
           </Text>
         </Flex>

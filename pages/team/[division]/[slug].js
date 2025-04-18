@@ -1,4 +1,4 @@
-import { Center, Stack, Flex } from "@chakra-ui/react";
+import { Center, Stack, useBreakpointValue } from "@chakra-ui/react";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { fetchAPI } from "src/lib/api";
@@ -9,7 +9,7 @@ import useBp from "../../../theme/useBp";
 
 const Player = ({ player }) => {
   const [direction, setDirection] = useState("row");
-  const [isDesktop] = useBp();
+  const { isDesktop } = useBp();
   const PLAYER_NAME = `${player?.first_name} ${player?.last_name}`;
 
   useEffect(() => {
@@ -33,20 +33,30 @@ const Player = ({ player }) => {
         url: player?.hoverPic?.url,
       }}
     >
-      <Stack direction={direction}>
-        <Center flex={1} bg={"gradient.regular"}>
+      <Stack direction={direction} minH={"inherit"}>
+        <Center
+          flex={1}
+          bg={"gradient.regular"}
+          position="relative"
+          minH={{ base: "500px", md: "400px" }}
+          w="full"
+        >
           <Image
-            width={500}
-            height={500}
-            fit={player?.picture?.size > 3000 ? "cover" : "contain"}
+            fill
+            sizes="(max-width: 768px) 100vw, 50vw"
+            style={{
+              objectFit: useBreakpointValue({
+                base: "contain",
+                sm: "contain",
+                lg: "cover",
+                xl: "contain",
+              }),
+            }}
             src={player?.picture?.url || "/static/default/defaultpic.png"}
-            size="xl"
             alt={PLAYER_NAME + " profile pic"}
           />
         </Center>
-        <Flex flex={1}>
-          <PlayerInfo w="50%" player={player} />
-        </Flex>
+        <PlayerInfo w="50%" player={player} />
       </Stack>
     </Layout>
   );

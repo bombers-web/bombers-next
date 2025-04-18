@@ -34,7 +34,7 @@ const Layout = ({
   id,
 }: PropsWithChildren<LayoutProps>) => {
   return (
-    <Box id={id} h="100%">
+    <Box id={id}>
       <Seo seo={seo} />
       <Flex direction="column" bg={bg} id="layout">
         <Nav as="nav" />
@@ -44,8 +44,8 @@ const Layout = ({
           as="main"
           h="100%"
           flex="1 0 100%"
-          // maxH={1200}
-          overflowY="scroll"
+          minH={"80vh"}
+          overflowY="hidden"
           bg={mainBg || "brand.light"}
         >
           {children}

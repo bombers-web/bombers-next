@@ -1,4 +1,4 @@
-import { Heading, SimpleGrid, Stack } from "@chakra-ui/react";
+import { Heading, SimpleGrid, Stack, Flex } from "@chakra-ui/react";
 import { formatDate } from "../../../utils/formatDate.js";
 import { getFlag, getNationality, getPosition } from "./utils";
 
@@ -38,9 +38,21 @@ const PlayerInfo = ({ player }) => {
       value: getPosition(player?.position || 2),
     },
   ];
+
   return (
-    <>
-      <SimpleGrid columns={[2, 1, 2]} p={16}>
+    <Flex
+      flex={1}
+      flexDirection={"column"}
+      pl={8}
+      pt={[0, 0, 8, 16]}
+      pr={[0, 16, 0, 16]}
+      pb={[0, 36]}
+      gap={[0, 0, 8, 16]}
+    >
+      <Heading pt={0}>
+        {player?.first_name} {player?.last_name}
+      </Heading>
+      <SimpleGrid columns={[2, 1, 2]}>
         {data?.map(({ label, value }) => {
           return (
             <Stack
@@ -49,7 +61,7 @@ const PlayerInfo = ({ player }) => {
               spacing="3"
               direction="column"
               marginRight="5"
-              marginLeft="5"
+              key={label}
             >
               <Heading color="brand.medium" size="xs" as="div" minW="80px">
                 {label}:
@@ -59,6 +71,7 @@ const PlayerInfo = ({ player }) => {
                 size="lg"
                 textTransform="capitalize"
                 fontWeight="hairline"
+                mt={0}
               >
                 {value} {getFlag(value)}
               </Heading>
@@ -66,7 +79,7 @@ const PlayerInfo = ({ player }) => {
           );
         })}
       </SimpleGrid>
-    </>
+    </Flex>
   );
 };
 

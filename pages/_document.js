@@ -28,6 +28,7 @@ export default class MyDocument extends Document {
       sheet.seal();
     }
   }
+
   render() {
     return (
       <Html>
@@ -38,10 +39,7 @@ export default class MyDocument extends Document {
             href="https://fonts.gstatic.com"
             crossOrigin="true"
           />
-          <link
-            rel="shortcut icon"
-            href={getStrapiMedia(global?.favicon || "/images/logo.png")}
-          />
+          <link rel="shortcut icon" href="/favicon.ico" />
           <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Staatliches"

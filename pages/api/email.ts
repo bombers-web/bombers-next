@@ -1,23 +1,55 @@
-import * as sgMail from "@sendgrid/mail";
-import { NextApiRequest, NextApiResponse } from "next";
+import AWS from "aws-sdk";
 
-export default async function POST(req: NextApiRequest, res: NextApiResponse) {
-  sgMail.setApiKey(process.env.SENDGRID_API_KEY as string);
+const ses = new AWS.SES({
+  accessKeyId: process.env.SES_ACCESS_KEY_ID,
+  secretAccessKey: process.env.SES_SECRET_ACCESS_KEY,
+  region: process.env.SES_REGION,
+});
 
+async function sendEmail({ to, subject, html, text }) {
+  const params = {
+    Destination: {
+      ToAddresses: Array.isArray(to) ? to : [to], // Ensure 'to' is an array
+    },
+    Message: {
+      Body: {
+        Html: {
+          Charset: "UTF-8",
+          Data: html,
+        },
+        Text: {
+          Charset: "UTF-8",
+          Data: text,
+        },
+      },
+      Subject: {
+        Charset: "UTF-8",
+        Data: subject,
+      },
+    },
+    Source: process.env.SES_SENDER_EMAIL,
+  };
+
+  try {
+    const data = await ses.sendEmail(params).promise();
+    console.log("Email sent:", data);
+    return data;
+  } catch (err) {
+    console.error("Error sending email:", err);
+    throw err;
+  }
+}
+
+export default async function handler(req, res) {
   if (req.method === "POST") {
-    const { to, from, subject, message } = req.body;
-    const msg = {
-      to: to,
-      from: from,
-      subject: subject,
-      html: message,
-    };
+    const { to, subject, html, text } = req.body;
+
     try {
-      await sgMail.send(msg);
-      // return NextResponse.json({}, { status: 200 });
-      res.status(200).json({ message: "Hello from the API!" });
+      await sendEmail({ to, subject, html, text });
+      res.status(200).json({ message: "Email sent successfully!" });
     } catch (error) {
-      res.status(200).json({ message: "Oh No!" });
+      console.error("Error sending email:", error);
+      res.status(500).json({ error: "Failed to send email" });
     }
   } else {
     res.setHeader("Allow", ["POST"]);
