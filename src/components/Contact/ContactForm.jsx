@@ -53,6 +53,7 @@ const ContactForm = () => {
             <body>
               <h2>New Contact Form Submission</h2>
               <p><strong>Name:</strong> ${contact.name}</p>
+              <p><strong>Email:</strong> ${contact.email}</p>
               <p><strong>Phone Number:</strong> ${contact.phone}</p>
               <p><strong>Message:</strong></p> <pre>${contact.message}</pre>
             </body>
