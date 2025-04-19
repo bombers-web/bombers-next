@@ -81,10 +81,10 @@ const Home = (props) => {
   const { isMobile } = useBp();
 
   const { getLongDate } = new Utils();
-  const upcomingMatches = [
-    ...d1Upcoming.slice(0, 1),
-    ...d2Upcoming.slice(0, 1),
-  ];
+  const upcomingMatches =
+    d1Upcoming || d2Upcoming
+      ? [...d1Upcoming?.slice(0, 1), ...d2Upcoming?.slice(0, 1)]
+      : [];
 
   return (
     <Layout seo={homepage?.seo} bg="brand.light" id="homepage">
