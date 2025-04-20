@@ -37,7 +37,7 @@ const News = ({ content, categories }) => {
           <Tab fontSize="xl" fontWeight="bold">
             Latest
           </Tab>
-          {categories.map((category) => (
+          {categories?.map((category) => (
             <Tab
               fontSize="xl"
               fontWeight="bold"
@@ -57,7 +57,7 @@ const News = ({ content, categories }) => {
                 ))
               : "No Content"}
           </TabPanel>
-          {categories.map((category) => {
+          {categories?.map((category) => {
             return (
               <TabPanel textTransform="capitalize" key={category}>
                 {category.contents?.length
@@ -84,11 +84,11 @@ export async function getStaticProps() {
   const categories =
     (await fetchAPI(
       `/categories?populate[0]=contents&populate[1]=contents.image&populate[2]=contents.category&populate[3]=contents.writer`
-    )) || {};
+    )) || [];
   const content =
     (await fetchAPI(
       `/contents?populate[0]=writer.picture&populate[1]=image&populate[2]=category&sort[0]=published:desc`
-    )) || {};
+    )) || [];
 
   return {
     props: { categories, content },
