@@ -3,6 +3,7 @@ import Mdx from "../../../src/common/Mdx";
 import PageContent from "../../../src/common/PageContent";
 import Layout from "../../../src/common/Layout";
 import { fetchAPI } from "../../../src/lib/api";
+import { Block } from "src/types/pageTypes";
 
 const ClubHistory = ({ history }) => {
   return (
@@ -19,7 +20,7 @@ const ClubHistory = ({ history }) => {
       }}
     >
       <PageContent>
-        {history?.section?.map((section) => {
+        {history?.section?.map((section: Block) => {
           return (
             <Box maxH="100%" my="8" mx="auto" p="8" maxW="5xl">
               <Box>

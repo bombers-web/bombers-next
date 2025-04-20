@@ -56,12 +56,18 @@ function useNav(type?: undefined | String | Array<string>): DefaultNavs {
           slug: "club/board",
           bg: "",
         },
-        // {
-        //   name: "bombers career center",
-        //   id: "youth-rugby",
-        //   slug: "/club/career-center",
-        //   bg: "",
-        // },
+        {
+          name: "Practice",
+          id: "practice",
+          slug: "club/practice",
+          bg: "/static/willmore_park.jpg",
+        },
+        {
+          name: "Youth Rugby",
+          id: "youth-rugby",
+          slug: "club/youth-rugby",
+          bg: "/static/jets_mark.jpg",
+        },
       ],
     },
 

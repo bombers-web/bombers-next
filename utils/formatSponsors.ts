@@ -42,7 +42,7 @@ export const formatSponsors = (
     acc[level].push({
       id: sponsor.id,
       name: sponsor.name,
-      logo: sponsor.image.url,
+      logo: sponsor?.image?.url,
       // Add website if needed in the future
     });
 
