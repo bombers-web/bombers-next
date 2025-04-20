@@ -244,7 +244,7 @@ const Content = ({ content, context }) => {
 };
 
 export async function getStaticPaths() {
-  const contents = await fetchAPI("/contents?populate=*");
+  const contents = (await fetchAPI("/contents?populate=*")) || [];
   return {
     paths: contents.map((content) => ({
       params: {

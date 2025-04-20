@@ -93,7 +93,7 @@ const Dynamic = ({ page }) => {
 };
 
 export async function getStaticPaths() {
-  const pages = await fetchAPI("/pages?populate=*");
+  const pages = (await fetchAPI("/pages?populate=*")) || [];
   return {
     paths: pages.map((page) => ({
       params: {

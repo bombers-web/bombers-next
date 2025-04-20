@@ -13,3 +13,5 @@ node_modules
 .env.development
 .env.production
 .eslintcache
+.env.development
+.env.production

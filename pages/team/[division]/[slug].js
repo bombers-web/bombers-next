@@ -63,7 +63,7 @@ const Player = ({ player }) => {
 };
 
 export async function getStaticPaths() {
-  const players = await fetchAPI("/players?populate=*");
+  const players = (await fetchAPI("/players?populate=*")) || [];
   return {
     paths: players.map((player) => ({
       params: {

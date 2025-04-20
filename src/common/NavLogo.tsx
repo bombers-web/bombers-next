@@ -16,18 +16,11 @@ export type NavLogoProps = {
   styles?: any;
 };
 
-const defaultProps: NavLogoProps = {
-  size: "md",
-  color: "default",
-  logoOnly: false,
-  disableGutters: false,
-};
-
 const NavLogo = ({
-  size,
-  color,
-  logoOnly,
-  disableGutters,
+  size = "md",
+  color = "default",
+  logoOnly = false,
+  disableGutters = false,
   styles,
 }: NavLogoProps) => {
   const dims = {
@@ -129,5 +122,4 @@ const NavLogo = ({
   );
 };
 
-NavLogo.defaultProps = defaultProps;
 export default NavLogo;

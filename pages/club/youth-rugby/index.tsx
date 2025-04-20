@@ -8,7 +8,7 @@ import { Block } from "src/types/pageTypes";
 const defaultJetsPics = [
   "/static/jets_team_2.jpg",
   "/static/lucas_jets.jpg",
-  "/static/jets_team_1.jpg",
+  "/static/jets_team.jpg",
   "/static/jets_mark.jpg",
 ];
 
