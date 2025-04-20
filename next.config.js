@@ -11,10 +11,13 @@ module.exports = {
   },
   // largePageDataBytes: 135,
   env: {
-    strapi: "https://bombers-backend.herokuapp.com/api",
+    strapi: "https://strapi.stlouisbombers.com/api",
     HOST_URL: "https://www.stlouisbombers.com",
   },
   images: {
-    domains: ["bombers.s3.us-east-1.amazonaws.com", "bombers.s3.amazonaws.com"],
+    domains: [
+      "s3-stlbombers-web.s3.us-east-2.amazonaws.com",
+      "s3-stlbombers-webF.s3.amazonaws.com",
+    ],
   },
 };
