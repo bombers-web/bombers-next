@@ -1,3 +1,5 @@
+import { revalidatePath } from "next/cache";
+
 export function getStrapiURL(path = "") {
   return `${process.env.strapi}${path}`;
 }
@@ -8,6 +10,7 @@ export async function fetchAPI(path) {
   try {
     const response = await fetch(requestUrl);
     const json = await response?.json();
+    revalidatePath(path.split("?")[0]);
     return json.data;
   } catch (error) {
     console.error("Something went wrong", error);
