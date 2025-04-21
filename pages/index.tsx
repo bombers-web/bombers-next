@@ -185,6 +185,7 @@ export async function getStaticProps() {
       d2Upcoming,
       highlight: homeCta?.content || null,
     },
+    revalidate: 60,
   };
 }
 
