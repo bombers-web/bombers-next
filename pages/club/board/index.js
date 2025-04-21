@@ -4,8 +4,6 @@ import { Heading, SimpleGrid, Box } from "@chakra-ui/react";
 import { fetchAPI } from "src/lib/api";
 import BoardCard from "../../../src/components/Board/BoardCard";
 
-export const revalidate = 0;
-
 const Board = (props) => {
   const { members } = props;
   return (

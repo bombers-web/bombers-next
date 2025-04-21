@@ -4,8 +4,6 @@ import PlayerList from "../../../src/components/Players/PlayerList";
 import { fetchAPI } from "../../../src/lib/api";
 import { startCase } from "lodash";
 
-export const revalidate = 0;
-
 const Players = ({ list, division }) => {
   const covers = {
     d1: "/static/d1_team.jpeg",

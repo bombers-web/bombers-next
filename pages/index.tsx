@@ -11,8 +11,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import useBp from "../theme/useBp";
 
-export const revalidate = 0;
-
 const NextMatchText = styled(Box)`
   color: "#fff";
   font-weight: 500;
