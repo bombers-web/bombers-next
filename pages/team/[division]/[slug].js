@@ -7,6 +7,8 @@ import PlayerInfo from "../../../src/components/Players/PlayerInfo";
 import { getPosition } from "../../../src/components/Players/utils";
 import useBp from "../../../theme/useBp";
 
+export const revalidate = 0;
+
 const Player = ({ player }) => {
   const [direction, setDirection] = useState("row");
   const { isDesktop } = useBp();
@@ -82,7 +84,6 @@ export async function getStaticProps({ params }) {
     )) || {};
   return {
     props: { player },
-    revalidate: 60,
   };
 }
 

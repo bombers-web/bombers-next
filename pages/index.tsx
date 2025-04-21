@@ -11,6 +11,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import useBp from "../theme/useBp";
 
+export const revalidate = 0;
+
 const NextMatchText = styled(Box)`
   color: "#fff";
   font-weight: 500;
@@ -185,7 +187,6 @@ export async function getStaticProps() {
       d2Upcoming,
       highlight: homeCta?.content || null,
     },
-    revalidate: 60,
   };
 }
 
