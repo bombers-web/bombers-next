@@ -103,14 +103,14 @@ const Results = ({ results }) => {
                     color={
                       game.winner?.id === undefined
                         ? "gray"
-                        : game.winner?.id === 17 || game.winner?.id === 23
+                        : game.winner.name.includes("St. Louis Bombers")
                         ? "green"
                         : "red"
                     }
                   >
                     {game.winner?.id === undefined
                       ? "T"
-                      : game.winner?.id === 17 || game.winner?.id === 23
+                      : game.winner.name.includes("St. Louis Bombers")
                       ? "W"
                       : "L"}
                   </Text>
