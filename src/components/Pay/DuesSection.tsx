@@ -17,6 +17,7 @@ interface DuesSubscription {
   planId: string;
   cost: number;
   type: "monthly" | "one-time";
+  benefits: string;
 }
 
 const DuesSection = () => {
@@ -50,24 +51,58 @@ const DuesSection = () => {
       planId: "P-9NL41251R87142636MDWJ6MI",
       cost: 30,
       type: "monthly",
+      benefits: "",
     },
     {
       description: "Sr. Dues - One-time",
       planId: "P-0N256970XA1578740MEEWG5Y",
       cost: 360,
       type: "one-time",
+      benefits: "",
     },
     {
       description: "Rookie Dues - Monthly",
       planId: "P-11C84787D0814841GMD7WLZY",
       cost: 20,
       type: "monthly",
+      benefits: "",
     },
     {
       description: "Rookie Dues - One-time",
       planId: "P-3FS120372Y6760101MEEWFVI",
       cost: 240,
       type: "one-time",
+      benefits: "",
+    },
+    // {
+    //   description: "Alumni Dues - Monthly",
+    //   planId: "P-4BW2104986602192HMQ2NUII",
+    //   cost: 10,
+    //   type: "monthly",
+    //   benefits: "Official club membership and free beer at home matches.",
+    // },
+    {
+      description: "Bombers Alumni Dues - Tier 1",
+      planId: "P-2N692775Y6541725DMITZLHA",
+      cost: 10,
+      type: "monthly",
+      benefits: "Official club membership and free beer at home matches.",
+    },
+    {
+      description: "Bombers Alumni Dues - Tier 2",
+      planId: "P-3W902499R0041970WML73FOA",
+      cost: 20,
+      type: "monthly",
+      benefits:
+        "Official club membership, free beer at home matches, annual polo and voting rights at Annual General Meeting.",
+    },
+    {
+      description: "Bombers Alumni Dues - Tier 3",
+      planId: "P-44T80983CU5880629ML73GMI",
+      cost: 30,
+      type: "monthly",
+      benefits:
+        "Official club membership free beer at home matches annual polo voting rights at AGM and free entry to the Annual Award Banquet.",
     },
   ];
 
@@ -91,7 +126,7 @@ const DuesSection = () => {
           borderRadius="md"
         >
           <Heading size="lg" mb={2} textAlign="center">
-            Player Dues
+            Club Dues
           </Heading>
           <Text textAlign="center" mt={0}>
             Select your dues payment option below:{" "}

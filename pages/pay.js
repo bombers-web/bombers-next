@@ -43,7 +43,7 @@ const Pay = () => {
             Donations
           </Tab>
           <Tab fontSize="m" fontWeight="bold">
-            Player Dues
+            Club Dues
           </Tab>
           <Tab fontSize="m" fontWeight="bold">
             Sponsors
