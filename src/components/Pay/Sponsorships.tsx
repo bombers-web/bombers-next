@@ -64,6 +64,7 @@ const Sponsorships = ({ sponsors }) => {
                     borderWidth="1px"
                     borderRadius="md"
                     p={4}
+                    bg="black"
                   >
                     <Image
                       src={logo}
@@ -72,7 +73,9 @@ const Sponsorships = ({ sponsors }) => {
                       objectFit="contain"
                       mb={2}
                     />
-                    <Text fontWeight="semibold">{name}</Text>
+                    <Text fontWeight="semibold" color="white">
+                      {name}
+                    </Text>
                     {website && (
                       <Text>
                         <a
