@@ -94,7 +94,7 @@ const Hero = ({
             alignItems="center"
             id="hero-text-container"
           >
-            {subTitle && (
+            {title && (
               <Text
                 letterSpacing="3px"
                 fontWeight="normal"
@@ -106,10 +106,10 @@ const Hero = ({
                 color="brand.light"
                 align={textAlign}
               >
-                {subTitle}
+                {title}
               </Text>
             )}
-            {title && (
+            {subTitle && (
               <Text
                 letterSpacing="3px"
                 fontWeight="bolder"
@@ -121,7 +121,7 @@ const Hero = ({
                 color="white"
                 align={textAlign}
               >
-                {title}
+                {subTitle}
               </Text>
             )}
           </Stack>
