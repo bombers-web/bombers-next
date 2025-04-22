@@ -33,7 +33,17 @@ const YouthRugby = ({ youthRugby }) => {
           section.imagePosition === "end" ? "row" : "row-reverse";
 
         return (
-          <Flex flexDirection="column" m="8" p="8" gap="8" key={section.id}>
+          <Flex
+            flexDirection="column"
+            m="8"
+            p="8"
+            gap="8"
+            key={section.id}
+            bg="brand.white"
+            borderRadius="md"
+            boxShadow="md"
+            maxWidth="1140px"
+          >
             <Box>
               <Heading m={0} size="xl">
                 {section.title}

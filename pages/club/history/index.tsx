@@ -23,14 +23,22 @@ const ClubHistory = ({ history }) => {
         {history?.section?.map((section: Block) => {
           return (
             <Box maxH="100%" my="8" mx="auto" p="8" maxW="5xl">
-              <Box>
-                <Heading size="xl">{section.title}</Heading>
-                <Heading size="sm" color="brand.medium">
-                  {section.subtitle}
-                </Heading>
-              </Box>
-              <Box>
-                <Mdx>{section.content}</Mdx>
+              <Box
+                p={4}
+                bg="brand.white"
+                borderRadius="md"
+                boxShadow="md"
+                maxWidth="1140px"
+              >
+                <Box>
+                  <Heading size="xl">{section.title}</Heading>
+                  <Heading size="sm" color="brand.medium">
+                    {section.subtitle}
+                  </Heading>
+                </Box>
+                <Box>
+                  <Mdx>{section.content}</Mdx>
+                </Box>
               </Box>
             </Box>
           );
