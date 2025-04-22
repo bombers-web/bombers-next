@@ -67,8 +67,8 @@ export async function getStaticPaths() {
   return {
     paths: players.map((player) => ({
       params: {
-        division: player?.division?.toString().toLowerCase() || "D1",
-        slug: player?.slug || "shawn-caradine",
+        division: player?.division?.toString() || "D1",
+        slug: player?.slug || "eric-davidson",
       },
     })),
     fallback: true,
