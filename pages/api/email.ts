@@ -33,7 +33,7 @@ async function sendEmail({ to, subject, html, text }) {
           Data: subject,
         },
       },
-      Source: process.env.SES_SENDER_EMAIL || "marcom@stlouisbombers.com",
+      Source: process.env.SES_SENDER_EMAIL,
     };
 
     // Use async/await instead of promise chains
@@ -47,8 +47,24 @@ async function sendEmail({ to, subject, html, text }) {
 }
 
 export default async function handler(req, res) {
-  const recipientEmail =
-    process.env.SES_RECIPIENT_EMAIL || "marcom@stlouisbombers.com";
+  const requiredVars = [
+    "SES_ACCESS_KEY_ID",
+    "SES_SECRET_ACCESS_KEY",
+    "SES_REGION",
+    "SES_SENDER_EMAIL",
+    "SES_RECIPIENT_EMAIL",
+  ];
+
+  const missingVars = requiredVars.filter((varName) => !process.env[varName]);
+
+  if (missingVars.length > 0) {
+    console.error("Missing required environment variables:", missingVars);
+    return res.status(500).json({
+      error: "Server configuration error",
+    });
+  }
+
+  const recipientEmail = process.env.SES_RECIPIENT_EMAIL;
 
   if (req.method !== "POST") {
     res.setHeader("Allow", ["POST"]);
