@@ -45,7 +45,7 @@ const Socials = ({
       alignItems="center"
       spacing={2}
     >
-      <HStack spacing={size === "xl" ? 8 : 0}>
+      <HStack spacing={size === "xl" ? 8 : 2}>
         {socials.map((page) => {
           return (
             <Link href={page?.url} key={page?.url} passHref legacyBehavior>

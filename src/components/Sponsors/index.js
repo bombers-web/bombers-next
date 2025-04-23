@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { Box, Wrap, WrapItem, Flex } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import Pic from "../../common/Pic";
 import useBp from "../../../theme/useBp";
@@ -27,12 +27,11 @@ const Sponsors = ({ forFooter, ...props }) => {
   }, []);
 
   return forFooter ? (
-    <Flex direction="row">
-      {/* <Wrap> */}
+    <Flex direction="row" flexWrap={"wrap"} gap={4} justifyContent={"center"}>
       {sponsors?.map((sponsor) => {
         const logo = sponsor?.image?.url || sponsor.logo;
         return (
-          <WrapItem key={sponsor?.name}>
+          <Box key={sponsor?.name}>
             <Pic
               style={{
                 width: 60,
@@ -43,10 +42,9 @@ const Sponsors = ({ forFooter, ...props }) => {
               src={logo}
               fit="contain"
             ></Pic>
-          </WrapItem>
+          </Box>
         );
       })}
-      {/* </Wrap> */}
     </Flex>
   ) : (
     <SponsorContainer>
