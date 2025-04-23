@@ -55,7 +55,8 @@
     "remark-gfm": "^3.0.1",
     "sass": "^1.54.9",
     "stripe": "^11.4.0",
-    "styled-components": "^5.3.5"
+    "styled-components": "^5.3.5",
+    "use-mask-input": "^3.4.2"
   },
   "license": "MIT",
   "devDependencies": {
