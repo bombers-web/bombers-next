@@ -88,7 +88,6 @@ const ContactForm = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          to: process.env.SES_RECIPIENT_EMAIL,
           subject: "Contact from Website",
           html: `
             <!DOCTYPE html>

@@ -47,16 +47,19 @@ async function sendEmail({ to, subject, html, text }) {
 }
 
 export default async function handler(req, res) {
+  const recipientEmail =
+    process.env.SES_RECIPIENT_EMAIL || "marcom@stlouisbombers.com";
+
   if (req.method !== "POST") {
     res.setHeader("Allow", ["POST"]);
     return res.status(405).json({ error: `Method ${req.method} Not Allowed` });
   }
 
   try {
-    const { to, subject, html, text } = req.body;
+    const { subject, html, text } = req.body;
 
     // Input validation
-    if (!to || !subject || (!html && !text)) {
+    if (!recipientEmail || !subject || (!html && !text)) {
       return res.status(400).json({
         error:
           "Missing required fields: 'to', 'subject', and either 'html' or 'text'",
@@ -65,12 +68,14 @@ export default async function handler(req, res) {
 
     // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const emails = Array.isArray(to) ? to : [to];
+    const emails = Array.isArray(recipientEmail)
+      ? recipientEmail
+      : [recipientEmail];
     if (!emails.every((email) => emailRegex.test(email))) {
       return res.status(400).json({ error: "Invalid email format" });
     }
 
-    const result = await sendEmail({ to, subject, html, text });
+    const result = await sendEmail({ to: recipientEmail, subject, html, text });
 
     return res.status(200).json({
       message: "Email sent successfully!",
