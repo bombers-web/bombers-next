@@ -33,7 +33,7 @@ async function sendEmail({ to, subject, html, text }) {
           Data: subject,
         },
       },
-      Source: process.env.SES_SENDER_EMAIL,
+      Source: process.env.SES_SENDER_EMAIL || "marcom@stlouisbombers.com",
     };
 
     // Use async/await instead of promise chains
