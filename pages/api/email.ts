@@ -1,6 +1,5 @@
 import AWS from "aws-sdk";
 
-// Initialize SES with AWS SDK v2
 const ses = new AWS.SES({
   accessKeyId: process.env.SES_ACCESS_KEY_ID,
   secretAccessKey: process.env.SES_SECRET_ACCESS_KEY,
@@ -36,7 +35,6 @@ async function sendEmail({ to, subject, html, text }) {
       Source: process.env.SES_SENDER_EMAIL,
     };
 
-    // Use async/await instead of promise chains
     const result = await ses.sendEmail(params).promise();
     console.log("Email sent successfully:", result);
     return result;

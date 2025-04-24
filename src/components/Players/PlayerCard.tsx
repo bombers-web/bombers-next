@@ -19,9 +19,8 @@ const PlayerCard = ({
       id="team-card"
       as={`/team/${division}/${url}`}
       link={noClick ? null : "/team/[division]/[slug]"}
+      height={["25vh", "40vh", "45vh", "50vh"]}
       styles={{
-        minHeight: "370px",
-        height: "auto",
         maxWidth: "300px",
         display: "flex",
         justifyContent: "space-around",
@@ -50,20 +49,21 @@ const PlayerCard = ({
       >
         <Flex
           id="text-content"
-          pl={[4, 2, 3, 4]}
-          pb={[4, 2, 3, 4]}
+          pl={[2, 2, 3, 4]}
+          pb={[2, 2, 3, 4]}
           direction="column"
           w="100%"
           position="absolute"
           bottom={0}
           left={0}
+          maxHeight={"80%"}
         >
           <Heading
             m={0}
             color="brand.white"
             fontWeight="bold"
             textTransform="uppercase"
-            fontSize={[24, 14, 24, 34]}
+            fontSize={[16, 14, 24, 34]}
           >
             {displayName}
           </Heading>
@@ -73,7 +73,7 @@ const PlayerCard = ({
             fontWeight="300"
             mt={0}
             mb={[3, 0, 2, 3]}
-            fontSize={[20, 12, 18, 24]}
+            fontSize={[12, 12, 18, 24]}
           >
             {getPosition(position)}
           </Text>

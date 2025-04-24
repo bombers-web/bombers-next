@@ -5,11 +5,11 @@ import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 
 const ContentCard = ({ content, href }) => {
-  const link = `/content/${toLower(content?.uid)}`;
-  const linkHref = `${href || "/content/"}[id]`;
+  const contentId = content?.uid ? toLower(content.uid) : toLower(content?.id);
+  const link = `/content/${contentId}`;
 
   return (
-    <Link as={link} href={linkHref} style={{ textDecoration: "none" }}>
+    <Link href={link} style={{ textDecoration: "none" }}>
       <LinkBox>
         <Flex
           transition={`all .2s ease-in-out`}

@@ -52,23 +52,17 @@ const News = ({ content, categories }) => {
         <TabPanels my="24px">
           <TabPanel textTransform="capitalize">
             {content?.length
-              ? content.map((item) => (
-                  <ContentCard key={content?.title} content={item} />
-                ))
+              ? content.map((item) => {
+                  return <ContentCard key={item?.id} content={item} />;
+                })
               : "No Content"}
           </TabPanel>
           {categories?.map((category) => {
             return (
               <TabPanel textTransform="capitalize" key={category}>
                 {category.contents?.length
-                  ? category.contents.map((content) => {
-                      return (
-                        <ContentCard
-                          key={content?.title}
-                          // href={`/content/${content.uid}`}
-                          content={content}
-                        ></ContentCard>
-                      );
+                  ? category.contents.map((item) => {
+                      return <ContentCard key={item.id} content={item} />;
                     })
                   : `No ${category.name} content`}
               </TabPanel>

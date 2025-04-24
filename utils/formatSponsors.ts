@@ -22,9 +22,17 @@ export interface SponsorTier {
 
 export const formatSponsors = (
   sponsors: Sponsor[],
+  useTiers?: boolean,
   returnEmptyTiers?: boolean
-): SponsorTier[] => {
+): SponsorTier[] | FormattedSponsor[] => {
   if (!sponsors) return [];
+  if (!useTiers) {
+    return sponsors.map((sponsor) => ({
+      id: sponsor.id,
+      name: sponsor.name,
+      logo: sponsor?.image?.url,
+    }));
+  }
   const tiers = {
     platinum: { name: "Platinum Sponsors", description: "" },
     gold: { name: "Gold Sponsors", description: "" },

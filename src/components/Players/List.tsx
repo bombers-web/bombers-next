@@ -32,7 +32,7 @@ const List = ({ players, title, collapsible, noClick }: ListProps) => {
             {collapsible && <AccordionIcon />}
           </AccordionButton>
           <AccordionPanel>
-            <SimpleGrid columns={[1, 4]} spacing={[0, 2]} m={[0]}>
+            <SimpleGrid columns={[2, 4]} spacing={[6, 2]} m={[0]}>
               {players?.length ? (
                 players?.map((player) => {
                   const { picture, division, position, first_name, last_name } =

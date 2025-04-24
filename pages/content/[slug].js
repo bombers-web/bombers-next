@@ -142,7 +142,7 @@ const Content = ({ content, context }) => {
           m="auto"
         >
           <Flex
-            w="70%"
+            w={["100%", "90", "80%", "70%"]}
             m="auto"
             p="8"
             h="100%"
@@ -151,18 +151,23 @@ const Content = ({ content, context }) => {
             direction="column"
             justifyContent="center"
           >
-            <ContentTitle fontSize={["2xl", "3xl", "4xl"]}>
+            <ContentTitle
+              fontSize={["2xl", "3xl", "4xl"]}
+              lineHeight={[1, 1.5, 2]}
+            >
               {content?.title}
             </ContentTitle>
             <ContentSummary as="p">{content?.description}</ContentSummary>
-            <Pic
-              image={content?.image || ""}
-              style={{
-                position: "static",
-                width: "100%",
-                height: "50vh",
-              }}
-            />
+            {content?.image && (
+              <Pic
+                image={content.image || ""}
+                style={{
+                  position: "static",
+                  width: "100%",
+                  height: "50vh",
+                }}
+              />
+            )}
             <Flex gap="4" justify="flex-end" marginTop="4">
               <Box m="0">
                 <Pic
