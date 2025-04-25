@@ -82,11 +82,12 @@ const DuesSection = () => {
     //   benefits: "Official club membership and free beer at home matches.",
     // },
     {
-      description: "Bombers Alumni Dues - Tier 1",
-      planId: "P-2N692775Y6541725DMITZLHA",
-      cost: 10,
+      description: "Bombers Alumni Dues - Tier 3",
+      planId: "P-44T80983CU5880629ML73GMI",
+      cost: 30,
       type: "monthly",
-      benefits: "Official club membership and free beer at home matches.",
+      benefits:
+        "Official club membership free beer at home matches annual polo voting rights at AGM and free entry to the Annual Award Banquet.",
     },
     {
       description: "Bombers Alumni Dues - Tier 2",
@@ -97,12 +98,11 @@ const DuesSection = () => {
         "Official club membership, free beer at home matches, annual polo and voting rights at Annual General Meeting.",
     },
     {
-      description: "Bombers Alumni Dues - Tier 3",
-      planId: "P-44T80983CU5880629ML73GMI",
-      cost: 30,
+      description: "Bombers Alumni Dues - Tier 1",
+      planId: "P-2N692775Y6541725DMITZLHA",
+      cost: 10,
       type: "monthly",
-      benefits:
-        "Official club membership free beer at home matches annual polo voting rights at AGM and free entry to the Annual Award Banquet.",
+      benefits: "Official club membership and free beer at home matches.",
     },
   ];
 
@@ -133,37 +133,44 @@ const DuesSection = () => {
           </Text>
         </Flex>
         <Stack>
-          {duesSubscriptions.map(({ description, planId, cost, type }) => (
-            <React.Fragment key={planId}>
-              <Flex align="center">
-                <VStack w="50%" mr={4}>
-                  <Text m={0} fontWeight={800}>
-                    {description}
-                  </Text>
-                  <Text m={0}>
-                    ${cost} - {type}
-                  </Text>
-                </VStack>
-                <Link href={`${basePaypalUrl}${planId}`} isExternal w="50%">
-                  <Button
-                    w="fit-content"
-                    minW="50%"
-                    variant="solid"
-                    leftIcon={
-                      <Image
-                        src="/icons/paypal_logo.png"
-                        alt="Venmo"
-                        width={100}
-                        height={24}
-                        style={{ paddingRight: 12 }}
-                      />
-                    }
-                  />
-                </Link>
-              </Flex>
-              <Divider borderColor="brand.light" borderWidth="1px" />
-            </React.Fragment>
-          ))}
+          {duesSubscriptions.map(
+            ({ description, planId, cost, type, benefits }) => (
+              <React.Fragment key={planId}>
+                <Flex align="center">
+                  <VStack w="50%" mr={4}>
+                    <Text m={0} fontWeight={800}>
+                      {description}
+                    </Text>
+                    <Text m={0}>
+                      ${cost} - {type}
+                    </Text>
+                    {benefits ? (
+                      <Text m={0} fontStyle="italic">
+                        {benefits}
+                      </Text>
+                    ) : null}
+                  </VStack>
+                  <Link href={`${basePaypalUrl}${planId}`} isExternal w="50%">
+                    <Button
+                      w="fit-content"
+                      minW="50%"
+                      variant="solid"
+                      leftIcon={
+                        <Image
+                          src="/icons/paypal_logo.png"
+                          alt="Venmo"
+                          width={100}
+                          height={24}
+                          style={{ paddingRight: 12 }}
+                        />
+                      }
+                    />
+                  </Link>
+                </Flex>
+                <Divider borderColor="brand.light" borderWidth="1px" />
+              </React.Fragment>
+            )
+          )}
         </Stack>
       </VStack>
     </Box>
