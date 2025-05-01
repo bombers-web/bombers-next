@@ -81,28 +81,29 @@ const DuesSection = () => {
     //   type: "monthly",
     //   benefits: "Official club membership and free beer at home matches.",
     // },
+    // {
+    // TBD
+    //   description: "Bombers Platinum Member",
+    //   planId: "P-44T80983CU5880629ML73GMI",
+    //   cost: 50,
+    //   type: "monthly",
+    //   benefits:
+    //     "Club membership and beer provided at after match functions, bi-annual polo and voting rights at Annual General Meeting and free entry to the Annual Award Banquet.",
+    // },
     {
-      description: "Bombers Alumni Dues - Tier 3",
-      planId: "P-44T80983CU5880629ML73GMI",
-      cost: 30,
-      type: "monthly",
-      benefits:
-        "Official club membership free beer at home matches annual polo voting rights at AGM and free entry to the Annual Award Banquet.",
-    },
-    {
-      description: "Bombers Alumni Dues - Tier 2",
-      planId: "P-3W902499R0041970WML73FOA",
-      cost: 20,
-      type: "monthly",
-      benefits:
-        "Official club membership, free beer at home matches, annual polo and voting rights at Annual General Meeting.",
-    },
-    {
-      description: "Bombers Alumni Dues - Tier 1",
+      description: "Bombers Club Supporter",
       planId: "P-2N692775Y6541725DMITZLHA",
       cost: 10,
       type: "monthly",
-      benefits: "Official club membership and free beer at home matches.",
+      benefits: "Beer provided at after match functions.",
+    },
+    {
+      description: "Bombers Club Member",
+      planId: "P-3W902499R0041970WML73FOA",
+      cost: 30,
+      type: "monthly",
+      benefits:
+        "Beer provided at after match functions, bi-annual polo and voting rights at Annual General Meeting.",
     },
   ];
 
