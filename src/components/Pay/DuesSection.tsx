@@ -99,7 +99,8 @@ const DuesSection = () => {
     },
     {
       description: "Bombers Club Member",
-      planId: "P-3W902499R0041970WML73FOA",
+      // planId: "P-3W902499R0041970WML73FOA", Former Tier 2 plan ID. $20.
+      planId: "P-44T80983CU5880629ML73GMI",
       cost: 30,
       type: "monthly",
       benefits:
