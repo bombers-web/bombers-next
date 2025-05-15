@@ -53,7 +53,7 @@ export const formatSponsors = (
       id: sponsor.id,
       name: sponsor.name,
       logo: sponsor?.image?.url,
-      sponsor_link: sponsor?.sponsor_link,
+      website: sponsor?.website,
     });
 
     return acc;
