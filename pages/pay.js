@@ -7,8 +7,9 @@ import DonateSection from "../src/components/Pay/DonateSection";
 import Sponsorships from "../src/components/Pay/Sponsorships";
 import { fetchAPI } from "../src/lib/api";
 
-const Pay = () => {
+const Pay = (props) => {
   const [sponsors, setSponsors] = useState([]);
+  const { subscriptions } = props;
 
   useEffect(() => {
     fetchAPI("/sponsors?populate=*")
@@ -54,7 +55,7 @@ const Pay = () => {
             <DonateSection></DonateSection>
           </TabPanel>
           <TabPanel textTransform="capitalize">
-            <DuesSection></DuesSection>
+            <DuesSection subscriptions={subscriptions}></DuesSection>
           </TabPanel>
           <TabPanel textTransform="capitalize">
             <Sponsorships sponsors={sponsors}></Sponsorships>
@@ -64,5 +65,17 @@ const Pay = () => {
     </Layout>
   );
 };
+
+export async function getStaticProps() {
+  // Run API calls in parallel
+  const [subscriptions] = await Promise.all([
+    fetchAPI("/subscriptions?populate=*"),
+  ]);
+  return {
+    props: {
+      subscriptions,
+    },
+  };
+}
 
 export default Pay;

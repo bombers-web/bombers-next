@@ -58,8 +58,8 @@ export async function getStaticProps() {
     props: {
       games,
     },
-    // refetch every 2 weeks
-    revalidate: 1209600,
+    // refetch every day
+    revalidate: 86400,
   };
 }
 
