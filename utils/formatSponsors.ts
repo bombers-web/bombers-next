@@ -5,14 +5,14 @@ export interface Sponsor {
   image: {
     url: string;
   };
-  sponsor_link: string;
+  website: string;
 }
 
 export interface FormattedSponsor {
   id: number;
   name: string;
   logo: string;
-  sponsor_link?: string;
+  website?: string;
 }
 
 export interface SponsorTier {
@@ -32,7 +32,7 @@ export const formatSponsors = (
       id: sponsor.id,
       name: sponsor.name,
       logo: sponsor?.image?.url,
-      sponsor_link: sponsor?.sponsor_link,
+      website: sponsor?.website,
     }));
   }
   const tiers = {

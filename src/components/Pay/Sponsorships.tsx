@@ -21,7 +21,7 @@ interface SponsorGridProps {
 const SponsorGrid = ({ sponsors }: SponsorGridProps) => {
   return (
     <SimpleGrid columns={{ base: 1, sm: 2, md: 2, lg: 3 }} spacing={4}>
-      {sponsors?.map(({ id, logo, name, sponsor_link }) => (
+      {sponsors?.map(({ id, logo, name, website }) => (
         <Flex
           key={id}
           direction="column"
@@ -44,9 +44,9 @@ const SponsorGrid = ({ sponsors }: SponsorGridProps) => {
           <Text fontWeight="semibold" color="white">
             {name}
           </Text>
-          {sponsor_link && (
+          {website && (
             <Text color="white">
-              <a href={sponsor_link} target="_blank" rel="noopener noreferrer">
+              <a href={website} target="_blank" rel="noopener noreferrer">
                 Visit Website
               </a>
             </Text>
