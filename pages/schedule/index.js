@@ -5,7 +5,7 @@ import Layout from "../../src/common/Layout";
 import { fetchAPI } from "../../src/lib/api";
 import ScheduleTabs from "./components/ScheduleTabs";
 
-const Schedule = ({ games }) => {
+const Schedule = ({ games, calenders }) => {
   const { d1, d2 } = groupBy(games, "division");
   const seo = {
     metaTitle: "Schedule",
@@ -32,6 +32,7 @@ const Schedule = ({ games }) => {
           <TabList>
             <Tab>Bombers DI</Tab>
             <Tab>Bombers DII</Tab>
+            <Tab>Club Events</Tab>
           </TabList>
           <TabPanels>
             <TabPanel>
@@ -48,15 +49,17 @@ const Schedule = ({ games }) => {
 };
 
 export async function getStaticProps() {
-  const [games] = await Promise.all([
+  const [games, calenders] = await Promise.all([
     fetchAPI(
       "/games?populate[0]=home.logo&populate[1]=away.logo&populate=winner&sort[0]=date:asc"
     ),
+    fetchAPI("/calenders?populate=*"),
   ]);
 
   return {
     props: {
       games,
+      calenders,
     },
     // refetch every day
     revalidate: 86400,
