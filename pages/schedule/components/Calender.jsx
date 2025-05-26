@@ -1,10 +1,9 @@
 import { Flex, Box, IconButton, Text, VStack } from "@chakra-ui/react";
 import { useState } from "react";
 import Pic from "common/Pic";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa"; // Import icons for arrows
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 const Calender = ({ calenders }) => {
-  // Assume calenders is an array of all available calendar objects
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleNext = () => {
@@ -18,45 +17,72 @@ const Calender = ({ calenders }) => {
   };
 
   if (!calenders || calenders.length === 0) {
-    return <Box>No calendars to display.</Box>;
+    return (
+      <Box textAlign="center" py={10}>
+        No calendars to display.
+      </Box>
+    );
   }
 
   const currentCalender = calenders[currentIndex];
 
+  // Function to format the date
+  const formatCalendarDate = (dateString) => {
+    if (!dateString) return "";
+    const date = new Date(dateString.replace(/-/g, "/"));
+    const options = { year: "numeric", month: "long" };
+    return new Intl.DateTimeFormat("en-US", options).format(date);
+  };
+
   return (
-    <VStack spacing={4} align="center">
-      <Flex width="100%" justifyContent="center" alignItems="center" gap={10}>
+    <VStack spacing={{ base: 6, md: 8 }} align="center" width="100%">
+      <Flex
+        width="100%"
+        justifyContent="center"
+        alignItems="center"
+        gap={{ base: 4, md: 10 }}
+      >
         <IconButton
           icon={<FaChevronLeft />}
           onClick={handlePrev}
           aria-label="Previous Calendar"
-          isDisabled={calenders.length <= 1} // Disable if only one calendar
+          isDisabled={calenders.length <= 1}
+          size={{ base: "sm", md: "lg" }}
         />
-        <Text fontSize="xl" fontWeight="bold">
-          {currentCalender.date}
+        <Text
+          fontSize={{ base: "lg", md: "xl", lg: "2xl" }}
+          fontWeight="bold"
+          textAlign="center"
+        >
+          {formatCalendarDate(currentCalender.date)}
         </Text>
         <IconButton
           icon={<FaChevronRight />}
           onClick={handleNext}
           aria-label="Next Calendar"
-          isDisabled={calenders.length <= 1} // Disable if only one calendar
+          isDisabled={calenders.length <= 1}
+          size={{ base: "sm", md: "lg" }}
         />
       </Flex>
       <Box
         borderWidth="1px"
         borderRadius="lg"
         overflow="hidden"
-        p={4} // Add some padding around the image
-        width="100%" // Ensure it takes full width of its container
-        // maxW="md" // Optional: set a max width for the calendar container
+        p={{ base: 2, md: 4 }}
+        width="100%"
+        maxWidth={{ base: "95%", md: "700px", lg: "900px" }}
+        height="auto"
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
       >
         <Pic
-          image={currentCalender.calender.image} // Assuming 'image' property is for the image itself
+          image={currentCalender.calender.image}
           src={currentCalender.calender.url}
           borderRadius={5}
-          objectFit="contain" // Ensures the entire image is visible
+          objectFit="contain"
           width="100%"
-          height="auto" // Maintain aspect ratio
+          height={{ base: "auto", md: "500px", lg: "600px" }}
         />
       </Box>
     </VStack>
