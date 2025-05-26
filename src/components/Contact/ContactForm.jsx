@@ -88,6 +88,9 @@ const ContactForm = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          to: [
+            "marcom@stlouisbombers.com, president@stlouisbombers.com, recruiting@stlouisbombers.com",
+          ],
           subject: "Contact from Website",
           html: `
             <!DOCTYPE html>

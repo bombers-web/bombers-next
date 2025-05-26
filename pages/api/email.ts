@@ -7,6 +7,7 @@ const ses = new AWS.SES({
 });
 
 async function sendEmail({ to, subject, html, text }) {
+  console.log(to);
   try {
     const params = {
       Destination: {
@@ -62,7 +63,9 @@ export default async function handler(req, res) {
     });
   }
 
-  const recipientEmail = process.env.SES_RECIPIENT_EMAIL;
+  const recipientEmail = process.env.SES_RECIPIENT_EMAIL.split(",").map(
+    (email) => email.trim()
+  );
 
   if (req.method !== "POST") {
     res.setHeader("Allow", ["POST"]);
