@@ -4,6 +4,7 @@ import {
   faInstagram,
 } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import Link from "next/link";
 
 const Socials = ({
@@ -56,7 +57,7 @@ const Socials = ({
                   <FontAwesomeIcon
                     color={iconColor || "white"}
                     fontSize={iconSize || "1x"}
-                    icon={page.icon}
+                    icon={page.icon as IconProp}
                   />
                 )}
               </Button>
