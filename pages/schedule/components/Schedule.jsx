@@ -1,41 +1,10 @@
-import {
-  Accordion,
-  AccordionButton,
-  AccordionIcon,
-  AccordionItem,
-  AccordionPanel,
-  Box,
-  Divider,
-  Stack,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 import GameInfo from "../../../src/components/Games/GameInfo";
 
 const Schedule = ({ upcoming }) => {
-  const formatDateTime = (dateTime) => {
-    const date = new Date(dateTime);
-    const formattedDate =
-      date.toLocaleDateString("en-US", { weekday: "short" }) +
-      " " +
-      date.toLocaleDateString("en-US", { month: "short" }) +
-      " " +
-      date.toLocaleDateString("en-US", { day: "2-digit" });
-    const time = date.toLocaleString("en-US", {
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-    return {
-      date: formattedDate,
-      time,
-    };
-  };
-
-  const isBombers = (team) => team === "Bombers";
-  const isHome = (homeTeam) => isBombers(homeTeam);
-
   return upcoming?.length > 0 ? (
-    <Accordion allowMultiple defaultIndex={[0]}>
-      {upcoming?.map((game) => {
+    <>
+      {upcoming.map((game) => {
         const gameInfoProps = {
           homeTeam: {
             name: game?.home?.name,
@@ -53,66 +22,30 @@ const Schedule = ({ upcoming }) => {
         };
 
         return (
-          <AccordionItem key={game.slug} maxW="1200px">
-            <AccordionButton
-              _expanded={{ bg: "brand.800", color: "brand.400" }}
-            >
-              <Stack
-                direction="row"
-                textAlign="left"
-                alignItems="center"
-                justifyContent="start"
-                w="100%"
-              >
-                <Box>
-                  <Text
-                    m={0}
-                    fontWeight="light"
-                    fontSize="md"
-                    textTransform="uppercase"
-                    fontFamily="body"
-                  >
-                    {formatDateTime(game.date).date}
-                  </Text>
-                </Box>
-                <Divider size="xl" orientation="vertical"></Divider>
-                <Box>
-                  <Text
-                    m={0}
-                    fontWeight="bold"
-                    fontSize="lg"
-                    textTransform="uppercase"
-                    fontFamily="body"
-                  >
-                    {isHome(game?.home?.name)
-                      ? `${game?.home?.name} - ${game?.away?.name}`
-                      : `${game?.away?.name} @ ${game?.home?.name}`}
-                  </Text>
-                </Box>
-                <Divider size="xl" orientation="vertical"></Divider>
-                <Box flex="1">
-                  <Text
-                    m={0}
-                    fontWeight="light"
-                    fontSize="md"
-                    textTransform="uppercase"
-                    fontFamily="body"
-                  >
-                    {formatDateTime(game.date).time}
-                  </Text>
-                </Box>
-                <AccordionIcon />
-              </Stack>
-            </AccordionButton>
-            <AccordionPanel pb={4}>
-              <GameInfo {...gameInfoProps} />
-            </AccordionPanel>
-          </AccordionItem>
+          <Box
+            key={game.id || game.date}
+            p={2}
+            m={2}
+            borderRadius="md"
+            boxShadow="sm"
+            _hover={{
+              boxShadow: "md",
+              transform: "translateY(-2px)",
+            }}
+            transition="all 0.2s ease-in-out"
+            bg="brand.meta"
+          >
+            <GameInfo {...gameInfoProps} />
+          </Box>
         );
       })}
-    </Accordion>
+    </>
   ) : (
-    <div>No Games Currently Scheduled!</div>
+    <Box textAlign="center" py={10}>
+      <Text fontSize="xl" color="gray.500">
+        No Games Currently Scheduled!
+      </Text>
+    </Box>
   );
 };
 

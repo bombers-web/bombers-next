@@ -46,7 +46,7 @@ const Team = ({ team: { name, score, logo, ...teamData }, away, preview }) => {
 
         <Box>
           <Text
-            color={score ? "tomato" : "transparent"}
+            color={score ? "brand.highlight" : "transparent"}
             fontWeight={"extrabold"}
             my={0}
             mx={2}
