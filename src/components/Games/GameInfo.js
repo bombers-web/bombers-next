@@ -8,6 +8,7 @@ const GameInfo = ({
   location,
   preview,
   division,
+  winner,
   finished,
   slug,
 }) => {
@@ -45,6 +46,8 @@ const GameInfo = ({
 
   const isBombers = (team) => team.includes("Bombers");
   const isHome = (homeTeam) => isBombers(homeTeam);
+
+  console.log(homeTeam, awayTeam, division, date, location, preview, finished, winner);
 
   return preview ? (
     <Box
@@ -90,7 +93,7 @@ const GameInfo = ({
     </Box>
   ) : (
     <Stack direction="column" justifyContent="center" m={4}>
-      {!homeTeam.score && (
+      {!homeTeam.score ? (
         <Stack
           borderRadius="8px"
           p="2"
@@ -137,6 +140,69 @@ const GameInfo = ({
                 fontFamily="body"
               >
                 {formatDateTime(date).time}
+              </Text>
+            </Stack>
+          </Flex>
+        </Stack>
+      ) : (
+        <Stack
+          borderRadius="8px"
+          p="2"
+          fontSize="xs"
+          alignContent="center"
+          justifyContent="center"
+          textAlign="center"
+        >
+          <Flex w="100%" justifyContent="center">
+            <Stack
+              direction="row"
+              textAlign="center"
+              alignItems="center"
+              justifyContent="center"
+              w="100%"
+            >
+              <Text
+                m={0}
+                fontWeight="bold"
+                fontSize="md"
+                // textTransform="uppercase"
+                fontFamily="body"
+              >
+                {location}
+              </Text>
+              <Divider size="xl" orientation="vertical"></Divider>
+              <Box>
+                <Text
+                  m={0}
+                  fontWeight="bold"
+                  fontSize="md"
+                  // textTransform="uppercase"
+                  fontFamily="body"
+                >
+                  {formatDateTime(date).date}
+                </Text>
+              </Box>
+              <Divider size="xl" orientation="vertical"></Divider>
+              <Text
+                m={0}
+                fontWeight="light"
+                fontSize="xl"
+                textTransform="uppercase"
+                fontFamily="body"
+                as="b"
+                color={
+                  winner?.id === undefined
+                    ? "black"
+                    : winner.name.includes("St. Louis Bombers")
+                    ? "green"
+                    : "red"
+                }
+              >
+                {winner?.id === undefined
+                  ? "T"
+                  : winner?.name.includes("St. Louis Bombers")
+                  ? "W"
+                  : "L"}
               </Text>
             </Stack>
           </Flex>

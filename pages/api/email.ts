@@ -7,7 +7,6 @@ const ses = new AWS.SES({
 });
 
 async function sendEmail({ to, subject, html, text }) {
-  console.log(to);
   try {
     const params = {
       Destination: {
