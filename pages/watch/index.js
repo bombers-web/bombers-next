@@ -14,7 +14,7 @@ const Watch = () => {
       bg: "/static/schoeman_dallas.JPG",
     },
     {
-      name: "Bombers VEO (Mobile Only",
+      name: "Bombers VEO (Mobile Only)",
       href: "https://veolive.page.link/R72N",
       bg: "/static/feakes_belmont.JPG",
     },
