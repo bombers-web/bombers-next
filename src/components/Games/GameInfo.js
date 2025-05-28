@@ -47,8 +47,6 @@ const GameInfo = ({
   const isBombers = (team) => team.includes("Bombers");
   const isHome = (homeTeam) => isBombers(homeTeam);
 
-  console.log(homeTeam, awayTeam, division, date, location, preview, finished, winner);
-
   return preview ? (
     <Box
       id="game-info-container"
