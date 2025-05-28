@@ -144,11 +144,11 @@ const GameInfo = ({
       )}
       <Stack
         direction={{ base: "column", md: "row" }}
-        textAlign={{ base: "center", md: "left" }}
+        textAlign={{ base: "center", md: "center" }}
         alignItems="center"
-        justifyContent={{ base: "center", md: "start" }}
+        justifyContent={{ base: "center", md: "center" }}
         w="100%"
-        spacing={{ base: 2, md: 4 }}
+        // spacing={{ base: 2, md: 4 }}
       >
         <Team team={isBombers(homeTeam?.name) ? homeTeam : awayTeam}></Team>
         <Text

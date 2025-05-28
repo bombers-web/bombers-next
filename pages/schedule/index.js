@@ -20,7 +20,7 @@ const Schedule = ({ games, calenders }) => {
         size={isDesktop ? "md" : "xl"}
         contentLink="#schedule"
       /> */}
-      <Box>
+      <Box maxW="1180px" justifyContent={"center"} mx="auto" mt={8} mb={4}>
         <Tabs
           id="schedule"
           isFitted

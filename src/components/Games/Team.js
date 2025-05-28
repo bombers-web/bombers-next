@@ -15,7 +15,7 @@ const Team = ({ team: { name, score, logo, ...teamData }, away, preview }) => {
         justifyContent="start"
         alignItems="center"
         direction="row"
-        width="100%"
+        // width="100%"
       >
         <Flex
           justifyContent="space-between"
@@ -56,7 +56,7 @@ const Team = ({ team: { name, score, logo, ...teamData }, away, preview }) => {
             // bgColor={preview ? "#e2e2e2" : "none"}
             p={2}
           >
-            {score || "00"}
+            {score || null}
           </Text>
         </Box>
       </Flex>
