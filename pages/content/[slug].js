@@ -26,6 +26,7 @@ import ContentTitle, {
 } from "../../src/components/Content/ContentTitle";
 import { fetchAPI } from "../../src/lib/api";
 import { getStrapiMedia } from "../../src/lib/media";
+import { max } from "lodash";
 
 const ContentHeader = styled.div`
   font-size: 44px;
@@ -142,10 +143,11 @@ const Content = ({ content, context }) => {
           m="auto"
         >
           <Flex
-            w={["100%", "90", "80%", "70%"]}
+            w="100%"
             m="auto"
             p="8"
-            h="100%"
+            h="50%"
+            maxW={["100%", "100%", "1180px"]}
             bg="brand.white"
             boxShadow="lg"
             direction="column"
@@ -161,10 +163,12 @@ const Content = ({ content, context }) => {
             {content?.image && (
               <Pic
                 image={content.image || ""}
+                objectFit="contain"
                 style={{
                   position: "static",
                   width: "100%",
-                  height: "50vh",
+                  height: "auto",
+                  maxWidth: "1180px",
                 }}
               />
             )}
