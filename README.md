@@ -2,8 +2,6 @@
 
 This is the official St. Louis Bombers Rugby Club website. It serves as a central hub for our club, providing information on schedules, results, player rosters, news, and more.
 
----
-
 # Getting Started
 
 Fork the repo and clone to machine:
