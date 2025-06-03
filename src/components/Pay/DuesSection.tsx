@@ -67,19 +67,27 @@ const DuesSection = ({ subscriptions }) => {
   const supporterDuesSubscriptions: DuesSubscription[] = [
     {
       description: "Bombers Club Supporter",
-      planId: "P-2N692775Y6541725DMITZLHA",
+      planId: "P-4FE84817X6265914MNA63CNQ",
       cost: 10,
       type: "monthly",
-      benefits: "Beer provided at after match functions.",
+      benefits:
+        "Club Supporters will be provided free drinks at all official club aftermatch functions.",
     },
     {
       description: "Bombers Club Member",
-      // planId: "P-3W902499R0041970WML73FOA", Former Tier 2 plan ID. $20.
-      planId: "P-44T80983CU5880629ML73GMI",
+      planId: "P-3NA66509TP848720HNA63C3Q",
       cost: 30,
       type: "monthly",
       benefits:
-        "Beer provided at after match functions, bi-annual polo and voting rights at Annual General Meeting.",
+        "'Club Members will be provided free drinks at all official club aftermatch functions, a bi-annual team polo, and receive voting rights at the AGM.'",
+    },
+    {
+      planId: "P-91W6696390481974YNA63DGY",
+      cost: 50,
+      benefits:
+        "Legend Members will be provided free drinks at all official club aftermatch functions, a bi-annual team polo, receive voting rights at the AGM, and a free ticket to annual awards banquet.",
+      description: "Bombers Fleur-Dis-Legend Member",
+      type: "monthly",
     },
   ];
 
