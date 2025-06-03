@@ -79,7 +79,7 @@ const DuesSection = ({ subscriptions }) => {
       cost: 30,
       type: "monthly",
       benefits:
-        "'Club Members will be provided free drinks at all official club aftermatch functions, a bi-annual team polo, and receive voting rights at the AGM.'",
+        "Club Members will be provided free drinks at all official club aftermatch functions, a bi-annual team polo, and receive voting rights at the AGM.",
     },
     {
       planId: "P-91W6696390481974YNA63DGY",
