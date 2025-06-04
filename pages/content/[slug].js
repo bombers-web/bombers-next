@@ -26,6 +26,7 @@ import ContentTitle, {
 } from "../../src/components/Content/ContentTitle";
 import { fetchAPI } from "../../src/lib/api";
 import { getStrapiMedia } from "../../src/lib/media";
+import { max } from "lodash";
 
 const ContentHeader = styled.div`
   font-size: 44px;
@@ -142,27 +143,35 @@ const Content = ({ content, context }) => {
           m="auto"
         >
           <Flex
-            w="70%"
+            w="100%"
             m="auto"
             p="8"
-            h="100%"
+            h="50%"
+            maxW={["100%", "100%", "1180px"]}
             bg="brand.white"
             boxShadow="lg"
             direction="column"
             justifyContent="center"
           >
-            <ContentTitle fontSize={["2xl", "3xl", "4xl"]}>
+            <ContentTitle
+              fontSize={["2xl", "3xl", "4xl"]}
+              lineHeight={[1, 1.5, 2]}
+            >
               {content?.title}
             </ContentTitle>
             <ContentSummary as="p">{content?.description}</ContentSummary>
-            <Pic
-              image={content?.image || ""}
-              style={{
-                position: "static",
-                width: "100%",
-                height: "50vh",
-              }}
-            />
+            {content?.image && (
+              <Pic
+                image={content.image || ""}
+                objectFit="contain"
+                style={{
+                  position: "static",
+                  width: "100%",
+                  height: "auto",
+                  maxWidth: "1180px",
+                }}
+              />
+            )}
             <Flex gap="4" justify="flex-end" marginTop="4">
               <Box m="0">
                 <Pic
@@ -244,7 +253,7 @@ const Content = ({ content, context }) => {
 };
 
 export async function getStaticPaths() {
-  const contents = await fetchAPI("/contents?populate=*");
+  const contents = (await fetchAPI("/contents?populate=*")) || [];
   return {
     paths: contents.map((content) => ({
       params: {

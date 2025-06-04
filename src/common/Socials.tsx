@@ -4,6 +4,7 @@ import {
   faInstagram,
 } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import Link from "next/link";
 
 const Socials = ({
@@ -45,7 +46,7 @@ const Socials = ({
       alignItems="center"
       spacing={2}
     >
-      <HStack spacing={size === "xl" ? 8 : 0}>
+      <HStack spacing={size === "xl" ? 8 : 2}>
         {socials.map((page) => {
           return (
             <Link href={page?.url} key={page?.url} passHref legacyBehavior>
@@ -56,7 +57,7 @@ const Socials = ({
                   <FontAwesomeIcon
                     color={iconColor || "white"}
                     fontSize={iconSize || "1x"}
-                    icon={page.icon}
+                    icon={page.icon as IconProp}
                   />
                 )}
               </Button>

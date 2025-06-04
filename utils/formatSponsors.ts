@@ -5,6 +5,7 @@ export interface Sponsor {
   image: {
     url: string;
   };
+  website: string;
 }
 
 export interface FormattedSponsor {
@@ -22,9 +23,18 @@ export interface SponsorTier {
 
 export const formatSponsors = (
   sponsors: Sponsor[],
+  useTiers?: boolean,
   returnEmptyTiers?: boolean
-): SponsorTier[] => {
+): SponsorTier[] | FormattedSponsor[] => {
   if (!sponsors) return [];
+  if (!useTiers) {
+    return sponsors.map((sponsor) => ({
+      id: sponsor.id,
+      name: sponsor.name,
+      logo: sponsor?.image?.url,
+      website: sponsor?.website,
+    }));
+  }
   const tiers = {
     platinum: { name: "Platinum Sponsors", description: "" },
     gold: { name: "Gold Sponsors", description: "" },
@@ -43,7 +53,7 @@ export const formatSponsors = (
       id: sponsor.id,
       name: sponsor.name,
       logo: sponsor?.image?.url,
-      // Add website if needed in the future
+      website: sponsor?.website,
     });
 
     return acc;

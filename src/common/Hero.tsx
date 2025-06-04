@@ -94,7 +94,7 @@ const Hero = ({
             alignItems="center"
             id="hero-text-container"
           >
-            {subTitle && (
+            {title && (
               <Text
                 letterSpacing="3px"
                 fontWeight="normal"
@@ -109,7 +109,7 @@ const Hero = ({
                 {title}
               </Text>
             )}
-            {title && (
+            {subTitle && (
               <Text
                 letterSpacing="3px"
                 fontWeight="bolder"

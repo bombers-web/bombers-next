@@ -63,12 +63,12 @@ const Player = ({ player }) => {
 };
 
 export async function getStaticPaths() {
-  const players = await fetchAPI("/players?populate=*");
+  const players = (await fetchAPI("/players?populate=*")) || [];
   return {
     paths: players.map((player) => ({
       params: {
-        division: player?.division?.toString().toLowerCase() || "d1",
-        slug: player?.slug || "shawn-caradine",
+        division: player?.division?.toString() || "D1",
+        slug: player?.slug || "davo",
       },
     })),
     fallback: true,

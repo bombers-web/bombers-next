@@ -37,7 +37,7 @@ const News = ({ content, categories }) => {
           <Tab fontSize="xl" fontWeight="bold">
             Latest
           </Tab>
-          {categories.map((category) => (
+          {categories?.map((category) => (
             <Tab
               fontSize="xl"
               fontWeight="bold"
@@ -52,23 +52,17 @@ const News = ({ content, categories }) => {
         <TabPanels my="24px">
           <TabPanel textTransform="capitalize">
             {content?.length
-              ? content.map((item) => (
-                  <ContentCard key={content?.title} content={item} />
-                ))
+              ? content.map((item) => {
+                  return <ContentCard key={item?.id} content={item} />;
+                })
               : "No Content"}
           </TabPanel>
-          {categories.map((category) => {
+          {categories?.map((category) => {
             return (
               <TabPanel textTransform="capitalize" key={category}>
                 {category.contents?.length
-                  ? category.contents.map((content) => {
-                      return (
-                        <ContentCard
-                          key={content?.title}
-                          // href={`/content/${content.uid}`}
-                          content={content}
-                        ></ContentCard>
-                      );
+                  ? category.contents.map((item) => {
+                      return <ContentCard key={item.id} content={item} />;
                     })
                   : `No ${category.name} content`}
               </TabPanel>
@@ -84,14 +78,15 @@ export async function getStaticProps() {
   const categories =
     (await fetchAPI(
       `/categories?populate[0]=contents&populate[1]=contents.image&populate[2]=contents.category&populate[3]=contents.writer`
-    )) || {};
+    )) || [];
   const content =
     (await fetchAPI(
       `/contents?populate[0]=writer.picture&populate[1]=image&populate[2]=category&sort[0]=published:desc`
-    )) || {};
+    )) || [];
 
   return {
     props: { categories, content },
+    revalidate: 86400,
   };
 }
 

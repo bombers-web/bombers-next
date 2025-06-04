@@ -10,6 +10,7 @@ import Utils from "../utils/Utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import useBp from "../theme/useBp";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
 const NextMatchText = styled(Box)`
   color: "#fff";
@@ -130,7 +131,7 @@ const Home = (props) => {
                         <Button variant="outline" p={isMobile ? 0 : "auto"}>
                           {isMobile ? (
                             <FontAwesomeIcon
-                              icon={faPlay}
+                              icon={faPlay as IconProp}
                               color="gold"
                               size="sm"
                             />

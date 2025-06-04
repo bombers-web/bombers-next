@@ -4,12 +4,14 @@ import React from "react";
 import Layout from "../../src/common/Layout";
 import { fetchAPI } from "../../src/lib/api";
 import ScheduleTabs from "./components/ScheduleTabs";
+import Calender from "./components/Calender";
 
-const Schedule = ({ games }) => {
+const Schedule = ({ games, calenders }) => {
   const { d1, d2 } = groupBy(games, "division");
   const seo = {
     metaTitle: "Schedule",
   };
+
   return (
     <Layout seo={seo}>
       {/* <Hero
@@ -18,7 +20,7 @@ const Schedule = ({ games }) => {
         size={isDesktop ? "md" : "xl"}
         contentLink="#schedule"
       /> */}
-      <Box h="100vh">
+      <Box maxW="1180px" justifyContent={"center"} mx="auto" mt={8} mb={4}>
         <Tabs
           id="schedule"
           isFitted
@@ -32,6 +34,7 @@ const Schedule = ({ games }) => {
           <TabList>
             <Tab>Bombers DI</Tab>
             <Tab>Bombers DII</Tab>
+            <Tab>Club Events</Tab>
           </TabList>
           <TabPanels>
             <TabPanel>
@@ -39,6 +42,9 @@ const Schedule = ({ games }) => {
             </TabPanel>
             <TabPanel>
               <ScheduleTabs games={d2}></ScheduleTabs>
+            </TabPanel>
+            <TabPanel>
+              <Calender calenders={calenders}></Calender>
             </TabPanel>
           </TabPanels>
         </Tabs>
@@ -48,18 +54,20 @@ const Schedule = ({ games }) => {
 };
 
 export async function getStaticProps() {
-  const [games] = await Promise.all([
+  const [games, calenders] = await Promise.all([
     fetchAPI(
       "/games?populate[0]=home.logo&populate[1]=away.logo&populate=winner&sort[0]=date:asc"
     ),
+    fetchAPI("/calenders?populate[0]=calender"),
   ]);
 
   return {
     props: {
       games,
+      calenders,
     },
-    // refetch every 2 weeks
-    revalidate: 1209600,
+    // refetch every day
+    revalidate: 86400,
   };
 }
 

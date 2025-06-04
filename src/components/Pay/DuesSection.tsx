@@ -8,6 +8,11 @@ import {
   Flex,
   Text,
   Divider,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
 } from "@chakra-ui/react";
 import React from "react";
 import Image from "next/image";
@@ -17,59 +22,66 @@ interface DuesSubscription {
   planId: string;
   cost: number;
   type: "monthly" | "one-time";
+  benefits: string;
 }
 
-const DuesSection = () => {
-  // const subscriptions = {
-  //   "Sr. Player Dues - monthly (30 per month)":
-  //     "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-9NL41251R87142636MDWJ6MI",
-  //   "Rookie Player Dues - Monthly (20 per month)":
-  //     "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-11C84787D0814841GMD7WLZY",
-  //   "Sr. Player Dues - Lump(360 one time)":
-  //     "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-0N256970XA1578740MEEWG5Y",
-  //   "Rookie Player Dues - Lump (240 one time)":
-  //     "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-3FS120372Y6760101MEEWFVI",
-  //   "Alumni Dues - Tier 1(10 per month) club member and free beer at home matches":
-  //     "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-2N692775Y6541725DMITZLHA",
-  //   "Alumni Dues - Tier 2 (20 per month) club member, free beer at home matches, annual polo and voting rights at AGM":
-  //     "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-3W902499R0041970WML73FOA",
-  //   "Alumni Dues - Tier 3(30 per month) club member, fre beer, polo, voting rights, free entry to annual award banquet":
-  //     "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-44T80983CU5880629ML73GMI",
-  //   "7s Qualifier Player (50 per month for 4 months)":
-  //     "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-37R54582B1762132PMKUIG4Y",
-  //   "Bombers Business Network Dues (40 per month) (Tier 2 + feature on website as a club sponsor, 4x networking HH's and 1 sponsors tent at fall home match.)":
-  //     "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-7FG369770X2600427ML73H3Q",
-  // };
+interface SubscriptionListProps {
+  subList: DuesSubscription[];
+}
 
+const SubscriptionList = ({ subList }: SubscriptionListProps) => {
   const basePaypalUrl =
     "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=";
 
-  const duesSubscriptions: DuesSubscription[] = [
-    {
-      description: "Sr. Dues - Monthly",
-      planId: "P-9NL41251R87142636MDWJ6MI",
-      cost: 30,
-      type: "monthly",
-    },
-    {
-      description: "Sr. Dues - One-time",
-      planId: "P-0N256970XA1578740MEEWG5Y",
-      cost: 360,
-      type: "one-time",
-    },
-    {
-      description: "Rookie Dues - Monthly",
-      planId: "P-11C84787D0814841GMD7WLZY",
-      cost: 20,
-      type: "monthly",
-    },
-    {
-      description: "Rookie Dues - One-time",
-      planId: "P-3FS120372Y6760101MEEWFVI",
-      cost: 240,
-      type: "one-time",
-    },
-  ];
+  return (
+    <Stack maxW="100%" id="subscriptionStack">
+      {subList?.map(({ description, planId, cost, type, benefits }) => (
+        <React.Fragment key={planId}>
+          <Flex align="center">
+            <VStack w="50%" mr={4}>
+              <Text m={0} fontWeight={800}>
+                {description}
+              </Text>
+              <Text m={0}>
+                ${cost} - {type}
+              </Text>
+              {benefits ? (
+                <Text m={0} fontStyle="italic" fontWeight={450}>
+                  {benefits}
+                </Text>
+              ) : null}
+            </VStack>
+            <Link href={`${basePaypalUrl}${planId}`} isExternal w="50%">
+              <Button
+                w="fit-content"
+                minW="50%"
+                variant="solid"
+                leftIcon={
+                  <Image
+                    src="/icons/paypal_logo.png"
+                    alt="Venmo"
+                    width={100}
+                    height={24}
+                    style={{ paddingRight: 12 }}
+                  />
+                }
+              />
+            </Link>
+          </Flex>
+          <Divider borderColor="brand.light" borderWidth="1px" />
+        </React.Fragment>
+      ))}
+    </Stack>
+  );
+};
+
+const DuesSection = ({ subscriptions, subtabIndex, onSubtabChange }) => {
+  const playerDuesSubscriptions: DuesSubscription[] = subscriptions
+    .filter((sub) => sub.description.toLowerCase().includes("dues"))
+    .sort((a, b) => a.cost - b.cost);
+  const supporterDuesSubscriptions: DuesSubscription[] = subscriptions
+    .filter((sub) => !sub.description.toLowerCase().includes("dues"))
+    .sort((a, b) => a.cost - b.cost);
 
   return (
     <Box
@@ -77,7 +89,7 @@ const DuesSection = () => {
       bg="brand.white"
       borderRadius="md"
       boxShadow="md"
-      maxWidth="1140px"
+      maxWidth="1180px"
     >
       <VStack spacing={4} align="stretch">
         <Flex
@@ -91,45 +103,42 @@ const DuesSection = () => {
           borderRadius="md"
         >
           <Heading size="lg" mb={2} textAlign="center">
-            Player Dues
+            Club Dues
           </Heading>
           <Text textAlign="center" mt={0}>
             Select your dues payment option below:{" "}
           </Text>
         </Flex>
-        <Stack>
-          {duesSubscriptions.map(({ description, planId, cost, type }) => (
-            <React.Fragment key={planId}>
-              <Flex align="center">
-                <VStack w="50%" mr={4}>
-                  <Text m={0} fontWeight={800}>
-                    {description}
-                  </Text>
-                  <Text m={0}>
-                    ${cost} - {type}
-                  </Text>
-                </VStack>
-                <Link href={`${basePaypalUrl}${planId}`} isExternal w="50%">
-                  <Button
-                    w="fit-content"
-                    minW="50%"
-                    variant="solid"
-                    leftIcon={
-                      <Image
-                        src="/icons/paypal_logo.png"
-                        alt="Venmo"
-                        width={100}
-                        height={24}
-                        style={{ paddingRight: 12 }}
-                      />
-                    }
-                  />
-                </Link>
-              </Flex>
-              <Divider borderColor="brand.light" borderWidth="1px" />
-            </React.Fragment>
-          ))}
-        </Stack>
+        <Box>
+          <Tabs
+            id="dues"
+            isFitted
+            size="lg"
+            colorScheme="brand.meta"
+            color="brand.black"
+            maxW="100%"
+            alignSelf="center"
+            index={subtabIndex}
+            onChange={onSubtabChange}
+          >
+            <TabList>
+              <Tab fontSize="m" fontWeight="bold">
+                Player Dues
+              </Tab>
+              <Tab fontSize="m" fontWeight="bold">
+                Supporter Dues
+              </Tab>
+            </TabList>
+            <TabPanels>
+              <TabPanel>
+                <SubscriptionList subList={playerDuesSubscriptions} />
+              </TabPanel>
+              <TabPanel>
+                <SubscriptionList subList={supporterDuesSubscriptions} />
+              </TabPanel>
+            </TabPanels>
+          </Tabs>
+        </Box>
       </VStack>
     </Box>
   );

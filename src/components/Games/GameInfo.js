@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, Stack } from "@chakra-ui/react";
+import { Box, Flex, Heading, Stack, Divider, Text } from "@chakra-ui/react";
 import Team from "./Team";
 
 const GameInfo = ({
@@ -8,6 +8,7 @@ const GameInfo = ({
   location,
   preview,
   division,
+  winner,
   finished,
   slug,
 }) => {
@@ -43,6 +44,9 @@ const GameInfo = ({
     DI: "brand.black",
   };
 
+  const isBombers = (team) => team.includes("Bombers");
+  const isHome = (homeTeam) => isBombers(homeTeam);
+
   return preview ? (
     <Box
       id="game-info-container"
@@ -51,7 +55,7 @@ const GameInfo = ({
       width="100%"
       height="100%"
       m="0"
-      // justifyContent="space-around"
+      justifyContent="space-around"
       alignItems="center"
     >
       <Flex direction="column" m="0" py="4" minH="100%">
@@ -86,8 +90,8 @@ const GameInfo = ({
       </Flex>
     </Box>
   ) : (
-    <Stack direction="column" justifyContent="center" pt={4}>
-      {!homeTeam.score && (
+    <Stack direction="column" justifyContent="center" m={4}>
+      {!homeTeam.score ? (
         <Stack
           borderRadius="8px"
           p="2"
@@ -97,15 +101,131 @@ const GameInfo = ({
           textAlign="center"
         >
           <Flex w="100%" justifyContent="center">
-            <Box p="2" fontSize="xs">
-              {location}
-            </Box>
+            <Stack
+              direction="row"
+              textAlign="center"
+              alignItems="center"
+              justifyContent="center"
+              w="100%"
+            >
+              <Text
+                m={0}
+                fontWeight="bold"
+                fontSize="md"
+                // textTransform="uppercase"
+                fontFamily="body"
+              >
+                {location}
+              </Text>
+              <Divider size="xl" orientation="vertical"></Divider>
+              <Box>
+                <Text
+                  m={0}
+                  fontWeight="bold"
+                  fontSize="md"
+                  // textTransform="uppercase"
+                  fontFamily="body"
+                >
+                  {formatDateTime(date).date}
+                </Text>
+              </Box>
+              <Divider size="xl" orientation="vertical"></Divider>
+              <Text
+                m={0}
+                fontWeight="bold"
+                fontSize="md"
+                textTransform="uppercase"
+                fontFamily="body"
+              >
+                {formatDateTime(date).time}
+              </Text>
+            </Stack>
+          </Flex>
+        </Stack>
+      ) : (
+        <Stack
+          borderRadius="8px"
+          p="2"
+          fontSize="xs"
+          alignContent="center"
+          justifyContent="center"
+          textAlign="center"
+        >
+          <Flex w="100%" justifyContent="center">
+            <Stack
+              direction="row"
+              textAlign="center"
+              alignItems="center"
+              justifyContent="center"
+              w="100%"
+            >
+              <Text
+                m={0}
+                fontWeight="bold"
+                fontSize="md"
+                // textTransform="uppercase"
+                fontFamily="body"
+              >
+                {location}
+              </Text>
+              <Divider size="xl" orientation="vertical"></Divider>
+              <Box>
+                <Text
+                  m={0}
+                  fontWeight="bold"
+                  fontSize="md"
+                  // textTransform="uppercase"
+                  fontFamily="body"
+                >
+                  {formatDateTime(date).date}
+                </Text>
+              </Box>
+              <Divider size="xl" orientation="vertical"></Divider>
+              <Text
+                m={0}
+                fontWeight="light"
+                fontSize="xl"
+                textTransform="uppercase"
+                fontFamily="body"
+                as="b"
+                color={
+                  winner?.id === undefined
+                    ? "black"
+                    : winner.name.includes("St. Louis Bombers")
+                    ? "green"
+                    : "red"
+                }
+              >
+                {winner?.id === undefined
+                  ? "T"
+                  : winner?.name.includes("St. Louis Bombers")
+                  ? "W"
+                  : "L"}
+              </Text>
+            </Stack>
           </Flex>
         </Stack>
       )}
-      <Team team={homeTeam}></Team>
-
-      <Team team={awayTeam} away></Team>
+      <Stack
+        direction={{ base: "column", md: "row" }}
+        textAlign={{ base: "center", md: "center" }}
+        alignItems="center"
+        justifyContent={{ base: "center", md: "center" }}
+        w="100%"
+        // spacing={{ base: 2, md: 4 }}
+      >
+        <Team team={isBombers(homeTeam?.name) ? homeTeam : awayTeam}></Team>
+        <Text
+          m={0}
+          fontWeight="bold"
+          fontSize="lg"
+          textTransform="uppercase"
+          fontFamily="body"
+        >
+          {isHome(homeTeam?.name) ? `-` : `@`}
+        </Text>
+        <Team team={isBombers(homeTeam?.name) ? awayTeam : homeTeam}></Team>
+      </Stack>
     </Stack>
   );
 };
