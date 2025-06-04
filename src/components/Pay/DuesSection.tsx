@@ -29,110 +29,59 @@ interface SubscriptionListProps {
   subList: DuesSubscription[];
 }
 
-const DuesSection = ({ subscriptions }) => {
+const SubscriptionList = ({ subList }: SubscriptionListProps) => {
   const basePaypalUrl =
     "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=";
 
-  const playerDuesSubscriptions: DuesSubscription[] = [
-    {
-      description: "Sr. Dues - Monthly",
-      planId: "P-9NL41251R87142636MDWJ6MI",
-      cost: 30,
-      type: "monthly",
-      benefits: "",
-    },
-    {
-      description: "Sr. Dues - Yearly",
-      planId: "P-0N256970XA1578740MEEWG5Y",
-      cost: 360,
-      type: "one-time",
-      benefits: "",
-    },
-    {
-      description: "Rookie Dues - Monthly",
-      planId: "P-11C84787D0814841GMD7WLZY",
-      cost: 20,
-      type: "monthly",
-      benefits: "",
-    },
-    {
-      description: "Rookie Dues - One-time",
-      planId: "P-3FS120372Y6760101MEEWFVI",
-      cost: 240,
-      type: "one-time",
-      benefits: "",
-    },
-  ];
-
-  const supporterDuesSubscriptions: DuesSubscription[] = [
-    {
-      description: "Bombers Club Supporter",
-      planId: "P-4FE84817X6265914MNA63CNQ",
-      cost: 10,
-      type: "monthly",
-      benefits:
-        "Club Supporters will be provided free drinks at all official club aftermatch functions.",
-    },
-    {
-      description: "Bombers Club Member",
-      planId: "P-3NA66509TP848720HNA63C3Q",
-      cost: 30,
-      type: "monthly",
-      benefits:
-        "Club Members will be provided free drinks at all official club aftermatch functions, a bi-annual team polo, and receive voting rights at the AGM.",
-    },
-    {
-      planId: "P-91W6696390481974YNA63DGY",
-      cost: 50,
-      benefits:
-        "Legend Members will be provided free drinks at all official club aftermatch functions, a bi-annual team polo, receive voting rights at the AGM, and a free ticket to annual awards banquet.",
-      description: "Bombers Fleur-Dis-Legend Member",
-      type: "monthly",
-    },
-  ];
-
-  const SubscriptionList = ({ subList }: SubscriptionListProps) => {
-    return (
-      <Stack maxW="100%">
-        {subList?.map(({ description, planId, cost, type, benefits }) => (
-          <React.Fragment key={planId}>
-            <Flex align="center">
-              <VStack w="50%" mr={4}>
-                <Text m={0} fontWeight={800}>
-                  {description}
+  return (
+    <Stack maxW="100%" id="subscriptionStack">
+      {subList?.map(({ description, planId, cost, type, benefits }) => (
+        <React.Fragment key={planId}>
+          <Flex align="center">
+            <VStack w="50%" mr={4}>
+              <Text m={0} fontWeight={800}>
+                {description}
+              </Text>
+              <Text m={0}>
+                ${cost} - {type}
+              </Text>
+              {benefits ? (
+                <Text m={0} fontStyle="italic" fontWeight={450}>
+                  {benefits}
                 </Text>
-                <Text m={0}>
-                  ${cost} - {type}
-                </Text>
-                {benefits ? (
-                  <Text m={0} fontStyle="italic" fontWeight={450}>
-                    {benefits}
-                  </Text>
-                ) : null}
-              </VStack>
-              <Link href={`${basePaypalUrl}${planId}`} isExternal w="50%">
-                <Button
-                  w="fit-content"
-                  minW="50%"
-                  variant="solid"
-                  leftIcon={
-                    <Image
-                      src="/icons/paypal_logo.png"
-                      alt="Venmo"
-                      width={100}
-                      height={24}
-                      style={{ paddingRight: 12 }}
-                    />
-                  }
-                />
-              </Link>
-            </Flex>
-            <Divider borderColor="brand.light" borderWidth="1px" />
-          </React.Fragment>
-        ))}
-      </Stack>
-    );
-  };
+              ) : null}
+            </VStack>
+            <Link href={`${basePaypalUrl}${planId}`} isExternal w="50%">
+              <Button
+                w="fit-content"
+                minW="50%"
+                variant="solid"
+                leftIcon={
+                  <Image
+                    src="/icons/paypal_logo.png"
+                    alt="Venmo"
+                    width={100}
+                    height={24}
+                    style={{ paddingRight: 12 }}
+                  />
+                }
+              />
+            </Link>
+          </Flex>
+          <Divider borderColor="brand.light" borderWidth="1px" />
+        </React.Fragment>
+      ))}
+    </Stack>
+  );
+};
+
+const DuesSection = ({ subscriptions, subtabIndex, onSubtabChange }) => {
+  const playerDuesSubscriptions: DuesSubscription[] = subscriptions
+    .filter((sub) => sub.description.toLowerCase().includes("dues"))
+    .sort((a, b) => a.cost - b.cost);
+  const supporterDuesSubscriptions: DuesSubscription[] = subscriptions
+    .filter((sub) => !sub.description.toLowerCase().includes("dues"))
+    .sort((a, b) => a.cost - b.cost);
 
   return (
     <Box
@@ -166,12 +115,11 @@ const DuesSection = ({ subscriptions }) => {
             isFitted
             size="lg"
             colorScheme="brand.meta"
-            // fontWeight="bold"
-            // fontFamily="Big Shoulders Display"
-            // fontSize="xl"
             color="brand.black"
             maxW="100%"
             alignSelf="center"
+            index={subtabIndex}
+            onChange={onSubtabChange}
           >
             <TabList>
               <Tab fontSize="m" fontWeight="bold">
@@ -191,47 +139,6 @@ const DuesSection = ({ subscriptions }) => {
             </TabPanels>
           </Tabs>
         </Box>
-
-        {/* <Stack> */}
-        {/* {subscriptions?.map(
-            ({ description, planId, cost, type, benefits }) => (
-              <React.Fragment key={planId}>
-                <Flex align="center">
-                  <VStack w="50%" mr={4}>
-                    <Text m={0} fontWeight={800}>
-                      {description}
-                    </Text>
-                    <Text m={0}>
-                      ${cost} - {type}
-                    </Text>
-                    {benefits ? (
-                      <Text m={0} fontStyle="italic">
-                        {benefits}
-                      </Text>
-                    ) : null}
-                  </VStack>
-                  <Link href={`${basePaypalUrl}${planId}`} isExternal w="50%">
-                    <Button
-                      w="fit-content"
-                      minW="50%"
-                      variant="solid"
-                      leftIcon={
-                        <Image
-                          src="/icons/paypal_logo.png"
-                          alt="Venmo"
-                          width={100}
-                          height={24}
-                          style={{ paddingRight: 12 }}
-                        />
-                      }
-                    />
-                  </Link>
-                </Flex>
-                <Divider borderColor="brand.light" borderWidth="1px" />
-              </React.Fragment>
-            )
-          )}
-        </Stack> */}
       </VStack>
     </Box>
   );
