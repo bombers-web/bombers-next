@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import useBp from "../theme/useBp";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import NewsletterSignup from "common/NewsletterSignup";
 
 const NextMatchText = styled(Box)`
   color: "#fff";
@@ -101,60 +102,70 @@ const Home = (props) => {
           align="center"
         >
           <Flex flexDirection="column" textAlign="center" my="10px">
-            <NextMatchFont size="lg">Next Up:</NextMatchFont>
-            {upcomingMatches.length > 0 ? (
-              upcomingMatches.map((upcomingMatch, idx) => (
-                <>
-                  <Flex alignItems="center" key={idx}>
-                    <MatchTeams match={upcomingMatch} />
-                    <NextMatchText flex="3" className="next-match__text--date">
-                      <NextMatchFont size="sm" color="white">
-                        {getLongDate(upcomingMatch.date)[0] ||
-                          "No upcoming games"}
-                        {isMobile && (
-                          <NextMatchFont size="sm" color="white" mt={2}>
+            <Flex flexDirection="column" textAlign="center" m="10px">
+              <NextMatchFont size="lg">Next Up:</NextMatchFont>
+              {upcomingMatches.length > 0 ? (
+                upcomingMatches.map((upcomingMatch, idx) => (
+                  <>
+                    <Flex alignItems="center" key={idx}>
+                      <MatchTeams match={upcomingMatch} />
+                      <NextMatchText
+                        flex="3"
+                        className="next-match__text--date"
+                      >
+                        <NextMatchFont size="sm" color="white">
+                          {getLongDate(upcomingMatch.date)[0] ||
+                            "No upcoming games"}
+                          {isMobile && (
+                            <NextMatchFont size="sm" color="white" mt={2}>
+                              {getLongDate(upcomingMatch.date)[1] || "no"}
+                            </NextMatchFont>
+                          )}
+                        </NextMatchFont>
+                        {!isMobile && (
+                          <NextMatchFont size="sm" color="white">
                             {getLongDate(upcomingMatch.date)[1] || "no"}
                           </NextMatchFont>
                         )}
-                      </NextMatchFont>
-                      {!isMobile && (
                         <NextMatchFont size="sm" color="white">
-                          {getLongDate(upcomingMatch.date)[1] || "no"}
+                          {upcomingMatch.location}
                         </NextMatchFont>
-                      )}
-                      <NextMatchFont size="sm" color="white">
-                        {upcomingMatch.location}
-                      </NextMatchFont>
-                    </NextMatchText>
-                    <Box flex="1" justifyContent="space-around" p="0 8px">
-                      <Link href="/watch">
-                        <Button variant="outline" p={isMobile ? 0 : "auto"}>
-                          {isMobile ? (
-                            <FontAwesomeIcon
-                              icon={faPlay as IconProp}
-                              color="gold"
-                              size="sm"
-                            />
-                          ) : (
-                            <>Watch Info</>
-                          )}
-                        </Button>
-                      </Link>
-                    </Box>
-                  </Flex>
-                  <Divider
-                    mt={2}
-                    width={isMobile ? "95%" : "100%"}
-                    alignSelf="center"
-                    visibility={
-                      idx === upcomingMatches.length - 1 ? "hidden" : "visible"
-                    }
-                  />
-                </>
-              ))
-            ) : (
-              <Text color="gold">There are no upcoming scheduled games</Text>
-            )}
+                      </NextMatchText>
+                      <Box flex="1" justifyContent="space-around" p="0 8px">
+                        <Link href="/watch">
+                          <Button variant="outline" p={isMobile ? 0 : "auto"}>
+                            {isMobile ? (
+                              <FontAwesomeIcon
+                                icon={faPlay as IconProp}
+                                color="gold"
+                                size="sm"
+                              />
+                            ) : (
+                              <>Watch Info</>
+                            )}
+                          </Button>
+                        </Link>
+                      </Box>
+                    </Flex>
+                    <Divider
+                      mt={2}
+                      width={isMobile ? "95%" : "100%"}
+                      alignSelf="center"
+                      visibility={
+                        idx === upcomingMatches.length - 1
+                          ? "hidden"
+                          : "visible"
+                      }
+                    />
+                  </>
+                ))
+              ) : (
+                <Text color="gold">There are no upcoming scheduled games</Text>
+              )}
+            </Flex>
+            <Flex flexDirection="column" textAlign="center" my="10px">
+              <NewsletterSignup />
+            </Flex>
           </Flex>
         </Section>
       </PageContent>
