@@ -26,7 +26,6 @@ const Sponsors = ({ forFooter, ...props }) => {
       .catch((err) => console.error(err));
   }, []);
 
-
   return forFooter ? (
     <Flex direction="row" flexWrap={"wrap"} gap={4} justifyContent={"center"}>
       {sponsors?.map((sponsor) => {
