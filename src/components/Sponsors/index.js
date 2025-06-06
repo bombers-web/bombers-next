@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { Box, Flex } from "@chakra-ui/react";
+import { Box, Flex, Link } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import Pic from "../../common/Pic";
 import useBp from "../../../theme/useBp";
@@ -32,16 +32,18 @@ const Sponsors = ({ forFooter, ...props }) => {
         const logo = sponsor?.image?.url || sponsor.logo;
         return (
           <Box key={sponsor?.name}>
-            <Pic
-              style={{
-                width: 60,
-                height: 60,
-                opacity: 0.7,
-                zoom: 1,
-              }}
-              src={logo}
-              fit="contain"
-            ></Pic>
+            <Link href={sponsor?.website} isExternal>
+              <Pic
+                style={{
+                  width: 60,
+                  height: 60,
+                  opacity: 0.7,
+                  zoom: 1,
+                }}
+                src={logo}
+                fit="contain"
+              ></Pic>
+            </Link>
           </Box>
         );
       })}
