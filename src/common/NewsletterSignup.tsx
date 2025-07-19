@@ -48,7 +48,7 @@ const NewsletterSignup: React.FC = () => {
           <Input
             type="email"
             name="EMAIL"
-            placeholder="* Enter your email address"
+            placeholder="Email *"
             bg="white"
             color="gray.800"
             _placeholder={{ color: "gray.500" }}

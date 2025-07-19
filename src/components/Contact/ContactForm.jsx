@@ -88,8 +88,8 @@ const ContactForm = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          to: ["marcom@stlouisbombers.com"],
           subject: "Contact from Website",
+          replyTo: contact.email,
           html: `
             <!DOCTYPE html>
             <html lang="en">

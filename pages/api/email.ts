@@ -6,11 +6,12 @@ const ses = new AWS.SES({
   region: process.env.SES_REGION,
 });
 
-async function sendEmail({ to, subject, html, text }) {
+async function sendEmail({ to, subject, html, text, cc, replyTo }) {
   try {
     const params = {
       Destination: {
         ToAddresses: Array.isArray(to) ? to : [to],
+        ...(cc && { CcAddresses: Array.isArray(cc) ? cc : [cc] }),
       },
       Message: {
         Body: {
@@ -33,6 +34,7 @@ async function sendEmail({ to, subject, html, text }) {
         },
       },
       Source: process.env.SES_SENDER_EMAIL,
+      ReplyToAddresses: Array.isArray(replyTo) ? replyTo : [replyTo], // Assuming 'replyTo' is your variable for the reply-to email(s)
     };
 
     const result = await ses.sendEmail(params).promise();
@@ -51,6 +53,7 @@ export default async function handler(req, res) {
     "SES_REGION",
     "SES_SENDER_EMAIL",
     "SES_RECIPIENT_EMAIL",
+    "SES_CC_EMAIL",
   ];
 
   const missingVars = requiredVars.filter((varName) => !process.env[varName]);
@@ -66,13 +69,17 @@ export default async function handler(req, res) {
     (email) => email.trim()
   );
 
+  const ccEmail = process.env.SES_CC_EMAIL.split(",").map((email) =>
+    email.trim()
+  );
+
   if (req.method !== "POST") {
     res.setHeader("Allow", ["POST"]);
     return res.status(405).json({ error: `Method ${req.method} Not Allowed` });
   }
 
   try {
-    const { subject, html, text } = req.body;
+    const { subject, html, text, replyTo } = req.body;
 
     // Input validation
     if (!recipientEmail || !subject || (!html && !text)) {
@@ -91,7 +98,14 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: "Invalid email format" });
     }
 
-    const result = await sendEmail({ to: recipientEmail, subject, html, text });
+    const result = await sendEmail({
+      to: recipientEmail,
+      cc: ccEmail,
+      subject,
+      html,
+      text,
+      replyTo,
+    });
 
     return res.status(200).json({
       message: "Email sent successfully!",
