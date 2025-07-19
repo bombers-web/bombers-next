@@ -58,7 +58,7 @@ export async function getStaticProps() {
     fetchAPI(
       "/games?populate[0]=home.logo&populate[1]=away.logo&populate=winner&sort[0]=date:asc"
     ),
-    fetchAPI("/calenders?populate[0]=calender"),
+    fetchAPI("/calenders?populate[0]=calender&sort[1]=date:desc"),
   ]);
 
   return {

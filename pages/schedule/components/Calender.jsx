@@ -7,13 +7,13 @@ const Calender = ({ calenders }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleNext = () => {
+    // Allows going to the next item, wrapping around to the beginning
     setCurrentIndex((prevIndex) => (prevIndex + 1) % calenders.length);
   };
 
   const handlePrev = () => {
-    setCurrentIndex(
-      (prevIndex) => (prevIndex - 1 + calenders.length) % calenders.length
-    );
+    // Only go back if not already at the first item (index 0)
+    setCurrentIndex((prevIndex) => (prevIndex === 0 ? 0 : prevIndex - 1));
   };
 
   if (!calenders || calenders.length === 0) {
@@ -26,7 +26,6 @@ const Calender = ({ calenders }) => {
 
   const currentCalender = calenders[currentIndex];
 
-  // Function to format the date
   const formatCalendarDate = (dateString) => {
     if (!dateString) return "";
     const date = new Date(dateString.replace(/-/g, "/"));
@@ -46,7 +45,8 @@ const Calender = ({ calenders }) => {
           icon={<FaChevronLeft />}
           onClick={handlePrev}
           aria-label="Previous Calendar"
-          isDisabled={calenders.length <= 1}
+          // Disable if there's only one calendar or if we are at the first item (index 0)
+          isDisabled={calenders.length <= 1 || currentIndex === 0}
           size={{ base: "sm", md: "lg" }}
         />
         <Text
@@ -60,7 +60,10 @@ const Calender = ({ calenders }) => {
           icon={<FaChevronRight />}
           onClick={handleNext}
           aria-label="Next Calendar"
-          isDisabled={calenders.length <= 1}
+          // Disable if there's only one calendar or if we are at the last item
+          isDisabled={
+            calenders.length <= 1 || currentIndex === calenders.length - 1
+          }
           size={{ base: "sm", md: "lg" }}
         />
       </Flex>
