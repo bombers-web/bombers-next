@@ -4,7 +4,7 @@ import GameInfo from "../../../src/components/Games/GameInfo";
 const Schedule = ({ upcoming }) => {
   return upcoming?.length > 0 ? (
     <>
-      {upcoming.map((game) => {
+      {upcoming.reverse().map((game) => {
         const gameInfoProps = {
           homeTeam: {
             name: game?.home?.name,

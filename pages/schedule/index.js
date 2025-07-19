@@ -56,7 +56,7 @@ const Schedule = ({ games, calenders }) => {
 export async function getStaticProps() {
   const [games, calenders] = await Promise.all([
     fetchAPI(
-      "/games?populate[0]=home.logo&populate[1]=away.logo&populate=winner&sort[0]=date:asc"
+      "/games?populate[0]=home.logo&populate[1]=away.logo&populate=winner&sort[0]=date:desc"
     ),
     fetchAPI("/calenders?populate[0]=calender&sort[1]=date:desc"),
   ]);
