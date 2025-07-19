@@ -44,7 +44,7 @@ const GameInfo = ({
     DI: "brand.black",
   };
 
-  const isBombers = (team) => team.includes("Bombers");
+  const isBombers = (team) => team?.includes("Bombers");
   const isHome = (homeTeam) => isBombers(homeTeam);
 
   return preview ? (
