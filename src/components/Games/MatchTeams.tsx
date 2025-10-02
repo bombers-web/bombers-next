@@ -68,7 +68,7 @@ const MatchTeams = ({ match }: { match: MatchType }) => {
         <TeamLogoContainer>
           <Image
             alt={home?.name}
-            src={home?.logo?.formats.small.url}
+            src={home?.logo?.formats?.small?.url}
             style={{ objectFit: "cover" }}
             fill
           />
