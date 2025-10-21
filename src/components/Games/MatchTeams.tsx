@@ -80,7 +80,7 @@ const MatchTeams = ({ match }: { match: MatchType }) => {
         <TeamLogoContainer>
           <Image
             alt={away?.name}
-            src={away?.logo?.formats.small.url}
+            src={away?.logo?.formats?.small?.url}
             style={{ objectFit: "cover" }}
             fill
           />
