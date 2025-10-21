@@ -14,7 +14,7 @@ const MobileReel = ({ contents }) => {
       {contents.map((content: Content) => {
         return (
           <MobileCard
-            bg={content?.image?.formats.large.url}
+            bg={content?.image?.formats?.large?.url}
             key={content.title}
           >
             <MobileCardDescription>

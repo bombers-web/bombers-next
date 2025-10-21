@@ -72,7 +72,7 @@ const NewsReel = ({ contents }) => {
                   return (
                     <source
                       key={format.format}
-                      srcSet={`${format.url} 2x`}
+                      srcSet={`${format?.url} 2x`}
                     ></source>
                   );
                 })}

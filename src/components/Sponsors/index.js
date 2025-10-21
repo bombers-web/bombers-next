@@ -57,7 +57,7 @@ const Sponsors = ({ forFooter, ...props }) => {
               height={250}
               width={250}
               className="sponsor_image"
-              src={sponsor.image.url || sponsor.logo}
+              src={sponsor?.image?.url || sponsor.logo}
             ></Image>
           </Box>
         ))}
