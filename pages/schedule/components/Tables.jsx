@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react'
 
 const Tables = () => {
-  return <div>No Tables Yet! Feature in Progress!</div>;
-};
+  return <div>No Tables Yet! Feature in Progress!</div>
+}
 
-export default Tables;
+export default Tables

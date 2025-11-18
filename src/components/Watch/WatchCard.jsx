@@ -1,6 +1,6 @@
-import { Box, Flex, Heading, Link } from "@chakra-ui/react";
-import Card from "common/Card";
-import React from "react";
+import { Box, Flex, Heading, Link } from '@chakra-ui/react'
+import Card from 'common/Card'
+import React from 'react'
 
 const WatchCard = ({ name, href, bg }) => {
   return (
@@ -10,31 +10,31 @@ const WatchCard = ({ name, href, bg }) => {
         radius="8px"
         id="board-card"
         styles={{
-          minHeight: "370px",
-          height: "auto",
-          maxWidth: "300px",
-          display: "flex",
-          justifyContent: "space-around",
-          cursor: "pointer",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          backgroundColor: "gray",
+          minHeight: '370px',
+          height: 'auto',
+          maxWidth: '300px',
+          display: 'flex',
+          justifyContent: 'space-around',
+          cursor: 'pointer',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          backgroundColor: 'gray',
         }}
-        bg={bg || "/static/logos/white_logo.png"}
+        bg={bg || '/static/logos/white_logo.png'}
         border="1px solid #e2e2e2"
       >
         <Box
           style={{
             background: `linear-gradient(
 185deg,rgba(0,0,0,0) 20%,rgba(0,0,0,.9) 80%)`,
-            height: "70%",
+            height: '70%',
             zIndex: 98,
-            width: "100%",
-            position: "absolute",
-            overflow: "hidden",
+            width: '100%',
+            position: 'absolute',
+            overflow: 'hidden',
             bottom: 0,
-            verticalAlign: "baseline",
-            display: "flex",
+            verticalAlign: 'baseline',
+            display: 'flex',
           }}
         >
           <Flex
@@ -56,7 +56,7 @@ const WatchCard = ({ name, href, bg }) => {
         </Box>
       </Card>
     </Link>
-  );
-};
+  )
+}
 
-export default WatchCard;
+export default WatchCard

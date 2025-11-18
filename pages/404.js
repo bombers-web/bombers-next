@@ -1,13 +1,13 @@
-import React from "react";
-import { Text, Flex, Box } from "@chakra-ui/react";
-import Layout from "../src/common/Layout";
-import Image from "next/image";
+import React from 'react'
+import { Text, Flex, Box } from '@chakra-ui/react'
+import Layout from '../src/common/Layout'
+import Image from 'next/image'
 
 const Fof = () => {
   return (
     <Layout
       seo={{
-        metaTitle: "Oops! 404 Error",
+        metaTitle: 'Oops! 404 Error',
       }}
       header="Page not found"
       mainBg="#fff"
@@ -33,7 +33,7 @@ const Fof = () => {
         </Text>
       </Flex>
     </Layout>
-  );
-};
+  )
+}
 
-export default Fof;
+export default Fof

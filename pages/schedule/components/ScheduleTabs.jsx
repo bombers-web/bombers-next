@@ -1,20 +1,20 @@
-import React from "react";
-import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
-import Results from "./Results";
-import Schedule from "./Schedule";
-import Tables from "./Tables";
+import React from 'react'
+import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react'
+import Results from './Results'
+import Schedule from './Schedule'
+import Tables from './Tables'
 
 const ScheduleTabs = ({ games = [] }) => {
-  const tabs = ["Schedule", "Results", "Tables"];
-  const upcoming = games?.filter((game) => !game.finished);
-  const results = games?.filter((game) => game.finished);
-  const division = "d3";
+  const tabs = ['Schedule', 'Results', 'Tables']
+  const upcoming = games?.filter((game) => !game.finished)
+  const results = games?.filter((game) => game.finished)
+  const division = 'd3'
 
   return (
     <Tabs align="center" colorScheme="brand.meta">
       <TabList>
         {tabs.map((tab) => (
-          <Tab key={tab + "tab"}>{tab}</Tab>
+          <Tab key={tab + 'tab'}>{tab}</Tab>
         ))}
       </TabList>
       <TabPanels>
@@ -29,7 +29,7 @@ const ScheduleTabs = ({ games = [] }) => {
         </TabPanel>
       </TabPanels>
     </Tabs>
-  );
-};
+  )
+}
 
-export default ScheduleTabs;
+export default ScheduleTabs

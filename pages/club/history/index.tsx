@@ -1,22 +1,22 @@
-import { Box, Heading } from "@chakra-ui/react";
-import Mdx from "../../../src/common/Mdx";
-import PageContent from "../../../src/common/PageContent";
-import Layout from "../../../src/common/Layout";
-import { fetchAPI } from "../../../src/lib/api";
-import { Block } from "src/types/pageTypes";
+import { Box, Heading } from '@chakra-ui/react'
+import Mdx from '../../../src/common/Mdx'
+import PageContent from '../../../src/common/PageContent'
+import Layout from '../../../src/common/Layout'
+import { fetchAPI } from '../../../src/lib/api'
+import { Block } from 'src/types/pageTypes'
 
 const ClubHistory = ({ history }) => {
   return (
     <Layout
       header="Club History"
       cover={{
-        url: "/static/legends_3.jpeg",
-        alternativeText: "Bombers legends",
+        url: '/static/legends_3.jpeg',
+        alternativeText: 'Bombers legends',
       }}
       seo={{
-        metaTitle: "Our History",
-        shareImage: "/static/legends_3.jpeg",
-        metaDescription: "In the St. Louis Rugby Scene since 1962",
+        metaTitle: 'Our History',
+        shareImage: '/static/legends_3.jpeg',
+        metaDescription: 'In the St. Louis Rugby Scene since 1962',
       }}
     >
       <PageContent>
@@ -41,21 +41,21 @@ const ClubHistory = ({ history }) => {
                 </Box>
               </Box>
             </Box>
-          );
+          )
         })}
       </PageContent>
     </Layout>
-  );
-};
+  )
+}
 
 export async function getStaticProps() {
   // Run API calls in parallel
-  const [history] = await Promise.all([fetchAPI("/history?populate=*")]);
+  const [history] = await Promise.all([fetchAPI('/history?populate=*')])
 
   return {
     props: {
       history,
     },
-  };
+  }
 }
-export default ClubHistory;
+export default ClubHistory

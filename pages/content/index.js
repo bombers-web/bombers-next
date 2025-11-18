@@ -1,25 +1,25 @@
-import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
-import { fetchAPI } from "lib/api";
-import React, { useCallback, useState } from "react";
-import Layout from "../../src/common/Layout";
-import ContentCard from "../../src/components/Content/ContentCard";
+import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react'
+import { fetchAPI } from 'lib/api'
+import React, { useCallback, useState } from 'react'
+import Layout from '../../src/common/Layout'
+import ContentCard from '../../src/components/Content/ContentCard'
 
 const News = ({ content, categories }) => {
-  const [selectedTab, setSelectedTab] = useState("Latest");
+  const [selectedTab, setSelectedTab] = useState('Latest')
   const onTabChange = useCallback((e, d) => {
-    setSelectedTab(e);
-  }, []);
+    setSelectedTab(e)
+  }, [])
 
   return (
     <Layout
       header="Content"
       seo={{
-        metaTitle: "Content",
+        metaTitle: 'Content',
         metaDescription: `${selectedTab} content`,
       }}
       cover={{
-        url: "/static/mcb-hero.jpeg",
-        alternativeText: "McBride cover photo",
+        url: '/static/mcb-hero.jpeg',
+        alternativeText: 'McBride cover photo',
       }}
     >
       <Tabs
@@ -53,41 +53,41 @@ const News = ({ content, categories }) => {
           <TabPanel textTransform="capitalize">
             {content?.length
               ? content.map((item) => {
-                  return <ContentCard key={item?.id} content={item} />;
+                  return <ContentCard key={item?.id} content={item} />
                 })
-              : "No Content"}
+              : 'No Content'}
           </TabPanel>
           {categories?.map((category) => {
             return (
               <TabPanel textTransform="capitalize" key={category}>
                 {category.contents?.length
                   ? category.contents.map((item) => {
-                      return <ContentCard key={item.id} content={item} />;
+                      return <ContentCard key={item.id} content={item} />
                     })
                   : `No ${category.name} content`}
               </TabPanel>
-            );
+            )
           })}
         </TabPanels>
       </Tabs>
     </Layout>
-  );
-};
+  )
+}
 
 export async function getStaticProps() {
   const categories =
     (await fetchAPI(
-      `/categories?populate[0]=contents&populate[1]=contents.image&populate[2]=contents.category&populate[3]=contents.writer`
-    )) || [];
+      `/categories?populate[0]=contents&populate[1]=contents.image&populate[2]=contents.category&populate[3]=contents.writer`,
+    )) || []
   const content =
     (await fetchAPI(
-      `/contents?populate[0]=writer.picture&populate[1]=image&populate[2]=category&sort[0]=published:desc`
-    )) || [];
+      `/contents?populate[0]=writer.picture&populate[1]=image&populate[2]=category&sort[0]=published:desc`,
+    )) || []
 
   return {
     props: { categories, content },
     revalidate: 86400,
-  };
+  }
 }
 
-export default News;
+export default News

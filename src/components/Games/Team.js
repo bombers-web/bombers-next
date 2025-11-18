@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, Text, Avatar } from "@chakra-ui/react";
+import { Box, Flex, Heading, Text, Avatar } from '@chakra-ui/react'
 
 const Team = ({ team: { name, score, logo, ...teamData }, away, preview }) => {
   // const [loaded, setLoaded] = useState(false);
@@ -25,19 +25,19 @@ const Team = ({ team: { name, score, logo, ...teamData }, away, preview }) => {
           <Box m={2}>
             <Avatar
               bg="brand.200"
-              size={preview ? "sm" : "xl"}
+              size={preview ? 'sm' : 'xl'}
               name={name}
               src={logo?.url}
             />
           </Box>
           <Flex flexGrow="1">
             <Heading
-              fontWeight={name === "Bombers" ? "extrabold" : "normal"}
+              fontWeight={name === 'Bombers' ? 'extrabold' : 'normal'}
               my={0}
               mx={2}
-              size={preview ? "lg" : "xl"}
+              size={preview ? 'lg' : 'xl'}
               fontFamily="Big Shoulders Display"
-              color={preview ? "white" : "inherit"}
+              color={preview ? 'white' : 'inherit'}
             >
               {name}
             </Heading>
@@ -46,8 +46,8 @@ const Team = ({ team: { name, score, logo, ...teamData }, away, preview }) => {
 
         <Box>
           <Text
-            color={score ? "brand.highlight" : "transparent"}
-            fontWeight={"extrabold"}
+            color={score ? 'brand.highlight' : 'transparent'}
+            fontWeight={'extrabold'}
             my={0}
             mx={2}
             fontSize="2xl"
@@ -61,7 +61,7 @@ const Team = ({ team: { name, score, logo, ...teamData }, away, preview }) => {
         </Box>
       </Flex>
     </>
-  );
-};
+  )
+}
 
-export default Team;
+export default Team

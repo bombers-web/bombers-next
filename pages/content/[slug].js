@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
-import { Box, Divider, Flex, Heading, Text } from "@chakra-ui/react";
-import { format, formatDistanceToNow } from "date-fns";
-import { enUS } from "date-fns/locale";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { Box, Divider, Flex, Heading, Text } from '@chakra-ui/react'
+import { format, formatDistanceToNow } from 'date-fns'
+import { enUS } from 'date-fns/locale'
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
 import {
   EmailIcon,
   EmailShareButton,
@@ -15,18 +15,18 @@ import {
   TwitterShareButton,
   WhatsappIcon,
   WhatsappShareButton,
-} from "react-share";
-import Mdx from "src/common/Mdx";
-import { ContentTag, ContentTime } from "src/components/NewsReel/styles";
-import styled from "styled-components";
-import Layout from "../../src/common/Layout";
-import Pic from "../../src/common/Pic";
+} from 'react-share'
+import Mdx from 'src/common/Mdx'
+import { ContentTag, ContentTime } from 'src/components/NewsReel/styles'
+import styled from 'styled-components'
+import Layout from '../../src/common/Layout'
+import Pic from '../../src/common/Pic'
 import ContentTitle, {
   ContentSummary,
-} from "../../src/components/Content/ContentTitle";
-import { fetchAPI } from "../../src/lib/api";
-import { getStrapiMedia } from "../../src/lib/media";
-import { max } from "lodash";
+} from '../../src/components/Content/ContentTitle'
+import { fetchAPI } from '../../src/lib/api'
+import { getStrapiMedia } from '../../src/lib/media'
+import { max } from 'lodash'
 
 const ContentHeader = styled.div`
   font-size: 44px;
@@ -42,29 +42,29 @@ const ContentHeader = styled.div`
   border: 4px solid white;
   width: 100%;
   text-align: center;
-`;
+`
 
 const defaultContent = {
   image: {
-    url: "",
+    url: '',
   },
-  title: "",
-  description: "",
+  title: '',
+  description: '',
   author: {},
-  published_at: "",
-  content: "",
-};
+  published_at: '',
+  content: '',
+}
 
 const Content = ({ content, context }) => {
-  const router = useRouter();
-  const imageUrl = content?.image;
+  const router = useRouter()
+  const imageUrl = content?.image
 
   const seo = {
     metaTitle: content?.title,
     metaDescription: content?.description,
     shareImage: content?.image,
     content: true,
-  };
+  }
 
   // const meta = [
   //   {
@@ -120,7 +120,7 @@ const Content = ({ content, context }) => {
   // If the page is not yet generated, this will be displayed
   // initially until getStaticProps() finishes running
   if (router.isFallback) {
-    return <div>Loading...</div>;
+    return <div>Loading...</div>
   }
 
   return (
@@ -135,7 +135,7 @@ const Content = ({ content, context }) => {
           py="70px"
           justifyContent="flex-start"
           h="100%"
-          id={content?.uid || "start"}
+          id={content?.uid || 'start'}
           borderRadius="20px 20px 0 0"
           position="relative"
           top="-10px"
@@ -147,14 +147,14 @@ const Content = ({ content, context }) => {
             m="auto"
             p="8"
             h="50%"
-            maxW={["100%", "100%", "1180px"]}
+            maxW={['100%', '100%', '1180px']}
             bg="brand.white"
             boxShadow="lg"
             direction="column"
             justifyContent="center"
           >
             <ContentTitle
-              fontSize={["2xl", "3xl", "4xl"]}
+              fontSize={['2xl', '3xl', '4xl']}
               lineHeight={[1, 1.5, 2]}
             >
               {content?.title}
@@ -162,23 +162,23 @@ const Content = ({ content, context }) => {
             <ContentSummary as="p">{content?.description}</ContentSummary>
             {content?.image && (
               <Pic
-                image={content.image || ""}
+                image={content.image || ''}
                 objectFit="contain"
                 style={{
-                  position: "static",
-                  width: "100%",
-                  height: "auto",
-                  maxWidth: "1180px",
+                  position: 'static',
+                  width: '100%',
+                  height: 'auto',
+                  maxWidth: '1180px',
                 }}
               />
             )}
             <Flex gap="4" justify="flex-end" marginTop="4">
               <Box m="0">
                 <Pic
-                  image={content?.writer.picture || ""}
+                  image={content?.writer.picture || ''}
                   style={{
-                    position: "static",
-                    borderRadius: "50%",
+                    position: 'static',
+                    borderRadius: '50%',
                     height: 30,
                   }}
                 />
@@ -191,10 +191,10 @@ const Content = ({ content, context }) => {
               >
                 <Box>
                   <Text margin="0">
-                    By {content?.writer?.name || "Anonymous"}
+                    By {content?.writer?.name || 'Anonymous'}
                   </Text>
                   <Text className="uk-text-meta uk-margin-remove-top">
-                    {format(new Date(content.publishedAt), "PPPp")}
+                    {format(new Date(content.publishedAt), 'PPPp')}
                   </Text>
                 </Box>
               </Box>
@@ -204,19 +204,19 @@ const Content = ({ content, context }) => {
                 <EmailIcon size={32} round></EmailIcon>
               </EmailShareButton>
               <FacebookShareButton
-                url={`${process.env.HOST_URL || "http://localhost:3000"}${
+                url={`${process.env.HOST_URL || 'http://localhost:3000'}${
                   router.asPath
                 }`}
-                quote={"Dummy text!"}
+                quote={'Dummy text!'}
                 hashtag="#muo"
               >
                 <FacebookIcon size={32} round />
               </FacebookShareButton>
               <TwitterShareButton
-                url={`${process.env.HOST_URL || "http://localhost:3000"}${
+                url={`${process.env.HOST_URL || 'http://localhost:3000'}${
                   router.asPath
                 }`}
-                quote={"Dummy text!"}
+                quote={'Dummy text!'}
                 hashtag="#muo"
               >
                 <TwitterIcon size={32} round />
@@ -238,7 +238,7 @@ const Content = ({ content, context }) => {
             >
               {content?.tagline && (
                 <Heading as="h3" size="lg" color="brand.highlight" my="4">
-                  {content.tagline || ""}
+                  {content.tagline || ''}
                 </Heading>
               )}
               <Box textAlign="justify" mb="10" pb="10">
@@ -249,31 +249,31 @@ const Content = ({ content, context }) => {
         </Flex>
       </>
     </Layout>
-  );
-};
+  )
+}
 
 export async function getStaticPaths() {
-  const contents = (await fetchAPI("/contents?populate=*")) || [];
+  const contents = (await fetchAPI('/contents?populate=*')) || []
   return {
     paths: contents.map((content) => ({
       params: {
-        slug: content?.slug || "2024-champs",
+        slug: content?.slug || '2024-champs',
       },
     })),
     fallback: true,
-  };
+  }
 }
 
 export async function getStaticProps({ params }) {
   const [content] =
     (await fetchAPI(
-      `/contents?populate[0]=writer.picture&populate[1]=image&sort[0]=published:desc&filters[slug][$eq]=${params.slug}`
-    )) || {};
+      `/contents?populate[0]=writer.picture&populate[1]=image&sort[0]=published:desc&filters[slug][$eq]=${params.slug}`,
+    )) || {}
   return {
     props: { content },
     // refetch every 2 weeks
     revalidate: 1209600,
-  };
+  }
 }
 
-export default Content;
+export default Content

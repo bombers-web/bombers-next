@@ -1,4 +1,4 @@
-import { Stack } from "@chakra-ui/react";
+import { Stack } from '@chakra-ui/react'
 
 const Games = ({ games = [] }) => {
   return (
@@ -12,7 +12,7 @@ const Games = ({ games = [] }) => {
       alignItems="center"
       id="game-container"
     ></Stack>
-  );
-};
+  )
+}
 
-export default Games;
+export default Games

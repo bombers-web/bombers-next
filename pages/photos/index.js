@@ -1,8 +1,8 @@
-import React from "react";
-import Layout from "../../src/common/Layout";
+import React from 'react'
+import Layout from '../../src/common/Layout'
 
 const Photos = () => {
-  return <Layout>photos</Layout>;
-};
+  return <Layout>photos</Layout>
+}
 
-export default Photos;
+export default Photos

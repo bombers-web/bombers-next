@@ -1,30 +1,30 @@
 // "use client";
 
-import { Box, Flex, Link } from "@chakra-ui/react";
-import { usePathname } from "next/navigation";
-import styled from "@emotion/styled";
-import NavLogo from "../../../common/NavLogo";
-import useNav from "../../../hooks/useNav";
-import Socials from "../../../common/Socials";
+import { Box, Flex, Link } from '@chakra-ui/react'
+import { usePathname } from 'next/navigation'
+import styled from '@emotion/styled'
+import NavLogo from '../../../common/NavLogo'
+import useNav from '../../../hooks/useNav'
+import Socials from '../../../common/Socials'
 
 type MenuItemProps = {
-  theme: any;
-  outlined?: boolean;
-  current_slug?: boolean;
-};
+  theme: any
+  outlined?: boolean
+  current_slug?: boolean
+}
 
 type DesktopNavProps = {
-  homePage: boolean;
-};
+  homePage: boolean
+}
 
 const MenuItem = styled(Box)`
   ${(props: MenuItemProps) => ({
-    padding: props.outlined ? "4px" : "0px",
-    border: props.outlined ? "3px solid white" : "none",
-    alignContent: "center",
+    padding: props.outlined ? '4px' : '0px',
+    border: props.outlined ? '3px solid white' : 'none',
+    alignContent: 'center',
     ...props.theme?.fonts?.menuItem,
     color: props.current_slug
-      ? "var(--chakra-colors-brand-highlight)"
+      ? 'var(--chakra-colors-brand-highlight)'
       : props.theme.fonts.menuItem.color,
   })}
   opacity: 0.75;
@@ -32,23 +32,23 @@ const MenuItem = styled(Box)`
     opacity: 1;
     color: var(--chakra-colors-brand-highlight);
   }
-`;
+`
 
 const DesktopNav = ({ homePage }: DesktopNavProps) => {
-  const { navs } = useNav();
-  const pathname = usePathname();
+  const { navs } = useNav()
+  const pathname = usePathname()
   return (
     <Flex
       id="desktop-nav-container"
-      bg={homePage ? "linear-gradient(#2d2d2dc1, transparent);" : "brand.dark"}
+      bg={homePage ? 'linear-gradient(#2d2d2dc1, transparent);' : 'brand.dark'}
       minH="100px"
       minW="100vw"
-      display={["none", "none", "flex", "flex"]}
+      display={['none', 'none', 'flex', 'flex']}
       justifyContent="center"
       alignItems="center"
       px="16px"
       pb="8px"
-      position={homePage ? "fixed" : "inherit"}
+      position={homePage ? 'fixed' : 'inherit'}
     >
       <Flex justifyContent="center" maxW="1180px" w="100%" alignItems="center">
         <Box flex="1">
@@ -61,8 +61,8 @@ const DesktopNav = ({ homePage }: DesktopNavProps) => {
           width="100%"
           height="100%"
           sx={{
-            justifyContent: "center",
-            alignItems: "center",
+            justifyContent: 'center',
+            alignItems: 'center',
           }}
         >
           {navs.map((nav) => {
@@ -70,18 +70,18 @@ const DesktopNav = ({ homePage }: DesktopNavProps) => {
               <Link
                 key={nav.slug}
                 style={{
-                  textDecoration: "none",
+                  textDecoration: 'none',
                 }}
                 href={nav.slug}
               >
                 <MenuItem
                   className="desktop-menu-item"
-                  current_slug={pathname === nav.slug ? "true" : undefined}
+                  current_slug={pathname === nav.slug ? 'true' : undefined}
                 >
                   {nav.name}
                 </MenuItem>
               </Link>
-            );
+            )
           })}
         </Flex>
         <Flex
@@ -91,13 +91,13 @@ const DesktopNav = ({ homePage }: DesktopNavProps) => {
           width="100%"
           height="100%"
           sx={{
-            justifyContent: "flex-end",
-            alignItems: "center",
+            justifyContent: 'flex-end',
+            alignItems: 'center',
           }}
         >
           <Link
             style={{
-              textDecoration: "none",
+              textDecoration: 'none',
             }}
             href="/pay"
           ></Link>
@@ -106,7 +106,7 @@ const DesktopNav = ({ homePage }: DesktopNavProps) => {
         </Flex>
       </Flex>
     </Flex>
-  );
-};
+  )
+}
 
-export default DesktopNav;
+export default DesktopNav

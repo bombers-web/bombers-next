@@ -1,16 +1,16 @@
-import { Box, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
-import { groupBy } from "lodash";
-import React from "react";
-import Layout from "../../src/common/Layout";
-import { fetchAPI } from "../../src/lib/api";
-import ScheduleTabs from "./components/ScheduleTabs";
-import Calender from "./components/Calender";
+import { Box, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react'
+import { groupBy } from 'lodash'
+import React from 'react'
+import Layout from '../../src/common/Layout'
+import { fetchAPI } from '../../src/lib/api'
+import ScheduleTabs from './components/ScheduleTabs'
+import Calender from './components/Calender'
 
 const Schedule = ({ games, calenders }) => {
-  const { d1, d2 } = groupBy(games, "division");
+  const { d1, d2 } = groupBy(games, 'division')
   const seo = {
-    metaTitle: "Schedule",
-  };
+    metaTitle: 'Schedule',
+  }
 
   return (
     <Layout seo={seo}>
@@ -20,7 +20,7 @@ const Schedule = ({ games, calenders }) => {
         size={isDesktop ? "md" : "xl"}
         contentLink="#schedule"
       /> */}
-      <Box maxW="1180px" justifyContent={"center"} mx="auto" mt={8} mb={4}>
+      <Box maxW="1180px" justifyContent={'center'} mx="auto" mt={8} mb={4}>
         <Tabs
           id="schedule"
           isFitted
@@ -50,16 +50,16 @@ const Schedule = ({ games, calenders }) => {
         </Tabs>
       </Box>
     </Layout>
-  );
-};
+  )
+}
 
 export async function getStaticProps() {
   const [games, calenders] = await Promise.all([
     fetchAPI(
-      "/games?populate[0]=home.logo&populate[1]=away.logo&populate=winner&sort[0]=date:desc"
+      '/games?populate[0]=home.logo&populate[1]=away.logo&populate=winner&sort[0]=date:desc',
     ),
-    fetchAPI("/calenders?populate[0]=calender&sort[1]=date:desc"),
-  ]);
+    fetchAPI('/calenders?populate[0]=calender&sort[1]=date:desc'),
+  ])
 
   return {
     props: {
@@ -68,7 +68,7 @@ export async function getStaticProps() {
     },
     // refetch every day
     revalidate: 86400,
-  };
+  }
 }
 
-export default Schedule;
+export default Schedule

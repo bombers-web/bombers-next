@@ -1,8 +1,8 @@
-import { Box, Text } from "@chakra-ui/react";
-import styled from "@emotion/styled";
-import Image from "next/image";
-import React from "react";
-import { MatchType } from "src/types/matchTypes";
+import { Box, Text } from '@chakra-ui/react'
+import styled from '@emotion/styled'
+import Image from 'next/image'
+import React from 'react'
+import { MatchType } from 'src/types/matchTypes'
 
 const MatchTeamsContainer = styled(Box)`
   display: flex;
@@ -12,7 +12,7 @@ const MatchTeamsContainer = styled(Box)`
   @media (min-width: 992px) {
     margin: 0 40px 0 0;
   }
-`;
+`
 
 const TeamLogoContainer = styled(Box)`
   width: 48px;
@@ -26,10 +26,10 @@ const TeamLogoContainer = styled(Box)`
     width: 72px;
     height: 72px;
   }
-`;
+`
 
 const TeamMatchVs = styled.h2`
-  font-family: "Poppins", "Helvetica Neue", Arial, sans-serif;
+  font-family: 'Poppins', 'Helvetica Neue', Arial, sans-serif;
   margin: 0 16px;
   opacity: 0.5;
   font-weight: 900;
@@ -41,13 +41,13 @@ const TeamMatchVs = styled.h2`
     line-height: 50px;
     font-size: 46px;
   }
-`;
+`
 
 const TeamContainer = styled(Box)`
   margin: 0;
   padding: 0;
   justify-items: center;
-`;
+`
 
 const TeamName = styled(Text)`
   color: var(--chakra-colors-brand-lightSecondary);
@@ -57,10 +57,10 @@ const TeamName = styled(Text)`
   font-size: small;
   text-align: center;
   line-height: 1;
-`;
+`
 
 const MatchTeams = ({ match }: { match: MatchType }) => {
-  const { home, away } = match;
+  const { home, away } = match
 
   return (
     <MatchTeamsContainer>
@@ -69,7 +69,7 @@ const MatchTeams = ({ match }: { match: MatchType }) => {
           <Image
             alt={home?.name}
             src={home?.logo?.formats?.small?.url}
-            style={{ objectFit: "cover" }}
+            style={{ objectFit: 'cover' }}
             fill
           />
         </TeamLogoContainer>
@@ -81,14 +81,14 @@ const MatchTeams = ({ match }: { match: MatchType }) => {
           <Image
             alt={away?.name}
             src={away?.logo?.formats?.small?.url}
-            style={{ objectFit: "cover" }}
+            style={{ objectFit: 'cover' }}
             fill
           />
         </TeamLogoContainer>
         <TeamName>{away.name}</TeamName>
       </TeamContainer>
     </MatchTeamsContainer>
-  );
-};
+  )
+}
 
-export default MatchTeams;
+export default MatchTeams

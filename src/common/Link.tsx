@@ -1,25 +1,25 @@
-import { Button } from "@chakra-ui/react";
-import { toLower } from "lodash";
-import NextLink from "next/link";
+import { Button } from '@chakra-ui/react'
+import { toLower } from 'lodash'
+import NextLink from 'next/link'
 import {
   HTMLAttributeAnchorTarget,
   PropsWithChildren,
   ReactElement,
-} from "react";
+} from 'react'
 
 type LinkProps = {
-  as: string;
-  href: string;
-  variant?: "expandy" | "outline" | "solid" | "menu";
-  target: HTMLAttributeAnchorTarget;
-};
+  as: string
+  href: string
+  variant?: 'expandy' | 'outline' | 'solid' | 'menu'
+  target: HTMLAttributeAnchorTarget
+}
 
 const Link = ({
   as,
   href,
-  variant = "solid",
+  variant = 'solid',
   children,
-  target = "_blank",
+  target = '_blank',
   ...props
 }: PropsWithChildren<LinkProps>): ReactElement => {
   return (
@@ -32,15 +32,15 @@ const Link = ({
         fontWeight="bold"
         fontSize="sm"
         _hover={{
-          color: "#212121",
-          textDecoration: "none",
+          color: '#212121',
+          textDecoration: 'none',
         }}
         {...props}
       >
         {children}
       </Button>
     </NextLink>
-  );
-};
+  )
+}
 
-export default Link;
+export default Link

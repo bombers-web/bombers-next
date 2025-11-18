@@ -1,4 +1,4 @@
-import Layout from "../../src/common/Layout";
+import Layout from '../../src/common/Layout'
 
 const DonatePage = () => {
   return (
@@ -8,7 +8,7 @@ const DonatePage = () => {
         <p>Donate to our project 💖</p>
       </div>
     </Layout>
-  );
-};
+  )
+}
 
-export default DonatePage;
+export default DonatePage

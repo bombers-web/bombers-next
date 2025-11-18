@@ -5,20 +5,20 @@ import {
   Heading,
   Stack,
   Link as ChakraLink,
-} from "@chakra-ui/react";
-import Link from "next/link";
+} from '@chakra-ui/react'
+import Link from 'next/link'
 
 export type NavLogoProps = {
-  size?: "sm" | "md" | "lg" | "xl" | string;
-  color?: string;
-  logoOnly?: boolean;
-  disableGutters?: boolean;
-  styles?: any;
-};
+  size?: 'sm' | 'md' | 'lg' | 'xl' | string
+  color?: string
+  logoOnly?: boolean
+  disableGutters?: boolean
+  styles?: any
+}
 
 const NavLogo = ({
-  size = "md",
-  color = "default",
+  size = 'md',
+  color = 'default',
   logoOnly = false,
   disableGutters = false,
   styles,
@@ -29,11 +29,11 @@ const NavLogo = ({
     lg: [70, 70],
     xl: [90, 90],
     undefined: [null, null],
-  };
+  }
 
-  const [height, width] = typeof size === "string" ? dims[size] : size;
+  const [height, width] = typeof size === 'string' ? dims[size] : size
 
-  const display = logoOnly ? "none" : "flex";
+  const display = logoOnly ? 'none' : 'flex'
 
   return (
     <Center
@@ -57,11 +57,11 @@ const NavLogo = ({
           align-items="center"
           transition="height .2s"
           _hover={{
-            color: "inherit",
+            color: 'inherit',
             outline: 0,
           }}
           style={{
-            textDecoration: "none",
+            textDecoration: 'none',
           }}
         >
           <Flex direction="row" alignItems="center" justifyContent="flex-start">
@@ -69,9 +69,9 @@ const NavLogo = ({
               <img
                 className="logo-img"
                 src={
-                  color === "brand.light"
-                    ? "/static/logos/white_logo.png"
-                    : "/static/logos/logo.png"
+                  color === 'brand.light'
+                    ? '/static/logos/white_logo.png'
+                    : '/static/logos/logo.png'
                 }
                 alt="Home"
                 height={height}
@@ -87,18 +87,18 @@ const NavLogo = ({
               <Heading
                 className="logo-heading"
                 size={{
-                  base: size || "md",
-                  sm: size || "md",
-                  md: size || "md",
-                  lg: size || "lg",
-                  xl: size || "xl",
+                  base: size || 'md',
+                  sm: size || 'md',
+                  md: size || 'md',
+                  lg: size || 'lg',
+                  xl: size || 'xl',
                 }}
-                mr={size === "sm" ? 1 : 0}
+                mr={size === 'sm' ? 1 : 0}
                 mb={0}
-                color={color || "inherit"}
-                whiteSpace={"pre-wrap"}
+                color={color || 'inherit'}
+                whiteSpace={'pre-wrap'}
               >
-                {"Saint Louis\nBombers Rugby"}
+                {'Saint Louis\nBombers Rugby'}
               </Heading>
 
               {/* <Heading
@@ -119,7 +119,7 @@ const NavLogo = ({
         </ChakraLink>
       </Link>
     </Center>
-  );
-};
+  )
+}
 
-export default NavLogo;
+export default NavLogo

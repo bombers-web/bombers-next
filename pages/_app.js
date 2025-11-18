@@ -1,19 +1,19 @@
-import { ChakraProvider } from "@chakra-ui/react";
-import { config } from "@fortawesome/fontawesome-svg-core";
-import "@fortawesome/fontawesome-svg-core/styles.css";
+import { ChakraProvider } from '@chakra-ui/react'
+import { config } from '@fortawesome/fontawesome-svg-core'
+import '@fortawesome/fontawesome-svg-core/styles.css'
 // import { PayPalScriptProvider } from "@paypal/react-paypal-js";
-import Head from "next/head";
-import { createContext } from "react";
-import theme from "../theme";
-import "../theme/globalStyles.scss";
+import Head from 'next/head'
+import { createContext } from 'react'
+import theme from '../theme'
+import '../theme/globalStyles.scss'
 
 // Store Strapi Global object in context
-export const GlobalContext = createContext({});
+export const GlobalContext = createContext({})
 
-config.autoAddCss = false;
+config.autoAddCss = false
 
 const MyApp = ({ Component, pageProps }) => {
-  const { global } = pageProps;
+  const { global } = pageProps
   // const initialOptions = {
   //   // clientId: process.env.PAYPAL_CLIENT_ID,
   //   clientId:
@@ -39,7 +39,7 @@ const MyApp = ({ Component, pageProps }) => {
       </GlobalContext.Provider>
       {/* </PayPalScriptProvider> */}
     </>
-  );
-};
+  )
+}
 
-export default MyApp;
+export default MyApp

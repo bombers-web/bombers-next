@@ -1,19 +1,19 @@
-import { Badge, Box, Flex, LinkBox, Text } from "@chakra-ui/react";
-import { toLower } from "lodash";
-import { format } from "date-fns";
-import Link from "next/link";
-import ReactMarkdown from "react-markdown";
+import { Badge, Box, Flex, LinkBox, Text } from '@chakra-ui/react'
+import { toLower } from 'lodash'
+import { format } from 'date-fns'
+import Link from 'next/link'
+import ReactMarkdown from 'react-markdown'
 
 const ContentCard = ({ content, href }) => {
-  const contentId = content?.uid ? toLower(content.uid) : toLower(content?.id);
-  const link = `/content/${contentId}`;
+  const contentId = content?.uid ? toLower(content.uid) : toLower(content?.id)
+  const link = `/content/${contentId}`
 
   return (
-    <Link href={link} style={{ textDecoration: "none" }}>
+    <Link href={link} style={{ textDecoration: 'none' }}>
       <LinkBox>
         <Flex
           transition={`all .2s ease-in-out`}
-          direction={["column", "column", "row"]}
+          direction={['column', 'column', 'row']}
           m={8}
           p={[0, 0, 2, 4]}
           minH="350px"
@@ -25,7 +25,7 @@ const ContentCard = ({ content, href }) => {
           cursor="pointer"
           _hover={{
             transform: `scale(1.05)`,
-            boxShadow: "5px 3px 3px grey",
+            boxShadow: '5px 3px 3px grey',
           }}
           bg="brand.white"
           borderRadius={8}
@@ -37,7 +37,7 @@ const ContentCard = ({ content, href }) => {
             backgroundPosition="center"
             backgroundSize="cover"
             minW="30%"
-            maxW={["container.xl", "100%", "30%"]}
+            maxW={['container.xl', '100%', '30%']}
           ></Box>
           <Flex direction="column" width="100%">
             <Box
@@ -55,10 +55,10 @@ const ContentCard = ({ content, href }) => {
                   m={4}
                 >
                   <Text
-                    fontSize={["md", "xl"]}
+                    fontSize={['md', 'xl']}
                     as="p"
                     fontWeight="bolder"
-                    textTransform={"none"}
+                    textTransform={'none'}
                     color="brand.dark"
                     mb="4"
                   >
@@ -73,16 +73,16 @@ const ContentCard = ({ content, href }) => {
                     fontWeight="light"
                     fontSize="sm"
                     w="100%"
-                    display={["none", "none", "block"]}
+                    display={['none', 'none', 'block']}
                   >
-                    {content?.category?.name === "Events" ? (
+                    {content?.category?.name === 'Events' ? (
                       <ReactMarkdown>{content?.description}</ReactMarkdown>
                     ) : null}
                     <Text margin="0">
-                      By {content?.writer?.name || "Anonymous"}
+                      By {content?.writer?.name || 'Anonymous'}
                     </Text>
                     <Text className="uk-text-meta uk-margin-remove-top">
-                      {format(new Date(content.published), "PPPp")}
+                      {format(new Date(content.published), 'PPPp')}
                     </Text>
                   </Box>
                 </Flex>
@@ -97,7 +97,7 @@ const ContentCard = ({ content, href }) => {
         </Flex>
       </LinkBox>
     </Link>
-  );
-};
+  )
+}
 
-export default ContentCard;
+export default ContentCard

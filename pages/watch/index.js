@@ -1,28 +1,28 @@
-import Layout from "src/common/Layout";
-import WatchCard from "../../src/components/Watch/WatchCard";
-import { SimpleGrid } from "@chakra-ui/react";
+import Layout from 'src/common/Layout'
+import WatchCard from '../../src/components/Watch/WatchCard'
+import { SimpleGrid } from '@chakra-ui/react'
 
 const Watch = () => {
   const streamingSources = [
     {
-      name: "Ahlmeyer Sports Productions",
-      href: "https://www.youtube.com/@asp-ahlemeyersportsproduct192/featured",
+      name: 'Ahlmeyer Sports Productions',
+      href: 'https://www.youtube.com/@asp-ahlemeyersportsproduct192/featured',
     },
     {
-      name: "Bombers Youtube",
-      href: "https://www.youtube.com/@st.louisbombersrugby8391",
-      bg: "/static/schoeman_dallas.JPG",
+      name: 'Bombers Youtube',
+      href: 'https://www.youtube.com/@st.louisbombersrugby8391',
+      bg: '/static/schoeman_dallas.JPG',
     },
     {
-      name: "Bombers VEO (Mobile Only)",
-      href: "https://veolive.page.link/R72N",
-      bg: "/static/feakes_belmont.JPG",
+      name: 'Bombers VEO (Mobile Only)',
+      href: 'https://veolive.page.link/R72N',
+      bg: '/static/feakes_belmont.JPG',
     },
-  ];
+  ]
 
   return (
     <>
-      <Layout header="Watch Info" seo={{ metaTitle: "Watch" }} margin>
+      <Layout header="Watch Info" seo={{ metaTitle: 'Watch' }} margin>
         <SimpleGrid
           height="100%"
           columns={[1, 3]}
@@ -32,12 +32,12 @@ const Watch = () => {
           {streamingSources.map((source) => {
             return (
               <WatchCard name={source.name} href={source.href} bg={source.bg} />
-            );
+            )
           })}
         </SimpleGrid>
       </Layout>
     </>
-  );
-};
+  )
+}
 
-export default Watch;
+export default Watch

@@ -1,5 +1,5 @@
-import { Flex, SimpleGrid, Box, Heading } from "@chakra-ui/react";
-import Card from "../common/Card";
+import { Flex, SimpleGrid, Box, Heading } from '@chakra-ui/react'
+import Card from '../common/Card'
 
 const IndexLayout = ({ items }) => {
   return (
@@ -18,32 +18,32 @@ const IndexLayout = ({ items }) => {
             as={item?.url}
             link={`/${item.slug}`}
             styles={{
-              minHeight: "370px",
-              height: "auto",
-              maxWidth: "300px",
-              display: "flex",
-              justifyContent: "space-around",
-              cursor: "pointer",
-              backgroundPosition: "center",
-              backgroundRepeat: "no-repeat",
-              backgroundSize: "cover",
-              backgroundColor: "gray",
+              minHeight: '370px',
+              height: 'auto',
+              maxWidth: '300px',
+              display: 'flex',
+              justifyContent: 'space-around',
+              cursor: 'pointer',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat',
+              backgroundSize: 'cover',
+              backgroundColor: 'gray',
             }}
-            bg={item.bg || "/static/logos/white_logo.png"}
+            bg={item.bg || '/static/logos/white_logo.png'}
             border="1px solid #e2e2e2"
           >
             <Box
               style={{
                 background: `linear-gradient(
     185deg,rgba(0,0,0,0) 20%,rgba(0,0,0,.9) 80%)`,
-                height: "70%",
+                height: '70%',
                 zIndex: 98,
-                width: "100%",
-                position: "absolute",
-                overflow: "hidden",
+                width: '100%',
+                position: 'absolute',
+                overflow: 'hidden',
                 bottom: 0,
-                verticalAlign: "baseline",
-                display: "flex",
+                verticalAlign: 'baseline',
+                display: 'flex',
               }}
             >
               <Flex
@@ -66,10 +66,10 @@ const IndexLayout = ({ items }) => {
               </Flex>
             </Box>
           </Card>
-        );
+        )
       })}
     </SimpleGrid>
-  );
-};
+  )
+}
 
-export default IndexLayout;
+export default IndexLayout

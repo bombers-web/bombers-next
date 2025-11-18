@@ -1,5 +1,5 @@
-import { Box, Text } from "@chakra-ui/react";
-import GameInfo from "../../../src/components/Games/GameInfo";
+import { Box, Text } from '@chakra-ui/react'
+import GameInfo from '../../../src/components/Games/GameInfo'
 
 const Schedule = ({ upcoming }) => {
   return upcoming?.length > 0 ? (
@@ -19,7 +19,7 @@ const Schedule = ({ upcoming }) => {
           date: game?.date,
           location: game?.location,
           preview: false,
-        };
+        }
 
         return (
           <Box
@@ -29,15 +29,15 @@ const Schedule = ({ upcoming }) => {
             borderRadius="md"
             boxShadow="sm"
             _hover={{
-              boxShadow: "md",
-              transform: "translateY(-2px)",
+              boxShadow: 'md',
+              transform: 'translateY(-2px)',
             }}
             transition="all 0.2s ease-in-out"
             bg="brand.meta"
           >
             <GameInfo {...gameInfoProps} />
           </Box>
-        );
+        )
       })}
     </>
   ) : (
@@ -46,7 +46,7 @@ const Schedule = ({ upcoming }) => {
         No Games Currently Scheduled!
       </Text>
     </Box>
-  );
-};
+  )
+}
 
-export default Schedule;
+export default Schedule

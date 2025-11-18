@@ -1,5 +1,5 @@
-import styled from "@emotion/styled";
-import React, { PropsWithChildren } from "react";
+import styled from '@emotion/styled'
+import React, { PropsWithChildren } from 'react'
 
 const Container = styled.div`
   min-height: 80vh;
@@ -7,10 +7,10 @@ const Container = styled.div`
   background-color: var(
     ${(props: PageContentProps) =>
       props.darkMode
-        ? "--chakra-colors-brand-dark"
-        : "--chakra-colors-brand-light"}
+        ? '--chakra-colors-brand-dark'
+        : '--chakra-colors-brand-light'}
   );
-`;
+`
 
 const Wrapper = styled.div`
   width: 100%;
@@ -19,19 +19,19 @@ const Wrapper = styled.div`
   position: relative;
   padding: 0;
   ::before {
-    content: "";
+    content: '';
     display: block;
   }
   ::after {
-    content: "";
+    content: '';
     display: table;
     clear: both;
   }
-`;
+`
 
 type PageContentProps = {
-  darkMode?: boolean;
-};
+  darkMode?: boolean
+}
 const PageContent = ({
   children,
   darkMode,
@@ -40,7 +40,7 @@ const PageContent = ({
     <Container darkMode={darkMode}>
       <Wrapper>{children}</Wrapper>
     </Container>
-  );
-};
+  )
+}
 
-export default PageContent;
+export default PageContent

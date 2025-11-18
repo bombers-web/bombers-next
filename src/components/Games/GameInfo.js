@@ -1,5 +1,5 @@
-import { Box, Flex, Heading, Stack, Divider, Text } from "@chakra-ui/react";
-import Team from "./Team";
+import { Box, Flex, Heading, Stack, Divider, Text } from '@chakra-ui/react'
+import Team from './Team'
 
 const GameInfo = ({
   homeTeam,
@@ -12,40 +12,40 @@ const GameInfo = ({
   finished,
   slug,
 }) => {
-  const formatDateTime = (dateTime, format = "") => {
-    const date = new Date(dateTime);
+  const formatDateTime = (dateTime, format = '') => {
+    const date = new Date(dateTime)
     const formats = {
-      short: date.toLocaleDateString("en-US", {
-        month: "2-digit",
-        day: "2-digit",
+      short: date.toLocaleDateString('en-US', {
+        month: '2-digit',
+        day: '2-digit',
       }),
-    };
+    }
     const formattedDate =
-      date.toLocaleDateString("en-US", { weekday: "short" }) +
-      " " +
-      date.toLocaleDateString("en-US", { month: "short" }) +
-      " " +
-      date.toLocaleDateString("en-US", { day: "2-digit" });
+      date.toLocaleDateString('en-US', { weekday: 'short' }) +
+      ' ' +
+      date.toLocaleDateString('en-US', { month: 'short' }) +
+      ' ' +
+      date.toLocaleDateString('en-US', { day: '2-digit' })
 
-    const time = date.toLocaleString("en-US", {
-      hour: "2-digit",
-      minute: "2-digit",
-    });
+    const time = date.toLocaleString('en-US', {
+      hour: '2-digit',
+      minute: '2-digit',
+    })
     return {
-      date: format === "" ? formattedDate : formats[format],
+      date: format === '' ? formattedDate : formats[format],
       time,
-    };
-  };
+    }
+  }
 
   const bgs = {
-    DII: "brand.medium",
-    D2: "brand.medium",
-    D1: "brand.black",
-    DI: "brand.black",
-  };
+    DII: 'brand.medium',
+    D2: 'brand.medium',
+    D1: 'brand.black',
+    DI: 'brand.black',
+  }
 
-  const isBombers = (team) => team?.includes("Bombers");
-  const isHome = (homeTeam) => isBombers(homeTeam);
+  const isBombers = (team) => team?.includes('Bombers')
+  const isHome = (homeTeam) => isBombers(homeTeam)
 
   return preview ? (
     <Box
@@ -190,27 +190,27 @@ const GameInfo = ({
                 as="b"
                 color={
                   winner?.id === undefined
-                    ? "black"
-                    : winner.name.includes("St. Louis Bombers")
-                    ? "green"
-                    : "red"
+                    ? 'black'
+                    : winner.name.includes('St. Louis Bombers')
+                    ? 'green'
+                    : 'red'
                 }
               >
                 {winner?.id === undefined
-                  ? "T"
-                  : winner?.name.includes("St. Louis Bombers")
-                  ? "W"
-                  : "L"}
+                  ? 'T'
+                  : winner?.name.includes('St. Louis Bombers')
+                  ? 'W'
+                  : 'L'}
               </Text>
             </Stack>
           </Flex>
         </Stack>
       )}
       <Stack
-        direction={{ base: "column", md: "row" }}
-        textAlign={{ base: "center", md: "center" }}
+        direction={{ base: 'column', md: 'row' }}
+        textAlign={{ base: 'center', md: 'center' }}
         alignItems="center"
-        justifyContent={{ base: "center", md: "center" }}
+        justifyContent={{ base: 'center', md: 'center' }}
         w="100%"
         // spacing={{ base: 2, md: 4 }}
       >
@@ -227,7 +227,7 @@ const GameInfo = ({
         <Team team={isBombers(homeTeam?.name) ? awayTeam : homeTeam}></Team>
       </Stack>
     </Stack>
-  );
-};
+  )
+}
 
-export default GameInfo;
+export default GameInfo

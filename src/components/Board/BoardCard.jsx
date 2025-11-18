@@ -1,6 +1,6 @@
-import { Box, Flex, Heading, Link, Text } from "@chakra-ui/react";
-import Card from "common/Card";
-import React from "react";
+import { Box, Flex, Heading, Link, Text } from '@chakra-ui/react'
+import Card from 'common/Card'
+import React from 'react'
 
 const BoardCard = ({ size, url, bg, displayName, position, email }) => {
   return (
@@ -9,17 +9,17 @@ const BoardCard = ({ size, url, bg, displayName, position, email }) => {
       radius="8px"
       id="board-card"
       styles={{
-        minHeight: "370px",
-        height: "auto",
-        maxWidth: "300px",
-        display: "flex",
-        justifyContent: "space-around",
-        cursor: "auto",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: size > 3000 ? "cover" : "contain",
-        backgroundColor: "gray",
-        _hover: "none",
+        minHeight: '370px',
+        height: 'auto',
+        maxWidth: '300px',
+        display: 'flex',
+        justifyContent: 'space-around',
+        cursor: 'auto',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: size > 3000 ? 'cover' : 'contain',
+        backgroundColor: 'gray',
+        _hover: 'none',
       }}
       bg={bg}
       border="1px solid #e2e2e2"
@@ -28,14 +28,14 @@ const BoardCard = ({ size, url, bg, displayName, position, email }) => {
         style={{
           background: `linear-gradient(
 185deg,rgba(0,0,0,0) 20%,rgba(0,0,0,.9) 80%)`,
-          height: "70%",
+          height: '70%',
           zIndex: 98,
-          width: "100%",
-          position: "absolute",
-          overflow: "hidden",
+          width: '100%',
+          position: 'absolute',
+          overflow: 'hidden',
           bottom: 0,
-          verticalAlign: "baseline",
-          display: "flex",
+          verticalAlign: 'baseline',
+          display: 'flex',
         }}
       >
         <Flex
@@ -61,7 +61,7 @@ const BoardCard = ({ size, url, bg, displayName, position, email }) => {
         </Flex>
       </Box>
     </Card>
-  );
-};
+  )
+}
 
-export default BoardCard;
+export default BoardCard

@@ -1,5 +1,5 @@
-import React from "react";
-import { formatAmountForDisplay } from "../../../utils/stripeHelpers";
+import React from 'react'
+import { formatAmountForDisplay } from '../../../utils/stripeHelpers'
 
 const CustomDonationInput = ({
   name,
@@ -34,6 +34,6 @@ const CustomDonationInput = ({
       onChange={onChange}
     ></input>
   </label>
-);
+)
 
-export default CustomDonationInput;
+export default CustomDonationInput

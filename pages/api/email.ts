@@ -1,10 +1,10 @@
-import AWS from "aws-sdk";
+import AWS from 'aws-sdk'
 
 const ses = new AWS.SES({
   accessKeyId: process.env.SES_ACCESS_KEY_ID,
   secretAccessKey: process.env.SES_SECRET_ACCESS_KEY,
   region: process.env.SES_REGION,
-});
+})
 
 async function sendEmail({ to, subject, html, text, cc, replyTo }) {
   try {
@@ -17,85 +17,85 @@ async function sendEmail({ to, subject, html, text, cc, replyTo }) {
         Body: {
           ...(html && {
             Html: {
-              Charset: "UTF-8",
+              Charset: 'UTF-8',
               Data: html,
             },
           }),
           ...(text && {
             Text: {
-              Charset: "UTF-8",
+              Charset: 'UTF-8',
               Data: text,
             },
           }),
         },
         Subject: {
-          Charset: "UTF-8",
+          Charset: 'UTF-8',
           Data: subject,
         },
       },
       Source: process.env.SES_SENDER_EMAIL,
       ReplyToAddresses: Array.isArray(replyTo) ? replyTo : [replyTo], // Assuming 'replyTo' is your variable for the reply-to email(s)
-    };
+    }
 
-    const result = await ses.sendEmail(params).promise();
-    console.log("Email sent successfully:", result);
-    return result;
+    const result = await ses.sendEmail(params).promise()
+    console.log('Email sent successfully:', result)
+    return result
   } catch (error) {
-    console.error("Error sending email:", error);
-    throw error;
+    console.error('Error sending email:', error)
+    throw error
   }
 }
 
 export default async function handler(req, res) {
   const requiredVars = [
-    "SES_ACCESS_KEY_ID",
-    "SES_SECRET_ACCESS_KEY",
-    "SES_REGION",
-    "SES_SENDER_EMAIL",
-    "SES_RECIPIENT_EMAIL",
-    "SES_CC_EMAIL",
-  ];
+    'SES_ACCESS_KEY_ID',
+    'SES_SECRET_ACCESS_KEY',
+    'SES_REGION',
+    'SES_SENDER_EMAIL',
+    'SES_RECIPIENT_EMAIL',
+    'SES_CC_EMAIL',
+  ]
 
-  const missingVars = requiredVars.filter((varName) => !process.env[varName]);
+  const missingVars = requiredVars.filter((varName) => !process.env[varName])
 
   if (missingVars.length > 0) {
-    console.error("Missing required environment variables:", missingVars);
+    console.error('Missing required environment variables:', missingVars)
     return res.status(500).json({
-      error: "Server configuration error",
-    });
+      error: 'Server configuration error',
+    })
   }
 
-  const recipientEmail = process.env.SES_RECIPIENT_EMAIL.split(",").map(
-    (email) => email.trim()
-  );
+  const recipientEmail = process.env.SES_RECIPIENT_EMAIL.split(',').map(
+    (email) => email.trim(),
+  )
 
-  const ccEmail = process.env.SES_CC_EMAIL.split(",").map((email) =>
-    email.trim()
-  );
+  const ccEmail = process.env.SES_CC_EMAIL.split(',').map((email) =>
+    email.trim(),
+  )
 
-  if (req.method !== "POST") {
-    res.setHeader("Allow", ["POST"]);
-    return res.status(405).json({ error: `Method ${req.method} Not Allowed` });
+  if (req.method !== 'POST') {
+    res.setHeader('Allow', ['POST'])
+    return res.status(405).json({ error: `Method ${req.method} Not Allowed` })
   }
 
   try {
-    const { subject, html, text, replyTo } = req.body;
+    const { subject, html, text, replyTo } = req.body
 
     // Input validation
     if (!recipientEmail || !subject || (!html && !text)) {
       return res.status(400).json({
         error:
           "Missing required fields: 'to', 'subject', and either 'html' or 'text'",
-      });
+      })
     }
 
     // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     const emails = Array.isArray(recipientEmail)
       ? recipientEmail
-      : [recipientEmail];
+      : [recipientEmail]
     if (!emails.every((email) => emailRegex.test(email))) {
-      return res.status(400).json({ error: "Invalid email format" });
+      return res.status(400).json({ error: 'Invalid email format' })
     }
 
     const result = await sendEmail({
@@ -105,32 +105,32 @@ export default async function handler(req, res) {
       html,
       text,
       replyTo,
-    });
+    })
 
     return res.status(200).json({
-      message: "Email sent successfully!",
+      message: 'Email sent successfully!',
       messageId: result.MessageId,
-    });
+    })
   } catch (error) {
-    console.error("Error sending email:", error);
+    console.error('Error sending email:', error)
 
     // Return appropriate error messages based on error type
-    if (error.code === "MessageRejected") {
+    if (error.code === 'MessageRejected') {
       return res.status(400).json({
-        error: "Email rejected. Please verify your sender email is verified.",
-      });
+        error: 'Email rejected. Please verify your sender email is verified.',
+      })
     }
 
-    if (error.code === "ThrottlingException") {
+    if (error.code === 'ThrottlingException') {
       return res.status(429).json({
-        error: "Too many requests. Please try again later.",
-      });
+        error: 'Too many requests. Please try again later.',
+      })
     }
 
     return res.status(500).json({
-      error: "Failed to send email",
+      error: 'Failed to send email',
       details:
-        process.env.NODE_ENV === "development" ? error.message : undefined,
-    });
+        process.env.NODE_ENV === 'development' ? error.message : undefined,
+    })
   }
 }

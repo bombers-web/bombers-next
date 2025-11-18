@@ -1,6 +1,6 @@
-import useFeatures from "../../hooks/useFeatures";
-import { formatDistance } from "date-fns";
-import Link from "next/link";
+import useFeatures from '../../hooks/useFeatures'
+import { formatDistance } from 'date-fns'
+import Link from 'next/link'
 import {
   ContentTag,
   ContentTime,
@@ -14,45 +14,45 @@ import {
   HeroTileMetaData,
   HeroTileTitle,
   HeroTitleExplainer,
-} from "./styles";
-import { AiOutlineClockCircle } from "react-icons/ai";
-import { useCallback } from "react";
-import { useMediaQuery } from "@chakra-ui/react";
-import MobileReel from "./MobileReel";
-import React from "react";
-import { Content } from "../../types/newsTypes";
-import { Formats } from "../../types/imageTypes";
+} from './styles'
+import { AiOutlineClockCircle } from 'react-icons/ai'
+import { useCallback } from 'react'
+import { useMediaQuery } from '@chakra-ui/react'
+import MobileReel from './MobileReel'
+import React from 'react'
+import { Content } from '../../types/newsTypes'
+import { Formats } from '../../types/imageTypes'
 
 const NewsReel = ({ contents }) => {
-  const features = useFeatures(contents);
+  const features = useFeatures(contents)
 
   const reduceFormats = (formats: Formats) =>
     Object.entries(formats).reduce((acc, [k, v]) => {
-      return [...acc, { format: k, ...v }];
-    }, []);
+      return [...acc, { format: k, ...v }]
+    }, [])
 
-  const [isSmallerThan1024] = useMediaQuery("(max-width: 1024px)", {
+  const [isSmallerThan1024] = useMediaQuery('(max-width: 1024px)', {
     ssr: true,
     fallback: false, // return false on the server, and re-evaluate on the client side
-  });
+  })
 
-  const [isSmallerThan425] = useMediaQuery("(max-width: 425px)", {
+  const [isSmallerThan425] = useMediaQuery('(max-width: 425px)', {
     ssr: true,
     fallback: false, // return false on the server, and re-evaluate on the client side
-  });
+  })
 
   const getHeroClassName = useCallback(
     (i: number) => {
       if (isSmallerThan1024 && i === 0) {
-        return "hero_tile__large";
+        return 'hero_tile__large'
       }
       if (isSmallerThan1024 && i !== 0) {
-        return "hero_tile__small";
+        return 'hero_tile__small'
       }
-      if (!isSmallerThan1024) return "";
+      if (!isSmallerThan1024) return ''
     },
-    [isSmallerThan1024]
-  );
+    [isSmallerThan1024],
+  )
 
   return isSmallerThan425 ? (
     <MobileReel contents={contents} />
@@ -74,7 +74,7 @@ const NewsReel = ({ contents }) => {
                       key={format.format}
                       srcSet={`${format?.url} 2x`}
                     ></source>
-                  );
+                  )
                 })}
                 <HeroTileImage src={feature?.image?.url}></HeroTileImage>
               </HeroTileImageContainer>
@@ -92,7 +92,7 @@ const NewsReel = ({ contents }) => {
                         {formatDistance(
                           new Date(feature?.publishedAt),
                           new Date(),
-                          { addSuffix: true }
+                          { addSuffix: true },
                         )}
                       </ContentTime>
                     </HeroTileMetaData>
@@ -102,10 +102,10 @@ const NewsReel = ({ contents }) => {
               <HeroTileGradient />
             </HeroTile>
           </Link>
-        );
+        )
       })}
     </HeroContainer>
-  );
-};
+  )
+}
 
-export default NewsReel;
+export default NewsReel

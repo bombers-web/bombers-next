@@ -13,25 +13,25 @@ import {
   TabPanel,
   TabPanels,
   Tabs,
-} from "@chakra-ui/react";
-import React from "react";
-import Image from "next/image";
+} from '@chakra-ui/react'
+import React from 'react'
+import Image from 'next/image'
 
 interface DuesSubscription {
-  description: string;
-  planId: string;
-  cost: number;
-  type: "monthly" | "one-time";
-  benefits: string;
+  description: string
+  planId: string
+  cost: number
+  type: 'monthly' | 'one-time'
+  benefits: string
 }
 
 interface SubscriptionListProps {
-  subList: DuesSubscription[];
+  subList: DuesSubscription[]
 }
 
 const SubscriptionList = ({ subList }: SubscriptionListProps) => {
   const basePaypalUrl =
-    "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=";
+    'https://www.paypal.com/webapps/billing/plans/subscribe?plan_id='
 
   return (
     <Stack maxW="100%" id="subscriptionStack">
@@ -72,16 +72,16 @@ const SubscriptionList = ({ subList }: SubscriptionListProps) => {
         </React.Fragment>
       ))}
     </Stack>
-  );
-};
+  )
+}
 
 const DuesSection = ({ subscriptions, subtabIndex, onSubtabChange }) => {
   const playerDuesSubscriptions: DuesSubscription[] = subscriptions
-    .filter((sub) => sub.description.toLowerCase().includes("dues"))
-    .sort((a, b) => a.cost - b.cost);
+    .filter((sub) => sub.description.toLowerCase().includes('dues'))
+    .sort((a, b) => a.cost - b.cost)
   const supporterDuesSubscriptions: DuesSubscription[] = subscriptions
-    .filter((sub) => !sub.description.toLowerCase().includes("dues"))
-    .sort((a, b) => a.cost - b.cost);
+    .filter((sub) => !sub.description.toLowerCase().includes('dues'))
+    .sort((a, b) => a.cost - b.cost)
 
   return (
     <Box
@@ -106,7 +106,7 @@ const DuesSection = ({ subscriptions, subtabIndex, onSubtabChange }) => {
             Club Dues
           </Heading>
           <Text textAlign="center" mt={0}>
-            Select your dues payment option below:{" "}
+            Select your dues payment option below:{' '}
           </Text>
         </Flex>
         <Box>
@@ -141,7 +141,7 @@ const DuesSection = ({ subscriptions, subtabIndex, onSubtabChange }) => {
         </Box>
       </VStack>
     </Box>
-  );
-};
+  )
+}
 
-export default DuesSection;
+export default DuesSection

@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 import {
   Box,
   Flex,
@@ -7,12 +7,12 @@ import {
   Button,
   FormControl,
   FormLabel,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react'
 
 const NewsletterSignup: React.FC = () => {
   return (
     <Flex
-      direction={{ base: "column", md: "row" }}
+      direction={{ base: 'column', md: 'row' }}
       align="center"
       justify="space-between"
       p={8}
@@ -24,12 +24,12 @@ const NewsletterSignup: React.FC = () => {
       mx="auto"
     >
       <Box flexShrink={0} mb={{ base: 4, md: 0 }} mr={{ md: 6 }}>
-        {" "}
+        {' '}
         {/* Adds margin to the right on medium screens and up */}
-        <Text fontSize={{ base: "xl", md: "2xl" }} fontWeight="bold">
+        <Text fontSize={{ base: 'xl', md: '2xl' }} fontWeight="bold">
           Sign up for our newsletter
         </Text>
-        <Text fontSize={{ base: "md", md: "lg" }} mt={2}>
+        <Text fontSize={{ base: 'md', md: 'lg' }} mt={2}>
           Get the latest news and updates from the St. Louis Bombers.
         </Text>
       </Box>
@@ -40,10 +40,10 @@ const NewsletterSignup: React.FC = () => {
         id="mc-embedded-subscribe-form"
         name="mc-embedded-subscribe-form"
         target="_blank"
-        style={{ flexGrow: 1, maxWidth: "400px" }}
+        style={{ flexGrow: 1, maxWidth: '400px' }}
       >
         <FormControl id="email" isRequired>
-          <FormLabel srOnly>Email Address</FormLabel>{" "}
+          <FormLabel srOnly>Email Address</FormLabel>{' '}
           {/* srOnly hides label visually but keeps it for screen readers */}
           <Input
             type="email"
@@ -51,27 +51,27 @@ const NewsletterSignup: React.FC = () => {
             placeholder="Email *"
             bg="white"
             color="gray.800"
-            _placeholder={{ color: "gray.500" }}
+            _placeholder={{ color: 'gray.500' }}
             borderColor="gray.300"
-            _hover={{ borderColor: "gray.400" }}
-            _focus={{ borderColor: "blue.500", boxShadow: "outline" }}
+            _hover={{ borderColor: 'gray.400' }}
+            _focus={{ borderColor: 'blue.500', boxShadow: 'outline' }}
             size="lg"
             mb={3}
           />
         </FormControl>
         <FormControl id="fname">
           <FormLabel srOnly>First Name</FormLabel>
-          {""}
+          {''}
           <Input
             type="text"
             name="FNAME"
             placeholder="First Name"
             bg="white"
             color="gray.800"
-            _placeholder={{ color: "gray.500" }}
+            _placeholder={{ color: 'gray.500' }}
             borderColor="gray.300"
-            _hover={{ borderColor: "gray.400" }}
-            _focus={{ borderColor: "blue.500", boxShadow: "outline" }}
+            _hover={{ borderColor: 'gray.400' }}
+            _focus={{ borderColor: 'blue.500', boxShadow: 'outline' }}
             size="lg"
             mb={3}
           />
@@ -79,17 +79,17 @@ const NewsletterSignup: React.FC = () => {
 
         <FormControl id="lname">
           <FormLabel srOnly>Last Name</FormLabel>
-          {""}
+          {''}
           <Input
             type="text"
             name="LNAME"
             placeholder="Last Name"
             bg="white"
             color="gray.800"
-            _placeholder={{ color: "gray.500" }}
+            _placeholder={{ color: 'gray.500' }}
             borderColor="gray.300"
-            _hover={{ borderColor: "gray.400" }}
-            _focus={{ borderColor: "blue.500", boxShadow: "outline" }}
+            _hover={{ borderColor: 'gray.400' }}
+            _focus={{ borderColor: 'blue.500', boxShadow: 'outline' }}
             size="lg"
             mb={3} // Margin bottom
           />
@@ -97,7 +97,7 @@ const NewsletterSignup: React.FC = () => {
 
         {/* This is a Mailchimp hidden input for bot prevention, usually fine as is */}
         <div
-          style={{ position: "absolute", left: "-5000px" }}
+          style={{ position: 'absolute', left: '-5000px' }}
           aria-hidden="true"
         >
           <input
@@ -122,7 +122,7 @@ const NewsletterSignup: React.FC = () => {
         </Button>
       </form>
     </Flex>
-  );
-};
+  )
+}
 
-export default NewsletterSignup;
+export default NewsletterSignup

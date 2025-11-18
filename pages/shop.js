@@ -1,9 +1,9 @@
-import { Center, SimpleGrid, Text } from "@chakra-ui/react";
-import Layout from "../src/common/Layout";
+import { Center, SimpleGrid, Text } from '@chakra-ui/react'
+import Layout from '../src/common/Layout'
 
 const Shop = () => {
   return (
-    <Layout seo={{ metaTitle: "Team Store" }}>
+    <Layout seo={{ metaTitle: 'Team Store' }}>
       <SimpleGrid
         columns="1"
         spacing={8}
@@ -19,7 +19,7 @@ const Shop = () => {
         </Center>
       </SimpleGrid>
     </Layout>
-  );
-};
+  )
+}
 
-export default Shop;
+export default Shop

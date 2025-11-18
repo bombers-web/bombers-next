@@ -1,12 +1,12 @@
-import React from "react";
+import React from 'react'
 import {
   MobileCard,
   MobileCardCta,
   MobileCardDescription,
   MobileCardTitle,
   MobileReelContainer,
-} from "./styles";
-import { Content } from "../../types/newsTypes";
+} from './styles'
+import { Content } from '../../types/newsTypes'
 
 const MobileReel = ({ contents }) => {
   return (
@@ -22,10 +22,10 @@ const MobileReel = ({ contents }) => {
               <MobileCardCta>Read More</MobileCardCta>
             </MobileCardDescription>
           </MobileCard>
-        );
+        )
       })}
     </MobileReelContainer>
-  );
-};
+  )
+}
 
-export default MobileReel;
+export default MobileReel

@@ -7,16 +7,16 @@ import {
   Box,
   Heading,
   SimpleGrid,
-} from "@chakra-ui/react";
-import { Player } from "../../types/playerTypes";
-import PlayerCard from "./PlayerCard";
+} from '@chakra-ui/react'
+import { Player } from '../../types/playerTypes'
+import PlayerCard from './PlayerCard'
 
 type ListProps = {
-  players: Array<Player>;
-  noClick?: boolean;
-  title: string;
-  collapsible?: boolean;
-};
+  players: Array<Player>
+  noClick?: boolean
+  title: string
+  collapsible?: boolean
+}
 
 const List = ({ players, title, collapsible, noClick }: ListProps) => {
   return !players ? (
@@ -36,11 +36,11 @@ const List = ({ players, title, collapsible, noClick }: ListProps) => {
               {players?.length ? (
                 players?.map((player) => {
                   const { picture, division, position, first_name, last_name } =
-                    player;
+                    player
 
                   const background =
-                    picture?.url || "/static/default/defaultpic.png";
-                  const displayName = `${first_name} ${last_name}`;
+                    picture?.url || '/static/default/defaultpic.png'
+                  const displayName = `${first_name} ${last_name}`
 
                   return (
                     <PlayerCard
@@ -53,7 +53,7 @@ const List = ({ players, title, collapsible, noClick }: ListProps) => {
                       displayName={displayName}
                       noClick={noClick}
                     />
-                  );
+                  )
                 })
               ) : (
                 <Heading as="h5">no players found</Heading>
@@ -63,7 +63,7 @@ const List = ({ players, title, collapsible, noClick }: ListProps) => {
         </AccordionItem>
       </Box>
     </Accordion>
-  );
-};
+  )
+}
 
-export default List;
+export default List

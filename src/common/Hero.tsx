@@ -1,37 +1,37 @@
-import { Box, Flex, ResponsiveValue, Stack, Text } from "@chakra-ui/react";
-import { Image as ImageType } from "src/types/imageTypes";
-import styled from "styled-components";
-import Link from "../common/Link";
+import { Box, Flex, ResponsiveValue, Stack, Text } from '@chakra-ui/react'
+import { Image as ImageType } from 'src/types/imageTypes'
+import styled from 'styled-components'
+import Link from '../common/Link'
 
 type ButtonProps = {
-  display: string;
-  url?: string;
-  color?: string;
-  card?: boolean;
-};
+  display: string
+  url?: string
+  color?: string
+  card?: boolean
+}
 
 type HeroProps = {
-  title?: string;
-  subTitle?: string;
-  links?: Array<ButtonProps>;
-  image?: ImageType;
-  size: string | "sm" | "md" | "lg" | "xl" | "2xl" | "full";
-  textAlign?: ResponsiveValue<any>;
-  bg?: string;
-  direction?: "column" | "row";
-  contentLink?: string;
-  parallax?: boolean;
-};
+  title?: string
+  subTitle?: string
+  links?: Array<ButtonProps>
+  image?: ImageType
+  size: string | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'full'
+  textAlign?: ResponsiveValue<any>
+  bg?: string
+  direction?: 'column' | 'row'
+  contentLink?: string
+  parallax?: boolean
+}
 
 const heightSizes = {
-  sm: "20vh",
-  md: "30vh",
-  lg: "40vh",
-  xl: "50vh",
-  "2xl": "65vh",
-  "3xl": "75vh",
-  full: "90vh",
-};
+  sm: '20vh',
+  md: '30vh',
+  lg: '40vh',
+  xl: '50vh',
+  '2xl': '65vh',
+  '3xl': '75vh',
+  full: '90vh',
+}
 
 const HeroContainer = styled.div`
   text-align: center;
@@ -39,7 +39,7 @@ const HeroContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: ${(props: HeroProps) => heightSizes[props.size] || "50vh"};
+  min-height: ${(props: HeroProps) => heightSizes[props.size] || '50vh'};
   ${(props: HeroProps) =>
     props.parallax
       ? ` 
@@ -47,7 +47,7 @@ const HeroContainer = styled.div`
       background-position: center;
       background-repeat: no-repeat;
       background-size: cover;`
-      : ""}
+      : ''}
   ${(props: HeroProps) =>
     props.image
       ? ` background-repeat: no-repeat;
@@ -61,16 +61,16 @@ const HeroContainer = styled.div`
       #00000060 50%,
       #00000060
     ),url(${props.image.url});`
-      : ""}
-`;
+      : ''}
+`
 
 const Hero = ({
   title,
   subTitle,
   links = [],
   image,
-  size = "xl",
-  textAlign = "center",
+  size = 'xl',
+  textAlign = 'center',
   bg,
   direction,
   contentLink,
@@ -84,9 +84,9 @@ const Hero = ({
           alignItems="center"
           gap="16"
           p="8"
-          justifyContent={textAlign || "flex-start"}
+          justifyContent={textAlign || 'flex-start'}
           w="100%"
-          paddingTop={{ base: "100px", md: "0px" }}
+          paddingTop={{ base: '100px', md: '0px' }}
         >
           <Stack
             spacing="1"
@@ -137,14 +137,14 @@ const Hero = ({
                     >
                       {link.display}
                     </Link>
-                  );
+                  )
                 })
               : null}
           </Box>
         </Flex>
       </HeroContainer>
     </>
-  );
-};
+  )
+}
 
-export default Hero;
+export default Hero

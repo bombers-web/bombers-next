@@ -1,16 +1,16 @@
-import Layout from "src/common/Layout";
-import React from "react";
-import { Heading, SimpleGrid, Box } from "@chakra-ui/react";
-import { fetchAPI } from "src/lib/api";
-import BoardCard from "../../../src/components/Board/BoardCard";
+import Layout from 'src/common/Layout'
+import React from 'react'
+import { Heading, SimpleGrid, Box } from '@chakra-ui/react'
+import { fetchAPI } from 'src/lib/api'
+import BoardCard from '../../../src/components/Board/BoardCard'
 
 const Board = (props) => {
-  const { members } = props;
+  const { members } = props
   return (
     <>
       <Layout
         header="Executive Board"
-        seo={{ metaTitle: "Executive Board" }}
+        seo={{ metaTitle: 'Executive Board' }}
         margin
       >
         <Box m={[0, 0, 0, 8, 16]} id="players-list">
@@ -20,11 +20,10 @@ const Board = (props) => {
           <SimpleGrid columns={[1, 4]} spacing={[0, 2]} m={[3]}>
             {members?.length ? (
               members?.map((member) => {
-                const { photo, first_name, last_name, position, email } =
-                  member;
+                const { photo, first_name, last_name, position, email } = member
                 const background =
-                  photo?.url || "/static/default/defaultpic.png";
-                const displayName = `${first_name} ${last_name}`;
+                  photo?.url || '/static/default/defaultpic.png'
+                const displayName = `${first_name} ${last_name}`
 
                 return (
                   <BoardCard
@@ -34,7 +33,7 @@ const Board = (props) => {
                     bg={background}
                     displayName={displayName}
                   />
-                );
+                )
               })
             ) : (
               <Heading as="h5">no members found</Heading>
@@ -43,14 +42,14 @@ const Board = (props) => {
         </Box>
       </Layout>
     </>
-  );
-};
-
-export async function getStaticProps({ params }) {
-  const members = (await fetchAPI("/board-members?populate=photo")) || [];
-  return {
-    props: { members },
-  };
+  )
 }
 
-export default Board;
+export async function getStaticProps({ params }) {
+  const members = (await fetchAPI('/board-members?populate=photo')) || []
+  return {
+    props: { members },
+  }
+}
+
+export default Board
