@@ -1,6 +1,7 @@
 import { Box, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react'
 import { groupBy } from 'lodash'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
 import Layout from '../../src/common/Layout'
 import { fetchAPI } from '../../src/lib/api'
 import ScheduleTabs from './components/ScheduleTabs'
@@ -8,18 +9,40 @@ import Calender from './components/Calender'
 
 const Schedule = ({ games, calenders }) => {
   const { d1, d2 } = groupBy(games, 'division')
+  const router = useRouter()
+
+  const tabMap = {
+    d1: 0,
+    d2: 1,
+    events: 2,
+  }
+
+  const [tabIndex, setTabIndex] = useState(0)
+
+  useEffect(() => {
+    const tab = Array.isArray(router.query.tab)
+      ? router.query.tab[0]
+      : router.query.tab
+
+    if (tab && tabMap[tab.toLowerCase()] !== undefined) {
+      setTabIndex(tabMap[tab.toLowerCase()])
+    }
+  }, [router.query, router.asPath])
+
+  const handleTabChange = (index) => {
+    const tabKeys = Object.keys(tabMap)
+    const tabName = tabKeys.find((key) => tabMap[key] === index) || 'd1'
+
+    router.push(`/schedule?tab=${tabName}`, undefined, { shallow: true })
+    setTabIndex(index)
+  }
+
   const seo = {
     metaTitle: 'Schedule',
   }
 
   return (
     <Layout seo={seo}>
-      {/* <Hero
-        text="Schedule"
-        image="/images/nationals17.jpg"
-        size={isDesktop ? "md" : "xl"}
-        contentLink="#schedule"
-      /> */}
       <Box maxW="1180px" justifyContent={'center'} mx="auto" mt={8} mb={4}>
         <Tabs
           id="schedule"
@@ -30,6 +53,8 @@ const Schedule = ({ games, calenders }) => {
           fontFamily="Big Shoulders Display"
           fontSize="xl"
           color="brand.black"
+          index={tabIndex}
+          onChange={handleTabChange}
         >
           <TabList>
             <Tab>Bombers DI</Tab>

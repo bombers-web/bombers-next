@@ -1,8 +1,16 @@
-// "use client";
-
-import { Box, Flex, Link } from '@chakra-ui/react'
+import {
+  Box,
+  Flex,
+  Link,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem as ChakraMenuItem,
+} from '@chakra-ui/react'
 import { usePathname } from 'next/navigation'
+import { ChevronDownIcon } from '@chakra-ui/icons'
 import styled from '@emotion/styled'
+import { useState } from 'react'
 import NavLogo from '../../../common/NavLogo'
 import useNav from '../../../hooks/useNav'
 import Socials from '../../../common/Socials'
@@ -37,6 +45,16 @@ const MenuItem = styled(Box)`
 const DesktopNav = ({ homePage }: DesktopNavProps) => {
   const { navs } = useNav()
   const pathname = usePathname()
+  const [openMenus, setOpenMenus] = useState<{ [key: string]: boolean }>({})
+
+  const handleMouseEnter = (navSlug: string) => {
+    setOpenMenus((prev) => ({ ...prev, [navSlug]: true }))
+  }
+
+  const handleMouseLeave = (navSlug: string) => {
+    setOpenMenus((prev) => ({ ...prev, [navSlug]: false }))
+  }
+
   return (
     <Flex
       id="desktop-nav-container"
@@ -66,13 +84,70 @@ const DesktopNav = ({ homePage }: DesktopNavProps) => {
           }}
         >
           {navs.map((nav) => {
+            // If nav has subMenus, render as dropdown
+            if (nav.subMenus && nav.subMenus.length > 0) {
+              return (
+                <Menu key={nav.slug} isOpen={openMenus[nav.slug] || false}>
+                  <MenuButton
+                    as={Box}
+                    cursor="pointer"
+                    display="flex"
+                    alignItems="center"
+                    gap={1}
+                    _focus={{ outline: 'none', caretColor: 'transparent' }}
+                    onMouseEnter={() => handleMouseEnter(nav.slug)}
+                    onMouseLeave={() => handleMouseLeave(nav.slug)}
+                  >
+                    <MenuItem
+                      className="desktop-menu-item"
+                      current_slug={
+                        pathname.startsWith(nav.slug) ? 'true' : undefined
+                      }
+                      display="flex"
+                      alignItems="center"
+                      gap={2}
+                    >
+                      {nav.name}
+                      <ChevronDownIcon />
+                    </MenuItem>
+                  </MenuButton>
+                  <MenuList
+                    bg="brand.dark"
+                    border="none"
+                    onMouseEnter={() => handleMouseEnter(nav.slug)}
+                    onMouseLeave={() => handleMouseLeave(nav.slug)}
+                  >
+                    {nav.subMenus.map((subMenu) => (
+                      <ChakraMenuItem
+                        key={subMenu.slug}
+                        as={Link}
+                        href={`/${subMenu.slug}`}
+                        bg="brand.dark"
+                        color="brand.light"
+                        textDecoration="none"
+                        _hover={{
+                          bg: 'brand.meta',
+                          color: 'brand.highlight',
+                          textDecoration: 'none',
+                        }}
+                        _focus={{ outline: 'none', caretColor: 'transparent' }}
+                      >
+                        {subMenu.name}
+                      </ChakraMenuItem>
+                    ))}
+                  </MenuList>
+                </Menu>
+              )
+            }
+
+            // Regular nav item without dropdown
             return (
               <Link
                 key={nav.slug}
-                style={{
-                  textDecoration: 'none',
-                }}
                 href={nav.slug}
+                textDecoration="none"
+                _hover={{ textDecoration: 'none' }}
+                _focus={{ outline: 'none' }}
               >
                 <MenuItem
                   className="desktop-menu-item"
@@ -95,14 +170,7 @@ const DesktopNav = ({ homePage }: DesktopNavProps) => {
             alignItems: 'center',
           }}
         >
-          <Link
-            style={{
-              textDecoration: 'none',
-            }}
-            href="/pay"
-          ></Link>
           <Socials />
-          {/* <LoginButton /> */}
         </Flex>
       </Flex>
     </Flex>

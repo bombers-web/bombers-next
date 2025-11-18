@@ -38,6 +38,23 @@ function useNav(type?: undefined | String | Array<string>): DefaultNavs {
       name: 'Schedule',
       id: 'schedule',
       slug: '/schedule',
+      subMenus: [
+        {
+          name: 'Division I',
+          id: 'd1',
+          slug: 'schedule?tab=d1',
+        },
+        {
+          name: 'Division II',
+          id: 'd2',
+          slug: 'schedule?tab=d2',
+        },
+        {
+          name: 'Club Events',
+          id: 'events',
+          slug: 'schedule?tab=events',
+        },
+      ],
     },
     {
       name: 'Club',
@@ -70,7 +87,6 @@ function useNav(type?: undefined | String | Array<string>): DefaultNavs {
         },
       ],
     },
-
     {
       name: 'Team',
       id: 'team',
