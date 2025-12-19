@@ -2,7 +2,6 @@ import React from 'react'
 import Layout from '../../../src/common/Layout'
 import PlayerList from '../../../src/components/Players/PlayerList'
 import { fetchAPI } from '../../../src/lib/api'
-import { startCase } from 'lodash'
 
 const Coaches = ({ coaches }) => {
   return (

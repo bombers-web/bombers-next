@@ -47,7 +47,7 @@ const NavLogo = ({
       zIndex={30}
       sx={{ ...styles }}
     >
-      <Link href={`/`} passHref legacyBehavior>
+      <Link href={'/'} passHref legacyBehavior>
         <ChakraLink
           display="flex"
           flex-grow="1"

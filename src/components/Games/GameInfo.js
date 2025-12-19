@@ -222,7 +222,7 @@ const GameInfo = ({
           textTransform="uppercase"
           fontFamily="body"
         >
-          {isHome(homeTeam?.name) ? `-` : `@`}
+          {isHome(homeTeam?.name) ? '-' : '@'}
         </Text>
         <Team team={isBombers(homeTeam?.name) ? awayTeam : homeTeam}></Team>
       </Stack>

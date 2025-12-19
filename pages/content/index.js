@@ -77,11 +77,11 @@ const News = ({ content, categories }) => {
 export async function getStaticProps() {
   const categories =
     (await fetchAPI(
-      `/categories?populate[0]=contents&populate[1]=contents.image&populate[2]=contents.category&populate[3]=contents.writer`,
+      '/categories?populate[0]=contents&populate[1]=contents.image&populate[2]=contents.category&populate[3]=contents.writer',
     )) || []
   const content =
     (await fetchAPI(
-      `/contents?populate[0]=writer.picture&populate[1]=image&populate[2]=category&sort[0]=published:desc`,
+      '/contents?populate[0]=writer.picture&populate[1]=image&populate[2]=category&sort[0]=published:desc',
     )) || []
 
   return {

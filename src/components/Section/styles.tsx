@@ -13,8 +13,8 @@ export type SectionProps = {
 
 export const StyledSection = styled(Box)<SectionProps>`
   position: relative;
-  padding: ${({ padding }) => padding || `3.4rem 3.4rem 4.4rem;`};
-  border-radius: ${({ soft }) => (soft ? `1.2rem 1.2rem 0 0` : 'none')};
+  padding: ${({ padding }) => padding || '3.4rem 3.4rem 4.4rem;'};
+  border-radius: ${({ soft }) => (soft ? '1.2rem 1.2rem 0 0' : 'none')};
   background: ${({ bg }) => `var(--chakra-colors-brand-${bg || 'light'})`};
   overflow: hidden;
   display: flex;

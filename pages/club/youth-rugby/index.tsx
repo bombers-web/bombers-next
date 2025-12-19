@@ -10,7 +10,7 @@ import {
   Badge,
   Stack,
 } from '@chakra-ui/react'
-import { FiMail, FiExternalLink, FiGlobe, FiInfo } from 'react-icons/fi'
+import { FiMail, FiExternalLink, FiGlobe } from 'react-icons/fi'
 import Layout from '../../../src/common/Layout'
 import { fetchAPI } from '../../../src/lib/api'
 
