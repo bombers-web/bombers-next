@@ -1,3 +1,4 @@
+import { id } from 'date-fns/locale'
 import { fetchAPI } from '../lib/api'
 import { useState, useEffect } from 'react'
 
@@ -65,25 +66,16 @@ function useNav(type?: undefined | String | Array<string>): DefaultNavs {
           name: 'History',
           id: 'history',
           slug: 'club/history',
-          bg: '/static/legends_3.jpeg',
         },
         {
           name: 'Board',
           id: 'board',
           slug: 'club/board',
-          bg: '',
-        },
-        {
-          name: 'Practice',
-          id: 'practice',
-          slug: 'club/practice',
-          bg: '/static/willmore_park.jpg',
         },
         {
           name: 'Youth Rugby',
           id: 'youth-rugby',
           slug: 'club/youth-rugby',
-          bg: '/static/jets_mark.jpg',
         },
       ],
     },
@@ -93,22 +85,24 @@ function useNav(type?: undefined | String | Array<string>): DefaultNavs {
       slug: '/team',
       subMenus: [
         {
-          name: 'Division I',
-          id: 'd1',
-          slug: 'team/d1',
-          bg: '/static/d1_team.jpeg',
+          name: '15s',
+          id: 'rugby',
+          slug: 'team/rugby',
         },
         {
-          name: 'Division II',
-          id: 'd2',
-          slug: 'team/d2',
-          bg: '/static/d3TeamPhoto.JPG',
+          name: 'Sevens',
+          id: 'sevens',
+          slug: 'team/sevens',
+        },
+        {
+          name: 'Practice',
+          id: 'practice',
+          slug: 'team/practice',
         },
         {
           name: 'Coaches and Staff',
           id: 'coaches-and-staff',
           slug: 'team/coaches-and-staff',
-          bg: '/static/coach_pic1.jpeg',
         },
       ],
     },
@@ -131,7 +125,6 @@ function useNav(type?: undefined | String | Array<string>): DefaultNavs {
           name: page.title,
           id: page.slug,
           slug: `club/${page.slug}`,
-          bg: page?.Seo?.shareImage?.url || undefined,
         })
       }
     })

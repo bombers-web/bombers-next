@@ -27,6 +27,7 @@ const Board = (props) => {
 
                 return (
                   <BoardCard
+                    key={member.id}
                     size={photo?.size}
                     position={position}
                     email={email}

@@ -2,5 +2,12 @@
   "cSpell.words": ["chakra"],
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
-  "workbench.colorTheme": "Cobalt2"
+  "workbench.colorTheme": "Cobalt2",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+"[javascript]": {
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
+},
+"editor.codeActionsOnSave": {
+  "source.fixAll": "explicit"
+}
 }
