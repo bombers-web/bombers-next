@@ -1,4 +1,3 @@
-import { id } from 'date-fns/locale'
 import { fetchAPI } from '../lib/api'
 import { useState, useEffect } from 'react'
 

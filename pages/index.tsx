@@ -12,6 +12,7 @@ import { faPlay } from '@fortawesome/free-solid-svg-icons'
 import useBp from '../theme/useBp'
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import NewsletterSignup from 'common/NewsletterSignup'
+import { Practice } from 'common/Practice'
 
 const NextMatchText = styled(Box)`
   color: '#fff';
@@ -79,7 +80,7 @@ const NextMatchFont = styled(Box)<{ size?: 'xs' | 'sm' | 'md' | 'lg' }>`
 `
 
 const Home = (props) => {
-  const { homepage, highlight, d1Upcoming, d2Upcoming } = props
+  const { homepage, highlight, d1Upcoming, d2Upcoming, practices } = props
   const { isMobile } = useBp()
 
   const { getLongDate } = new Utils()
@@ -163,6 +164,9 @@ const Home = (props) => {
                 <Text color="gold">There are no upcoming scheduled games</Text>
               )}
             </Flex>
+            <Flex>
+              <Practice practices={practices} />
+            </Flex>
             <Flex flexDirection="column" textAlign="center" my="10px">
               <NewsletterSignup />
             </Flex>
@@ -174,21 +178,22 @@ const Home = (props) => {
 }
 
 export async function getStaticProps() {
-  // Run API calls in parallel
-  const [content, homepage, d1Upcoming, d2Upcoming, homeCta] =
+  const [content, homepage, d1Upcoming, d2Upcoming, homeCta, practices] =
     await Promise.all([
       fetchAPI(
         '/contents?populate=*&filters[status][$eq]=published&sort[1]=publishedAt:asc&pagination[limit]=3',
       ),
       fetchAPI('/homepage?populate=*'),
       fetchAPI(
-        '/games?populate=*,home.logo,away.logo&filters[division][$eq}=d1&filters[finished][$eq]=false&sort[1]=date',
+        '/games?populate=*,home.logo,away.logo&filters[division][$eq]=d1&filters[finished][$eq]=false&sort[1]=date',
       ),
       fetchAPI(
-        '/games?populate=*,home.logo,away.logo&filters[division][$eq}=d2&filters[finished][$eq]=false&sort[1]=date',
+        '/games?populate=*,home.logo,away.logo&filters[division][$eq]=d2&filters[finished][$eq]=false&sort[1]=date',
       ),
       fetchAPI('/home-cta?populate=content.image.format'),
+      fetchAPI('/practices?populate=*'), // <--- Add this line
     ])
+
   return {
     props: {
       content,
@@ -196,8 +201,9 @@ export async function getStaticProps() {
       d1Upcoming,
       d2Upcoming,
       highlight: homeCta?.content || null,
+      practices: Array.isArray(practices) ? practices : [], // <--- Pass it to props
     },
-    revalidate: 86400, // Daily for static content
+    revalidate: 86400,
   }
 }
 
