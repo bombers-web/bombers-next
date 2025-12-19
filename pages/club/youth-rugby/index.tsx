@@ -1,18 +1,20 @@
-import { Box, Flex, Heading } from '@chakra-ui/react'
-import Mdx from '../../../src/common/Mdx'
+import {
+  Box,
+  Flex,
+  Heading,
+  Text,
+  Link,
+  Button,
+  VStack,
+  Icon,
+  Badge,
+  Stack,
+} from '@chakra-ui/react'
+import { FiMail, FiExternalLink, FiGlobe, FiInfo } from 'react-icons/fi'
 import Layout from '../../../src/common/Layout'
 import { fetchAPI } from '../../../src/lib/api'
-import Pic from 'common/Pic'
-import { Block } from 'src/types/pageTypes'
 
-const defaultJetsPics = [
-  '/static/jets_team_2.jpg',
-  '/static/lucas_jets.jpg',
-  '/static/jets_team.jpg',
-  '/static/jets_mark.jpg',
-]
-
-const YouthRugby = ({ youthRugby }) => {
+const YouthRugby = ({ youthTeams }) => {
   return (
     <Layout
       header="Youth Rugby"
@@ -21,76 +23,124 @@ const YouthRugby = ({ youthRugby }) => {
         alternativeText: 'Youth Rugby',
       }}
       seo={{
-        metaTitle: 'Youth Rugby',
+        metaTitle: 'Youth Rugby Clubs | St. Louis',
         shareImage: '/static/jets_mark.jpg',
-        metaDescription: 'Youth Rugby',
+        metaDescription:
+          'Discover youth rugby opportunities in the St. Louis area.',
       }}
     >
-      {youthRugby?.section?.map((section: Block, idx: number) => {
-        const mobileDirection =
-          section.imagePosition === 'end' ? 'column' : 'column-reverse'
-        const webDirection =
-          section.imagePosition === 'end' ? 'row' : 'row-reverse'
+      <Box bg="gray.50" py={12}>
+        <VStack spacing={10} maxW="1000px" mx="auto" px={4}>
+          <VStack>
+            <Heading size="2xl" color="brand.dark">
+              Local Youth Clubs
+            </Heading>
 
-        return (
-          <Flex
-            flexDirection="column"
-            m="8"
-            p="8"
-            gap="8"
-            key={section.id}
-            bg="brand.white"
-            borderRadius="md"
-            boxShadow="md"
-            maxWidth="1140px"
-          >
-            <Box>
-              <Heading m={0} size="xl">
-                {section.title}
-              </Heading>
-              <Heading m={0} size="sm" color="brand.medium">
-                {section.subtitle}
-              </Heading>
-            </Box>
+            <Text fontSize="lg" color="gray.600" maxW="2xl">
+              St. Louis is home to several incredible youth rugby programs.
+              Explore the clubs below to get involved.
+            </Text>
+          </VStack>
+
+          {youthTeams?.map((team) => (
             <Flex
-              gap={8}
-              justifyContent="space-evenly"
-              alignItems="center"
-              w="100%"
+              key={team.id}
+              direction={{ base: 'column', lg: 'row' }}
+              bg="white"
+              w="full"
+              borderRadius="2xl"
+              overflow="hidden"
+              boxShadow="0 4px 20px rgba(0,0,0,0.05)"
+              border="1px solid"
+              borderColor="gray.100"
+              transition="all 0.3s ease"
+              _hover={{ boxShadow: '0 10px 30px rgba(0,0,0,0.1)' }}
             >
-              <Flex
-                gap={16}
-                w="100%"
-                flexDirection={[mobileDirection, webDirection]}
+              {/* IMAGE PLACEHOLDER: 
+                  When you're ready, replace this Box with your <Pic /> component. 
+                  It's currently set to a subtle brand color. */}
+              <Box
+                w={{ base: 'full', lg: '350px' }}
+                bg="brand.dark"
+                minH="250px"
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
               >
-                <Box flex={1} h="100%">
-                  <Mdx>{section.content}</Mdx>
-                </Box>
-                <Box flex={1} alignSelf={section.imagePosition}>
-                  <Pic
-                    size={['lg', 'sm', 'md', 'lg', 'xl']}
-                    image={section.image}
-                    src={section.image ? null : defaultJetsPics[idx]}
-                    borderRadius={5}
-                  ></Pic>
-                </Box>
-              </Flex>
+                <Icon as={FiGlobe} color="whiteAlpha.300" fontSize="5xl" />
+              </Box>
+
+              {/* Content Area */}
+              <Stack
+                spacing={4}
+                p={{ base: 6, md: 8 }}
+                flex="1"
+                justify="center"
+              >
+                <Flex justify="space-between" align="flex-start">
+                  <VStack align="flex-start" spacing={1}>
+                    <Badge
+                      colorScheme="yellow"
+                      variant="subtle"
+                      borderRadius="md"
+                    >
+                      Youth Club
+                    </Badge>
+                    <Heading size="lg" color="gray.800">
+                      {team.name}
+                    </Heading>
+                  </VStack>
+                </Flex>
+
+                <Text color="gray.600" fontSize="md" lineHeight="tall">
+                  {team.description ||
+                    'Learn more about youth rugby opportunities with this club.'}
+                </Text>
+
+                <Flex gap={4} pt={4} wrap="wrap">
+                  <Button
+                    as={Link}
+                    href={team.website}
+                    isExternal
+                    leftIcon={<FiExternalLink />}
+                    bg="brand.dark"
+                    color="white"
+                    _hover={{ bg: 'brand.medium', textDecoration: 'none' }}
+                    flex={{ base: '1', md: 'initial' }}
+                  >
+                    Visit Website
+                  </Button>
+
+                  <Button
+                    as={Link}
+                    href={`mailto:${team.email}`}
+                    leftIcon={<FiMail />}
+                    variant="outline"
+                    borderColor="gray.300"
+                    _hover={{ bg: 'gray.50', textDecoration: 'none' }}
+                    flex={{ base: '1', md: 'initial' }}
+                  >
+                    Email Club
+                  </Button>
+                </Flex>
+              </Stack>
             </Flex>
-          </Flex>
-        )
-      })}
+          ))}
+        </VStack>
+      </Box>
     </Layout>
   )
 }
 
 export async function getStaticProps() {
-  // Run API calls in parallel
-  const [youthRugby] = await Promise.all([fetchAPI('/youth-rugby?populate=*')])
+  const youthTeams = await fetchAPI('/youths') // Replace with your actual endpoint
 
   return {
     props: {
-      youthRugby,
+      youthTeams: Array.isArray(youthTeams) ? youthTeams : [],
     },
+    revalidate: 60,
   }
 }
+
 export default YouthRugby
