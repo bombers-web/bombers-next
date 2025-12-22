@@ -1,7 +1,15 @@
-import { EmailIcon } from '@chakra-ui/icons' // Optional: run npm install @chakra-ui/icons
+import { EmailIcon } from '@chakra-ui/icons'
 import { AspectRatio, Box, Heading, Link, Text, VStack } from '@chakra-ui/react'
 
-const BoardCard = ({ bg, displayName, position, email }) => {
+// Destructure { coach } from props instead of individual fields
+const CoachCard = ({ coach }) => {
+  // 1. Construct the name from your JSON fields
+  const fullName = `${coach?.first_name} ${coach?.last_name || ''}`
+
+  // 2. Map the picture. Strapi usually provides coach.picture.url
+  // We use coach.bg as a secondary fallback if you are passing a manual background
+  const background = coach?.photo?.url || '/static/default/defaultpic.png'
+
   return (
     <Box
       role="group"
@@ -20,10 +28,10 @@ const BoardCard = ({ bg, displayName, position, email }) => {
         borderColor: 'brand.highlight',
       }}
     >
-      {/* Photo Section with consistent Aspect Ratio */}
+      {/* Photo Section */}
       <AspectRatio ratio={4 / 5}>
         <Box
-          backgroundImage={`url(${bg})`}
+          backgroundImage={`url(${background})`}
           backgroundPosition="center top"
           backgroundRepeat="no-repeat"
           backgroundSize="cover"
@@ -42,7 +50,7 @@ const BoardCard = ({ bg, displayName, position, email }) => {
           textTransform="uppercase"
           letterSpacing="wider"
         >
-          {position}
+          {coach?.position}
         </Text>
 
         <Heading
@@ -52,25 +60,28 @@ const BoardCard = ({ bg, displayName, position, email }) => {
           color="gray.800"
           lineHeight="tight"
         >
-          {displayName}
+          {fullName}
         </Heading>
 
-        <Box pt={3} w="100%">
-          <Link
-            href={`mailto:${email}`}
-            fontSize="sm"
-            color="gray.500"
-            display="flex"
-            alignItems="center"
-            _hover={{ color: 'brand.highlight', textDecoration: 'none' }}
-          >
-            <EmailIcon mr={2} />
-            <Text noOfLines={1}>{email}</Text>
-          </Link>
-        </Box>
+        {/* coach.email might be null based on your JSON, so we check first */}
+        {coach?.email && (
+          <Box pt={3} w="100%">
+            <Link
+              href={`mailto:${coach.email}`}
+              fontSize="sm"
+              color="gray.500"
+              display="flex"
+              alignItems="center"
+              _hover={{ color: 'brand.highlight', textDecoration: 'none' }}
+            >
+              <EmailIcon mr={2} />
+              <Text noOfLines={1}>{coach.email}</Text>
+            </Link>
+          </Box>
+        )}
       </VStack>
 
-      {/* Subtle bottom accent bar that appears on hover */}
+      {/* Accent bar */}
       <Box
         h="4px"
         w="0%"
@@ -82,4 +93,4 @@ const BoardCard = ({ bg, displayName, position, email }) => {
   )
 }
 
-export default BoardCard
+export default CoachCard
