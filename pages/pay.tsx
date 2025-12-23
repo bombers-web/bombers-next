@@ -7,6 +7,7 @@ import DonateSection from "../src/components/Pay/DonateSection";
 import Sponsorships from "../src/components/Pay/Sponsorships";
 import { fetchAPI } from "../src/lib/api";
 import { useRouter } from "next/router";
+import { sub } from "date-fns";
 
 const Pay = (props) => {
   const [sponsors, setSponsors] = useState([]);
@@ -32,7 +33,7 @@ const Pay = (props) => {
       ? router.query.tab[0]
       : router.query.tab;
     const subtab = Array.isArray(router.query.subtab)
-      ? router.query.subtaab[0]
+      ? router.query.subtab[0]
       : router.query.subtab;
 
     if (tab && tabMap[tab.toLowerCase()] !== undefined) {
@@ -128,7 +129,7 @@ export async function getStaticProps() {
   ]);
   return {
     props: {
-      subscriptions,
+      subscriptions: subscriptions || [],
     },
   };
 }
