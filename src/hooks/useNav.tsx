@@ -50,9 +50,9 @@ function useNav(type?: undefined | String | Array<string>): DefaultNavs {
           slug: 'schedule?tab=d2',
         },
         {
-          name: 'Club Events',
-          id: 'events',
-          slug: 'schedule?tab=events',
+          name: 'Club Calender',
+          id: 'calender',
+          slug: 'schedule?tab=calender',
         },
       ],
     },
@@ -61,6 +61,11 @@ function useNav(type?: undefined | String | Array<string>): DefaultNavs {
       id: 'club',
       slug: '/club',
       subMenus: [
+        {
+          name: 'Events',
+          id: 'events',
+          slug: 'club/events',
+        },
         {
           name: 'History',
           id: 'history',
@@ -83,16 +88,6 @@ function useNav(type?: undefined | String | Array<string>): DefaultNavs {
       id: 'team',
       slug: '/team',
       subMenus: [
-        {
-          name: '15s',
-          id: 'rugby',
-          slug: 'team/rugby',
-        },
-        {
-          name: 'Sevens',
-          id: 'sevens',
-          slug: 'team/sevens',
-        },
         {
           name: 'Practice',
           id: 'practice',
@@ -130,14 +125,8 @@ function useNav(type?: undefined | String | Array<string>): DefaultNavs {
   })
 
   return {
-    // renders baseNavs if there are no dynamic pages
     navs: baseNavs,
-    // TODO: shortest causes nave for team and club to interchange
     shortest: 3,
-    // shortest: baseNavs
-    //   .sort((a, b) => a.subMenus?.length - b.subMenus?.length)
-    //   .map((item) => item.subMenus?.length || 0)
-    //   .filter((i) => i)[0],
   }
 }
 

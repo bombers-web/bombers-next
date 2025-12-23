@@ -1,17 +1,18 @@
 import {
+  Badge,
   Box,
+  Button,
   Flex,
   Heading,
-  Text,
-  Link,
-  Button,
-  VStack,
   Icon,
-  Badge,
+  Link,
   Stack,
+  Text,
+  VStack,
 } from '@chakra-ui/react'
-import { FiMail, FiExternalLink, FiGlobe } from 'react-icons/fi'
+import { FiExternalLink, FiGlobe, FiMail } from 'react-icons/fi'
 import Layout from '../../../src/common/Layout'
+import SectionHeader from '../../../src/common/SectionHeader'
 import { fetchAPI } from '../../../src/lib/api'
 
 const YouthRugby = ({ youthTeams }) => {
@@ -32,9 +33,7 @@ const YouthRugby = ({ youthTeams }) => {
       <Box bg="gray.50" py={12}>
         <VStack spacing={10} maxW="1000px" mx="auto" px={4}>
           <VStack>
-            <Heading size="2xl" color="brand.dark">
-              Local Youth Clubs
-            </Heading>
+            <SectionHeader title="Youth Rugby Clubs in St. Louis" />
 
             <Text fontSize="lg" color="gray.600" maxW="2xl">
               St. Louis is home to several incredible youth rugby programs.

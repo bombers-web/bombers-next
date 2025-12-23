@@ -1,34 +1,57 @@
-import React from 'react'
-import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react'
+import { Box, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react'
 import Results from './Results'
 import Schedule from './Schedule'
-import Tables from './Tables'
 
 const ScheduleTabs = ({ games = [] }) => {
-  const tabs = ['Schedule', 'Results', 'Tables']
   const upcoming = games?.filter((game) => !game.finished)
   const results = games?.filter((game) => game.finished)
-  const division = 'd3'
 
   return (
-    <Tabs align="center" colorScheme="brand.meta">
-      <TabList>
-        {tabs.map((tab) => (
-          <Tab key={tab + 'tab'}>{tab}</Tab>
-        ))}
-      </TabList>
-      <TabPanels>
-        <TabPanel>
-          <Schedule upcoming={upcoming} />
-        </TabPanel>
-        <TabPanel>
-          <Results results={results || []} />
-        </TabPanel>
-        <TabPanel>
-          <Tables division={division} />
-        </TabPanel>
-      </TabPanels>
-    </Tabs>
+    <Box w="full">
+      <Tabs align="center" variant="line" colorScheme="black">
+        <TabList borderBottom="2px solid" borderColor="gray.100" gap={8}>
+          <Tab
+            textTransform="uppercase"
+            letterSpacing="2px"
+            fontSize="xl"
+            color="gray.400"
+            _selected={{
+              color: 'brand.black',
+              borderColor: 'brand.black',
+              borderBottomWidth: '4px', // Thicker underline for impact
+            }}
+            _hover={{ color: 'brand.black' }}
+            transition="all 0.2s"
+          >
+            Schedule
+          </Tab>
+          <Tab
+            textTransform="uppercase"
+            letterSpacing="2px"
+            fontSize="xl"
+            color="gray.400"
+            _selected={{
+              color: 'brand.black',
+              borderColor: 'brand.black',
+              borderBottomWidth: '4px',
+            }}
+            _hover={{ color: 'brand.black' }}
+            transition="all 0.2s"
+          >
+            Results
+          </Tab>
+        </TabList>
+
+        <TabPanels mt={6}>
+          <TabPanel p={0}>
+            <Schedule upcoming={upcoming} />
+          </TabPanel>
+          <TabPanel p={0}>
+            <Results results={results || []} />
+          </TabPanel>
+        </TabPanels>
+      </Tabs>
+    </Box>
   )
 }
 

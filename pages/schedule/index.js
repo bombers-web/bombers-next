@@ -1,11 +1,11 @@
 import { Box, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react'
 import { groupBy } from 'lodash'
-import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
 import Layout from '../../src/common/Layout'
 import { fetchAPI } from '../../src/lib/api'
-import ScheduleTabs from './components/ScheduleTabs'
 import Calender from './components/Calender'
+import ScheduleTabs from './components/ScheduleTabs'
 
 const Schedule = ({ games, calenders }) => {
   const { d1, d2 } = groupBy(games, 'division')
@@ -14,7 +14,7 @@ const Schedule = ({ games, calenders }) => {
   const tabMap = {
     d1: 0,
     d2: 1,
-    events: 2,
+    calender: 2,
   }
 
   const [tabIndex, setTabIndex] = useState(0)
@@ -41,35 +41,54 @@ const Schedule = ({ games, calenders }) => {
     metaTitle: 'Schedule',
   }
 
+  // Consistent style object for the tabs
+  const tabStyle = {
+    textTransform: 'uppercase',
+    letterSpacing: '2px',
+    fontSize: 'xl',
+    pb: 6,
+    color: 'gray.400',
+    _selected: {
+      color: 'brand.black',
+      borderColor: 'brand.black',
+      borderBottomWidth: '4px',
+    },
+    _hover: { color: 'brand.black' },
+    transition: 'all 0.2s',
+  }
+
   return (
     <Layout seo={seo}>
-      <Box maxW="1180px" justifyContent={'center'} mx="auto" mt={8} mb={4}>
+      <Box
+        maxW="1180px"
+        justifyContent={'center'}
+        mx="auto"
+        mt={6}
+        mb={4}
+        px={4}
+      >
         <Tabs
           id="schedule"
           isFitted
-          size="lg"
-          colorScheme="brand.meta"
-          fontWeight="bold"
-          fontFamily="Big Shoulders Display"
-          fontSize="xl"
-          color="brand.black"
+          variant="line"
           index={tabIndex}
           onChange={handleTabChange}
         >
-          <TabList>
-            <Tab>Bombers DI</Tab>
-            <Tab>Bombers DII</Tab>
-            <Tab>Club Events</Tab>
+          <TabList borderBottom="2px solid" borderColor="gray.100" mb={8}>
+            <Tab {...tabStyle}>Bombers DI</Tab>
+            <Tab {...tabStyle}>Bombers DII</Tab>
+            <Tab {...tabStyle}>Club Calendar</Tab>
           </TabList>
+
           <TabPanels>
-            <TabPanel>
-              <ScheduleTabs games={d1}></ScheduleTabs>
+            <TabPanel p={0}>
+              <ScheduleTabs games={d1} />
             </TabPanel>
-            <TabPanel>
-              <ScheduleTabs games={d2}></ScheduleTabs>
+            <TabPanel p={0}>
+              <ScheduleTabs games={d2} />
             </TabPanel>
-            <TabPanel>
-              <Calender calenders={calenders}></Calender>
+            <TabPanel p={0}>
+              <Calender calenders={calenders} />
             </TabPanel>
           </TabPanels>
         </Tabs>
@@ -81,7 +100,7 @@ const Schedule = ({ games, calenders }) => {
 export async function getStaticProps() {
   const [games, calenders] = await Promise.all([
     fetchAPI(
-      '/games?populate[0]=home.logo&populate[1]=away.logo&populate=winner&sort[0]=date:desc',
+      '/games?populate[0]=home.logo&populate[1]=away.logo&populate=location&populate=winner&sort[0]=date:desc',
     ),
     fetchAPI('/calenders?populate[0]=calender&sort[1]=date:desc'),
   ])
@@ -91,7 +110,6 @@ export async function getStaticProps() {
       games,
       calenders,
     },
-    // refetch every day
     revalidate: 86400,
   }
 }

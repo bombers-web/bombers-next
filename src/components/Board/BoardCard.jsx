@@ -36,7 +36,7 @@ const BoardCard = ({ bg, displayName, position, email }) => {
       {/* Content Section */}
       <VStack p={5} spacing={1} align="flex-start" bg="white">
         <Text
-          fontSize="xs"
+          fontSize="xl"
           fontWeight="bold"
           color="brand.highlight"
           textTransform="uppercase"
