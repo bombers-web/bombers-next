@@ -1,103 +1,112 @@
-import { Badge, Box, Flex, LinkBox, Text } from "@chakra-ui/react";
-import { toLower } from "lodash";
-import { format } from "date-fns";
-import Link from "next/link";
-import ReactMarkdown from "react-markdown";
+import {
+  Badge,
+  Box,
+  Flex,
+  LinkBox,
+  Text,
+  VStack,
+  HStack,
+  Avatar,
+} from '@chakra-ui/react'
+import { toLower } from 'lodash'
+import { format } from 'date-fns'
+import Link from 'next/link'
+import ReactMarkdown from 'react-markdown'
 
-const ContentCard = ({ content, href }) => {
-  const contentId = content?.uid ? toLower(content.uid) : toLower(content?.id);
-  const link = `/content/${contentId}`;
+const ContentCard = ({ content }) => {
+  const contentId = content?.uid ? toLower(content.uid) : toLower(content?.id)
+  const link = `/content/${contentId}`
 
   return (
-    <Link href={link} style={{ textDecoration: "none" }}>
-      <LinkBox>
-        <Flex
-          transition={`all .2s ease-in-out`}
-          direction={["column", "column", "row"]}
-          m={8}
-          p={[0, 0, 2, 4]}
-          minH="350px"
-          maxH="350px"
-          maxW="1200px"
-          borderWidth="1px"
-          overflow="hidden"
-          borderColor="brand.medium"
-          cursor="pointer"
-          _hover={{
-            transform: `scale(1.05)`,
-            boxShadow: "5px 3px 3px grey",
-          }}
-          bg="brand.white"
-          borderRadius={8}
-        >
+    <Link href={link} style={{ textDecoration: 'none' }}>
+      <LinkBox
+        as="article"
+        role="group"
+        transition="all 0.3s cubic-bezier(.25,.8,.25,1)"
+        m={4}
+        maxW="1000px"
+        bg="white"
+        borderRadius="xl"
+        overflow="hidden"
+        boxShadow="sm"
+        _hover={{
+          transform: 'translateY(-4px)',
+          boxShadow: 'xl',
+        }}
+      >
+        <Flex direction={['column', 'row']} minH="280px">
+          {/* IMAGE SECTION */}
           <Box
-            className="image-container"
-            backgroundImage={content?.image?.url}
-            flexGrow="1"
+            backgroundImage={`url(${content?.image?.url})`}
             backgroundPosition="center"
             backgroundSize="cover"
-            minW="30%"
-            maxW={["container.xl", "100%", "30%"]}
-          ></Box>
-          <Flex direction="column" width="100%">
-            <Box
-              display="flex"
-              alignItems="baseline"
-              m={4}
-              textAlign="start"
-              justifyContent="space-between"
-            >
-              <Box fontWeight="semibold" lineHeight="tight" maxW="100%">
-                <Flex
-                  alignItems="start"
-                  direction="column"
-                  justifyContent="flex-start"
-                  m={4}
+            w={['100%', '350px']}
+            minH={['200px', 'auto']}
+            transition="transform 0.5s ease"
+            _groupHover={{ transform: 'scale(1.02)' }}
+          />
+
+          {/* CONTENT SECTION */}
+          <Flex direction="column" p={6} flex="1" justify="space-between">
+            <VStack align="start" spacing={3}>
+              <HStack w="100%" justify="space-between">
+                <Badge
+                  px={2}
+                  py={1}
+                  borderRadius="full"
+                  colorScheme="messenger"
+                  variant="subtle"
+                  fontSize="xs"
                 >
-                  <Text
-                    fontSize={["md", "xl"]}
-                    as="p"
-                    fontWeight="bolder"
-                    textTransform={"none"}
-                    color="brand.dark"
-                    mb="4"
-                  >
-                    {content?.title}
-                  </Text>
-                  <Box
-                    overflowY="scroll"
-                    maxH="350px"
-                    wordBreak="break-word"
-                    color="brand.dark"
-                    fontFamily="sans-serif"
-                    fontWeight="light"
-                    fontSize="sm"
-                    w="100%"
-                    display={["none", "none", "block"]}
-                  >
-                    {content?.category?.name === "Events" ? (
-                      <ReactMarkdown>{content?.description}</ReactMarkdown>
-                    ) : null}
-                    <Text margin="0">
-                      By {content?.writer?.name || "Anonymous"}
-                    </Text>
-                    <Text className="uk-text-meta uk-margin-remove-top">
-                      {format(new Date(content.published), "PPPp")}
-                    </Text>
-                  </Box>
-                </Flex>
-              </Box>
-              {content?.category?.name && (
-                <Badge bg="brand.medium" color="brand.light" mx="4">
-                  {content?.category?.name}
+                  {content?.category?.name || 'Story'}
                 </Badge>
+                <Text fontSize="xs" color="gray.400" fontWeight="bold">
+                  {content?.published &&
+                    format(new Date(content.published), 'MMM dd, yyyy')}
+                </Text>
+              </HStack>
+
+              <Text
+                fontSize="2xl"
+                fontWeight="bold"
+                color="gray.800"
+                lineHeight="1.2"
+                _groupHover={{ color: 'blue.600' }}
+                noOfLines={2}
+              >
+                {content?.title}
+              </Text>
+
+              {content?.category?.name === 'Events' && (
+                <Box
+                  color="gray.600"
+                  fontSize="sm"
+                  noOfLines={3}
+                  lineHeight="relaxed"
+                >
+                  <ReactMarkdown>{content?.description}</ReactMarkdown>
+                </Box>
               )}
-            </Box>
+            </VStack>
+
+            {/* AUTHOR FOOTER */}
+            <HStack mt={6} spacing={3}>
+              <Avatar
+                size="xs"
+                name={content?.writer?.name}
+                src={content?.writer?.picture?.url}
+              />
+              <VStack align="start" spacing={0}>
+                <Text fontSize="sm" fontWeight="bold" color="gray.700">
+                  {content?.writer?.name || 'Anonymous'}
+                </Text>
+              </VStack>
+            </HStack>
           </Flex>
         </Flex>
       </LinkBox>
     </Link>
-  );
-};
+  )
+}
 
-export default ContentCard;
+export default ContentCard

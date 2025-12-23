@@ -1,48 +1,48 @@
-import { Heading, SimpleGrid, Stack, Flex } from "@chakra-ui/react";
-import { formatDate } from "../../../utils/formatDate.js";
-import { getFlag, getNationality, getPosition } from "./utils";
+import { Heading, SimpleGrid, Stack, Flex } from '@chakra-ui/react'
+import { formatDate } from '../../../utils/formatDate.js'
+import { getFlag, getNationality, getPosition } from './utils'
 
 const PlayerInfo = ({ player }) => {
   const data = [
     {
-      label: "Date of Birth",
+      label: 'Date of Birth',
       value: player?.date_of_birth
-        ? formatDate(player?.date_of_birth, "long")
-        : "?",
+        ? formatDate(player?.date_of_birth, 'long')
+        : '?',
     },
     {
-      label: "Age",
+      label: 'Age',
       value: player?.date_of_birth
-        ? formatDate(player?.date_of_birth, "age")
-        : "?",
+        ? formatDate(player?.date_of_birth, 'age')
+        : '?',
     },
     {
-      label: "Height",
-      value: player?.height || "?",
+      label: 'Height',
+      value: player?.height || '?',
     },
     {
-      label: "Weight",
-      value: player?.weight ? `${player?.weight} lbs.` : "?",
+      label: 'Weight',
+      value: player?.weight ? `${player?.weight} lbs.` : '?',
     },
 
     {
-      label: "Hometown",
-      value: player?.hometown || "?",
+      label: 'Hometown',
+      value: player?.hometown || '?',
     },
     {
-      label: "Nationality",
-      value: getNationality(player?.nationality) || "United States",
+      label: 'Nationality',
+      value: getNationality(player?.nationality) || 'United States',
     },
     {
-      label: "Position(s)",
+      label: 'Position(s)',
       value: getPosition(player?.position || 2),
     },
-  ];
+  ]
 
   return (
     <Flex
       flex={1}
-      flexDirection={"column"}
+      flexDirection={'column'}
       pl={8}
       pt={[0, 0, 8, 16]}
       pr={[0, 16, 0, 16]}
@@ -76,11 +76,11 @@ const PlayerInfo = ({ player }) => {
                 {value} {getFlag(value)}
               </Heading>
             </Stack>
-          );
+          )
         })}
       </SimpleGrid>
     </Flex>
-  );
-};
+  )
+}
 
-export default PlayerInfo;
+export default PlayerInfo

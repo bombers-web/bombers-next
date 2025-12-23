@@ -1,233 +1,171 @@
-import { Box, Flex, Heading, Stack, Divider, Text } from "@chakra-ui/react";
-import Team from "./Team";
+import {
+  Box,
+  Center,
+  Divider,
+  Flex,
+  Icon,
+  Link,
+  Text,
+  VStack,
+} from '@chakra-ui/react'
+import { FiMapPin } from 'react-icons/fi'
+import Team from './Team'
 
 const GameInfo = ({
   homeTeam,
   awayTeam,
   date,
   location,
-  preview,
   division,
   winner,
-  finished,
-  slug,
+  showLocation = true,
 }) => {
-  const formatDateTime = (dateTime, format = "") => {
-    const date = new Date(dateTime);
-    const formats = {
-      short: date.toLocaleDateString("en-US", {
-        month: "2-digit",
-        day: "2-digit",
-      }),
-    };
-    const formattedDate =
-      date.toLocaleDateString("en-US", { weekday: "short" }) +
-      " " +
-      date.toLocaleDateString("en-US", { month: "short" }) +
-      " " +
-      date.toLocaleDateString("en-US", { day: "2-digit" });
+  const d = new Date(date)
+  const formattedDay = d.toLocaleDateString('en-US', { weekday: 'short' })
+  const formattedDate = d.toLocaleDateString('en-US', {
+    month: 'short',
+    day: '2-digit',
+  })
+  const formattedTime = d.toLocaleString('en-US', {
+    hour: '2-digit',
+    minute: '2-digit',
+  })
 
-    const time = date.toLocaleString("en-US", {
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-    return {
-      date: format === "" ? formattedDate : formats[format],
-      time,
-    };
-  };
+  const isBombers = (name) => name?.includes('Bombers')
+  const bombersWon = winner?.name?.includes('St. Louis Bombers')
 
-  const bgs = {
-    DII: "brand.medium",
-    D2: "brand.medium",
-    D1: "brand.black",
-    DI: "brand.black",
-  };
+  // Logic for the Result Badge
+  const statusColor = !winner?.id
+    ? 'gray.400'
+    : bombersWon
+    ? 'green.500'
+    : 'red.500'
+  const statusLabel = !winner?.id ? 'T' : bombersWon ? 'WIN' : 'LOSS'
+  const statusInitial = !winner?.id ? 'T' : bombersWon ? 'W' : 'L'
 
-  const isBombers = (team) => team?.includes("Bombers");
-  const isHome = (homeTeam) => isBombers(homeTeam);
+  const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+    location?.address,
+  )}`
 
-  return preview ? (
-    <Box
-      id="game-info-container"
-      direction="row"
-      bg={bgs[division.toUpperCase()]}
-      width="100%"
-      height="100%"
-      m="0"
-      justifyContent="space-around"
-      alignItems="center"
-    >
-      <Flex direction="column" m="0" py="4" minH="100%">
-        <Flex alignItems="center" justifyContent="start">
-          <Stack
-            w="100%"
-            direction="horizontal"
-            spacing="5"
-            justifyContent="space-between"
-            mb="8"
-            p="4"
-            shadow="md"
-          >
-            <Heading as="div" size="lg" color="brand.light">
-              {division}
-            </Heading>
-            <Heading
-              as="div"
-              display="flex"
-              flexDirection="column"
-              alignItems="flex-end"
-              size="sm"
+  return (
+    <Box w="full" bg="brand.medium" py={8} px={{ base: 4, md: 8 }}>
+      <Flex
+        direction={{ base: 'column', lg: 'row' }}
+        align="center"
+        justify="space-between"
+        width="100%"
+        gap={{ base: 8, lg: 4 }}
+      >
+        {/* DATE & TIME */}
+        <Flex
+          align="center"
+          gap={6}
+          flex={{ lg: '1' }}
+          justify={{ base: 'center', lg: 'start' }}
+        >
+          <VStack align={{ base: 'center', lg: 'start' }} spacing={0}>
+            <Text
               color="brand.light"
+              fontSize="sm"
+              fontWeight="900"
+              textTransform=""
+              letterSpacing="3px"
             >
-              <Box>{formatDateTime(date).date}</Box>
-              <Box>{formatDateTime(date).time}</Box>
-            </Heading>
-          </Stack>
+              {formattedDay}
+            </Text>
+            <Text
+              color="brand.light"
+              fontSize="4xl"
+              fontWeight="900"
+              lineHeight="0.9"
+            >
+              {formattedDate}
+            </Text>
+          </VStack>
+          <Divider
+            orientation="vertical"
+            h="50px"
+            borderColor="brand.light"
+            opacity={0.2}
+          />
+          <VStack align={{ base: 'center', lg: 'start' }} spacing={0}>
+            <Text
+              color="brand.light"
+              fontSize="2xl"
+              fontWeight="800"
+              lineHeight="1"
+            >
+              {formattedTime}
+            </Text>
+          </VStack>
         </Flex>
-        <Team team={homeTeam} preview></Team>
-        <Team team={awayTeam} preview></Team>
+
+        {/* TEAMS */}
+        <Flex
+          flex={{ base: 'none', lg: '1.5' }}
+          align="center"
+          justify="center"
+          gap={{ base: 6, md: 10 }}
+        >
+          <Team team={isBombers(homeTeam?.name) ? homeTeam : awayTeam} />
+          <Center>
+            <Text
+              fontWeight="black"
+              fontSize="md"
+              color="gray.400"
+              fontStyle="italic"
+            >
+              {isBombers(homeTeam?.name) ? 'VS' : '@'}
+            </Text>
+          </Center>
+          <Team team={isBombers(homeTeam?.name) ? awayTeam : homeTeam} />
+        </Flex>
+
+        {/* RIGHT SIDE: LOCATION OR RESULT */}
+        <Flex
+          flex={{ lg: '1' }}
+          justify={{ base: 'center', lg: 'end' }}
+          minW="200px"
+        >
+          {showLocation ? (
+            <Link
+              href={mapUrl}
+              isExternal
+              _hover={{ textDecoration: 'none' }}
+              group
+            >
+              <Flex align="center" gap={4}>
+                <VStack align={{ base: 'center', lg: 'end' }} spacing={0}>
+                  <Text
+                    fontSize="2xl"
+                    fontWeight="900"
+                    color="brand.light"
+                    textTransform="uppercase"
+                  >
+                    {location?.name}
+                  </Text>
+                </VStack>
+                <Icon as={FiMapPin} color="brand.light" boxSize={7} />
+              </Flex>
+            </Link>
+          ) : (
+            /* BIG RESULT INDICATOR */
+            <VStack align={{ base: 'center', lg: 'end' }} spacing={0}>
+              <Text
+                fontSize="2xl"
+                fontWeight="black"
+                color={statusColor}
+                letterSpacing="4px"
+                opacity={0.8}
+              >
+                {statusLabel}
+              </Text>
+            </VStack>
+          )}
+        </Flex>
       </Flex>
     </Box>
-  ) : (
-    <Stack direction="column" justifyContent="center" m={4}>
-      {!homeTeam.score ? (
-        <Stack
-          borderRadius="8px"
-          p="2"
-          fontSize="xs"
-          alignContent="center"
-          justifyContent="center"
-          textAlign="center"
-        >
-          <Flex w="100%" justifyContent="center">
-            <Stack
-              direction="row"
-              textAlign="center"
-              alignItems="center"
-              justifyContent="center"
-              w="100%"
-            >
-              <Text
-                m={0}
-                fontWeight="bold"
-                fontSize="md"
-                // textTransform="uppercase"
-                fontFamily="body"
-              >
-                {location}
-              </Text>
-              <Divider size="xl" orientation="vertical"></Divider>
-              <Box>
-                <Text
-                  m={0}
-                  fontWeight="bold"
-                  fontSize="md"
-                  // textTransform="uppercase"
-                  fontFamily="body"
-                >
-                  {formatDateTime(date).date}
-                </Text>
-              </Box>
-              <Divider size="xl" orientation="vertical"></Divider>
-              <Text
-                m={0}
-                fontWeight="bold"
-                fontSize="md"
-                textTransform="uppercase"
-                fontFamily="body"
-              >
-                {formatDateTime(date).time}
-              </Text>
-            </Stack>
-          </Flex>
-        </Stack>
-      ) : (
-        <Stack
-          borderRadius="8px"
-          p="2"
-          fontSize="xs"
-          alignContent="center"
-          justifyContent="center"
-          textAlign="center"
-        >
-          <Flex w="100%" justifyContent="center">
-            <Stack
-              direction="row"
-              textAlign="center"
-              alignItems="center"
-              justifyContent="center"
-              w="100%"
-            >
-              <Text
-                m={0}
-                fontWeight="bold"
-                fontSize="md"
-                // textTransform="uppercase"
-                fontFamily="body"
-              >
-                {location}
-              </Text>
-              <Divider size="xl" orientation="vertical"></Divider>
-              <Box>
-                <Text
-                  m={0}
-                  fontWeight="bold"
-                  fontSize="md"
-                  // textTransform="uppercase"
-                  fontFamily="body"
-                >
-                  {formatDateTime(date).date}
-                </Text>
-              </Box>
-              <Divider size="xl" orientation="vertical"></Divider>
-              <Text
-                m={0}
-                fontWeight="light"
-                fontSize="xl"
-                textTransform="uppercase"
-                fontFamily="body"
-                as="b"
-                color={
-                  winner?.id === undefined
-                    ? "black"
-                    : winner.name.includes("St. Louis Bombers")
-                    ? "green"
-                    : "red"
-                }
-              >
-                {winner?.id === undefined
-                  ? "T"
-                  : winner?.name.includes("St. Louis Bombers")
-                  ? "W"
-                  : "L"}
-              </Text>
-            </Stack>
-          </Flex>
-        </Stack>
-      )}
-      <Stack
-        direction={{ base: "column", md: "row" }}
-        textAlign={{ base: "center", md: "center" }}
-        alignItems="center"
-        justifyContent={{ base: "center", md: "center" }}
-        w="100%"
-        // spacing={{ base: 2, md: 4 }}
-      >
-        <Team team={isBombers(homeTeam?.name) ? homeTeam : awayTeam}></Team>
-        <Text
-          m={0}
-          fontWeight="bold"
-          fontSize="lg"
-          textTransform="uppercase"
-          fontFamily="body"
-        >
-          {isHome(homeTeam?.name) ? `-` : `@`}
-        </Text>
-        <Team team={isBombers(homeTeam?.name) ? awayTeam : homeTeam}></Team>
-      </Stack>
-    </Stack>
-  );
-};
+  )
+}
 
-export default GameInfo;
+export default GameInfo

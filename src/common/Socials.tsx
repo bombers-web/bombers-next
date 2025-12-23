@@ -1,43 +1,43 @@
-import { Button, HStack, Stack } from "@chakra-ui/react";
+import { Button, HStack, Stack } from '@chakra-ui/react'
 import {
   faFacebookSquare,
   faInstagram,
-} from "@fortawesome/free-brands-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IconProp } from "@fortawesome/fontawesome-svg-core";
-import Link from "next/link";
+} from '@fortawesome/free-brands-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { IconProp } from '@fortawesome/fontawesome-svg-core'
+import Link from 'next/link'
 
 const Socials = ({
   color,
   size,
 }: {
-  color?: "dark" | "light" | string;
-  size?: "sm" | "md" | "lg" | "xl" | string;
+  color?: 'dark' | 'light' | string
+  size?: 'sm' | 'md' | 'lg' | 'xl' | string
 }) => {
   const socials = [
     {
-      name: "facebook",
-      url: "https://www.facebook.com/stlbombersrugby",
+      name: 'facebook',
+      url: 'https://www.facebook.com/stlbombersrugby',
       icon: faFacebookSquare,
     },
     {
-      name: "instagram",
-      url: "https://www.instagram.com/stl_bombersrfc/",
+      name: 'instagram',
+      url: 'https://www.instagram.com/stl_bombersrfc/',
       icon: faInstagram,
     },
-  ];
+  ]
 
   const iconColor = {
-    dark: "#242424",
-    light: "#e2e2e2",
-  }[color || "light"];
+    dark: '#242424',
+    light: '#e2e2e2',
+  }[color || 'light']
 
   const iconSize = {
-    sm: "lg",
-    md: "1x",
-    lg: "2x",
-    xl: "3x",
-  }[size || "md"];
+    sm: 'lg',
+    md: '1x',
+    lg: '2x',
+    xl: '3x',
+  }[size || 'md']
 
   return (
     <Stack
@@ -46,27 +46,27 @@ const Socials = ({
       alignItems="center"
       spacing={2}
     >
-      <HStack spacing={size === "xl" ? 8 : 2}>
+      <HStack spacing={size === 'xl' ? 8 : 2}>
         {socials.map((page) => {
           return (
             <Link href={page?.url} key={page?.url} passHref legacyBehavior>
               <Button variant="link" as="a" pb="3" target="_blank">
-                {page.name === "venmo" ? (
+                {page.name === 'venmo' ? (
                   <></>
                 ) : (
                   <FontAwesomeIcon
-                    color={iconColor || "white"}
-                    fontSize={iconSize || "1x"}
+                    color={iconColor || 'white'}
+                    fontSize={iconSize || '1x'}
                     icon={page.icon as IconProp}
                   />
                 )}
               </Button>
             </Link>
-          );
+          )
         })}
       </HStack>
     </Stack>
-  );
-};
+  )
+}
 
-export default Socials;
+export default Socials

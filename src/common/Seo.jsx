@@ -1,28 +1,28 @@
-import Head from "next/head";
-import { useContext } from "react";
-import { GlobalContext } from "../../pages/_app";
-import { getStrapiMedia } from "../lib/media";
-import { capitalize } from "lodash";
+import Head from 'next/head'
+import { useContext } from 'react'
+import { GlobalContext } from '../../pages/_app'
+import { getStrapiMedia } from '../lib/media'
+import { capitalize } from 'lodash'
 
 const Seo = ({ seo }) => {
   const { defaultSeo, siteName } = useContext(GlobalContext) || {
-    defaultSeo: "Home",
-    siteName: "Bombers RFC",
-  };
+    defaultSeo: 'Home',
+    siteName: 'Bombers RFC',
+  }
 
   const seoWithDefaults = {
     ...defaultSeo,
     ...seo,
-  };
+  }
   const fullSeo = {
     ...seoWithDefaults,
     // Add title suffix
     metaTitle: `${capitalize(seoWithDefaults.metaTitle)} | ${siteName}`,
     // Get full image URL
     shareImage: getStrapiMedia(
-      seoWithDefaults.shareImage || "/images/nationals17.png"
+      seoWithDefaults.shareImage || '/images/nationals17.png',
     ),
-  };
+  }
 
   return (
     <Head>
@@ -51,7 +51,7 @@ const Seo = ({ seo }) => {
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     </Head>
-  );
-};
+  )
+}
 
-export default Seo;
+export default Seo

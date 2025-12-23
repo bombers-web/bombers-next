@@ -1,11 +1,11 @@
-import { Text } from "@chakra-ui/react";
-import styled from "styled-components";
+import { Text } from '@chakra-ui/react'
+import styled from 'styled-components'
 
 export default styled(Text)`
   margin: 0 auto 1.2rem;
   max-width: 100%;
   line-height: 3.4rem;
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-weight: bold;
   text-transform: capitalize;
   text-align: center;
@@ -20,7 +20,7 @@ export default styled(Text)`
     -webkit-text-fill-color: transparent;
     color: #fff;
   }
-`;
+`
 
 export const ContentSummary = styled(Text)`
   margin: 0 auto 4rem;
@@ -28,4 +28,4 @@ export const ContentSummary = styled(Text)`
   font-size: 1.7rem;
   line-height: 1.8rem;
   font-weight: lighter;
-`;
+`

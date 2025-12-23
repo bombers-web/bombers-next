@@ -2,20 +2,21 @@ import {
   Box,
   Flex,
   Heading,
+  Image,
+  Link,
+  SimpleGrid,
   Text,
   VStack,
-  SimpleGrid,
-  Image,
-} from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+} from '@chakra-ui/react'
+import { useEffect, useState } from 'react'
 import {
   FormattedSponsor,
   SponsorTier,
   formatSponsors,
-} from "utils/formatSponsors";
+} from 'utils/formatSponsors'
 
 interface SponsorGridProps {
-  sponsors: FormattedSponsor[];
+  sponsors: FormattedSponsor[]
 }
 
 const SponsorGrid = ({ sponsors }: SponsorGridProps) => {
@@ -46,28 +47,33 @@ const SponsorGrid = ({ sponsors }: SponsorGridProps) => {
           </Text>
           {website && (
             <Text color="white">
-              <a href={website} target="_blank" rel="noopener noreferrer">
+              <Link
+                href={website}
+                isExternal
+                _hover={{ color: 'brand.highlight', textDecoration: 'none' }}
+                transition="color 0.2s"
+              >
                 Visit Website
-              </a>
+              </Link>
             </Text>
           )}
         </Flex>
       ))}
     </SimpleGrid>
-  );
-};
+  )
+}
 
 const Sponsorships = ({ sponsors }) => {
   const [sponsorList, setSponsorList] = useState<
     SponsorTier[] | FormattedSponsor[]
-  >();
+  >()
   // "Feature flags" - change them as needed
-  const useTiers = false;
-  const returnEmptyTiers = useTiers && true;
+  const useTiers = false
+  const returnEmptyTiers = useTiers && true
 
   useEffect(() => {
-    setSponsorList(formatSponsors(sponsors, useTiers, returnEmptyTiers));
-  }, [sponsors]);
+    setSponsorList(formatSponsors(sponsors, useTiers, returnEmptyTiers))
+  }, [sponsors])
 
   return (
     <Box
@@ -88,7 +94,7 @@ const Sponsorships = ({ sponsors }) => {
           borderRadius="md"
         >
           <Heading size="lg" mb={2} textAlign="center">
-            {useTiers ? "Sponsorship Tiers" : "Sponsors"}
+            {useTiers ? 'Sponsorship Tiers' : 'Sponsors'}
           </Heading>
           <Text textAlign="center" mt={0}>
             The companies that keep the ship afloat:
@@ -109,14 +115,14 @@ const Sponsorships = ({ sponsors }) => {
                 )}
                 <SponsorGrid sponsors={formattedSponsors} />
               </Box>
-            )
+            ),
           )
         ) : (
           <SponsorGrid sponsors={sponsorList as FormattedSponsor[]} />
         )}
       </VStack>
     </Box>
-  );
-};
+  )
+}
 
-export default Sponsorships;
+export default Sponsorships

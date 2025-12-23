@@ -1,7 +1,7 @@
-import { Box, Flex, Heading, Text } from "@chakra-ui/react";
-import Card from "common/Card";
-import React from "react";
-import { getPosition } from "./utils";
+import { Box, Flex, Heading, Text } from '@chakra-ui/react'
+import Card from 'common/Card'
+import React from 'react'
+import { getPosition } from './utils'
 
 const PlayerCard = ({
   size,
@@ -18,17 +18,17 @@ const PlayerCard = ({
       radius="8px"
       id="team-card"
       as={`/team/${division}/${url}`}
-      link={noClick ? null : "/team/[division]/[slug]"}
-      height={["25vh", "40vh", "45vh", "50vh"]}
+      link={noClick ? null : '/team/[division]/[slug]'}
+      height={['25vh', '40vh', '45vh', '50vh']}
       styles={{
-        maxWidth: "300px",
-        display: "flex",
-        justifyContent: "space-around",
-        cursor: "pointer",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: size > 3000 ? "cover" : "contain",
-        backgroundColor: "gray",
+        maxWidth: '300px',
+        display: 'flex',
+        justifyContent: 'space-around',
+        cursor: 'pointer',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: size > 3000 ? 'cover' : 'contain',
+        backgroundColor: 'gray',
       }}
       bg={bg}
       border="1px solid #e2e2e2"
@@ -37,14 +37,14 @@ const PlayerCard = ({
         style={{
           background: `linear-gradient(
 185deg,rgba(0,0,0,0) 20%,rgba(0,0,0,.9) 80%)`,
-          height: "70%",
+          height: '70%',
           zIndex: 98,
-          width: "100%",
-          position: "absolute",
-          overflow: "hidden",
+          width: '100%',
+          position: 'absolute',
+          overflow: 'hidden',
           bottom: 0,
-          verticalAlign: "baseline",
-          display: "flex",
+          verticalAlign: 'baseline',
+          display: 'flex',
         }}
       >
         <Flex
@@ -56,7 +56,7 @@ const PlayerCard = ({
           position="absolute"
           bottom={0}
           left={0}
-          maxHeight={"80%"}
+          maxHeight={'80%'}
         >
           <Heading
             m={0}
@@ -80,7 +80,7 @@ const PlayerCard = ({
         </Flex>
       </Box>
     </Card>
-  );
-};
+  )
+}
 
-export default PlayerCard;
+export default PlayerCard

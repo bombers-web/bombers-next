@@ -1,5 +1,5 @@
-import { Box } from "@chakra-ui/react";
-import styled from "styled-components";
+import { Box } from '@chakra-ui/react'
+import styled from 'styled-components'
 
 export const HeroContainer = styled.div`
   height: 50vh;
@@ -18,7 +18,7 @@ export const HeroContainer = styled.div`
   @media (max-width: 1024px) {
     flex-wrap: wrap;
   }
-`;
+`
 
 export const HeroTile = styled.a`
   height: 100%;
@@ -111,7 +111,7 @@ export const HeroTile = styled.a`
       }
     }
   }
-`;
+`
 
 export const HeroTileImageContainer = styled.picture`
   height: calc(100% - 6rem);
@@ -122,7 +122,7 @@ export const HeroTileImageContainer = styled.picture`
   will-change: transform;
   transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
   ::before {
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     right: 0;
@@ -139,7 +139,7 @@ export const HeroTileImageContainer = styled.picture`
   .loaded {
     opacity: 1;
   }
-`;
+`
 
 export const HeroTileImage = styled.img`
   width: 100%;
@@ -150,11 +150,11 @@ export const HeroTileImage = styled.img`
   object-fit: cover;
   -o-object-position: center;
   object-position: center;
-  font-family: "object-fit: cover; object-position: center";
-`;
+  font-family: 'object-fit: cover; object-position: center';
+`
 
 export const HeroTileGradient = styled.div`
-  content: "";
+  content: '';
   display: block;
   position: absolute;
   bottom: -1px;
@@ -180,7 +180,7 @@ export const HeroTileGradient = styled.div`
       rgba(8, 14, 31, 0)
     );
   }
-`;
+`
 
 export const HeroTitleExplainer = styled.div`
   display: block;
@@ -192,11 +192,11 @@ export const HeroTitleExplainer = styled.div`
   text-align: center;
   z-index: 51;
   color: #fff;
-`;
+`
 
 export const HeroTileTitle = styled.h4`
   margin: 0 auto;
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-weight: 400;
   color: #fff;
   transition: transform 0.2s;
@@ -211,7 +211,7 @@ export const HeroTileTitle = styled.h4`
   @media (min-width: 1024px) {
     width: 20vw;
   }
-`;
+`
 
 export const HeroTileDescription = styled.div`
   max-width: 44rem;
@@ -223,19 +223,19 @@ export const HeroTileDescription = styled.div`
   will-change: opacity, max-height, transform;
   transition: opacity 0.3s 0s, max-height 0.3s;
   ::before {
-    content: "";
+    content: '';
     display: block;
     height: 1rem;
   }
   @media (min-width: 1024px) {
     opacity: 1;
   }
-`;
+`
 
 export const HeroTileMeta = styled.div`
   text-align: center;
   color: #fff;
-`;
+`
 
 export const HeroTileMetaData = styled.div`
   display: flex;
@@ -248,11 +248,11 @@ export const HeroTileMetaData = styled.div`
   @media (max-width: 1024px) {
     margin: 0;
   }
-`;
+`
 
 export const ContentTag = styled.div`
   color: var(--chakra-colors-brand-highlight);
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-weight: bold;
   text-transform: uppercase;
   text-align: center;
@@ -260,14 +260,14 @@ export const ContentTag = styled.div`
   margin-right: 1rem;
   ::before {
     margin: 0 0.4rem;
-    content: "";
+    content: '';
     display: inline-block;
     margin-right: 0.7rem;
     width: 0.7rem;
     height: 0.7rem;
     background-color: var(--chakra-colors-brand-highlight);
   }
-`;
+`
 
 export const ContentTime = styled.time`
   display: flex;
@@ -286,7 +286,7 @@ export const ContentTime = styled.time`
 
     text-align: right;
   }
-`;
+`
 
 export const MobileReelContainer = styled(Box)`
   height: 100%;
@@ -298,7 +298,7 @@ export const MobileReelContainer = styled(Box)`
   overflow-y: scroll;
   display: flex;
   flex-direction: column;
-`;
+`
 export const MobileCard = styled.div`
   ::before {
     background-image: linear-gradient(
@@ -306,7 +306,7 @@ export const MobileCard = styled.div`
       rgba(0, 0, 0, 0.8) 20%,
       rgba(0, 0, 0, 0) 60%
     );
-    content: "";
+    content: '';
     z-index: 1;
   }
   display: flex;
@@ -317,7 +317,7 @@ export const MobileCard = styled.div`
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-`;
+`
 
 export const MobileCardDescription = styled.div`
   height: 100%;
@@ -334,7 +334,7 @@ export const MobileCardDescription = styled.div`
   font-family: var(--chakra-fonts-header-fontFamily);
   font-weight: var(--chakra-fonts-header-fontWeight);
   font-size: 24px; //--chakra-fontSizes-lg
-`;
+`
 
 export const MobileCardTitle = styled.div`
   color: #fff;
@@ -345,7 +345,7 @@ export const MobileCardTitle = styled.div`
   margin: 0 24px;
   max-height: 96px;
   overflow: hidden;
-`;
+`
 
 export const MobileCardCta = styled.div`
   text-transform: uppercase;
@@ -367,4 +367,4 @@ export const MobileCardCta = styled.div`
   font-weight: bold;
   min-width: 144px;
   margin: 24px 24px 0;
-`;
+`

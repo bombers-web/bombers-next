@@ -1,20 +1,20 @@
-import { Box } from "@chakra-ui/react";
-import Image from "next/image";
-import styled from "styled-components";
+import { Box } from '@chakra-ui/react'
+import Image from 'next/image'
+import styled from 'styled-components'
 
 const Container = styled(Box)`
   align-items: ${(props) => props.alignItems};
   display: flex;
   justify-content: ${(props) => props.justifyContent};
   position: relative;
-  height: ${(props) => props.height || "100%"};
-  width: ${(props) => props.width || "100%"};
-`;
+  height: ${(props) => props.height || '100%'};
+  width: ${(props) => props.width || '100%'};
+`
 
 const InnerContainer = styled.div`
   z-index: 10;
   height: 100%;
-`;
+`
 
 /**
  * <BgImage>
@@ -37,15 +37,15 @@ const InnerContainer = styled.div`
  * @param { number } width - how wide image should be (default: 100%)
  */
 const BgImage = ({
-  alignItems = "center",
+  alignItems = 'center',
   children,
-  imgalt = "Background Image",
+  imgalt = 'Background Image',
   src,
-  height = "50vh",
-  justifyContent = "center",
-  width = "100%",
-  position = "center",
-  fit = "cover",
+  height = '50vh',
+  justifyContent = 'center',
+  width = '100%',
+  position = 'center',
+  fit = 'cover',
 }) => {
   return (
     <Container
@@ -65,7 +65,7 @@ const BgImage = ({
       ) : null}
       {children && <InnerContainer>{children}</InnerContainer>}
     </Container>
-  );
-};
+  )
+}
 
-export default BgImage;
+export default BgImage

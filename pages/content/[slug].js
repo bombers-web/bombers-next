@@ -1,279 +1,179 @@
 /* eslint-disable no-unused-vars */
-import { Box, Divider, Flex, Heading, Text } from "@chakra-ui/react";
-import { format, formatDistanceToNow } from "date-fns";
-import { enUS } from "date-fns/locale";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import {
+  Box,
+  Divider,
+  Flex,
+  Heading,
+  Text,
+  Avatar,
+  HStack,
+  VStack,
+  Container,
+  Center,
+} from '@chakra-ui/react'
+import { format } from 'date-fns'
+import { useRouter } from 'next/router'
 import {
   EmailIcon,
   EmailShareButton,
   FacebookIcon,
-  FacebookMessengerIcon,
-  FacebookMessengerShareButton,
   FacebookShareButton,
   TwitterIcon,
   TwitterShareButton,
   WhatsappIcon,
   WhatsappShareButton,
-} from "react-share";
-import Mdx from "src/common/Mdx";
-import { ContentTag, ContentTime } from "src/components/NewsReel/styles";
-import styled from "styled-components";
-import Layout from "../../src/common/Layout";
-import Pic from "../../src/common/Pic";
-import ContentTitle, {
-  ContentSummary,
-} from "../../src/components/Content/ContentTitle";
-import { fetchAPI } from "../../src/lib/api";
-import { getStrapiMedia } from "../../src/lib/media";
-import { max } from "lodash";
+} from 'react-share'
+import Mdx from 'src/common/Mdx'
+import Layout from '../../src/common/Layout'
+import Pic from '../../src/common/Pic'
+import { fetchAPI } from '../../src/lib/api'
 
-const ContentHeader = styled.div`
-  font-size: 44px;
-  color: white;
-  font-weight: 600;
-  background: linear-gradient(
-    90deg,
-    rgba(24, 24, 24, 1) 0%,
-    rgba(33, 33, 33, 1) 35%,
-    rgba(48, 48, 48, 1) 100%
-  );
-  padding: 16px;
-  border: 4px solid white;
-  width: 100%;
-  text-align: center;
-`;
+const Content = ({ content }) => {
+  const router = useRouter()
+  const imageUrl = content?.image
 
-const defaultContent = {
-  image: {
-    url: "",
-  },
-  title: "",
-  description: "",
-  author: {},
-  published_at: "",
-  content: "",
-};
-
-const Content = ({ content, context }) => {
-  const router = useRouter();
-  const imageUrl = content?.image;
-
-  const seo = {
-    metaTitle: content?.title,
-    metaDescription: content?.description,
-    shareImage: content?.image,
-    content: true,
-  };
-
-  // const meta = [
-  //   {
-  //     name: "category",
-  //     type: "categoryTag",
-  //     Component: ContentTag,
-  //     content: content?.category?.name || "Story",
-  //   },
-  //   {
-  //     name: "publishedAt",
-  //     type: "dateTag",
-  //     Component: ContentTime,
-  //     content: formatDistanceToNow(new Date(1995, 6, 2), {
-  //       addSuffix: true,
-  //       locale: {
-  //         ...enUS,
-  //         formatDistance: (unit, count) => {
-  //           switch (true) {
-  //             case unit === "xDays":
-  //               return `${count} d`;
-
-  //             case unit === "aboutXDays":
-  //               return `${count} days ago`;
-
-  //             case unit === "aboutXHours":
-  //               return `${count} hrs ago`;
-  //             case unit === "aboutXYears":
-  //               return `${count} years ago`;
-
-  //             case unit === "xMinutes":
-  //               return `${count} min ago`;
-
-  //             case unit === "xMonths":
-  //               return `${count} mo. ago`;
-  //             case unit === "aboutXMonths":
-  //               return `${count} mo. ago`;
-
-  //             case unit === "xSeconds":
-  //               return "just now";
-
-  //             case unit === "xYears":
-  //               return `${count} y`;
-
-  //             default:
-  //               return "%d hours";
-  //           }
-  //         },
-  //       },
-  //     }),
-  //   },
-  // ];
-
-  // If the page is not yet generated, this will be displayed
-  // initially until getStaticProps() finishes running
   if (router.isFallback) {
-    return <div>Loading...</div>;
+    return <Center p={20}>Loading...</Center>
   }
+
+  const shareUrl = `${process.env.HOST_URL || 'http://localhost:3000'}${
+    router.asPath
+  }`
 
   return (
     <Layout
-      cover={{ url: imageUrl, alternativeText: content.description }}
-      seo={seo}
-      mainBg="brand.black"
+      cover={{ url: imageUrl, alternativeText: content?.description }}
+      seo={{ metaTitle: content?.title, content: true }}
+      mainBg="white"
     >
-      <>
-        <Flex
-          bg="brand.light"
-          py="70px"
-          justifyContent="flex-start"
-          h="100%"
-          id={content?.uid || "start"}
-          borderRadius="20px 20px 0 0"
-          position="relative"
-          top="-10px"
-          w="100%"
-          m="auto"
-        >
-          <Flex
-            w="100%"
-            m="auto"
-            p="8"
-            h="50%"
-            maxW={["100%", "100%", "1180px"]}
-            bg="brand.white"
-            boxShadow="lg"
-            direction="column"
-            justifyContent="center"
-          >
-            <ContentTitle
-              fontSize={["2xl", "3xl", "4xl"]}
-              lineHeight={[1, 1.5, 2]}
+      <Box bg="white" pt={{ base: '30px', md: '50px' }} pb="30px">
+        <Container maxW="850px">
+          <VStack align="center" textAlign="center">
+            <Text
+              fontSize="xs"
+              fontWeight="bold"
+              color="blue.500"
+              textTransform="uppercase"
+              letterSpacing="widest"
+            >
+              {content?.category?.name || 'Article'}
+            </Text>
+
+            <Heading
+              as="h1"
+              fontSize={{ base: '2xl', md: '4xl' }}
+              fontWeight="700"
+              lineHeight="tight"
+              maxW="700px"
             >
               {content?.title}
-            </ContentTitle>
-            <ContentSummary as="p">{content?.description}</ContentSummary>
-            {content?.image && (
-              <Pic
-                image={content.image || ""}
-                objectFit="contain"
-                style={{
-                  position: "static",
-                  width: "100%",
-                  height: "auto",
-                  maxWidth: "1180px",
-                }}
-              />
-            )}
-            <Flex gap="4" justify="flex-end" marginTop="4">
-              <Box m="0">
-                <Pic
-                  image={content?.writer.picture || ""}
-                  style={{
-                    position: "static",
-                    borderRadius: "50%",
-                    height: 30,
-                  }}
-                />
-              </Box>
-              <Box
-                display="flex"
-                flexDirection="row"
-                justifyContent="space-between"
-                w="100%"
-              >
-                <Box>
-                  <Text margin="0">
-                    By {content?.writer?.name || "Anonymous"}
-                  </Text>
-                  <Text className="uk-text-meta uk-margin-remove-top">
-                    {format(new Date(content.publishedAt), "PPPp")}
-                  </Text>
-                </Box>
-              </Box>
-            </Flex>
-            <Flex py="4" gap="8px">
-              <EmailShareButton>
-                <EmailIcon size={32} round></EmailIcon>
-              </EmailShareButton>
-              <FacebookShareButton
-                url={`${process.env.HOST_URL || "http://localhost:3000"}${
-                  router.asPath
-                }`}
-                quote={"Dummy text!"}
-                hashtag="#muo"
-              >
-                <FacebookIcon size={32} round />
-              </FacebookShareButton>
-              <TwitterShareButton
-                url={`${process.env.HOST_URL || "http://localhost:3000"}${
-                  router.asPath
-                }`}
-                quote={"Dummy text!"}
-                hashtag="#muo"
-              >
-                <TwitterIcon size={32} round />
-              </TwitterShareButton>
+            </Heading>
 
-              <WhatsappShareButton>
-                <WhatsappIcon size={32} round></WhatsappIcon>
-              </WhatsappShareButton>
-              <FacebookMessengerShareButton>
-                <FacebookMessengerIcon size={32} round></FacebookMessengerIcon>
-              </FacebookMessengerShareButton>
-            </Flex>
-            <Divider size="1px" variant="solid" m="8" color="brand.black" />
-            <Flex
-              justifyContent="flex-start"
-              m="auto"
-              alignItems="flex-start"
-              direction="column"
+            <Text fontSize="md" color="gray.500" maxW="600px" lineHeight="base">
+              {content?.description}
+            </Text>
+
+            <HStack
+              spacing={6}
+              py={2}
+              w="100%"
+              justify="center"
+              divider={
+                <Box borderLeft="1px solid" borderColor="gray.200" h="20px" />
+              }
             >
-              {content?.tagline && (
-                <Heading as="h3" size="lg" color="brand.highlight" my="4">
-                  {content.tagline || ""}
-                </Heading>
-              )}
-              <Box textAlign="justify" mb="10" pb="10">
-                <Mdx>{content?.content}</Mdx>
-              </Box>
-            </Flex>
-          </Flex>
-        </Flex>
-      </>
+              {/* Author Info */}
+              <HStack spacing={2}>
+                <Avatar size="xs" src={content?.writer?.picture?.url} />
+                <Text fontSize="sm" fontWeight="medium">
+                  {content?.writer?.name || 'Anonymous'}
+                </Text>
+              </HStack>
+
+              {/* Date */}
+              <Text fontSize="sm" color="gray.400">
+                {content?.publishedAt &&
+                  format(new Date(content.publishedAt), 'MMM dd, yyyy')}
+              </Text>
+
+              {/* Compact Socials */}
+              <HStack spacing={3}>
+                <FacebookShareButton url={shareUrl}>
+                  <FacebookIcon size={24} round />
+                </FacebookShareButton>
+                <TwitterShareButton url={shareUrl}>
+                  <TwitterIcon size={24} round />
+                </TwitterShareButton>
+                <WhatsappShareButton url={shareUrl}>
+                  <WhatsappIcon size={24} round />
+                </WhatsappShareButton>
+              </HStack>
+            </HStack>
+          </VStack>
+        </Container>
+      </Box>
+
+      {/* Main Image - Now fits more tightly to the header */}
+      <Container maxW="1000px" mb="10">
+        {content?.image && (
+          <Box borderRadius="lg" overflow="hidden">
+            <Pic
+              image={content.image}
+              objectFit="cover"
+              style={{ width: '100%', height: 'auto', maxHeight: '500px' }}
+            />
+          </Box>
+        )}
+      </Container>
+
+      {/* Article Content */}
+      <Box bg="white" pb="80px">
+        <Container maxW="750px">
+          <Box
+            className="article-body"
+            fontSize="18px"
+            lineHeight="1.75"
+            color="gray.800"
+            sx={{
+              p: { marginBottom: '1.25rem' },
+              h2: {
+                marginTop: '2rem',
+                marginBottom: '0.75rem',
+                fontWeight: 'bold',
+                fontSize: 'xl',
+              },
+            }}
+          >
+            <Mdx>{content?.content}</Mdx>
+          </Box>
+        </Container>
+      </Box>
     </Layout>
-  );
-};
+  )
+}
 
 export async function getStaticPaths() {
-  const contents = (await fetchAPI("/contents?populate=*")) || [];
+  const contents = (await fetchAPI('/contents?populate=*')) || []
   return {
     paths: contents.map((content) => ({
       params: {
-        slug: content?.slug || "2024-champs",
+        slug: content?.slug || '2024-champs',
       },
     })),
     fallback: true,
-  };
+  }
 }
 
 export async function getStaticProps({ params }) {
   const [content] =
     (await fetchAPI(
-      `/contents?populate[0]=writer.picture&populate[1]=image&sort[0]=published:desc&filters[slug][$eq]=${params.slug}`
-    )) || {};
+      `/contents?populate[0]=writer.picture&populate[1]=image&sort[0]=published:desc&filters[slug][$eq]=${params.slug}`,
+    )) || {}
   return {
     props: { content },
     // refetch every 2 weeks
     revalidate: 1209600,
-  };
+  }
 }
 
-export default Content;
+export default Content

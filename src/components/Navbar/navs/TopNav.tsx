@@ -1,8 +1,8 @@
-import { Flex, HStack, Link } from "@chakra-ui/react";
-import LoginButton from "src/common/LoginButton";
-import NavLogo from "../../../common/NavLogo";
-import Socials from "../../../common/Socials";
-import useNav from "../../../hooks/useNav";
+import { Flex, HStack, Link } from '@chakra-ui/react'
+import LoginButton from 'src/common/LoginButton'
+import NavLogo from '../../../common/NavLogo'
+import Socials from '../../../common/Socials'
+import useNav from '../../../hooks/useNav'
 
 // type MenuItemProps = {
 //   theme: any;
@@ -22,17 +22,17 @@ import useNav from "../../../hooks/useNav";
 // `;
 
 const TopNav = () => {
-  const { navs } = useNav();
+  const { navs } = useNav()
 
   return (
     <HStack
-      minH={["50px", "75px", "50px", "50px"]}
+      minH={['50px', '75px', '50px', '50px']}
       maxH="100px"
       bg="gradient.regular"
       flexGrow="2"
       justifyContent="center"
       id="topbar"
-      display={["none", "none", "flex", "flex"]}
+      display={['none', 'none', 'flex', 'flex']}
       alignItems="center"
     >
       <Flex w="100%" mx={8} justifyContent="flex-end" maxW="1180px">
@@ -42,21 +42,21 @@ const TopNav = () => {
             <Link
               key={nav.slug}
               style={{
-                textDecoration: "none",
-                alignSelf: "center",
+                textDecoration: 'none',
+                alignSelf: 'center',
               }}
               href={nav.slug}
             >
               {nav.name}
               {/* <MenuItem className="desktop-menu-item">{nav.name}</MenuItem> */}
             </Link>
-          );
+          )
         })}
         <Socials />
         <LoginButton />
       </Flex>
     </HStack>
-  );
-};
+  )
+}
 
-export default TopNav;
+export default TopNav

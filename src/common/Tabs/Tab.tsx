@@ -1,5 +1,5 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { TabType } from "./types";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { TabType } from './types'
 
 const Tab = ({ icon, title, href }: TabType) => {
   return (
@@ -9,7 +9,7 @@ const Tab = ({ icon, title, href }: TabType) => {
         {title}
       </a>
     </li>
-  );
-};
+  )
+}
 
-export default Tab;
+export default Tab

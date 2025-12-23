@@ -1,4 +1,4 @@
-const { default: styled } = require("styled-components");
+const { default: styled } = require('styled-components')
 
 export const HeroContainer = styled.div`
   height: 68vh;
@@ -17,7 +17,7 @@ export const HeroContainer = styled.div`
   @media (max-width: 1024px) {
     flex-wrap: wrap;
   }
-`;
+`
 
 export const PlayerName = styled.span`
   opacity: 1;
@@ -33,7 +33,7 @@ export const PlayerName = styled.span`
     -webkit-text-fill-color: transparent;
     color: #fff;
   }
-  font-family: "Big Shoulders Display", Arial, "Helvetica Neue", Helvetica,
+  font-family: 'Big Shoulders Display', Arial, 'Helvetica Neue', Helvetica,
     sans-serif;
   font-weight: 400;
   font-size: 3000%;
@@ -49,7 +49,7 @@ export const PlayerName = styled.span`
   opacity: 0;
   transform: translateX(-55%) translateY(2rem);
   transition: opacity 0.5s, transform 0.5s;
-`;
+`
 
 export const PlayerPic = styled.div`
   position: absolute;
@@ -74,4 +74,4 @@ export const PlayerPic = styled.div`
     left: 2rem;
     max-width: 47%;
   }
-`;
+`

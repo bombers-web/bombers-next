@@ -1,18 +1,18 @@
-import { Link, Text, Box } from "@chakra-ui/react";
-import useNav from "../hooks/useNav";
-import NavLogo from "./NavLogo";
-import Socials from "./Socials";
-import Sponsors from "../components/Sponsors";
+import { Link, Text, Box } from '@chakra-ui/react'
+import useNav from '../hooks/useNav'
+import NavLogo from './NavLogo'
+import Socials from './Socials'
+import Sponsors from '../components/Sponsors'
 import {
   Copyright,
   FooterContainer,
   FooterIcons,
   FooterInfo,
   FooterLinks,
-} from "./styles";
+} from './styles'
 
 const Footer = (_props) => {
-  const { navs, shortest } = useNav(["Club", "Team"]);
+  const { navs, shortest } = useNav(['Club', 'Team'])
   return (
     <Box>
       <FooterContainer id="footer">
@@ -30,22 +30,22 @@ const Footer = (_props) => {
                 <>
                   {<li className="header">{item.name}</li>}
                   {item.subMenus?.slice(0, shortest).map((link, index) =>
-                    link.name !== "more" ? (
+                    link.name !== 'more' ? (
                       <Link
                         key={`link-${item.id}-${index}`}
                         style={{
-                          textDecoration: "none",
-                          alignSelf: "center",
+                          textDecoration: 'none',
+                          alignSelf: 'center',
                         }}
-                        href={"/" + link.slug}
+                        href={'/' + link.slug}
                       >
                         {link.name}
                       </Link>
-                    ) : null
+                    ) : null,
                   )}
                 </>
               </ul>
-            ) : null;
+            ) : null
           })}
         </FooterLinks>
       </FooterContainer>
@@ -55,7 +55,7 @@ const Footer = (_props) => {
         </Text>
       </Copyright>
     </Box>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer

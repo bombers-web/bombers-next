@@ -1,19 +1,19 @@
-import ReactMarkdown from "react-markdown";
-import React from "react";
-import gfm from "remark-gfm";
-import Link from "next/link";
-import { Heading, Text, Link as ChakraLink } from "@chakra-ui/react";
-import { FormatMd } from "./styles";
+import ReactMarkdown from 'react-markdown'
+import React from 'react'
+import gfm from 'remark-gfm'
+import Link from 'next/link'
+import { Heading, Text, Link as ChakraLink } from '@chakra-ui/react'
+import { FormatMd } from './styles'
 
 const Mdx = (props) => {
   const formatText = ({ node, ...props }) => {
     const size = {
-      1: "xl",
-      2: "lg",
-      3: "md",
-      4: "sm",
-      5: "xs",
-    };
+      1: 'xl',
+      2: 'lg',
+      3: 'md',
+      4: 'sm',
+      5: 'xs',
+    }
     return (
       <Heading
         my="8"
@@ -21,12 +21,12 @@ const Mdx = (props) => {
         size={size[props.level]}
         {...props}
       ></Heading>
-    );
-  };
+    )
+  }
 
   const format = ({ node, ...props }) => (
     <FormatMd as={node.tagName} {...props} />
-  );
+  )
 
   return (
     <ReactMarkdown
@@ -39,7 +39,7 @@ const Mdx = (props) => {
             <ChakraLink
               {...props}
               sx={{
-                color: "var(--chakra-colors-messenger-400)",
+                color: 'var(--chakra-colors-messenger-400)',
               }}
             ></ChakraLink>
           </Link>
@@ -57,7 +57,7 @@ const Mdx = (props) => {
             {...props}
             as={node.tagName}
             color="brand.medium"
-            sx={{ fontWeight: "bolder" }}
+            sx={{ fontWeight: 'bolder' }}
           ></Text>
         ),
         strong: ({ node, ...props }) => (
@@ -65,7 +65,7 @@ const Mdx = (props) => {
             {...props}
             as={node.tagName}
             color="brand.superblack"
-            sx={{ fontWeight: "bolder", fontSize: "inherit" }}
+            sx={{ fontWeight: 'bolder', fontSize: 'inherit' }}
           ></Text>
         ),
         ol: format,
@@ -74,7 +74,7 @@ const Mdx = (props) => {
     >
       {props.children}
     </ReactMarkdown>
-  );
-};
+  )
+}
 
-export default Mdx;
+export default Mdx
