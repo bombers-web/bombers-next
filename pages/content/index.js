@@ -1,6 +1,6 @@
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react'
 import { fetchAPI } from 'lib/api'
-import React, { useCallback, useState } from 'react'
+import { useCallback, useState } from 'react'
 import Layout from '../../src/common/Layout'
 import ContentCard from '../../src/components/Content/ContentCard'
 
@@ -9,6 +9,19 @@ const News = ({ content, categories }) => {
   const onTabChange = useCallback((e, d) => {
     setSelectedTab(e)
   }, [])
+
+  const tabStyle = {
+    textTransform: 'uppercase',
+    letterSpacing: '2px',
+    fontSize: 'ls',
+    color: 'gray.400',
+    _selected: {
+      color: 'brand.black',
+      borderColor: 'brand.black',
+    },
+    _hover: { color: 'brand.black' },
+    transition: 'all 0.2s',
+  }
 
   return (
     <Layout
@@ -34,17 +47,9 @@ const News = ({ content, categories }) => {
         defaultIndex={0}
       >
         <TabList>
-          <Tab fontSize="xl" fontWeight="bold">
-            Latest
-          </Tab>
+          <Tab {...tabStyle}>Latest</Tab>
           {categories?.map((category) => (
-            <Tab
-              fontSize="xl"
-              fontWeight="bold"
-              fontFamily="Montserrat"
-              textTransform="capitalize"
-              key={category.id}
-            >
+            <Tab {...tabStyle} key={category.id}>
               {category.name}
             </Tab>
           ))}

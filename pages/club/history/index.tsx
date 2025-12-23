@@ -100,7 +100,6 @@ export async function getStaticProps() {
     props: {
       history,
     },
-    revalidate: 86400,
   }
 }
 

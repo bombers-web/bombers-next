@@ -5,41 +5,24 @@ import Schedule from './Schedule'
 const ScheduleTabs = ({ games = [] }) => {
   const upcoming = games?.filter((game) => !game.finished)
   const results = games?.filter((game) => game.finished)
-
+  const tabStyle = {
+    textTransform: 'uppercase',
+    letterSpacing: '2px',
+    fontSize: 'ls',
+    color: 'gray.400',
+    _selected: {
+      color: 'brand.black',
+      borderColor: 'brand.black',
+    },
+    _hover: { color: 'brand.black' },
+    transition: 'all 0.2s',
+  }
   return (
     <Box w="full">
       <Tabs align="center" variant="line" colorScheme="black">
         <TabList borderBottom="2px solid" borderColor="gray.100" gap={8}>
-          <Tab
-            textTransform="uppercase"
-            letterSpacing="2px"
-            fontSize="xl"
-            color="gray.400"
-            _selected={{
-              color: 'brand.black',
-              borderColor: 'brand.black',
-              borderBottomWidth: '4px', // Thicker underline for impact
-            }}
-            _hover={{ color: 'brand.black' }}
-            transition="all 0.2s"
-          >
-            Schedule
-          </Tab>
-          <Tab
-            textTransform="uppercase"
-            letterSpacing="2px"
-            fontSize="xl"
-            color="gray.400"
-            _selected={{
-              color: 'brand.black',
-              borderColor: 'brand.black',
-              borderBottomWidth: '4px',
-            }}
-            _hover={{ color: 'brand.black' }}
-            transition="all 0.2s"
-          >
-            Results
-          </Tab>
+          <Tab {...tabStyle}>Schedule</Tab>
+          <Tab {...tabStyle}>Results</Tab>
         </TabList>
 
         <TabPanels mt={6}>

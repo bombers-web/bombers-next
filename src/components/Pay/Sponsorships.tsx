@@ -2,10 +2,11 @@ import {
   Box,
   Flex,
   Heading,
+  Image,
+  Link,
+  SimpleGrid,
   Text,
   VStack,
-  SimpleGrid,
-  Image,
 } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import {
@@ -46,9 +47,14 @@ const SponsorGrid = ({ sponsors }: SponsorGridProps) => {
           </Text>
           {website && (
             <Text color="white">
-              <a href={website} target="_blank" rel="noopener noreferrer">
+              <Link
+                href={website}
+                isExternal
+                _hover={{ color: 'brand.highlight', textDecoration: 'none' }}
+                transition="color 0.2s"
+              >
                 Visit Website
-              </a>
+              </Link>
             </Text>
           )}
         </Flex>

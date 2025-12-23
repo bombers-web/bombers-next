@@ -1,17 +1,17 @@
 import {
+  Badge,
   Box,
+  Divider,
   Flex,
   Heading,
+  Icon,
   Link,
   Text,
-  Icon,
   VStack,
-  Divider,
-  Badge,
 } from '@chakra-ui/react'
-import { FiMapPin, FiClock } from 'react-icons/fi'
-import Mdx from '../../../src/common/Mdx'
+import { FiClock, FiMapPin } from 'react-icons/fi'
 import Layout from '../../../src/common/Layout'
+import Mdx from '../../../src/common/Mdx'
 import { fetchAPI } from '../../../src/lib/api'
 
 const Practice = ({ practice }) => {
@@ -121,6 +121,7 @@ export async function getStaticProps() {
     props: {
       practice: Array.isArray(practice) ? practice : [],
     },
+    revalidate: 86400,
   }
 }
 

@@ -1,12 +1,12 @@
 /* eslint-disable no-unused-vars */
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react'
-import React, { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
 import Layout from '../src/common/Layout'
-import DuesSection from '../src/components/Pay/DuesSection'
 import DonateSection from '../src/components/Pay/DonateSection'
+import DuesSection from '../src/components/Pay/DuesSection'
 import Sponsorships from '../src/components/Pay/Sponsorships'
 import { fetchAPI } from '../src/lib/api'
-import { useRouter } from 'next/router'
 
 const Pay = (props) => {
   const [sponsors, setSponsors] = useState([])
@@ -73,6 +73,19 @@ const Pay = (props) => {
     setSubtabIndex(index)
   }
 
+  const tabStyle = {
+    textTransform: 'uppercase' as const,
+    letterSpacing: '2px',
+    fontSize: 'ls',
+    color: 'gray.400',
+    _selected: {
+      color: 'brand.black',
+      borderColor: 'brand.black',
+    },
+    _hover: { color: 'brand.black' },
+    transition: 'all 0.2s',
+  }
+
   return (
     <Layout
       seo={{
@@ -82,6 +95,7 @@ const Pay = (props) => {
     >
       <Tabs
         fontFamily="Montserrat"
+        textTransform="uppercase"
         align="center"
         variant="line"
         size="lg"
@@ -91,15 +105,9 @@ const Pay = (props) => {
         onChange={handleTabChange}
       >
         <TabList>
-          <Tab fontSize="m" fontWeight="bold">
-            Donations
-          </Tab>
-          <Tab fontSize="m" fontWeight="bold">
-            Club Dues
-          </Tab>
-          <Tab fontSize="m" fontWeight="bold">
-            Sponsors
-          </Tab>
+          <Tab {...tabStyle}>Donations</Tab>
+          <Tab {...tabStyle}>Club Dues</Tab>
+          <Tab {...tabStyle}>Sponsors</Tab>
         </TabList>
         <TabPanels my="24px">
           <TabPanel textTransform="capitalize">

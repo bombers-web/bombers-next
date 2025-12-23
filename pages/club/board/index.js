@@ -61,7 +61,7 @@ export async function getStaticProps() {
   const members = (await fetchAPI('/board-members?populate=photo')) || []
   return {
     props: { members },
-    revalidate: 86400, // Added revalidation since your other pages use it
+    revalidate: 86400,
   }
 }
 

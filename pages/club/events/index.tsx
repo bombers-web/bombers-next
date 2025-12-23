@@ -7,12 +7,12 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react'
+import SectionHeader from 'common/SectionHeader'
 import Layout from '../../../src/common/Layout'
 import EventCard from '../../../src/components/Event/EventCard'
 import { fetchAPI } from '../../../src/lib/api'
 
 const EventsPage = ({ events }) => {
-  // Separate events based on the "active" flag in your JSON
   const upcomingEvents = events?.filter((e) => e.active) || []
   const pastEvents = events?.filter((e) => !e.active) || []
 
@@ -25,13 +25,12 @@ const EventsPage = ({ events }) => {
           'Stay up to date with the latest Bombers matches, fundraisers, and social events.',
       }}
     >
-      <Container maxW="container.md" py={12}>
+      <Container maxW="container.md" py={12} mx="auto">
         {/* UPCOMING EVENTS SECTION */}
-        <VStack align="start" spacing={8} mb={20}>
-          <Box>
-            <Heading as="h1" size="2xl" mb={2}>
-              Upcoming Events
-            </Heading>
+        {/* Changed align to center */}
+        <VStack align="center" spacing={8} mb={20} w="full">
+          <Box textAlign="center">
+            <SectionHeader title="Upcoming Events" />
             <Text color="gray.500">
               Don't miss out on the next club social or match day fundraiser.
             </Text>
@@ -60,9 +59,9 @@ const EventsPage = ({ events }) => {
 
         {/* PAST EVENTS / ARCHIVE */}
         {pastEvents.length > 0 && (
-          <VStack align="start" spacing={8}>
+          <VStack align="center" spacing={8} w="full">
             <Divider />
-            <Box>
+            <Box textAlign="center">
               <Heading as="h2" size="lg">
                 Past Events
               </Heading>
@@ -82,14 +81,12 @@ const EventsPage = ({ events }) => {
     </Layout>
   )
 }
-
 export async function getStaticProps() {
-  // Fetch events from your Strapi API
   const events = await fetchAPI('/events')
 
   return {
     props: { events },
-    revalidate: 60, // Refresh every minute for time-sensitive events
+    revalidate: 86400,
   }
 }
 

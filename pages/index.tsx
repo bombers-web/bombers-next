@@ -102,7 +102,7 @@ const Home = (props) => {
       <PageContent>
         <Hero size="3xl" {...highlight} direct></Hero>
         <Section
-          bg="brand.dark"
+          bg="brand.medium"
           padding="0px"
           style={{ display: 'flex', justifyContent: 'center' }}
           align="center"
@@ -127,7 +127,7 @@ const Home = (props) => {
               <Heading
                 size="lg"
                 color="brand.light"
-                mb={6}
+                mb={2}
                 textTransform="uppercase"
               >
                 Next Up

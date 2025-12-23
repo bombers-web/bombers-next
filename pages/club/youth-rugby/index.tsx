@@ -132,13 +132,12 @@ const YouthRugby = ({ youthTeams }) => {
 }
 
 export async function getStaticProps() {
-  const youthTeams = await fetchAPI('/youths') // Replace with your actual endpoint
+  const youthTeams = await fetchAPI('/youths')
 
   return {
     props: {
       youthTeams: Array.isArray(youthTeams) ? youthTeams : [],
     },
-    revalidate: 60,
   }
 }
 

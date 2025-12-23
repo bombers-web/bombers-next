@@ -45,13 +45,11 @@ const Schedule = ({ games, calenders }) => {
   const tabStyle = {
     textTransform: 'uppercase',
     letterSpacing: '2px',
-    fontSize: 'xl',
-    pb: 6,
+    fontSize: 'ls',
     color: 'gray.400',
     _selected: {
       color: 'brand.black',
       borderColor: 'brand.black',
-      borderBottomWidth: '4px',
     },
     _hover: { color: 'brand.black' },
     transition: 'all 0.2s',

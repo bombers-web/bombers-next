@@ -9,7 +9,6 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react'
-import React from 'react'
 
 const NewsletterSignup = () => {
   return (
@@ -22,17 +21,29 @@ const NewsletterSignup = () => {
       border="1px solid"
       borderColor="whiteAlpha.300"
     >
-      <Heading size="lg" color="white" mb={8} textTransform="uppercase">
+      <Heading
+        size="lg"
+        color="white"
+        mb={8}
+        textTransform="uppercase"
+        textAlign={{ base: 'center', lg: 'center' }} // Center title on mobile
+      >
         Newsletter
       </Heading>
 
       <Flex
         direction={{ base: 'column', lg: 'row' }}
-        align="start"
+        align={{ base: 'center', lg: 'start' }} // Center items horizontally on mobile
         justify="space-between"
         gap={8}
       >
-        <Box flex="1">
+        <Box
+          flex="1"
+          textAlign={{ base: 'center', lg: 'left' }} // Center text on mobile
+          display="flex"
+          flexDirection="column"
+          alignItems={{ base: 'center', lg: 'flex-start' }} // Center text block on mobile
+        >
           <Text fontSize="xl" fontWeight="bold" color="brand.light">
             Stay in the Loop
           </Text>
@@ -50,7 +61,7 @@ const NewsletterSignup = () => {
           target="_blank"
           style={{ width: '100%', maxWidth: '500px' }}
         >
-          <VStack spacing={3}>
+          <VStack spacing={3} w="100%">
             <Flex gap={3} w="100%" direction={{ base: 'column', md: 'row' }}>
               <FormControl id="fname">
                 <FormLabel srOnly>First Name</FormLabel>
@@ -115,7 +126,7 @@ const NewsletterSignup = () => {
                 type="text"
                 name="b_d3de19555e475384fba3810d5_5ddc6f8c2e"
                 tabIndex={-1}
-                value=""
+                defaultValue=""
                 readOnly
               />
             </div>
