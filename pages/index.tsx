@@ -223,7 +223,7 @@ export async function getStaticProps() {
       fetchAPI(
         '/games?populate[home][populate]=logo&populate[away][populate]=logo&populate=location&filters[division][$eq]=d2&filters[finished][$eq]=false&sort=date:asc',
       ),
-      fetchAPI('/home-cta?populate=content.image.format'),
+      fetchAPI('/home-cta?populate[content][populate]=image'),
       fetchAPI('/practices?populate=*'),
     ])
 
