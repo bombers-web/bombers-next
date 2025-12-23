@@ -1,17 +1,17 @@
-import { Box, Flex, Heading } from "@chakra-ui/react";
-import Form from "common/Form";
-import Hero from "common/Hero";
-import Mdx from "common/Mdx";
-import Pic from "common/Pic";
-import Layout from "common/Layout";
+import { Box, Flex, Heading } from '@chakra-ui/react'
+import Form from 'common/Form'
+import Hero from 'common/Hero'
+import Mdx from 'common/Mdx'
+import Pic from 'common/Pic'
+import Layout from 'common/Layout'
 
-import { fetchAPI } from "lib/api";
-import Link from "next/link";
-import { Block } from "src/types/pageTypes";
+import { fetchAPI } from 'lib/api'
+import Link from 'next/link'
+import { Block } from 'src/types/pageTypes'
 
 // TODO: causing build failures, IS IT NEEDED?
 const Dynamic = ({ page }) => {
-  if (!page) return null;
+  if (!page) return null
   return (
     <Layout
       seo={page.Seo}
@@ -22,14 +22,14 @@ const Dynamic = ({ page }) => {
     >
       {page.block?.map((block: Block) => {
         const mobileDirection =
-          block.imagePosition === "end" ? "column" : "column-reverse";
+          block.imagePosition === 'end' ? 'column' : 'column-reverse'
         const webDirection =
-          block.imagePosition === "end" ? "row" : "row-reverse";
+          block.imagePosition === 'end' ? 'row' : 'row-reverse'
         return {
-          "sections.hero": (
+          'sections.hero': (
             <Hero
               title={block.title}
-              size={block.size || "xl"}
+              size={block.size || 'xl'}
               subTitle={block.subTitle}
               // image={block.image}
               // backButton={block.backButton}
@@ -39,7 +39,7 @@ const Dynamic = ({ page }) => {
               // startPic={block.startPic}
             />
           ),
-          "sections.section": (
+          'sections.section': (
             <>
               {block.display && (
                 <Flex flexDirection="column" m="8" p="8" gap="8">
@@ -62,9 +62,9 @@ const Dynamic = ({ page }) => {
                         <Box flex={1} alignSelf={block.imagePosition}>
                           <Pic
                             style={{
-                              marginTop: "2rem",
+                              marginTop: '2rem',
                             }}
-                            size={["lg", "sm", "md", "lg", "xl"]}
+                            size={['lg', 'sm', 'md', 'lg', 'xl']}
                             image={block.image}
                             borderRadius={5}
                           ></Pic>
@@ -83,35 +83,35 @@ const Dynamic = ({ page }) => {
               )}
             </>
           ),
-          "sections.form": (
+          'sections.form': (
             <Form fields={block.field} title={block.title}></Form>
           ),
-        }[block.__component];
+        }[block.__component]
       })}
     </Layout>
-  );
-};
+  )
+}
 
 export async function getStaticPaths() {
-  const pages = (await fetchAPI("/pages?populate=*")) || [];
+  const pages = (await fetchAPI('/pages?populate=*')) || []
   return {
     paths: pages.map((page) => ({
       params: {
-        slug: page.slug || "/404",
+        slug: page.slug || '/404',
       },
     })),
     fallback: false,
-  };
+  }
 }
 
 export async function getStaticProps({ params }) {
   const [page] =
     (await fetchAPI(
-      `/pages?populate[0]=block.image&populate[1]=Seo&filters[slug][$eq]=${params.slug}`
-    )) || {};
+      `/pages?populate[0]=block.image&populate[1]=Seo&filters[slug][$eq]=${params.slug}`,
+    )) || {}
   return {
     props: { key: page.id, page },
-  };
+  }
 }
 
-export default Dynamic;
+export default Dynamic

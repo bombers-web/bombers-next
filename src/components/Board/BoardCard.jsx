@@ -1,67 +1,85 @@
-import { Box, Flex, Heading, Link, Text } from "@chakra-ui/react";
-import Card from "common/Card";
-import React from "react";
+import { EmailIcon } from '@chakra-ui/icons' // Optional: run npm install @chakra-ui/icons
+import { AspectRatio, Box, Heading, Link, Text, VStack } from '@chakra-ui/react'
 
-const BoardCard = ({ size, url, bg, displayName, position, email }) => {
+const BoardCard = ({ bg, displayName, position, email }) => {
   return (
-    <Card
-      key={displayName}
-      radius="8px"
-      id="board-card"
-      styles={{
-        minHeight: "370px",
-        height: "auto",
-        maxWidth: "300px",
-        display: "flex",
-        justifyContent: "space-around",
-        cursor: "auto",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: size > 3000 ? "cover" : "contain",
-        backgroundColor: "gray",
-        _hover: "none",
+    <Box
+      role="group"
+      maxW="300px"
+      w="full"
+      bg="white"
+      boxShadow="sm"
+      borderRadius="xl"
+      overflow="hidden"
+      transition="all 0.3s ease"
+      border="1px solid"
+      borderColor="gray.100"
+      _hover={{
+        transform: 'translateY(-5px)',
+        boxShadow: '2xl',
+        borderColor: 'brand.highlight',
       }}
-      bg={bg}
-      border="1px solid #e2e2e2"
     >
-      <Box
-        style={{
-          background: `linear-gradient(
-185deg,rgba(0,0,0,0) 20%,rgba(0,0,0,.9) 80%)`,
-          height: "70%",
-          zIndex: 98,
-          width: "100%",
-          position: "absolute",
-          overflow: "hidden",
-          bottom: 0,
-          verticalAlign: "baseline",
-          display: "flex",
-        }}
-      >
-        <Flex
-          id="text-content"
-          p="0 0 16px 20px"
-          direction="column"
-          w="100%"
-          alignSelf="flex-end"
-        >
-          <Heading
-            m={1}
-            color="brand.white"
-            fontWeight="bold"
-            textTransform="uppercase"
-            fontSize="1em"
-          >
-            <Text>{displayName}</Text>
-            <Text>{position}</Text>
-          </Heading>
-          <Link color="brand.highlight" href={`mailto:${email}`}>
-            {email}
-          </Link>
-        </Flex>
-      </Box>
-    </Card>
-  );
-};
+      {/* Photo Section with consistent Aspect Ratio */}
+      <AspectRatio ratio={4 / 5}>
+        <Box
+          backgroundImage={`url(${bg})`}
+          backgroundPosition="center top"
+          backgroundRepeat="no-repeat"
+          backgroundSize="cover"
+          backgroundColor="gray.50"
+          transition="transform 0.5s ease"
+          _groupHover={{ transform: 'scale(1.05)' }}
+        />
+      </AspectRatio>
 
-export default BoardCard;
+      {/* Content Section */}
+      <VStack p={5} spacing={1} align="flex-start" bg="white">
+        <Text
+          fontSize="xl"
+          fontWeight="bold"
+          color="brand.highlight"
+          textTransform="uppercase"
+          letterSpacing="wider"
+        >
+          {position}
+        </Text>
+
+        <Heading
+          as="h3"
+          fontSize="xl"
+          fontWeight="800"
+          color="gray.800"
+          lineHeight="tight"
+        >
+          {displayName}
+        </Heading>
+
+        <Box pt={3} w="100%">
+          <Link
+            href={`mailto:${email}`}
+            fontSize="sm"
+            color="gray.500"
+            display="flex"
+            alignItems="center"
+            _hover={{ color: 'brand.highlight', textDecoration: 'none' }}
+          >
+            <EmailIcon mr={2} />
+            <Text noOfLines={1}>{email}</Text>
+          </Link>
+        </Box>
+      </VStack>
+
+      {/* Subtle bottom accent bar that appears on hover */}
+      <Box
+        h="4px"
+        w="0%"
+        bg="brand.highlight"
+        transition="width 0.3s ease"
+        _groupHover={{ w: '100%' }}
+      />
+    </Box>
+  )
+}
+
+export default BoardCard

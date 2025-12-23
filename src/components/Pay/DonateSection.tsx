@@ -6,25 +6,25 @@ import {
   Box,
   Link,
   Button,
-} from "@chakra-ui/react";
-import Image from "next/image";
-import { ReactElement } from "react-markdown/lib/react-markdown";
+} from '@chakra-ui/react'
+import Image from 'next/image'
+import { ReactElement } from 'react-markdown/lib/react-markdown'
 
 const DonateButton: React.FC<{
-  link: string;
-  leftIcon: ReactElement;
-  textColor?: string;
-  buttonText?: string;
-  backgroundColor?: string;
+  link: string
+  leftIcon: ReactElement
+  textColor?: string
+  buttonText?: string
+  backgroundColor?: string
 }> = ({
   link,
   leftIcon,
   textColor,
-  buttonText = "Donate",
+  buttonText = 'Donate',
   backgroundColor,
 }) => {
   return (
-    <Link href={link} isExternal w={{ base: "100%", md: "50%" }}>
+    <Link href={link} isExternal w={{ base: '100%', md: '50%' }}>
       <Button
         w="full"
         variant="solid"
@@ -36,8 +36,8 @@ const DonateButton: React.FC<{
         {buttonText}
       </Button>
     </Link>
-  );
-};
+  )
+}
 
 const DonateSection = () => {
   return (
@@ -68,7 +68,7 @@ const DonateSection = () => {
           align="center"
           mb={8}
           justifyContent="center"
-          flexDirection={"column"}
+          flexDirection={'column'}
           gap={8}
         >
           <DonateButton
@@ -100,7 +100,7 @@ const DonateSection = () => {
         </Flex>
       </VStack>
     </Box>
-  );
-};
+  )
+}
 
-export default DonateSection;
+export default DonateSection

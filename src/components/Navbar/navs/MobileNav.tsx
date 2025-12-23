@@ -13,39 +13,39 @@ import {
   Heading,
   useDisclosure,
   Link,
-} from "@chakra-ui/react";
-import { Twirl as Hamburger } from "hamburger-react";
-import { useRouter } from "next/router";
-import useNav from "src/hooks/useNav";
-import NavLogo from "../../../common/NavLogo";
+} from '@chakra-ui/react'
+import { Twirl as Hamburger } from 'hamburger-react'
+import { useRouter } from 'next/router'
+import useNav from 'src/hooks/useNav'
+import NavLogo from '../../../common/NavLogo'
 
 type MobileNavProps = {
-  homePage: boolean;
-};
+  homePage: boolean
+}
 
 const MobileNav = ({ homePage }: MobileNavProps) => {
-  const { navs } = useNav();
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const router = useRouter();
+  const { navs } = useNav()
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const router = useRouter()
 
   return (
     <>
       <Box
-        display={["block", "block", "none", "none", "none"]}
+        display={['block', 'block', 'none', 'none', 'none']}
         // bg="gradient.regular"
-        w={"100vw"}
+        w={'100vw'}
         bg={
           homePage
-            ? "linear-gradient(#00000093, #00000025 transparent);"
-            : "brand.dark"
+            ? 'linear-gradient(#00000093, #00000025 transparent);'
+            : 'brand.dark'
         }
-        position={homePage ? "fixed" : "inherit"}
+        position={homePage ? 'fixed' : 'inherit'}
       >
         <Flex
           id="mobile-nav"
-          minH={"100px"}
+          minH={'100px'}
           minW="100%"
-          maxH={"120px"}
+          maxH={'120px'}
           flexDirection="row"
           justifyContent="space-between"
         >
@@ -95,10 +95,10 @@ const MobileNav = ({ homePage }: MobileNavProps) => {
               allowMultiple
               allowToggle
               sx={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "32px",
-                height: "100%",
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '32px',
+                height: '100%',
               }}
             >
               {navs.map((nav) => {
@@ -108,24 +108,24 @@ const MobileNav = ({ homePage }: MobileNavProps) => {
                     borderTopWidth={0}
                     key={nav.slug}
                     sx={{
-                      borderBottom: "1px solid #ffffff50",
+                      borderBottom: '1px solid #ffffff50',
                     }}
                   >
                     <AccordionButton
                       onClick={(e) => {
                         if (!nav.subMenus) {
-                          router.push(nav.slug);
-                          onClose();
+                          router.push(nav.slug)
+                          onClose()
                         }
                       }}
                       _disabled={{
-                        color: "brand.light",
+                        color: 'brand.light',
                       }}
                       _expanded={{
-                        bg: "brand.black",
-                        color: "white",
+                        bg: 'brand.black',
+                        color: 'white',
                       }}
-                      sx={{ border: "none" }}
+                      sx={{ border: 'none' }}
                     >
                       <Box flex="1" textAlign="left">
                         <Heading size="md" color="brand.light">
@@ -155,19 +155,19 @@ const MobileNav = ({ homePage }: MobileNavProps) => {
                                 </Heading>
                               </Box>
                             </Link>
-                          );
+                          )
                         })}
                       </AccordionPanel>
                     )}
                   </AccordionItem>
-                );
+                )
               })}
             </Accordion>
           </DrawerBody>
         </DrawerContent>
       </Drawer>
     </>
-  );
-};
+  )
+}
 
-export default MobileNav;
+export default MobileNav

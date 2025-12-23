@@ -15,7 +15,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "pretty": "prettier --check .",
-    "pretty:fix": "prettier --write .",
+    "format": "prettier --write .",
     "prepare": "husky install",
     "lint-staged": "lint-staged"
   },

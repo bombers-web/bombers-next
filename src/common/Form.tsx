@@ -6,28 +6,28 @@ import {
   SimpleGrid,
   Stack,
   Textarea,
-} from "@chakra-ui/react";
-import { PropsWithChildren, useState } from "react";
-import { Field } from "src/types/pageTypes";
+} from '@chakra-ui/react'
+import { PropsWithChildren, useState } from 'react'
+import { Field } from 'src/types/pageTypes'
 
 type FormProps = {
-  fields: Array<Field>;
-  title: string;
-};
+  fields: Array<Field>
+  title: string
+}
 
 const Form = ({
   fields = [],
   children,
   title,
 }: PropsWithChildren<FormProps>) => {
-  const [state, setState] = useState({});
-  const handleSubmit = () => {};
+  const [state, setState] = useState({})
+  const handleSubmit = () => {}
   const handleChange = (e) => {
     setState({
       ...state,
       [e.currentTarget.name]: e.currentTarget.value,
-    });
-  };
+    })
+  }
 
   return (
     <Box m="8" overflow="hidden" cursor="pointer" p={[2, 2, 4, 6, 8]}>
@@ -37,12 +37,12 @@ const Form = ({
       <SimpleGrid columns={1} spacing={8}>
         <Stack spacing={8}>
           {fields.map((field) => {
-            return field.type === "textarea" ? (
+            return field.type === 'textarea' ? (
               <Textarea
                 sx={{
-                  color: "gray",
+                  color: 'gray',
                   _focus: {
-                    color: "black",
+                    color: 'black',
                   },
                 }}
                 variant="filled"
@@ -55,9 +55,9 @@ const Form = ({
             ) : (
               <Input
                 sx={{
-                  color: "#242424",
+                  color: '#242424',
                   _focus: {
-                    color: "black",
+                    color: 'black',
                   },
                 }}
                 type={field.type}
@@ -67,7 +67,7 @@ const Form = ({
                 value={state[field.name] || field.initialValue}
                 onChange={handleChange}
               />
-            );
+            )
           })}
         </Stack>
         <Button variant="solid" width="100%" onClick={handleSubmit}>
@@ -76,7 +76,7 @@ const Form = ({
       </SimpleGrid>
       {children}
     </Box>
-  );
-};
+  )
+}
 
-export default Form;
+export default Form

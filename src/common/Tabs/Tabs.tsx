@@ -1,11 +1,11 @@
-import Tab from "./Tab";
+import Tab from './Tab'
 import {
   Tabs as StyledTabs,
   TabContent,
   TabContentWrapper,
   TabsContainer,
-} from "./styles";
-import { TabsProps } from "./types";
+} from './styles'
+import { TabsProps } from './types'
 
 const Tabs = ({ sections, tabList }: TabsProps) => {
   return (
@@ -20,7 +20,7 @@ const Tabs = ({ sections, tabList }: TabsProps) => {
                 title={title}
                 href={href}
               ></Tab>
-            );
+            )
           })}
         </StyledTabs>
       </TabsContainer>
@@ -31,11 +31,11 @@ const Tabs = ({ sections, tabList }: TabsProps) => {
               <h2>{title}</h2>
               {content}
             </TabContent>
-          );
+          )
         })}
       </TabContentWrapper>
     </TabsContainer>
-  );
-};
+  )
+}
 
-export default Tabs;
+export default Tabs

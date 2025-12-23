@@ -1,6 +1,6 @@
 export type SeoType = {
-  metaTitle: string;
-  metaDescription: string;
-  shareImage?: string;
-  content?: string;
-};
+  metaTitle: string
+  metaDescription: string
+  shareImage?: string
+  content?: string
+}

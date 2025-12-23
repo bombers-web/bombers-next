@@ -1,4 +1,4 @@
 export type Sponsors = {
-  name?: string;
-  id?: string;
-};
+  name?: string
+  id?: string
+}

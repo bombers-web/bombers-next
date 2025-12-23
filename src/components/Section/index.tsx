@@ -1,6 +1,6 @@
-import { PropsWithChildren } from "react";
-import { HeaderTitle, SectionHeader, StyledSection } from "./styles";
-import { SectionProps } from "./styles";
+import { PropsWithChildren } from 'react'
+import { HeaderTitle, SectionHeader, StyledSection } from './styles'
+import { SectionProps } from './styles'
 const Section = ({
   soft,
   subtitle,
@@ -29,7 +29,7 @@ const Section = ({
       </SectionHeader>
       {children}
     </StyledSection>
-  );
-};
+  )
+}
 
-export default Section;
+export default Section

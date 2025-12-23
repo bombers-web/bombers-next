@@ -1,4 +1,4 @@
-import { EmailIcon, PhoneIcon } from "@chakra-ui/icons";
+import { EmailIcon, PhoneIcon } from '@chakra-ui/icons'
 import {
   Box,
   Button,
@@ -11,84 +11,84 @@ import {
   useToast,
   FormControl,
   FormErrorMessage,
-} from "@chakra-ui/react";
-import React, { useState } from "react";
-import { withMask } from "use-mask-input";
+} from '@chakra-ui/react'
+import React, { useState } from 'react'
+import { withMask } from 'use-mask-input'
 
 const ContactForm = () => {
-  const toast = useToast();
+  const toast = useToast()
   const initialState = {
-    name: "",
-    email: "",
-    message: "",
-    phone: "",
-  };
+    name: '',
+    email: '',
+    message: '',
+    phone: '',
+  }
 
-  const [contact, setContact] = useState(initialState);
-  const [errors, setErrors] = useState({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [contact, setContact] = useState(initialState)
+  const [errors, setErrors] = useState({})
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const validateForm = () => {
-    const newErrors = {};
+    const newErrors = {}
 
     if (!contact.name.trim()) {
-      newErrors.name = "Name is required";
+      newErrors.name = 'Name is required'
     }
 
     if (!contact.email.trim()) {
-      newErrors.email = "Email is required";
+      newErrors.email = 'Email is required'
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact.email)) {
-      newErrors.email = "Invalid email format";
+      newErrors.email = 'Invalid email format'
     }
 
     if (!contact.message.trim()) {
-      newErrors.message = "Message is required";
+      newErrors.message = 'Message is required'
     }
 
     if (contact.phone && !/^\+?[\d\s-()]+$/.test(contact.phone)) {
-      newErrors.phone = "Invalid phone number format";
+      newErrors.phone = 'Invalid phone number format'
     }
 
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
+    setErrors(newErrors)
+    return Object.keys(newErrors).length === 0
+  }
 
   const handleChange = ({ currentTarget }) => {
-    const { name, value } = currentTarget;
+    const { name, value } = currentTarget
     setContact((prev) => ({
       ...prev,
       [name]: value,
-    }));
+    }))
     if (errors[name]) {
       setErrors((prev) => ({
         ...prev,
-        [name]: "",
-      }));
+        [name]: '',
+      }))
     }
-  };
+  }
 
   const handleSubmit = async () => {
     if (!validateForm()) {
       toast({
-        title: "Form Error",
-        description: "Please check all required fields",
-        status: "error",
+        title: 'Form Error',
+        description: 'Please check all required fields',
+        status: 'error',
         duration: 3000,
         isClosable: true,
-      });
-      return;
+      })
+      return
     }
 
-    setIsSubmitting(true);
+    setIsSubmitting(true)
 
     try {
-      const response = await fetch("/api/email", {
-        method: "POST",
+      const response = await fetch('/api/email', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          subject: "Contact from Website",
+          subject: 'Contact from Website',
           replyTo: contact.email,
           html: `
             <!DOCTYPE html>
@@ -130,7 +130,7 @@ const ContactForm = () => {
                 </div>
                 <div class="field">
                   <p><strong>Phone Number:</strong> ${
-                    contact.phone || "Not provided"
+                    contact.phone || 'Not provided'
                   }</p>
                 </div>
                 <div class="field">
@@ -146,38 +146,38 @@ const ContactForm = () => {
             
             Name: ${contact.name}
             Email: ${contact.email}
-            Phone: ${contact.phone || "Not provided"}
+            Phone: ${contact.phone || 'Not provided'}
             Message: ${contact.message}
           `,
         }),
-      });
+      })
 
       if (!response.ok) {
-        throw new Error("Network response was not ok");
+        throw new Error('Network response was not ok')
       }
 
       toast({
-        title: "Message Sent!",
-        description: "We will get back to you ASAP",
-        status: "success",
+        title: 'Message Sent!',
+        description: 'We will get back to you ASAP',
+        status: 'success',
         duration: 3000,
         isClosable: true,
-      });
+      })
 
-      setContact(initialState);
+      setContact(initialState)
     } catch (error) {
-      console.error("Submission error:", error);
+      console.error('Submission error:', error)
       toast({
-        title: "Error",
-        description: "Failed to send message. Please try again later.",
-        status: "error",
+        title: 'Error',
+        description: 'Failed to send message. Please try again later.',
+        status: 'error',
         duration: 3000,
         isClosable: true,
-      });
+      })
     } finally {
-      setIsSubmitting(false);
+      setIsSubmitting(false)
     }
-  };
+  }
 
   return (
     <Box overflow="hidden">
@@ -186,8 +186,8 @@ const ContactForm = () => {
           <FormControl isInvalid={errors.name}>
             <Input
               sx={{
-                color: "#242424",
-                _focus: { color: "black" },
+                color: '#242424',
+                _focus: { color: 'black' },
               }}
               variant="filled"
               placeholder="Name *"
@@ -207,8 +207,8 @@ const ContactForm = () => {
               />
               <Input
                 sx={{
-                  color: "gray",
-                  _focus: { color: "black" },
+                  color: 'gray',
+                  _focus: { color: 'black' },
                 }}
                 type="email"
                 variant="filled"
@@ -230,12 +230,12 @@ const ContactForm = () => {
               />
               <Input
                 sx={{
-                  color: "gray",
-                  _focus: { color: "black" },
+                  color: 'gray',
+                  _focus: { color: 'black' },
                 }}
                 variant="filled"
                 type="tel"
-                ref={withMask("(999) 999-9999")}
+                ref={withMask('(999) 999-9999')}
                 placeholder="Phone number (optional)"
                 name="phone"
                 value={contact.phone}
@@ -248,8 +248,8 @@ const ContactForm = () => {
           <FormControl isInvalid={errors.message}>
             <Textarea
               sx={{
-                color: "gray",
-                _focus: { color: "black" },
+                color: 'gray',
+                _focus: { color: 'black' },
               }}
               rows="10"
               variant="filled"
@@ -277,7 +277,7 @@ const ContactForm = () => {
         </Button>
       </SimpleGrid>
     </Box>
-  );
-};
+  )
+}
 
-export default ContactForm;
+export default ContactForm

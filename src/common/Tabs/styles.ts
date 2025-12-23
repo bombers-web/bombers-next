@@ -1,4 +1,4 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled'
 
 export const TabsContainer = styled.div`
   width: 100%;
@@ -9,7 +9,7 @@ export const TabsContainer = styled.div`
   background-color: var(--chakra-colors-brand-light);
   box-shadow: var(--chakra-colors-shadow-1);
   margin: 10px;
-`;
+`
 
 export const TabContentWrapper = styled.div`
   overflow-y: hidden;
@@ -18,7 +18,7 @@ export const TabContentWrapper = styled.div`
   color: var(-chakra-colors-brand-medium);
   transition: all 0.45s ease-in-out;
   padding: 12px 24px;
-`;
+`
 
 export const TabContent = styled.section`
   display: block;
@@ -40,7 +40,7 @@ export const TabContent = styled.section`
     width: 80%;
     flex-grow: 1;
   }
-`;
+`
 
 export const Tabs = styled.div`
   position: relative;
@@ -86,4 +86,4 @@ export const Tabs = styled.div`
   a:hover svg {
     stroke: var(--chakra-colors-brand-light);
   }
-`;
+`

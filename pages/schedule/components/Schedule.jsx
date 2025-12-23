@@ -1,10 +1,10 @@
-import { Box, Text } from "@chakra-ui/react";
-import GameInfo from "../../../src/components/Games/GameInfo";
+import { Box, Text, VStack } from '@chakra-ui/react'
+import GameInfo from '../../../src/components/Games/GameInfo'
 
 const Schedule = ({ upcoming }) => {
   return upcoming?.length > 0 ? (
-    <>
-      {upcoming.reverse().map((game) => {
+    <VStack spacing={4} align="stretch" w="full" py={4}>
+      {upcoming.map((game) => {
         const gameInfoProps = {
           homeTeam: {
             name: game?.home?.name,
@@ -19,34 +19,34 @@ const Schedule = ({ upcoming }) => {
           date: game?.date,
           location: game?.location,
           preview: false,
-        };
+        }
 
         return (
           <Box
             key={game.id || game.date}
-            p={2}
-            m={2}
-            borderRadius="md"
-            boxShadow="sm"
             _hover={{
-              boxShadow: "md",
-              transform: "translateY(-2px)",
+              transform: 'scale(1.01)',
+              boxShadow: '0 10px 20px rgba(0,0,0,0.4)',
             }}
-            transition="all 0.2s ease-in-out"
-            bg="brand.meta"
           >
             <GameInfo {...gameInfoProps} />
           </Box>
-        );
+        )
       })}
-    </>
+    </VStack>
   ) : (
-    <Box textAlign="center" py={10}>
-      <Text fontSize="xl" color="gray.500">
-        No Games Currently Scheduled!
+    <Box textAlign="center" py={20} bg="blackAlpha.400" borderRadius="2xl">
+      <Text
+        fontSize="xl"
+        color="whiteAlpha.500"
+        textTransform="uppercase"
+        letterSpacing="widest"
+        fontWeight="bold"
+      >
+        No Games Currently Scheduled
       </Text>
     </Box>
-  );
-};
+  )
+}
 
-export default Schedule;
+export default Schedule

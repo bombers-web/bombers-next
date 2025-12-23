@@ -1,28 +1,28 @@
 /* eslint-disable no-unused-vars */
-import { Flex, Stack } from "@chakra-ui/react";
-import { useCallback } from "react";
-import List from "./List";
-import { splitForwardsAndBacks } from "./utils";
+import { Flex, Stack } from '@chakra-ui/react'
+import { useCallback } from 'react'
+import List from './List'
+import { splitForwardsAndBacks } from './utils'
 
 const PlayerList = ({ list = [], type }) => {
   const sortByPosition = useCallback(
     (playerList = []) => {
       return playerList?.sort((a, b) => {
-        const sortBy = type === "coaches-and-staff" ? "id" : "position";
-        return a[sortBy] - b[sortBy];
-      });
+        const sortBy = type === 'coaches-and-staff' ? 'id' : 'position'
+        return a[sortBy] - b[sortBy]
+      })
     },
-    [type]
-  );
+    [type],
+  )
 
-  const players = sortByPosition(list);
+  const players = sortByPosition(list)
 
-  const { forwards, backs } = splitForwardsAndBacks(players);
+  const { forwards, backs } = splitForwardsAndBacks(players)
 
   return (
-    <Flex direction="column" gap="8" bg="brand.white" minH={"inherit"}>
+    <Flex direction="column" gap="8" bg="brand.white" minH={'inherit'}>
       <Stack direction="column" m="8">
-        {type === "coaches-and-staff" ? (
+        {type === 'coaches-and-staff' ? (
           <List players={players} title="Coaches and Staff" noClick />
         ) : (
           <>
@@ -32,7 +32,7 @@ const PlayerList = ({ list = [], type }) => {
         )}
       </Stack>
     </Flex>
-  );
-};
+  )
+}
 
-export default PlayerList;
+export default PlayerList

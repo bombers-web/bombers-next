@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 import {
   Drawer as ChakraDrawer,
   DrawerCloseButton,
@@ -6,24 +6,24 @@ import {
   DrawerOverlay,
   DrawerBody,
   DrawerHeader,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react'
 
 const Drawer = ({ onClose, show, children, header, placement, size }) => {
   return (
     <ChakraDrawer
-      placement={placement || "left"}
+      placement={placement || 'left'}
       onClose={onClose}
       isOpen={show}
-      size={size || "lg"}
+      size={size || 'lg'}
     >
       <DrawerOverlay />
       <DrawerContent backgroundColor="brand.medium">
         <DrawerCloseButton color="brand.light" />
-        <DrawerHeader color="brand.light">{header || ""}</DrawerHeader>
+        <DrawerHeader color="brand.light">{header || ''}</DrawerHeader>
         <DrawerBody>{children}</DrawerBody>
       </DrawerContent>
     </ChakraDrawer>
-  );
-};
+  )
+}
 
-export default Drawer;
+export default Drawer

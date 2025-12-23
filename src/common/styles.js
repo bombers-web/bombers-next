@@ -1,14 +1,14 @@
-import { Box } from "@chakra-ui/react";
-import styled from "styled-components";
+import { Box } from '@chakra-ui/react'
+import styled from 'styled-components'
 
-const offset = "2rem";
+const offset = '2rem'
 
 export const HeroSlider = styled.div`
   position: relative;
   height: 100vh;
   display: flex;
   background: ${(props) => props.theme.main};
-`;
+`
 
 export const SlideShow = styled.div`
   position: relative;
@@ -24,7 +24,7 @@ export const SlideShow = styled.div`
     width: 100%;
 
     &:after {
-      content: "";
+      content: '';
       position: absolute;
       top: 0;
       left: 0;
@@ -60,14 +60,14 @@ export const SlideShow = styled.div`
       -webkit-text-stroke: 1px #fff;
     }
   }
-`;
+`
 
 export const Info = styled.div`
   position: relative;
   flex: 1;
   padding: ${offset};
   background-color: #fff;
-`;
+`
 
 export const FormatMd = styled(Box)`
   margin: 12px auto;
@@ -76,7 +76,7 @@ export const FormatMd = styled(Box)`
     list-style-type: inherit;
   }
   li::marker {
-    content: attr("data-icon");
+    content: attr('data-icon');
     list-style-type: square;
     font-family: var(--chakra-fonts-menuItem-fontFamily);
     display: inline-block;
@@ -85,17 +85,17 @@ export const FormatMd = styled(Box)`
     font-size: larger;
     margin: 2px;
   }
-`;
+`
 
 export const FooterInfo = styled.div`
   display: grid;
   row-gap: 16px;
-`;
+`
 
 export const FooterImage = styled.div`
   display: flex;
   align-items: center;
-`;
+`
 
 export const Copyright = styled(Box)`
   display: grid;
@@ -103,13 +103,13 @@ export const Copyright = styled(Box)`
   ${(props) => ({
     ...props,
   })}
-`;
+`
 
 export const FooterLinks = styled.div`
   display: grid;
   align-items: center;
   row-gap: 20px;
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
   text-transform: capitalize;
   grid-template-columns: repeat(2, 1fr);
   & ul {
@@ -128,7 +128,7 @@ export const FooterLinks = styled.div`
       cursor: pointer;
     }
   }
-`;
+`
 
 export const FooterIcons = styled.div`
   display: flex;
@@ -145,7 +145,7 @@ export const FooterIcons = styled.div`
     color: var(--chakra-colors-brand-white);
     cursor: pointer;
   }
-`;
+`
 
 export const FooterContainer = styled(Box)`
   background: rgb(0, 0, 0);
@@ -166,4 +166,4 @@ export const FooterContainer = styled(Box)`
   @media (min-width: 1440px) {
     padding: 1rem calc((100vw - 1440px) / 2);
   }
-`;
+`

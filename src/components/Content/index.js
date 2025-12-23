@@ -1,12 +1,6 @@
-import {
-  Box,
-  Link as ChakraLink,
-  Divider,
-  Stack,
-  Text,
-} from "@chakra-ui/react";
-import Link from "next/link";
-import ContentCard from "./ContentCard";
+import { Box, Link as ChakraLink, Divider, Stack, Text } from '@chakra-ui/react'
+import Link from 'next/link'
+import ContentCard from './ContentCard'
 
 const Contents = ({ contents }) => {
   return (
@@ -42,11 +36,11 @@ const Contents = ({ contents }) => {
               />
               <Divider />
             </>
-          );
+          )
         })}
       </Stack>
     </Box>
-  );
-};
+  )
+}
 
-export default Contents;
+export default Contents
