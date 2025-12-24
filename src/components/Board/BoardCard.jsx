@@ -32,44 +32,43 @@ const BoardCard = ({ bg, displayName, position, email }) => {
           _groupHover={{ transform: 'scale(1.05)' }}
         />
       </AspectRatio>
-
-      {/* Content Section */}
-      <VStack p={5} spacing={1} align="flex-start" bg="white">
-        <Text
-          fontSize="xl"
-          fontWeight="bold"
-          color="brand.highlight"
-          textTransform="uppercase"
-          letterSpacing="wider"
-        >
-          {position}
-        </Text>
-
+      {/* Content Section with fixed height */}
+      <Box p={5} bg="white" h="180px" display="flex" flexDirection="column">
         <Heading
           as="h3"
           fontSize="xl"
           fontWeight="800"
           color="gray.800"
           lineHeight="tight"
+          mb={2}
         >
           {displayName}
         </Heading>
-
-        <Box pt={3} w="100%">
-          <Link
-            href={`mailto:${email}`}
-            fontSize="sm"
-            color="gray.500"
-            display="flex"
-            alignItems="center"
-            _hover={{ color: 'brand.highlight', textDecoration: 'none' }}
+        <Link
+          href={`mailto:${email}`}
+          fontSize="sm"
+          color="gray.500"
+          display="flex"
+          alignItems="center"
+          _hover={{ color: 'brand.highlight', textDecoration: 'none' }}
+        >
+          <EmailIcon mr={2} />
+          <Text noOfLines={1}>{email}</Text>
+        </Link>
+        <Box mt="auto">
+          <Text
+            fontSize="xl"
+            fontWeight="bold"
+            color="brand.highlight"
+            textTransform="uppercase"
+            letterSpacing="wider"
+            lineHeight="1.4"
+            mb={2}
           >
-            <EmailIcon mr={2} />
-            <Text noOfLines={1}>{email}</Text>
-          </Link>
+            {position}
+          </Text>
         </Box>
-      </VStack>
-
+      </Box>
       {/* Subtle bottom accent bar that appears on hover */}
       <Box
         h="4px"

@@ -30,7 +30,6 @@ const GameInfo = ({
     hour: '2-digit',
     minute: '2-digit',
   })
-
   const isBombers = (name) => name?.includes('Bombers')
   const bombersWon = winner?.name?.includes('St. Louis Bombers')
 
@@ -40,42 +39,40 @@ const GameInfo = ({
     : bombersWon
     ? 'green.500'
     : 'red.500'
-  const statusLabel = !winner?.id ? 'T' : bombersWon ? 'WIN' : 'LOSS'
-  const statusInitial = !winner?.id ? 'T' : bombersWon ? 'W' : 'L'
+  const statusLabel = !winner?.id ? 'TIE' : bombersWon ? 'WIN' : 'LOSS'
 
   const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
     location?.address,
   )}`
 
   return (
-    <Box w="full" bg="brand.medium" py={8} px={{ base: 4, md: 8 }}>
+    <Box
+      w="full"
+      bg="brand.medium"
+      py={{ base: 6, md: 8 }}
+      px={{ base: 4, md: 8 }}
+    >
       <Flex
-        direction={{ base: 'column', lg: 'row' }}
+        direction="column"
         align="center"
-        justify="space-between"
+        justify="center"
         width="100%"
-        gap={{ base: 8, lg: 4 }}
+        gap={{ base: 6, md: 8 }}
       >
-        {/* DATE & TIME */}
-        <Flex
-          align="center"
-          gap={6}
-          flex={{ lg: '1' }}
-          justify={{ base: 'center', lg: 'start' }}
-        >
-          <VStack align={{ base: 'center', lg: 'start' }} spacing={0}>
+        {/* DATE & TIME - Mobile Centered */}
+        <Flex align="center" justify="center" gap={{ base: 4, md: 6 }} w="full">
+          <VStack align="center" spacing={0}>
             <Text
               color="brand.light"
-              fontSize="sm"
+              fontSize={{ base: 'xs', md: 'sm' }}
               fontWeight="900"
-              textTransform=""
               letterSpacing="3px"
             >
               {formattedDay}
             </Text>
             <Text
               color="brand.light"
-              fontSize="4xl"
+              fontSize={{ base: '3xl', md: '4xl' }}
               fontWeight="900"
               lineHeight="0.9"
             >
@@ -84,14 +81,14 @@ const GameInfo = ({
           </VStack>
           <Divider
             orientation="vertical"
-            h="50px"
+            h={{ base: '40px', md: '50px' }}
             borderColor="brand.light"
             opacity={0.2}
           />
-          <VStack align={{ base: 'center', lg: 'start' }} spacing={0}>
+          <VStack align="center" spacing={0}>
             <Text
               color="brand.light"
-              fontSize="2xl"
+              fontSize={{ base: 'xl', md: '2xl' }}
               fontWeight="800"
               lineHeight="1"
             >
@@ -100,18 +97,19 @@ const GameInfo = ({
           </VStack>
         </Flex>
 
-        {/* TEAMS */}
+        {/* TEAMS - Stacked on mobile, side by side on desktop */}
         <Flex
-          flex={{ base: 'none', lg: '1.5' }}
           align="center"
           justify="center"
-          gap={{ base: 6, md: 10 }}
+          gap={{ base: 4, md: 10 }}
+          w="full"
+          flexWrap="wrap"
         >
           <Team team={isBombers(homeTeam?.name) ? homeTeam : awayTeam} />
           <Center>
             <Text
               fontWeight="black"
-              fontSize="md"
+              fontSize={{ base: 'sm', md: 'md' }}
               color="gray.400"
               fontStyle="italic"
             >
@@ -121,38 +119,34 @@ const GameInfo = ({
           <Team team={isBombers(homeTeam?.name) ? awayTeam : homeTeam} />
         </Flex>
 
-        {/* RIGHT SIDE: LOCATION OR RESULT */}
-        <Flex
-          flex={{ lg: '1' }}
-          justify={{ base: 'center', lg: 'end' }}
-          minW="200px"
-        >
+        {/* LOCATION OR RESULT - Centered on mobile */}
+        <Flex justify="center" w="full">
           {showLocation ? (
-            <Link
-              href={mapUrl}
-              isExternal
-              _hover={{ textDecoration: 'none' }}
-              group
-            >
-              <Flex align="center" gap={4}>
-                <VStack align={{ base: 'center', lg: 'end' }} spacing={0}>
+            <Link href={mapUrl} isExternal _hover={{ textDecoration: 'none' }}>
+              <Flex align="center" gap={{ base: 2, md: 4 }}>
+                <Icon
+                  as={FiMapPin}
+                  color="brand.light"
+                  boxSize={{ base: 5, md: 7 }}
+                />
+                <VStack align="center" spacing={0}>
                   <Text
-                    fontSize="2xl"
+                    fontSize={{ base: 'lg', md: '2xl' }}
                     fontWeight="900"
                     color="brand.light"
                     textTransform="uppercase"
+                    textAlign="center"
                   >
                     {location?.name}
                   </Text>
                 </VStack>
-                <Icon as={FiMapPin} color="brand.light" boxSize={7} />
               </Flex>
             </Link>
           ) : (
             /* BIG RESULT INDICATOR */
-            <VStack align={{ base: 'center', lg: 'end' }} spacing={0}>
+            <VStack align="center" spacing={0}>
               <Text
-                fontSize="2xl"
+                fontSize={{ base: 'xl', md: '2xl' }}
                 fontWeight="black"
                 color={statusColor}
                 letterSpacing="4px"

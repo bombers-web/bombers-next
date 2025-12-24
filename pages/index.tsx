@@ -133,7 +133,7 @@ const Home = (props) => {
                 Next Up
               </Heading>
 
-              {upcomingMatches.length > 0 ? (
+              {upcomingMatches?.length > 0 ? (
                 upcomingMatches.map((upcomingMatch, idx) => {
                   // Fixed the URL path from /0 to /search/
                   const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(

@@ -94,7 +94,7 @@ const DesktopNav = ({ homePage }: DesktopNavProps) => {
                     display="flex"
                     alignItems="center"
                     gap={1}
-                    _focus={{ outline: 'none', caretColor: 'transparent' }}
+                    _focus={{ outline: 'none', boxShadow: 'none' }}
                     onMouseEnter={() => handleMouseEnter(nav.slug)}
                     onMouseLeave={() => handleMouseLeave(nav.slug)}
                   >
@@ -125,12 +125,25 @@ const DesktopNav = ({ homePage }: DesktopNavProps) => {
                         bg="brand.dark"
                         color="brand.light"
                         textDecoration="none"
+                        cursor="pointer"
                         _hover={{
                           bg: 'brand.meta',
                           color: 'brand.highlight',
                           textDecoration: 'none',
                         }}
-                        _focus={{ outline: 'none', caretColor: 'transparent' }}
+                        _focus={{
+                          outline: 'none',
+                          boxShadow: 'none',
+                          bg: 'brand.meta',
+                          color: 'brand.highlight',
+                        }}
+                        _active={{
+                          bg: 'brand.meta',
+                          color: 'brand.highlight',
+                        }}
+                        sx={{
+                          caretColor: 'transparent',
+                        }}
                       >
                         {subMenu.name}
                       </ChakraMenuItem>
@@ -139,7 +152,6 @@ const DesktopNav = ({ homePage }: DesktopNavProps) => {
                 </Menu>
               )
             }
-
             // Regular nav item without dropdown
             return (
               <Link
@@ -147,7 +159,7 @@ const DesktopNav = ({ homePage }: DesktopNavProps) => {
                 href={nav.slug}
                 textDecoration="none"
                 _hover={{ textDecoration: 'none' }}
-                _focus={{ outline: 'none' }}
+                _focus={{ outline: 'none', boxShadow: 'none' }}
               >
                 <MenuItem
                   className="desktop-menu-item"
