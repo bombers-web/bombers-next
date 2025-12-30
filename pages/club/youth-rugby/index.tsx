@@ -14,6 +14,7 @@ import { FiExternalLink, FiGlobe, FiMail } from 'react-icons/fi'
 import Layout from '../../../src/common/Layout'
 import SectionHeader from '../../../src/common/SectionHeader'
 import { fetchAPI } from '../../../src/lib/api'
+import Pic from 'common/Pic'
 
 const YouthRugby = ({ youthTeams }) => {
   return (
@@ -59,6 +60,7 @@ const YouthRugby = ({ youthTeams }) => {
                   When you're ready, replace this Box with your <Pic /> component. 
                   It's currently set to a subtle brand color. */}
               <Box
+                as={Pic}
                 w={{ base: 'full', lg: '350px' }}
                 bg="brand.dark"
                 minH="250px"
