@@ -132,7 +132,7 @@ const YouthRugby = ({ youthTeams }) => {
 }
 
 export async function getStaticProps() {
-  const youthTeams = await fetchAPI('/youths')
+  const youthTeams = await fetchAPI('/youths?populate=image')
 
   return {
     props: {
