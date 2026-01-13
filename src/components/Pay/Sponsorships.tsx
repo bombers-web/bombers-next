@@ -1,3 +1,4 @@
+import { EmailIcon } from '@chakra-ui/icons'
 import {
   Box,
   Flex,
@@ -96,6 +97,22 @@ const Sponsorships = ({ sponsors }) => {
           <Heading size="lg" mb={2} textAlign="center">
             {useTiers ? 'Sponsorship Tiers' : 'Sponsors'}
           </Heading>
+          <Text textAlign="center" mt={0}>
+            For inquries into sponsoring the St. Louis Bombers, contact:
+            <Box pt={3} w="100%">
+              <Link
+                href={`mailto:president@stlouisbombers.com`}
+                fontSize="sm"
+                color="gray.500"
+                display="flex"
+                alignItems="center"
+                _hover={{ color: 'brand.highlight', textDecoration: 'none' }}
+              >
+                <EmailIcon mr={2} />
+                <Text noOfLines={1}>president@stlouisbombers.com</Text>
+              </Link>
+            </Box>
+          </Text>
           <Text textAlign="center" mt={0}>
             The companies that keep the ship afloat:
           </Text>
