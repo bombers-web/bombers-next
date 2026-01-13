@@ -42,8 +42,6 @@ const YouthRugby = ({ youthTeams }) => {
           </VStack>
 
           {youthTeams?.map((team) => {
-            // Strapi image paths are usually: team.image.url
-            // If you use a local provider, you might need to prefix the API URL
             const imageUrl = team.image?.url || null
 
             return (
