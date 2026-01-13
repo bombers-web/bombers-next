@@ -60,6 +60,11 @@ export default class MyDocument extends Document {
           <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.2.0/js/uikit.min.js" />
           <script src="https://cdn.jsdelivr.net/npm/uikit@3.2.3/dist/js/uikit-icons.min.js" />
           <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.2.0/js/uikit.js" />
+          <script
+            defer
+            src="https://cloud.umami.is/script.js"
+            data-website-id="ba264098-bb70-4f8e-89b1-f5b14daab463"
+          ></script>
         </Head>
         <body>
           <Main />
