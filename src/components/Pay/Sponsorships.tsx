@@ -97,22 +97,23 @@ const Sponsorships = ({ sponsors }) => {
           <Heading size="lg" mb={2} textAlign="center">
             {useTiers ? 'Sponsorship Tiers' : 'Sponsors'}
           </Heading>
-          <Text textAlign="center" mt={0}>
-            For inquries into sponsoring the St. Louis Bombers, contact:
-            <Box pt={3} w="100%">
-              <Link
-                href={`mailto:president@stlouisbombers.com`}
-                fontSize="sm"
-                color="gray.500"
-                display="flex"
-                alignItems="center"
-                _hover={{ color: 'brand.highlight', textDecoration: 'none' }}
-              >
-                <EmailIcon mr={2} />
-                <Text noOfLines={1}>president@stlouisbombers.com</Text>
-              </Link>
-            </Box>
-          </Text>
+          <VStack spacing={1}>
+            <Text textAlign="center">
+              For inquiries into sponsoring the St. Louis Bombers, contact:
+            </Text>
+            <Link
+              href="mailto:president@stlouisbombers.com"
+              display="flex"
+              alignItems="center"
+              color="brand.highlight" // Use your brand color here
+              fontWeight="bold"
+              fontSize="lg"
+              _hover={{ opacity: 0.8, textDecoration: 'underline' }}
+            >
+              <EmailIcon mr={2} />
+              president@stlouisbombers.com
+            </Link>
+          </VStack>
           <Text textAlign="center" mt={0}>
             The companies that keep the ship afloat:
           </Text>
