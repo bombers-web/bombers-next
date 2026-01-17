@@ -17,13 +17,19 @@ const Sponsors = ({ forFooter, ...props }) => {
   }, [isDesktop, sponsors.length])
 
   useEffect(() => {
-    fetchAPI('/sponsors?populate=*')
-      .then((val) => {
-        if (val) {
-          setSponsors(val)
-        }
-      })
-      .catch((err) => console.error(err))
+    const cachedSponsors = localStorage.getItem('sponsors')
+    if (cachedSponsors) {
+      setSponsors(JSON.parse(cachedSponsors))
+    } else {
+      fetchAPI('/sponsors?populate=*')
+        .then((val) => {
+          if (val) {
+            setSponsors(val)
+            localStorage.setItem('sponsors', JSON.stringify(val))
+          }
+        })
+        .catch((err) => console.error(err))
+    }
   }, [])
 
   return forFooter ? (
