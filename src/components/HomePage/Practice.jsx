@@ -68,22 +68,17 @@ export const Practice = ({ practices }) => {
                 <Link
                   href={mapUrl}
                   isExternal
-                  color="white"
-                  fontSize="xl" // Bigger link text
-                  fontWeight="bold"
+                  color="yellow.400"
+                  fontSize="md"
                   display="flex"
                   alignItems="center"
-                  outline="none !important"
+                  fontWeight="semibold"
                   _hover={{
-                    color: 'yellow.400',
+                    color: 'yellow.200',
                     textDecoration: 'none',
-                    transform: 'scale(1.02)',
                   }}
-                  transition="all 0.2s"
-                  _focus={{ boxShadow: 'none' }}
-                  sx={{ WebkitTapHighlightColor: 'transparent' }}
                 >
-                  <Icon as={FiMapPin} mr={3} color="yellow.400" />
+                  <Icon as={FiMapPin} mr={2} />
                   {practice?.location?.name}
                 </Link>
               </Flex>

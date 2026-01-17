@@ -48,7 +48,7 @@ const GameInfo = ({
   return (
     <Box
       w="full"
-      bg="brand.medium"
+      bg="brand.meta"
       py={{ base: 6, md: 8 }}
       px={{ base: 4, md: 8 }}
     >
