@@ -120,9 +120,11 @@ const Home = (props) => {
               m="10px"
               bg="whiteAlpha.50"
               p={6}
-              borderRadius="xl"
+              borderRadius="2xl"
               border="1px solid"
               borderColor="whiteAlpha.200"
+              w="full"
+              boxShadow="xl" // Added depth
             >
               <Heading
                 size="lg"

@@ -10,7 +10,14 @@ import {
 
 export const GetInvolved = () => {
   return (
-    <Box py={10} px={6} bg="whiteAlpha.50" borderRadius="xl" my={6}>
+    <Box
+      py={10}
+      px={6}
+      bg="whiteAlpha.50"
+      borderRadius="2xl"
+      my={6}
+      boxShadow="xl" // Added depth
+    >
       <Heading size="lg" color="white" mb={8} textTransform="uppercase">
         Get Involved
       </Heading>

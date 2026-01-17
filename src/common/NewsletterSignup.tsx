@@ -16,10 +16,11 @@ const NewsletterSignup = () => {
       py={10}
       px={6}
       bg="whiteAlpha.50"
-      borderRadius="xl"
+      borderRadius="2xl"
       my={6}
       border="1px solid"
       borderColor="whiteAlpha.300"
+      boxShadow="xl" // Added depth
     >
       <Heading
         size="lg"
