@@ -117,7 +117,6 @@ const Home = (props) => {
             {/* NEXT UP SECTION - NOW CENTERED & CLEANED */}
             <Flex
               flexDirection="column"
-              m="10px"
               bg="whiteAlpha.50"
               p={6}
               borderRadius="2xl"
