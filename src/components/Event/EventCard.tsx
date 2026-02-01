@@ -1,23 +1,24 @@
-import { CalendarIcon, InfoIcon } from '@chakra-ui/icons'
+import { useState } from 'react'
+import { CalendarIcon, InfoIcon, ChevronDownIcon } from '@chakra-ui/icons'
 import {
   Badge,
   Box,
-  Button,
   Flex,
   Heading,
   HStack,
   Text,
   VStack,
+  Collapse,
 } from '@chakra-ui/react'
 import { format } from 'date-fns'
 
 const EventCard = ({ event }) => {
-  // Parsing the Strapi date string
+  const [isOpen, setIsOpen] = useState(false)
+
   const eventDate = new Date(event?.date)
   const month = format(eventDate, 'MMM')
   const day = format(eventDate, 'dd')
-  const fullDate = format(eventDate, 'PPPP') // e.g., Saturday, December 20th, 2025
-  const time = format(eventDate, 'p') // e.g., 2:30 PM
+  const time = format(eventDate, 'p')
 
   return (
     <Box
@@ -29,9 +30,10 @@ const EventCard = ({ event }) => {
       overflow="hidden"
       transition="all 0.3s ease"
       border="1px solid"
-      borderColor="gray.100"
+      borderColor={isOpen ? 'brand.highlight' : 'gray.100'}
+      cursor="pointer"
+      onClick={() => setIsOpen(!isOpen)}
       _hover={{
-        transform: 'translateY(-4px)',
         boxShadow: 'lg',
         borderColor: 'brand.highlight',
       }}
@@ -42,13 +44,12 @@ const EventCard = ({ event }) => {
           direction="column"
           align="center"
           justify="center"
-          bg="gray.50"
+          bg={isOpen ? 'brand.medium' : 'gray.50'}
+          color={isOpen ? 'white' : 'inherit'}
           w={{ base: '100%', md: '120px' }}
           py={6}
           borderRight={{ md: '1px solid' }}
           borderColor="gray.100"
-          _groupHover={{ bg: 'brand.medium', color: 'white' }}
-          transition="all 0.3s"
         >
           <Text
             fontSize="xs"
@@ -64,7 +65,7 @@ const EventCard = ({ event }) => {
         </Flex>
 
         {/* RIGHT SIDE: CONTENT */}
-        <VStack p={6} spacing={2} align="start" flex="1">
+        <VStack p={6} spacing={2} align="start" flex="1" position="relative">
           <HStack w="100%" justify="space-between">
             <Badge
               colorScheme={event?.active ? 'green' : 'gray'}
@@ -84,31 +85,67 @@ const EventCard = ({ event }) => {
             {event?.name}
           </Heading>
 
-          <HStack spacing={1} color="brand.highlight" fontWeight="bold">
+          <HStack
+            spacing={1}
+            color="brand.highlight"
+            fontWeight="bold"
+            pb={isOpen ? 0 : 4}
+          >
             <InfoIcon w={3} h={3} />
             <Text fontSize="sm">{event?.location}</Text>
           </HStack>
 
-          <Text fontSize="sm" color="gray.600" noOfLines={2} pt={2}>
-            {event?.description}
-          </Text>
+          {/* COLLAPSIBLE DETAILS */}
+          <Collapse in={isOpen} animateOpacity style={{ width: '100%' }}>
+            <Box
+              pt={4}
+              pb={6}
+              mt={2}
+              borderTop="1px solid"
+              borderColor="gray.100"
+            >
+              <Text fontSize="sm" color="gray.600" lineHeight="tall">
+                {event?.description ||
+                  'No further details available for this event.'}
+              </Text>
+            </Box>
+          </Collapse>
 
-          <Button
-            size="sm"
-            variant="ghost"
+          {/* BOTTOM RIGHT TOGGLE */}
+          <HStack
+            position="absolute"
+            bottom={4}
+            right={6}
+            spacing={1}
             color="brand.medium"
-            p={0}
-            _hover={{ bg: 'transparent', textDecoration: 'underline' }}
+            fontWeight="bold"
+            align="center" // Ensures vertical centering
+            transition="0.2s"
+            _groupHover={{ color: 'brand.highlight' }}
           >
-            Event Details
-          </Button>
+            <Text
+              fontSize="xs"
+              textTransform="uppercase"
+              letterSpacing="wider"
+              lineHeight="1" // Prevents the text box from being taller than the font
+            >
+              {isOpen ? 'Close' : 'Full Details'}
+            </Text>
+            <ChevronDownIcon
+              transition="transform 0.3s"
+              transform={isOpen ? 'rotate(180deg)' : 'none'}
+              w={4}
+              h={4}
+              // mt="-1px" // Micro-adjustment to pull the icon up visually
+            />
+          </HStack>
         </VStack>
       </Flex>
 
       {/* Subtle Brand Accent bar */}
       <Box
         h="3px"
-        w="0%"
+        w={isOpen ? '100%' : '0%'}
         bg="brand.highlight"
         transition="width 0.3s ease"
         _groupHover={{ w: '100%' }}
