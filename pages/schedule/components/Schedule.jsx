@@ -18,6 +18,7 @@ const Schedule = ({ upcoming }) => {
           },
           date: game?.date,
           location: game?.location,
+          cancelled: game?.cancelled,
           preview: false,
         }
 

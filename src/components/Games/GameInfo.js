@@ -19,6 +19,7 @@ const GameInfo = ({
   division,
   winner,
   showLocation = true,
+  cancelled = false,
 }) => {
   const d = new Date(date)
   const formattedDay = d.toLocaleDateString('en-US', { weekday: 'short' })
@@ -121,7 +122,19 @@ const GameInfo = ({
 
         {/* LOCATION OR RESULT - Centered on mobile */}
         <Flex justify="center" w="full">
-          {showLocation ? (
+          {cancelled ? (
+            <VStack align="center" spacing={0}>
+              <Text
+                fontSize={{ base: '2xl', md: '3xl' }}
+                fontWeight="black"
+                color="red.400"
+                letterSpacing="4px"
+                opacity={0.9}
+              >
+                CANCELLED
+              </Text>
+            </VStack>
+          ) : showLocation ? (
             <Link href={mapUrl} isExternal _hover={{ textDecoration: 'none' }}>
               <Flex align="center" gap={{ base: 2, md: 4 }}>
                 <Icon

@@ -92,9 +92,14 @@ const Home = (props) => {
   const { isMobile } = useBp()
   const { getLongDate } = new Utils()
 
+  const isCancelled = (game) =>
+    game?.finished && game?.home_score == null && game?.away_score == null
+
+  const d1Games = d1Upcoming?.filter((g) => !g.finished || isCancelled(g)) ?? []
+  const d2Games = d2Upcoming?.filter((g) => !g.finished || isCancelled(g)) ?? []
   const upcomingMatches =
     d1Upcoming || d2Upcoming
-      ? [...d1Upcoming?.slice(0, 1), ...d2Upcoming?.slice(0, 1)]
+      ? [...d1Games.slice(0, 1), ...d2Games.slice(0, 1)]
       : []
 
   return (
@@ -155,23 +160,34 @@ const Home = (props) => {
                             {getLongDate(upcomingMatch?.date)[1]}
                           </Text>
 
-                          {/* CLICKABLE LOCATION */}
-                          <Link
-                            href={mapUrl}
-                            isExternal
-                            color="yellow.400"
-                            fontSize="md"
-                            display="flex"
-                            alignItems="center"
-                            fontWeight="semibold"
-                            _hover={{
-                              color: 'yellow.200',
-                              textDecoration: 'none',
-                            }}
-                          >
-                            <Icon as={FiMapPin} mr={2} />
-                            {upcomingMatch?.location?.name}
-                          </Link>
+                          {/* CLICKABLE LOCATION OR CANCELLED */}
+                          {isCancelled(upcomingMatch) ? (
+                            <Text
+                              color="red.400"
+                              fontSize="md"
+                              fontWeight="bold"
+                              letterSpacing="2px"
+                            >
+                              CANCELLED
+                            </Text>
+                          ) : (
+                            <Link
+                              href={mapUrl}
+                              isExternal
+                              color="yellow.400"
+                              fontSize="md"
+                              display="flex"
+                              alignItems="center"
+                              fontWeight="semibold"
+                              _hover={{
+                                color: 'yellow.200',
+                                textDecoration: 'none',
+                              }}
+                            >
+                              <Icon as={FiMapPin} mr={2} />
+                              {upcomingMatch?.location?.name}
+                            </Link>
+                          )}
                         </VStack>
                       </VStack>
 
@@ -212,6 +228,10 @@ const Home = (props) => {
 }
 
 export async function getStaticProps() {
+  const today = new Date().toISOString().split('T')[0]
+  const gamePopulate =
+    'populate[home][populate]=logo&populate[away][populate]=logo&populate=location'
+
   const [content, homepage, d1Upcoming, d2Upcoming, homeCta, practices] =
     await Promise.all([
       fetchAPI(
@@ -219,10 +239,10 @@ export async function getStaticProps() {
       ),
       fetchAPI('/homepage?populate=*'),
       fetchAPI(
-        '/games?populate[home][populate]=logo&populate[away][populate]=logo&populate=location&filters[division][$eq]=d1&filters[finished][$eq]=false&sort=date:asc',
+        `/games?${gamePopulate}&filters[division][$eq]=d1&filters[date][$gte]=${today}&sort=date:asc`,
       ),
       fetchAPI(
-        '/games?populate[home][populate]=logo&populate[away][populate]=logo&populate=location&filters[division][$eq]=d2&filters[finished][$eq]=false&sort=date:asc',
+        `/games?${gamePopulate}&filters[division][$eq]=d2&filters[date][$gte]=${today}&sort=date:asc`,
       ),
       fetchAPI('/home-cta?populate[content][populate]=image'),
       fetchAPI('/practices?populate=*'),

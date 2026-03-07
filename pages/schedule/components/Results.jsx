@@ -121,6 +121,10 @@ const Results = ({ results }) => {
               finished: game?.finished,
               division: game?.division,
               winner: game?.winner,
+              cancelled:
+                game?.finished &&
+                game?.home_score == null &&
+                game?.away_score == null,
               preview: false,
               showLocation: false,
             }
