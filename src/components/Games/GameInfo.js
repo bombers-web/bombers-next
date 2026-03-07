@@ -127,7 +127,7 @@ const GameInfo = ({
               <Text
                 fontSize={{ base: '2xl', md: '3xl' }}
                 fontWeight="black"
-                color="red.400"
+                color="red.600"
                 letterSpacing="4px"
                 opacity={0.9}
               >
