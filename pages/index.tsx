@@ -164,7 +164,7 @@ const Home = (props) => {
                           {isCancelled(upcomingMatch) ? (
                             <Text
                               color="red.400"
-                              fontSize="md"
+                              fontSize="2xl"
                               fontWeight="bold"
                               letterSpacing="2px"
                             >
