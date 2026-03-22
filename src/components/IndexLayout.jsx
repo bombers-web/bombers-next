@@ -30,7 +30,7 @@ const IndexLayout = ({ items }) => {
               backgroundColor: 'gray',
             }}
             bg={item.bg || '/static/logos/white_logo.png'}
-            border="1px solid #e2e2e2"
+            border="1px solid var(--chakra-colors-brand-light)"
           >
             <Box
               style={{

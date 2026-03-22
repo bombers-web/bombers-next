@@ -32,7 +32,7 @@ const Link = ({
         fontWeight="bold"
         fontSize="sm"
         _hover={{
-          color: '#212121',
+          color: 'brand.dark',
           textDecoration: 'none',
         }}
         {...props}

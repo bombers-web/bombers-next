@@ -18,8 +18,8 @@ ul.menu-item-container {
     margin-right: 15px;
     transition: all 0.3s ease-in-out;
     &:hover {
-      color: '#212121';
-      text-decoration: 'none';
+      color: var(--chakra-colors-brand-dark);
+      text-decoration: none;
       .submenu {
         height: 85px;
       }

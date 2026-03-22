@@ -129,7 +129,7 @@ export const HeroTileImageContainer = styled.picture`
     bottom: 0;
     left: 0;
     opacity: 0.8;
-    background-color: rgba(24, 23, 51, 0.6);
+    background-color: rgba(0, 0, 0, 0.6);
     will-change: opacity;
     transition: opacity 0.2s ease;
   }
@@ -165,7 +165,7 @@ export const HeroTileGradient = styled.div`
   background: linear-gradient(
     0deg,
     var(--chakra-colors-brand-black) 5rem,
-    rgba(8, 14, 31, 0)
+    transparent
   );
   will-change: top;
   transition: top 0.2s;
@@ -177,7 +177,7 @@ export const HeroTileGradient = styled.div`
     background: linear-gradient(
       0deg,
       var(--chakra-colors-brand-black) 6rem,
-      rgba(8, 14, 31, 0)
+      transparent
     );
   }
 `
@@ -191,14 +191,14 @@ export const HeroTitleExplainer = styled.div`
   margin: 0 auto;
   text-align: center;
   z-index: 51;
-  color: #fff;
+  color: var(--chakra-colors-brand-white);
 `
 
 export const HeroTileTitle = styled.h4`
   margin: 0 auto;
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;
-  color: #fff;
+  color: var(--chakra-colors-brand-white);
   transition: transform 0.2s;
   transform-origin: bottom;
   font-size: 1.1rem;
@@ -234,7 +234,7 @@ export const HeroTileDescription = styled.div`
 
 export const HeroTileMeta = styled.div`
   text-align: center;
-  color: #fff;
+  color: var(--chakra-colors-brand-white);
 `
 
 export const HeroTileMetaData = styled.div`
@@ -273,16 +273,16 @@ export const ContentTime = styled.time`
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
+  color: var(--chakra-colors-brand-white);
   .contentTimeIcon {
     display: inline-block;
     vertical-align: middle;
     margin-top: 0.1rem;
     margin-right: 0.4rem;
-    fill: #fff;
+    fill: var(--chakra-colors-brand-white);
   }
   .contentTimeDate {
-    fill: #fff;
+    fill: var(--chakra-colors-brand-white);
 
     text-align: right;
   }
@@ -337,7 +337,7 @@ export const MobileCardDescription = styled.div`
 `
 
 export const MobileCardTitle = styled.div`
-  color: #fff;
+  color: var(--chakra-colors-brand-white);
   font-size: 24px;
   line-height: 32px;
   font-weight: bold;

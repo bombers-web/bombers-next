@@ -101,7 +101,7 @@ const ContactForm = () => {
                 body { 
                   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
                   line-height: 1.6;
-                  color: #333;
+                  color: #212121;
                   padding: 20px;
                 }
                 .container {
@@ -113,7 +113,7 @@ const ContactForm = () => {
                 }
                 pre {
                   white-space: pre-wrap;
-                  background: #f5f5f5;
+                  background: #f8f8f8;
                   padding: 15px;
                   border-radius: 4px;
                 }
@@ -186,7 +186,7 @@ const ContactForm = () => {
           <FormControl isInvalid={errors.name}>
             <Input
               sx={{
-                color: '#242424',
+                color: 'brand.dark',
                 _focus: { color: 'black' },
               }}
               variant="filled"

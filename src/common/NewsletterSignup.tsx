@@ -15,12 +15,12 @@ const NewsletterSignup = () => {
     <Box
       py={10}
       px={6}
-      bg="whiteAlpha.50"
+      bg="brand.medium"
       borderRadius="2xl"
       my={6}
       border="1px solid"
-      borderColor="whiteAlpha.300"
-      boxShadow="xl" // Added depth
+      borderColor="brand.medium"
+      boxShadow="xl"
     >
       <Heading
         size="lg"

@@ -65,7 +65,7 @@ const MobileNav = ({ homePage }: MobileNavProps) => {
               rounded
               hideOutline
               size={28}
-              color="#fff"
+              color="var(--chakra-colors-brand-white)"
             />
           </Flex>
         </Flex>
@@ -85,7 +85,7 @@ const MobileNav = ({ homePage }: MobileNavProps) => {
               rounded
               hideOutline
               size={28}
-              color="#fff"
+              color="var(--chakra-colors-brand-white)"
             />
           </Flex>
 

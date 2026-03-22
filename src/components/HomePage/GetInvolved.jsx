@@ -13,10 +13,10 @@ export const GetInvolved = () => {
     <Box
       py={10}
       px={6}
-      bg="whiteAlpha.50"
+      bg="brand.medium"
       borderRadius="2xl"
       my={6}
-      boxShadow="xl" // Added depth
+      boxShadow="xl"
     >
       <Heading size="lg" color="white" mb={8} textTransform="uppercase">
         Get Involved
@@ -27,7 +27,7 @@ export const GetInvolved = () => {
           align="center"
           p={6}
           border="1px solid"
-          borderColor="whiteAlpha.300"
+          borderColor="brand.medium"
           borderRadius="lg"
         >
           <Text fontSize="xl" fontWeight="bold" color="brand.light">
@@ -48,7 +48,7 @@ export const GetInvolved = () => {
           align="center"
           p={6}
           border="1px solid"
-          borderColor="whiteAlpha.300"
+          borderColor="brand.medium"
           borderRadius="lg"
         >
           <Text fontSize="xl" fontWeight="bold" color="brand.light">

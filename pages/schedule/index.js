@@ -46,12 +46,12 @@ const Schedule = ({ games, calenders }) => {
     textTransform: 'uppercase',
     letterSpacing: '2px',
     fontSize: 'ls',
-    color: 'gray.400',
+    color: 'brand.medium',
     _selected: {
       color: 'brand.black',
       borderColor: 'brand.black',
     },
-    _hover: { color: 'brand.black' },
+    _hover: { color: 'brand.highlight' },
     transition: 'all 0.2s',
   }
 
@@ -98,7 +98,7 @@ const Schedule = ({ games, calenders }) => {
 export async function getStaticProps() {
   const [games, calenders] = await Promise.all([
     fetchAPI(
-      '/games?populate[0]=home.logo&populate[1]=away.logo&populate=location&populate=winner&sort[0]=date:asc',
+      '/games?pagination[limit]=100&populate[0]=home.logo&populate[1]=away.logo&populate=location&populate=winner&sort[0]=date:asc',
     ),
     fetchAPI('/calenders?populate[0]=calender&sort[1]=date:desc'),
   ])

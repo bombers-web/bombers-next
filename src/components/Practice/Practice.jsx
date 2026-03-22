@@ -1,4 +1,4 @@
-import { Badge, Box, Flex, Heading, Icon, Link } from '@chakra-ui/react'
+import { Badge, Box, Flex, Heading, Icon, Link, Text } from '@chakra-ui/react'
 import { FiMapPin } from 'react-icons/fi'
 
 export const Practice = ({ practices }) => {
@@ -17,14 +17,14 @@ export const Practice = ({ practices }) => {
         direction="column"
         align="center"
         justify="center"
-        my={8} // Increased vertical margin
-        p={{ base: 6, md: 10 }} // Significantly larger padding
+        my={8}
+        p={{ base: 6, md: 10 }}
         w="full"
-        bg="whiteAlpha.100"
-        borderRadius="2xl" // Softer, larger corners
+        bg="brand.medium"
+        borderRadius="2xl"
         border="1px solid"
-        borderColor="whiteAlpha.300"
-        boxShadow="xl" // Added depth
+        borderColor="brand.medium"
+        boxShadow="xl"
         gap={6}
       >
         <Flex align="center" gap={3}>
@@ -37,14 +37,11 @@ export const Practice = ({ practices }) => {
             Practice Schedule
           </Heading>
         </Flex>
-
         <Box w="full">
           {practices.map((practice, idx) => {
-            // Fixed the URL string interpolation
             const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
               practice?.location?.address || '',
             )}`
-
             return (
               <Flex
                 key={practice.id}
@@ -57,30 +54,38 @@ export const Practice = ({ practices }) => {
                 <Badge
                   colorScheme="yellow"
                   variant="solid"
-                  px={6} // Wider badge
-                  py={2} // Taller badge
-                  fontSize="lg" // Larger text
+                  px={6}
+                  py={2}
+                  fontSize="lg"
                   borderRadius="full"
                 >
                   Tue & Thu @ {formatTime(practice.start_time)}
                 </Badge>
-
-                <Link
-                  href={mapUrl}
-                  isExternal
-                  color="yellow.400"
-                  fontSize="md"
-                  display="flex"
-                  alignItems="center"
-                  fontWeight="semibold"
-                  _hover={{
-                    color: 'yellow.200',
-                    textDecoration: 'none',
-                  }}
+                <Flex
+                  direction="column"
+                  align={{ base: 'center', md: 'flex-start' }}
+                  gap={1}
                 >
-                  <Icon as={FiMapPin} mr={2} />
-                  {practice?.location?.name}
-                </Link>
+                  <Link
+                    href={mapUrl}
+                    isExternal
+                    color="yellow.400"
+                    fontSize="md"
+                    display="flex"
+                    alignItems="center"
+                    fontWeight="semibold"
+                    _hover={{
+                      color: 'yellow.200',
+                      textDecoration: 'none',
+                    }}
+                  >
+                    <Icon as={FiMapPin} mr={2} />
+                    {practice?.location?.name}
+                  </Link>
+                  <Text color="whiteAlpha.700" fontSize="sm">
+                    {practice?.location?.city}
+                  </Text>
+                </Flex>
               </Flex>
             )
           })}

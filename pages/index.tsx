@@ -10,82 +10,18 @@ import {
 } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 import NewsletterSignup from 'common/NewsletterSignup'
-import MatchTeams from 'components/Games/MatchTeams'
-import { FiMapPin } from 'react-icons/fi'
+import GameCard from 'components/Games/GameCard'
 import PageContent from 'src/common/PageContent'
 import Hero from '../src/common/Hero'
 import Layout from '../src/common/Layout'
 import { GetInvolved } from '../src/components/HomePage/GetInvolved'
-import { Practice } from '../src/components/HomePage/Practice'
+import { Practice } from '../src/components/Practice/Practice'
 import Section from '../src/components/Section'
 import { fetchAPI } from '../src/lib/api'
-import useBp from '../theme/useBp'
-import Utils from '../utils/Utils'
-
-const NextMatchText = styled(Box)`
-  color: '#fff';
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 22px;
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  .next-match__text--date {
-    margin-bottom: 4px;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    gap: 8px;
-  }
-  @media (min-width: 992px) {
-    margin-bottom: 0;
-  }
-
-  @media (min-width: 992px) {
-    .next-match__text--date {
-      margin-right: 30px;
-      gap: 34px;
-    }
-  }
-  @media (min-width: 992px) {
-    font-size: 16px;
-    line-height: 20px;
-  }
-`
-
-const NextMatchFont = styled(Box)<{ size?: 'xs' | 'sm' | 'md' | 'lg' }>`
-  margin-right: ${(props) =>
-    ({
-      xs: '0px',
-      sm: '0px',
-      md: '32px',
-      lg: '52px',
-    }[props.size || 'xs'])};
-  line-height: ${(props) =>
-    ({
-      xs: '14px',
-      sm: '16px',
-      md: '20px',
-      lg: '24px',
-    }[props.size || 'xs'])};
-  font-weight: ${(props) => (props.size !== 'lg' ? '400' : '700')};
-  font-size: ${(props) =>
-    ({
-      xs: '12px',
-      sm: '14px',
-      md: '18px',
-      lg: '26px',
-    }[props.size || 'xs'])};
-  color: var(--chakra-colors-brand-light);
-  width: 100%;
-  padding: ${(props) =>
-    ({
-      xs: '0 4px',
-      sm: '0 8px',
-      md: '0 0 8px 12px',
-      lg: '0 0 10px 15px',
-    }[props.size || 'xs'])};
-`
+import MatchTeams from 'components/Games/MatchTeams'
+import { FiMapPin } from 'react-icons/fi'
+import useBp from 'theme/useBp'
+import Utils from 'utils/Utils'
 
 const Home = (props) => {
   const { homepage, highlight, d1Upcoming, d2Upcoming, practices } = props
@@ -107,7 +43,7 @@ const Home = (props) => {
       <PageContent>
         <Hero size="3xl" {...highlight} direct></Hero>
         <Section
-          bg="brand.medium"
+          bg="brand.light"
           padding="0px"
           style={{ display: 'flex', justifyContent: 'center' }}
           align="center"
@@ -119,16 +55,16 @@ const Home = (props) => {
             w="full"
             maxW="container.lg"
           >
-            {/* NEXT UP SECTION - NOW CENTERED & CLEANED */}
+            {/* NEXT UP SECTION */}
             <Flex
               flexDirection="column"
-              bg="whiteAlpha.50"
+              bg="brand.medium"
               p={6}
               borderRadius="2xl"
               border="1px solid"
-              borderColor="whiteAlpha.200"
+              borderColor="brand.medium"
               w="full"
-              boxShadow="xl" // Added depth
+              boxShadow="xl"
             >
               <Heading
                 size="lg"
@@ -255,7 +191,7 @@ export async function getStaticProps() {
       d1Upcoming,
       d2Upcoming,
       highlight: homeCta?.content || null,
-      practices: Array.isArray(practices) ? practices : [], // <--- Pass it to props
+      practices: Array.isArray(practices) ? practices : [],
     },
     revalidate: 86400,
   }

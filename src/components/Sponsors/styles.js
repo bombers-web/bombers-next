@@ -30,7 +30,7 @@ export const SponsorContainer = styled.div`
 
 export const SponsorsTitle = styled.h4`
   font-size: 0.8rem;
-  color: #fff;
+  color: var(--chakra-colors-brand-white);
   text-transform: uppercase;
   line-height: 3.6rem;
   padding-right: 2.4rem;

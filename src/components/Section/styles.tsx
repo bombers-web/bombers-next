@@ -43,7 +43,7 @@ export const HeaderTitle = styled.h3`
     background: var(--chakra-colors-gradient-background);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    color: #fff;
+    color: var(--chakra-colors-brand-white);
   }
   span.subtitle {
     font-family: var(--chakra-fonts-header-fontFamily);

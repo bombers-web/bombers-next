@@ -1,74 +1,273 @@
-import { Box, Center, Flex, Heading, Stack, Button } from '@chakra-ui/react'
-import React, { Fragment } from 'react'
-import Card from '../../common/Card'
-import GameInfo from './GameInfo'
-import Link from 'next/link'
+import {
+  Box,
+  Center,
+  Divider,
+  Flex,
+  Icon,
+  Link,
+  Text,
+  VStack,
+} from '@chakra-ui/react'
+import { FiMapPin } from 'react-icons/fi'
+import MatchTeams from './MatchTeams'
+import Team from './Team'
 
-const GameCard = ({ title = '', link = '', direction = 'row', games = [] }) => {
-  const styles = {
-    backgroundColor: '#121212',
-    boxShadow: '0 1px 4px #151515',
-    display: 'grid',
-    alignItems: 'stretch',
+/**
+ * Parses a city name from an address string.
+ * Assumes standard US format: "123 Street Name, City, ST 00000"
+ * Returns the second comma-separated segment (the city), trimmed.
+ */
+const parseCityFromAddress = (address) => {
+  if (!address) return null
+  const parts = address.split(',')
+  // Index 1 is typically the city in "Street, City, State Zip"
+  return parts.length >= 2 ? parts[1].trim() : null
+}
+
+/**
+ * GameCard — unified component for displaying a scheduled game.
+ *
+ * Props:
+ *   homeTeam      { name, logo, score }
+ *   awayTeam      { name, logo, score }
+ *   date          ISO date string
+ *   location      { name, address }
+ *   winner        { id, name }  — optional, shows WIN/LOSS/TIE when provided
+ *   compact       boolean — compact layout for home page previews (default: false)
+ *   showLocation  boolean — show location row (default: true)
+ */
+const GameCard = ({
+  homeTeam,
+  awayTeam,
+  date,
+  location,
+  division,
+  winner = undefined,
+  compact = false,
+  showLocation = true,
+}) => {
+  const d = new Date(date)
+  const formattedDay = d.toLocaleDateString('en-US', { weekday: 'short' })
+  const formattedDate = d.toLocaleDateString('en-US', {
+    month: 'short',
+    day: '2-digit',
+  })
+  const formattedLongDate = d.toLocaleDateString('en-US', {
+    dateStyle: 'long',
+    timeZone: 'UTC',
+  })
+  const formattedTime = d.toLocaleString('en-US', {
+    hour: '2-digit',
+    minute: '2-digit',
+  })
+
+  const isBombers = (name) => name?.includes('Bombers')
+  const bombersWon = winner?.name?.includes('St. Louis Bombers')
+
+  const statusColor = !winner?.id
+    ? 'gray.400'
+    : bombersWon
+    ? 'green.500'
+    : 'red.500'
+  const statusLabel = !winner?.id ? 'TIE' : bombersWon ? 'WIN' : 'LOSS'
+
+  const city = parseCityFromAddress(location?.address)
+
+  const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+    location?.address,
+  )}`
+
+  // ─── Compact layout (home page preview) ───────────────────────────────────
+  if (compact) {
+    return (
+      <Box w="full" py={6}>
+        {/* Teams */}
+        <MatchTeams match={{ home: homeTeam, away: awayTeam, division }} />
+
+        {/* Date & Time */}
+        <VStack spacing={1} mt={4}>
+          <Text color="white" fontWeight="bold" fontSize="lg">
+            {formattedLongDate} @ {formattedTime}
+          </Text>
+
+          {/* Location */}
+          {showLocation && (
+            <Box>
+              {location?.city && (
+                <Text
+                  fontSize="xs"
+                  color="white"
+                  opacity={0.7}
+                  letterSpacing="widest"
+                  textTransform="uppercase"
+                >
+                  {location?.city}
+                </Text>
+              )}
+              <Link
+                href={mapUrl}
+                isExternal
+                color="yellow.400"
+                fontWeight="semibold"
+                _hover={{ color: 'yellow.200', textDecoration: 'none' }}
+              >
+                <VStack spacing={0} align="center">
+                  <Flex align="center" gap={2}>
+                    <Icon as={FiMapPin} />
+                    <Text fontSize="md" fontWeight="semibold">
+                      {location?.name}
+                    </Text>
+                  </Flex>
+                </VStack>
+              </Link>
+            </Box>
+          )}
+
+          {/* Result badge (if winner provided) */}
+          {winner !== undefined && !showLocation && (
+            <Text
+              fontSize="md"
+              fontWeight="black"
+              color={statusColor}
+              letterSpacing="4px"
+              opacity={0.8}
+            >
+              {statusLabel}
+            </Text>
+          )}
+        </VStack>
+      </Box>
+    )
   }
 
   return (
     <Box
-      position="relative"
-      top="-100px"
-      width="100%"
-      maxW="2xl"
-      p="4"
-      minH="640px"
-      h="100%"
+      w="full"
+      bg="brand.meta"
+      py={{ base: 6, md: 8 }}
+      px={{ base: 4, md: 8 }}
     >
-      <Card styles={styles} h="100%" id="game-card">
-        <Center justifyContent="space-between" p="4">
-          <Flex flexGrow="1">
-            <Heading size="xl" color="brand.light" m="0">
-              {title}
-            </Heading>
-          </Flex>
-          <Link href={link} passHref legacyBehavior>
-            <Button variant="link" size="xs" color="tomato" ml="4">
-              see all {title}
-            </Button>
-          </Link>
-        </Center>
-        <Stack direction={direction} h="100%" w="100%">
-          {games
-            .slice(0, 2)
-            .sort(
-              (a, b) =>
-                Number(a.division.split('d')[1]) -
-                Number(b.division.split('d')[1]),
-            )
-            .map(
-              ({
-                home,
-                away,
-                slug,
-                home_score,
-                away_score,
-                division,
-                ...game
-              }) => {
-                const gameInfo = {
-                  homeTeam: { ...home, score: home_score },
-                  awayTeam: { ...away, score: away_score },
-                  division,
-                  slug,
-                  ...game,
-                }
-                return (
-                  <Fragment key={slug || `${home.name}-vs-${away.name}`}>
-                    <GameInfo {...gameInfo} division={division} preview />
-                  </Fragment>
-                )
-              },
-            )}
-        </Stack>
-      </Card>
+      <Flex
+        direction="column"
+        align="center"
+        justify="center"
+        width="100%"
+        gap={{ base: 6, md: 8 }}
+      >
+        {/* Date & Time */}
+        <Flex align="center" justify="center" gap={{ base: 4, md: 6 }} w="full">
+          <VStack align="center" spacing={0}>
+            <Text
+              color="brand.light"
+              fontSize={{ base: 'xs', md: 'sm' }}
+              fontWeight="900"
+              letterSpacing="3px"
+            >
+              {formattedDay}
+            </Text>
+            <Text
+              color="brand.light"
+              fontSize={{ base: '3xl', md: '4xl' }}
+              fontWeight="900"
+              lineHeight="0.9"
+            >
+              {formattedDate}
+            </Text>
+          </VStack>
+          <Divider
+            orientation="vertical"
+            h={{ base: '40px', md: '50px' }}
+            borderColor="brand.light"
+            opacity={0.2}
+          />
+          <VStack align="center" spacing={0}>
+            <Text
+              color="brand.light"
+              fontSize={{ base: 'xl', md: '2xl' }}
+              fontWeight="800"
+              lineHeight="1"
+            >
+              {formattedTime}
+            </Text>
+          </VStack>
+        </Flex>
+
+        {/* Teams */}
+        <Flex
+          align="center"
+          justify="center"
+          gap={{ base: 4, md: 10 }}
+          w="full"
+          flexWrap="wrap"
+        >
+          <Team team={isBombers(homeTeam?.name) ? homeTeam : awayTeam} />
+          <Center>
+            <Text
+              fontWeight="black"
+              fontSize={{ base: 'sm', md: 'md' }}
+              color="gray.400"
+              fontStyle="italic"
+            >
+              {isBombers(homeTeam?.name) ? 'VS' : '@'}
+            </Text>
+          </Center>
+          <Team team={isBombers(homeTeam?.name) ? awayTeam : homeTeam} />
+        </Flex>
+
+        {/* Location or Result */}
+        <Flex justify="center" w="full">
+          {showLocation ? (
+            <VStack align="center" spacing={0}>
+              <Flex align="center" gap={{ base: 2, md: 4 }}>
+                <Icon
+                  as={FiMapPin}
+                  color="brand.light"
+                  boxSize={{ base: 5, md: 7 }}
+                />
+                <Link
+                  href={mapUrl}
+                  isExternal
+                  _hover={{ textDecoration: 'none' }}
+                >
+                  <Text
+                    fontSize={{ base: 'lg', md: '2xl' }}
+                    fontWeight="900"
+                    color="brand.light"
+                    textTransform="uppercase"
+                    textAlign="center"
+                  >
+                    {location?.name}
+                  </Text>
+                </Link>
+              </Flex>
+              {location?.city && (
+                <Text
+                  fontSize={{ base: 'xs', md: 'sm' }}
+                  fontWeight="500"
+                  color="brand.light"
+                  opacity={0.6}
+                  letterSpacing="2px"
+                  textTransform="uppercase"
+                >
+                  {location?.city}
+                </Text>
+              )}
+            </VStack>
+          ) : (
+            <VStack align="center" spacing={0}>
+              <Text
+                fontSize={{ base: 'xl', md: '2xl' }}
+                fontWeight="black"
+                color={statusColor}
+                letterSpacing="4px"
+                opacity={0.8}
+              >
+                {statusLabel}
+              </Text>
+            </VStack>
+          )}
+        </Flex>
+      </Flex>
     </Box>
   )
 }

@@ -57,7 +57,7 @@ export const SlideShow = styled.div`
       font-weight: 700;
       line-height: 1.3;
       color: transparent;
-      -webkit-text-stroke: 1px #fff;
+      -webkit-text-stroke: 1px var(--chakra-colors-brand-white);
     }
   }
 `
@@ -66,7 +66,7 @@ export const Info = styled.div`
   position: relative;
   flex: 1;
   padding: ${offset};
-  background-color: #fff;
+  background-color: var(--chakra-colors-brand-white);
 `
 
 export const FormatMd = styled(Box)`
@@ -141,15 +141,15 @@ export const FooterIcons = styled.div`
     width: calc(32px + $padding);
     padding: $padding;
     border-radius: 50%;
-    background-color: #42555f;
+    background-color: var(--chakra-colors-brand-medium);
     color: var(--chakra-colors-brand-white);
     cursor: pointer;
   }
 `
 
 export const FooterContainer = styled(Box)`
-  background: rgb(0, 0, 0);
-  color: #fff;
+  background: var(--chakra-colors-brand-black);
+  color: var(--chakra-colors-brand-white);
   /* $text-secondary-clr: #cccccc; */
   width: 100%;
   display: grid;

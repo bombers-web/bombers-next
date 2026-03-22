@@ -26,7 +26,7 @@ const LoginButton = () => {
             fontSize="sm"
             textAlign="right"
             _hover={{
-              color: '#212121',
+              color: 'brand.dark',
               textDecoration: 'none',
             }}
           >
@@ -40,7 +40,7 @@ const LoginButton = () => {
             fontSize="sm"
             textAlign="right"
             _hover={{
-              color: '#212121',
+              color: 'brand.dark',
               textDecoration: 'none',
             }}
             href={'/pay'}

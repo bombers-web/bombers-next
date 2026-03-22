@@ -28,8 +28,8 @@ const Socials = ({
   ]
 
   const iconColor = {
-    dark: '#242424',
-    light: '#e2e2e2',
+    dark: '#212121',
+    light: '#E2E2E2',
   }[color || 'light']
 
   const iconSize = {

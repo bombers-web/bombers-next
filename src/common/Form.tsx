@@ -55,7 +55,7 @@ const Form = ({
             ) : (
               <Input
                 sx={{
-                  color: '#242424',
+                  color: 'brand.dark',
                   _focus: {
                     color: 'black',
                   },
