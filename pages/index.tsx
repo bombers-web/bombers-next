@@ -1,16 +1,20 @@
 import {
-  Box,
-  Divider,
   Flex,
   Heading,
   Icon,
   Link,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
   Text,
   VStack,
 } from '@chakra-ui/react'
-import styled from '@emotion/styled'
 import NewsletterSignup from 'common/NewsletterSignup'
-import GameCard from 'components/Games/GameCard'
+import MatchTeams from 'components/Games/MatchTeams'
+import NextLink from 'next/link'
+import { FiCalendar, FiMapPin } from 'react-icons/fi'
 import PageContent from 'src/common/PageContent'
 import Hero from '../src/common/Hero'
 import Layout from '../src/common/Layout'
@@ -18,25 +22,201 @@ import { GetInvolved } from '../src/components/HomePage/GetInvolved'
 import { Practice } from '../src/components/Practice/Practice'
 import Section from '../src/components/Section'
 import { fetchAPI } from '../src/lib/api'
-import MatchTeams from 'components/Games/MatchTeams'
-import { FiMapPin } from 'react-icons/fi'
-import useBp from 'theme/useBp'
 import Utils from 'utils/Utils'
 
-const Home = (props) => {
-  const { homepage, highlight, d1Upcoming, d2Upcoming, practices } = props
-  const { isMobile } = useBp()
-  const { getLongDate } = new Utils()
+const isCancelled = (game) =>
+  game?.finished && game?.home_score == null && game?.away_score == null
 
-  const isCancelled = (game) =>
-    game?.finished && game?.home_score == null && game?.away_score == null
+const GameNextUp = ({ game, getLongDate }) => {
+  const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+    `${game?.location?.name ?? ''} ${game?.location?.address ?? ''}`.trim(),
+  )}`
+
+  return (
+    <VStack spacing={4} py={6} w="full">
+      <MatchTeams match={game} />
+
+      <VStack spacing={1}>
+        <Text color="white" fontWeight="bold" fontSize="lg">
+          {getLongDate(game?.date)[0]} @ {getLongDate(game?.date)[1]}
+        </Text>
+
+        {isCancelled(game) ? (
+          <Text
+            color="red.400"
+            fontSize="2xl"
+            fontWeight="bold"
+            letterSpacing="2px"
+          >
+            CANCELLED
+          </Text>
+        ) : (
+          <Link
+            href={mapUrl}
+            isExternal
+            color="yellow.400"
+            fontSize="md"
+            display="flex"
+            alignItems="center"
+            fontWeight="semibold"
+            _hover={{ color: 'yellow.200', textDecoration: 'none' }}
+          >
+            <Icon as={FiMapPin} mr={2} />
+            {game?.location?.name}
+          </Link>
+        )}
+      </VStack>
+    </VStack>
+  )
+}
+
+const TournamentNextUp = ({ tournament }) => {
+  const dateLabel = tournament?.date
+    ? new Date(tournament.date).toLocaleDateString('en-US', {
+        weekday: 'long',
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric',
+        timeZone: 'UTC',
+      })
+    : null
+
+  const mapUrl =
+    tournament?.location?.address || tournament?.location?.name
+      ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+          `${tournament.location.name ?? ''} ${
+            tournament.location.address ?? ''
+          }`.trim(),
+        )}`
+      : null
+
+  return (
+    <VStack spacing={3} py={6} w="full">
+      <Heading
+        size={{ base: 'md', md: 'lg' }}
+        color="white"
+        textTransform="uppercase"
+        letterSpacing="wider"
+        textAlign="center"
+      >
+        {tournament?.name}
+      </Heading>
+
+      {dateLabel && (
+        <Flex align="center" gap={2}>
+          <Icon as={FiCalendar} color="yellow.400" />
+          <Text color="white" fontWeight="semibold" fontSize="md">
+            {dateLabel}
+          </Text>
+        </Flex>
+      )}
+
+      {tournament?.location &&
+        (mapUrl ? (
+          <Link
+            href={mapUrl}
+            isExternal
+            color="yellow.400"
+            fontSize="md"
+            display="flex"
+            alignItems="center"
+            fontWeight="semibold"
+            _hover={{ color: 'yellow.200', textDecoration: 'none' }}
+          >
+            <Icon as={FiMapPin} mr={2} />
+            {tournament.location.name}
+          </Link>
+        ) : (
+          <Flex align="center" gap={2}>
+            <Icon as={FiMapPin} color="yellow.400" />
+            <Text color="white" fontSize="md">
+              {tournament.location.name}
+            </Text>
+          </Flex>
+        ))}
+
+      <NextLink href="/schedule?tab=sevens" passHref legacyBehavior>
+        <Link
+          color="whiteAlpha.600"
+          fontSize="xs"
+          fontWeight="bold"
+          textTransform="uppercase"
+          letterSpacing="tight"
+          _hover={{ color: 'brand.highlight', textDecoration: 'none' }}
+        >
+          View Sevens Schedule →
+        </Link>
+      </NextLink>
+    </VStack>
+  )
+}
+
+const Home = (props) => {
+  const {
+    homepage,
+    highlight,
+    d1Upcoming,
+    d2Upcoming,
+    sevensUpcoming,
+    practices,
+  } = props
+  const { getLongDate } = new Utils()
 
   const d1Games = d1Upcoming?.filter((g) => !g.finished || isCancelled(g)) ?? []
   const d2Games = d2Upcoming?.filter((g) => !g.finished || isCancelled(g)) ?? []
-  const upcomingMatches =
-    d1Upcoming || d2Upcoming
-      ? [...d1Games.slice(0, 1), ...d2Games.slice(0, 1)]
-      : []
+  const sevensGames = sevensUpcoming?.filter((t) => !t.finished) ?? []
+
+  const tabEntries: Array<{
+    key: string
+    label: string
+    date: Date
+    type: 'game' | 'tournament'
+    data: any
+  }> = []
+
+  if (d1Games.length > 0) {
+    tabEntries.push({
+      key: 'd1',
+      label: 'D1',
+      date: new Date(d1Games[0].date),
+      type: 'game',
+      data: d1Games[0],
+    })
+  }
+  if (d2Games.length > 0) {
+    tabEntries.push({
+      key: 'd2',
+      label: 'D2',
+      date: new Date(d2Games[0].date),
+      type: 'game',
+      data: d2Games[0],
+    })
+  }
+  if (sevensGames.length > 0) {
+    tabEntries.push({
+      key: 'sevens',
+      label: '7s',
+      date: new Date(sevensGames[0].date),
+      type: 'tournament',
+      data: sevensGames[0],
+    })
+  }
+
+  tabEntries.sort((a, b) => a.date.getTime() - b.date.getTime())
+
+  const tabStyle = {
+    color: 'whiteAlpha.500',
+    fontWeight: 'bold',
+    fontSize: 'md',
+    textTransform: 'uppercase' as const,
+    letterSpacing: '2px',
+    _selected: {
+      color: 'brand.highlight',
+      borderColor: 'brand.highlight',
+    },
+    _hover: { color: 'white' },
+    transition: 'all 0.2s',
+  }
 
   return (
     <Layout seo={homepage?.seo} bg="brand.light" id="homepage">
@@ -75,68 +255,37 @@ const Home = (props) => {
                 Next Up
               </Heading>
 
-              {upcomingMatches?.length > 0 ? (
-                upcomingMatches.map((upcomingMatch, idx) => {
-                  // Fixed the URL path from /0 to /search/
-                  const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-                    `${upcomingMatch?.location?.name} ${
-                      upcomingMatch?.location?.address || ''
-                    }`,
-                  )}`
+              {tabEntries.length > 0 ? (
+                <Tabs variant="line" size="lg">
+                  <TabList
+                    borderBottom="1px solid"
+                    borderColor="whiteAlpha.200"
+                    mb={0}
+                    justifyContent="center"
+                    gap={4}
+                  >
+                    {tabEntries.map((entry) => (
+                      <Tab key={entry.key} {...tabStyle}>
+                        {entry.label}
+                      </Tab>
+                    ))}
+                  </TabList>
 
-                  return (
-                    <Box key={idx} w="full">
-                      <VStack spacing={4} py={6}>
-                        {/* Match Teams Component (Centered) */}
-                        <MatchTeams match={upcomingMatch} />
-
-                        <VStack spacing={1}>
-                          <Text color="white" fontWeight="bold" fontSize="lg">
-                            {getLongDate(upcomingMatch?.date)[0]} @{' '}
-                            {getLongDate(upcomingMatch?.date)[1]}
-                          </Text>
-
-                          {/* CLICKABLE LOCATION OR CANCELLED */}
-                          {isCancelled(upcomingMatch) ? (
-                            <Text
-                              color="red.400"
-                              fontSize="2xl"
-                              fontWeight="bold"
-                              letterSpacing="2px"
-                            >
-                              CANCELLED
-                            </Text>
-                          ) : (
-                            <Link
-                              href={mapUrl}
-                              isExternal
-                              color="yellow.400"
-                              fontSize="md"
-                              display="flex"
-                              alignItems="center"
-                              fontWeight="semibold"
-                              _hover={{
-                                color: 'yellow.200',
-                                textDecoration: 'none',
-                              }}
-                            >
-                              <Icon as={FiMapPin} mr={2} />
-                              {upcomingMatch?.location?.name}
-                            </Link>
-                          )}
-                        </VStack>
-                      </VStack>
-
-                      {idx !== upcomingMatches.length - 1 && (
-                        <Divider
-                          borderColor="whiteAlpha.300"
-                          w="60%"
-                          mx="auto"
-                        />
-                      )}
-                    </Box>
-                  )
-                })
+                  <TabPanels>
+                    {tabEntries.map((entry) => (
+                      <TabPanel key={entry.key} p={0}>
+                        {entry.type === 'game' ? (
+                          <GameNextUp
+                            game={entry.data}
+                            getLongDate={getLongDate}
+                          />
+                        ) : (
+                          <TournamentNextUp tournament={entry.data} />
+                        )}
+                      </TabPanel>
+                    ))}
+                  </TabPanels>
+                </Tabs>
               ) : (
                 <Text color="yellow.400" py={4}>
                   There are no upcoming scheduled games
@@ -184,12 +333,24 @@ export async function getStaticProps() {
       fetchAPI('/practices?populate=*'),
     ])
 
+  // Fetched separately so a missing or errored sevens collection never breaks the page
+  let sevensUpcoming = []
+  try {
+    const result = await fetchAPI(
+      `/tournaments?populate=location&filters[finished][$ne]=true&sort[0]=date:asc`,
+    )
+    sevensUpcoming = Array.isArray(result) ? result : []
+  } catch {
+    sevensUpcoming = []
+  }
+
   return {
     props: {
       content,
       homepage,
       d1Upcoming,
       d2Upcoming,
+      sevensUpcoming,
       highlight: homeCta?.content || null,
       practices: Array.isArray(practices) ? practices : [],
     },

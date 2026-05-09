@@ -50,9 +50,9 @@ function useNav(type?: undefined | String | Array<string>): DefaultNavs {
           slug: 'schedule?tab=d2',
         },
         {
-          name: 'Club Calender',
-          id: 'calender',
-          slug: 'schedule?tab=calender',
+          name: 'Sevens',
+          id: 'sevens',
+          slug: 'schedule?tab=sevens',
         },
       ],
     },

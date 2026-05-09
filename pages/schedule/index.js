@@ -4,17 +4,17 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import Layout from '../../src/common/Layout'
 import { fetchAPI } from '../../src/lib/api'
-import Calender from './components/Calender'
+import SevensTabs from './components/SevensTabs'
 import ScheduleTabs from './components/ScheduleTabs'
 
-const Schedule = ({ games, calenders }) => {
+const Schedule = ({ games, tournaments }) => {
   const { d1, d2 } = groupBy(games, 'division')
   const router = useRouter()
 
   const tabMap = {
     d1: 0,
     d2: 1,
-    calender: 2,
+    sevens: 2,
   }
 
   const [tabIndex, setTabIndex] = useState(0)
@@ -41,7 +41,6 @@ const Schedule = ({ games, calenders }) => {
     metaTitle: 'Schedule',
   }
 
-  // Consistent style object for the tabs
   const tabStyle = {
     textTransform: 'uppercase',
     letterSpacing: '2px',
@@ -75,7 +74,7 @@ const Schedule = ({ games, calenders }) => {
           <TabList borderBottom="2px solid" borderColor="gray.100" mb={8}>
             <Tab {...tabStyle}>Bombers DI</Tab>
             <Tab {...tabStyle}>Bombers DII</Tab>
-            <Tab {...tabStyle}>Club Calendar</Tab>
+            <Tab {...tabStyle}>Sevens</Tab>
           </TabList>
 
           <TabPanels>
@@ -86,7 +85,7 @@ const Schedule = ({ games, calenders }) => {
               <ScheduleTabs games={d2} />
             </TabPanel>
             <TabPanel p={0}>
-              <Calender calenders={calenders} />
+              <SevensTabs tournaments={tournaments ?? []} />
             </TabPanel>
           </TabPanels>
         </Tabs>
@@ -96,17 +95,26 @@ const Schedule = ({ games, calenders }) => {
 }
 
 export async function getStaticProps() {
-  const [games, calenders] = await Promise.all([
+  const gamePopulate =
+    'populate[0]=home.logo&populate[1]=away.logo&populate=location&populate=winner'
+  const tournamentPopulate =
+    'populate[games][populate][home][populate]=logo' +
+    '&populate[games][populate][away][populate]=logo' +
+    '&populate[games][populate]=winner' +
+    '&populate[games][populate]=location' +
+    '&populate=location'
+
+  const [games, tournaments] = await Promise.all([
+    fetchAPI(`/games?pagination[limit]=100&${gamePopulate}&sort[0]=date:asc`),
     fetchAPI(
-      '/games?pagination[limit]=100&populate[0]=home.logo&populate[1]=away.logo&populate=location&populate=winner&sort[0]=date:asc',
+      `/tournaments?pagination[limit]=100&${tournamentPopulate}&sort[0]=date:asc`,
     ),
-    fetchAPI('/calenders?populate[0]=calender&sort[1]=date:desc'),
   ])
 
   return {
     props: {
-      games,
-      calenders,
+      games: games ?? [],
+      tournaments: tournaments ?? [],
     },
     revalidate: 86400,
   }
