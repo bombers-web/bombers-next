@@ -92,12 +92,28 @@ const TournamentNextUp = ({ tournament }) => {
 
   return (
     <VStack spacing={3} py={6} w="full">
+      <Flex w="full" justify="flex-end">
+        <NextLink href="/schedule?tab=sevens" passHref legacyBehavior>
+          <Link
+            color="whiteAlpha.600"
+            fontSize="xs"
+            fontWeight="bold"
+            textTransform="uppercase"
+            letterSpacing="tight"
+            _hover={{ color: 'brand.highlight', textDecoration: 'none' }}
+          >
+            View Sevens Schedule →
+          </Link>
+        </NextLink>
+      </Flex>
+
       <Heading
         size={{ base: 'md', md: 'lg' }}
         color="white"
         textTransform="uppercase"
         letterSpacing="wider"
         textAlign="center"
+        margin={0}
       >
         {tournament?.name}
       </Heading>
@@ -111,42 +127,44 @@ const TournamentNextUp = ({ tournament }) => {
         </Flex>
       )}
 
-      {tournament?.location &&
-        (mapUrl ? (
-          <Link
-            href={mapUrl}
-            isExternal
-            color="yellow.400"
-            fontSize="md"
-            display="flex"
-            alignItems="center"
-            fontWeight="semibold"
-            _hover={{ color: 'yellow.200', textDecoration: 'none' }}
-          >
-            <Icon as={FiMapPin} mr={2} />
-            {tournament.location.name}
-          </Link>
-        ) : (
-          <Flex align="center" gap={2}>
-            <Icon as={FiMapPin} color="yellow.400" />
-            <Text color="white" fontSize="md">
+      {tournament?.location && (
+        <VStack spacing={0}>
+          {mapUrl ? (
+            <Link
+              href={mapUrl}
+              isExternal
+              color="yellow.400"
+              fontSize="md"
+              display="flex"
+              alignItems="center"
+              fontWeight="semibold"
+              _hover={{ color: 'yellow.200', textDecoration: 'none' }}
+            >
+              <Icon as={FiMapPin} mr={2} />
               {tournament.location.name}
+            </Link>
+          ) : (
+            <Flex align="center" gap={2}>
+              <Icon as={FiMapPin} color="yellow.400" />
+              <Text color="white" fontSize="md">
+                {tournament.location.name}
+              </Text>
+            </Flex>
+          )}
+          {tournament.location.city && (
+            <Text
+              color="white"
+              opacity={0.4}
+              fontSize="sm"
+              fontWeight="600"
+              letterSpacing="widest"
+              textTransform="uppercase"
+            >
+              {tournament.location.city}
             </Text>
-          </Flex>
-        ))}
-
-      <NextLink href="/schedule?tab=sevens" passHref legacyBehavior>
-        <Link
-          color="whiteAlpha.600"
-          fontSize="xs"
-          fontWeight="bold"
-          textTransform="uppercase"
-          letterSpacing="tight"
-          _hover={{ color: 'brand.highlight', textDecoration: 'none' }}
-        >
-          View Sevens Schedule →
-        </Link>
-      </NextLink>
+          )}
+        </VStack>
+      )}
     </VStack>
   )
 }
