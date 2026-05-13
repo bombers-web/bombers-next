@@ -8,21 +8,21 @@ import DuesSection from '../src/components/Pay/DuesSection'
 import Sponsorships from '../src/components/Pay/Sponsorships'
 import { fetchAPI } from '../src/lib/api'
 
+const tabMap = {
+  donations: 0,
+  dues: 1,
+  sponsors: 2,
+}
+
+const subtabMap = {
+  player: 0,
+  supporter: 1,
+}
+
 const Pay = (props) => {
   const [sponsors, setSponsors] = useState([])
   const { subscriptions } = props
   const router = useRouter()
-
-  const tabMap = {
-    donations: 0,
-    dues: 1,
-    sponsors: 2,
-  }
-
-  const subtabMap = {
-    player: 0,
-    supporter: 1,
-  }
 
   const [tabIndex, setTabIndex] = useState(0)
   const [subtabIndex, setSubtabIndex] = useState(0)

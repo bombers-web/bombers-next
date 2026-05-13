@@ -4,18 +4,6 @@ import MatchTeams from './MatchTeams'
 import Team from './Team'
 
 /**
- * Parses a city name from an address string.
- * Assumes standard US format: "123 Street Name, City, ST 00000"
- * Returns the second comma-separated segment (the city), trimmed.
- */
-const parseCityFromAddress = (address) => {
-  if (!address) return null
-  const parts = address.split(',')
-  // Index 1 is typically the city in "Street, City, State Zip"
-  return parts.length >= 2 ? parts[1].trim() : null
-}
-
-/**
  * GameCard — unified component for displaying a scheduled game.
  *
  * Props:
@@ -61,8 +49,6 @@ const GameCard = ({
     ? 'green.500'
     : 'red.500'
   const statusLabel = !winner?.id ? 'TIE' : bombersWon ? 'WIN' : 'LOSS'
-
-  const city = parseCityFromAddress(location?.address)
 
   const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
     location?.address,

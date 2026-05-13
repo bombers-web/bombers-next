@@ -7,11 +7,7 @@ import {
   VStack,
   Badge,
 } from '@chakra-ui/react'
-import {
-  FiCalendar,
-  FiChevronDown,
-  FiChevronUp,
-} from 'react-icons/fi'
+import { FiCalendar, FiChevronDown, FiChevronUp } from 'react-icons/fi'
 import LocationWithCopy from '../../common/LocationWithCopy'
 import { useState } from 'react'
 import SevensTournamentGame from './SevensTournamentGame'
@@ -145,7 +141,9 @@ const SevensTournament = ({ tournament, defaultExpanded = false }) => {
                 <LocationWithCopy
                   name={location.name}
                   mapUrl={mapUrl}
-                  copyText={`${location?.name ?? ''} ${location?.address ?? ''}`.trim()}
+                  copyText={`${location?.name ?? ''} ${
+                    location?.address ?? ''
+                  }`.trim()}
                   fontSize="sm"
                   stopPropagation
                 />

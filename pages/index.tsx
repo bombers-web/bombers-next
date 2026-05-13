@@ -57,7 +57,9 @@ const GameNextUp = ({ game, getLongDate }) => {
           <LocationWithCopy
             name={game?.location?.name}
             mapUrl={mapUrl}
-            copyText={`${game?.location?.name ?? ''} ${game?.location?.address ?? ''}`.trim()}
+            copyText={`${game?.location?.name ?? ''} ${
+              game?.location?.address ?? ''
+            }`.trim()}
             color="yellow.400"
           />
         )}
@@ -128,7 +130,9 @@ const TournamentNextUp = ({ tournament }) => {
           <LocationWithCopy
             name={tournament.location.name}
             mapUrl={mapUrl}
-            copyText={`${tournament.location.name ?? ''} ${tournament.location.address ?? ''}`.trim()}
+            copyText={`${tournament.location.name ?? ''} ${
+              tournament.location.address ?? ''
+            }`.trim()}
             color="yellow.400"
           />
           {tournament.location.city && (

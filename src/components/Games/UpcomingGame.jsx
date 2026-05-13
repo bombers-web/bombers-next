@@ -176,7 +176,9 @@ const UpcomingGame = ({ homeTeam, awayTeam, date, location }) => {
           <LocationWithCopy
             name={location?.name}
             mapUrl={mapUrl}
-            copyText={`${location?.name ?? ''} ${location?.address ?? ''}`.trim()}
+            copyText={`${location?.name ?? ''} ${
+              location?.address ?? ''
+            }`.trim()}
           />
         )}
         {location?.city && (

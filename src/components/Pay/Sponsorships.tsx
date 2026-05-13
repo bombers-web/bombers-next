@@ -63,13 +63,14 @@ const SponsorGrid = ({ sponsors }: SponsorGridProps) => {
   )
 }
 
+// "Feature flags" - change them as needed
+const useTiers = false
+const returnEmptyTiers = useTiers && true
+
 const Sponsorships = ({ sponsors }) => {
   const [sponsorList, setSponsorList] = useState<
     SponsorTier[] | FormattedSponsor[]
   >()
-  // "Feature flags" - change them as needed
-  const useTiers = false
-  const returnEmptyTiers = useTiers && true
 
   useEffect(() => {
     setSponsorList(formatSponsors(sponsors, useTiers, returnEmptyTiers))

@@ -7,15 +7,15 @@ import { fetchAPI } from '../../src/lib/api'
 import SevensTabs from './components/SevensTabs'
 import ScheduleTabs from './components/ScheduleTabs'
 
+const tabMap = {
+  d1: 0,
+  d2: 1,
+  sevens: 2,
+}
+
 const Schedule = ({ games, tournaments }) => {
   const { d1, d2 } = groupBy(games, 'division')
   const router = useRouter()
-
-  const tabMap = {
-    d1: 0,
-    d2: 1,
-    sevens: 2,
-  }
 
   const [tabIndex, setTabIndex] = useState(0)
 
