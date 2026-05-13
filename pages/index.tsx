@@ -18,8 +18,7 @@ import { FiCalendar } from 'react-icons/fi'
 import PageContent from '../src/common/PageContent'
 import Hero from '../src/common/Hero'
 import Layout from '../src/common/Layout'
-import { GetInvolved } from '../src/components/HomePage/GetInvolved'
-import { Practice } from '../src/components/Practice/Practice'
+import { ClubIdentity } from '../src/components/HomePage/ClubIdentity'
 import Section from '../src/components/Section'
 import { fetchAPI } from '../src/lib/api'
 import Utils from 'utils/Utils'
@@ -160,8 +159,8 @@ const Home = (props) => {
     d1Upcoming,
     d2Upcoming,
     sevensUpcoming,
-    practices,
     featuredEvents,
+    practice,
   } = props
   const { getLongDate } = new Utils()
 
@@ -238,6 +237,9 @@ const Home = (props) => {
             w="full"
             maxW="container.lg"
           >
+            {/* CLUB IDENTITY STRIP */}
+            <ClubIdentity practice={practice} />
+
             {/* NEXT UP SECTION */}
             <Flex
               flexDirection="column"
@@ -341,14 +343,6 @@ const Home = (props) => {
               </Flex>
             )}
 
-            {/* PRACTICE SECTION */}
-            <Flex>
-              <Practice practices={practices} />
-            </Flex>
-
-            {/* GET INVOLVED SECTION */}
-            <GetInvolved />
-
             {/* NEWSLETTER SECTION */}
             <Flex flexDirection="column" textAlign="center" my="10px">
               <NewsletterSignup />
@@ -371,8 +365,8 @@ export async function getStaticProps() {
     d1Upcoming,
     d2Upcoming,
     homeCta,
-    practices,
     featuredEvents,
+    practices,
   ] = await Promise.all([
     fetchAPI(
       '/contents?populate=*&filters[status][$eq]=published&sort[1]=publishedAt:asc&pagination[limit]=3',
@@ -385,10 +379,10 @@ export async function getStaticProps() {
       `/games?${gamePopulate}&filters[division][$eq]=d2&filters[date][$gte]=${today}&sort=date:asc`,
     ),
     fetchAPI('/home-cta?populate[content][populate]=image'),
-    fetchAPI('/practices?populate=*'),
     fetchAPI(
       `/events?populate=*&filters[active][$eq]=true&filters[featured][$eq]=true&sort=date:asc&pagination[limit]=3`,
     ),
+    fetchAPI('/practices?populate=*'),
   ])
 
   // Fetched separately so a missing or errored sevens collection never breaks the page
@@ -410,8 +404,9 @@ export async function getStaticProps() {
       d2Upcoming,
       sevensUpcoming,
       highlight: homeCta?.content || null,
-      practices: Array.isArray(practices) ? practices : [],
       featuredEvents: Array.isArray(featuredEvents) ? featuredEvents : [],
+      practice:
+        Array.isArray(practices) && practices.length > 0 ? practices[0] : null,
     },
     revalidate: 86400,
   }
