@@ -1,14 +1,5 @@
-import {
-  Box,
-  Center,
-  Divider,
-  Flex,
-  Icon,
-  Link,
-  Text,
-  VStack,
-} from '@chakra-ui/react'
-import { FiMapPin } from 'react-icons/fi'
+import { Box, Center, Divider, Flex, Text, VStack } from '@chakra-ui/react'
+import LocationWithCopy from '../../common/LocationWithCopy'
 import MatchTeams from './MatchTeams'
 import Team from './Team'
 
@@ -104,22 +95,14 @@ const GameCard = ({
                   {location?.city}
                 </Text>
               )}
-              <Link
-                href={mapUrl}
-                isExternal
+              <LocationWithCopy
+                name={location?.name}
+                mapUrl={mapUrl}
+                copyText={`${location?.name ?? ''} ${
+                  location?.address ?? ''
+                }`.trim()}
                 color="yellow.400"
-                fontWeight="semibold"
-                _hover={{ color: 'yellow.200', textDecoration: 'none' }}
-              >
-                <VStack spacing={0} align="center">
-                  <Flex align="center" gap={2}>
-                    <Icon as={FiMapPin} />
-                    <Text fontSize="md" fontWeight="semibold">
-                      {location?.name}
-                    </Text>
-                  </Flex>
-                </VStack>
-              </Link>
+              />
             </Box>
           )}
 
@@ -218,28 +201,18 @@ const GameCard = ({
         <Flex justify="center" w="full">
           {showLocation ? (
             <VStack align="center" spacing={0}>
-              <Flex align="center" gap={{ base: 2, md: 4 }}>
-                <Icon
-                  as={FiMapPin}
-                  color="brand.light"
-                  boxSize={{ base: 5, md: 7 }}
-                />
-                <Link
-                  href={mapUrl}
-                  isExternal
-                  _hover={{ textDecoration: 'none' }}
-                >
-                  <Text
-                    fontSize={{ base: 'lg', md: '2xl' }}
-                    fontWeight="900"
-                    color="brand.light"
-                    textTransform="uppercase"
-                    textAlign="center"
-                  >
-                    {location?.name}
-                  </Text>
-                </Link>
-              </Flex>
+              <LocationWithCopy
+                name={location?.name}
+                mapUrl={mapUrl}
+                copyText={`${location?.name ?? ''} ${
+                  location?.address ?? ''
+                }`.trim()}
+                color="brand.light"
+                fontSize={{ base: 'lg', md: '2xl' }}
+                fontWeight="900"
+                textTransform="uppercase"
+                pinSize={{ base: 5, md: 7 }}
+              />
               {location?.city && (
                 <Text
                   fontSize={{ base: 'xs', md: 'sm' }}

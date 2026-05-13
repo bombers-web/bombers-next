@@ -34,7 +34,7 @@ export default extendTheme({
       dark: '#212121',
       medium: '#404040',
       meta: '#999',
-      lightSecondary: '#d3d3d3',
+      lightSecondary: '#261313',
       light: '#E2E2E2',
       white: '#fff',
       bg: '#f8f8f8',

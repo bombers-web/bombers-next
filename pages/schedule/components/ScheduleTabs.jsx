@@ -4,11 +4,8 @@ import Upcoming from './Upcoming'
 
 const ScheduleTabs = ({ games = [] }) => {
   const now = new Date()
-  console.log(games)
   const upcoming = games?.filter((game) => !game?.finished)
   const results = games?.filter((game) => new Date(game.date) <= now)
-  console.log(upcoming)
-  // console.log(results)
 
   const tabStyle = {
     textTransform: 'uppercase',

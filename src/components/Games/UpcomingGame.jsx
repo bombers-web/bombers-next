@@ -1,6 +1,6 @@
-import { Box, Flex, Icon, Link, Text, VStack } from '@chakra-ui/react'
+import { Box, Flex, Text, VStack } from '@chakra-ui/react'
 import Image from 'next/image'
-import { FiMapPin } from 'react-icons/fi'
+import LocationWithCopy from '../../common/LocationWithCopy'
 
 const UpcomingGame = ({ homeTeam, awayTeam, date, location }) => {
   const d = new Date(date)
@@ -173,20 +173,11 @@ const UpcomingGame = ({ homeTeam, awayTeam, date, location }) => {
           {formattedTime}
         </Text>
         {location && (
-          <Link
-            href={mapUrl}
-            isExternal
-            color="brand.highlight"
-            fontWeight="semibold"
-            _hover={{ color: 'yellow.200', textDecoration: 'none' }}
-          >
-            <Flex align="center" gap={2}>
-              <Icon as={FiMapPin} />
-              <Text fontSize="md" fontWeight="semibold">
-                {location?.name}
-              </Text>
-            </Flex>
-          </Link>
+          <LocationWithCopy
+            name={location?.name}
+            mapUrl={mapUrl}
+            copyText={`${location?.name ?? ''} ${location?.address ?? ''}`.trim()}
+          />
         )}
         {location?.city && (
           <Text

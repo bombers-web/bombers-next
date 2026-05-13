@@ -3,7 +3,6 @@ import {
   Collapse,
   Flex,
   Icon,
-  Link,
   Text,
   VStack,
   Badge,
@@ -12,8 +11,8 @@ import {
   FiCalendar,
   FiChevronDown,
   FiChevronUp,
-  FiMapPin,
 } from 'react-icons/fi'
+import LocationWithCopy from '../../common/LocationWithCopy'
 import { useState } from 'react'
 import SevensTournamentGame from './SevensTournamentGame'
 
@@ -66,9 +65,9 @@ const SevensTournament = ({ tournament, defaultExpanded = false }) => {
     >
       {/* Clickable header */}
       <Box
-        as="button"
         w="full"
         onClick={() => setIsOpen((v) => !v)}
+        cursor="pointer"
         textAlign="left"
         _hover={{ bg: 'whiteAlpha.50' }}
         transition="background 0.15s"
@@ -142,31 +141,15 @@ const SevensTournament = ({ tournament, defaultExpanded = false }) => {
           >
             {/* Left col, row 1: location */}
             <Flex align="center" gap={1} gridColumn="1" gridRow="1">
-              {location &&
-                (mapUrl ? (
-                  <Link
-                    href={mapUrl}
-                    isExternal
-                    color="brand.highlight"
-                    fontSize="sm"
-                    fontWeight="semibold"
-                    display="flex"
-                    alignItems="center"
-                    gap={1}
-                    _hover={{ color: 'yellow.200', textDecoration: 'none' }}
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <Icon as={FiMapPin} boxSize={3} />
-                    {location.name}
-                  </Link>
-                ) : location ? (
-                  <Flex align="center" gap={1}>
-                    <Icon as={FiMapPin} color="brand.highlight" boxSize={3} />
-                    <Text color="brand.highlight" fontSize="sm">
-                      {location.name}
-                    </Text>
-                  </Flex>
-                ) : null)}
+              {location && (
+                <LocationWithCopy
+                  name={location.name}
+                  mapUrl={mapUrl}
+                  copyText={`${location?.name ?? ''} ${location?.address ?? ''}`.trim()}
+                  fontSize="sm"
+                  stopPropagation
+                />
+              )}
             </Flex>
 
             {/* Right col, row 1: date */}

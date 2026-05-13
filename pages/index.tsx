@@ -14,8 +14,8 @@ import {
 import NewsletterSignup from 'common/NewsletterSignup'
 import MatchTeams from 'components/Games/MatchTeams'
 import NextLink from 'next/link'
-import { FiCalendar, FiMapPin } from 'react-icons/fi'
-import PageContent from 'src/common/PageContent'
+import { FiCalendar } from 'react-icons/fi'
+import PageContent from '../src/common/PageContent'
 import Hero from '../src/common/Hero'
 import Layout from '../src/common/Layout'
 import { GetInvolved } from '../src/components/HomePage/GetInvolved'
@@ -23,6 +23,9 @@ import { Practice } from '../src/components/Practice/Practice'
 import Section from '../src/components/Section'
 import { fetchAPI } from '../src/lib/api'
 import Utils from 'utils/Utils'
+import EventCard from '../src/components/Event/EventCard'
+import { EventType } from '../src/types/eventTypes'
+import LocationWithCopy from '../src/common/LocationWithCopy'
 
 const isCancelled = (game) =>
   game?.finished && game?.home_score == null && game?.away_score == null
@@ -51,19 +54,12 @@ const GameNextUp = ({ game, getLongDate }) => {
             CANCELLED
           </Text>
         ) : (
-          <Link
-            href={mapUrl}
-            isExternal
+          <LocationWithCopy
+            name={game?.location?.name}
+            mapUrl={mapUrl}
+            copyText={`${game?.location?.name ?? ''} ${game?.location?.address ?? ''}`.trim()}
             color="yellow.400"
-            fontSize="md"
-            display="flex"
-            alignItems="center"
-            fontWeight="semibold"
-            _hover={{ color: 'yellow.200', textDecoration: 'none' }}
-          >
-            <Icon as={FiMapPin} mr={2} />
-            {game?.location?.name}
-          </Link>
+          />
         )}
       </VStack>
     </VStack>
@@ -129,28 +125,12 @@ const TournamentNextUp = ({ tournament }) => {
 
       {tournament?.location && (
         <VStack spacing={0}>
-          {mapUrl ? (
-            <Link
-              href={mapUrl}
-              isExternal
-              color="yellow.400"
-              fontSize="md"
-              display="flex"
-              alignItems="center"
-              fontWeight="semibold"
-              _hover={{ color: 'yellow.200', textDecoration: 'none' }}
-            >
-              <Icon as={FiMapPin} mr={2} />
-              {tournament.location.name}
-            </Link>
-          ) : (
-            <Flex align="center" gap={2}>
-              <Icon as={FiMapPin} color="yellow.400" />
-              <Text color="white" fontSize="md">
-                {tournament.location.name}
-              </Text>
-            </Flex>
-          )}
+          <LocationWithCopy
+            name={tournament.location.name}
+            mapUrl={mapUrl}
+            copyText={`${tournament.location.name ?? ''} ${tournament.location.address ?? ''}`.trim()}
+            color="yellow.400"
+          />
           {tournament.location.city && (
             <Text
               color="white"
@@ -177,6 +157,7 @@ const Home = (props) => {
     d2Upcoming,
     sevensUpcoming,
     practices,
+    featuredEvents,
   } = props
   const { getLongDate } = new Utils()
 
@@ -311,6 +292,51 @@ const Home = (props) => {
               )}
             </Flex>
 
+            {/* FEATURED EVENTS SECTION */}
+            {featuredEvents?.length > 0 && (
+              <Flex
+                flexDirection="column"
+                bg="brand.medium"
+                p={6}
+                borderRadius="2xl"
+                border="1px solid"
+                w="full"
+                mt={4}
+                gap={4}
+              >
+                <Flex justify="space-between" align="center">
+                  <Heading
+                    size="lg"
+                    color="brand.light"
+                    textTransform="uppercase"
+                    margin={0}
+                  >
+                    Upcoming Events
+                  </Heading>
+                  <NextLink href="/club/events" passHref legacyBehavior>
+                    <Link
+                      color="whiteAlpha.600"
+                      fontSize="xs"
+                      fontWeight="bold"
+                      textTransform="uppercase"
+                      letterSpacing="tight"
+                      _hover={{
+                        color: 'brand.highlight',
+                        textDecoration: 'none',
+                      }}
+                    >
+                      View All →
+                    </Link>
+                  </NextLink>
+                </Flex>
+                <VStack spacing={4} align="stretch">
+                  {featuredEvents.map((event: EventType) => (
+                    <EventCard key={event.id} event={event} />
+                  ))}
+                </VStack>
+              </Flex>
+            )}
+
             {/* PRACTICE SECTION */}
             <Flex>
               <Practice practices={practices} />
@@ -335,21 +361,31 @@ export async function getStaticProps() {
   const gamePopulate =
     'populate[home][populate]=logo&populate[away][populate]=logo&populate=location'
 
-  const [content, homepage, d1Upcoming, d2Upcoming, homeCta, practices] =
-    await Promise.all([
-      fetchAPI(
-        '/contents?populate=*&filters[status][$eq]=published&sort[1]=publishedAt:asc&pagination[limit]=3',
-      ),
-      fetchAPI('/homepage?populate=*'),
-      fetchAPI(
-        `/games?${gamePopulate}&filters[division][$eq]=d1&filters[date][$gte]=${today}&sort=date:asc`,
-      ),
-      fetchAPI(
-        `/games?${gamePopulate}&filters[division][$eq]=d2&filters[date][$gte]=${today}&sort=date:asc`,
-      ),
-      fetchAPI('/home-cta?populate[content][populate]=image'),
-      fetchAPI('/practices?populate=*'),
-    ])
+  const [
+    content,
+    homepage,
+    d1Upcoming,
+    d2Upcoming,
+    homeCta,
+    practices,
+    featuredEvents,
+  ] = await Promise.all([
+    fetchAPI(
+      '/contents?populate=*&filters[status][$eq]=published&sort[1]=publishedAt:asc&pagination[limit]=3',
+    ),
+    fetchAPI('/homepage?populate=*'),
+    fetchAPI(
+      `/games?${gamePopulate}&filters[division][$eq]=d1&filters[date][$gte]=${today}&sort=date:asc`,
+    ),
+    fetchAPI(
+      `/games?${gamePopulate}&filters[division][$eq]=d2&filters[date][$gte]=${today}&sort=date:asc`,
+    ),
+    fetchAPI('/home-cta?populate[content][populate]=image'),
+    fetchAPI('/practices?populate=*'),
+    fetchAPI(
+      `/events?populate=*&filters[active][$eq]=true&filters[featured][$eq]=true&sort=date:asc&pagination[limit]=3`,
+    ),
+  ])
 
   // Fetched separately so a missing or errored sevens collection never breaks the page
   let sevensUpcoming = []
@@ -371,6 +407,7 @@ export async function getStaticProps() {
       sevensUpcoming,
       highlight: homeCta?.content || null,
       practices: Array.isArray(practices) ? practices : [],
+      featuredEvents: Array.isArray(featuredEvents) ? featuredEvents : [],
     },
     revalidate: 86400,
   }

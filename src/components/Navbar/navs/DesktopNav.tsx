@@ -58,7 +58,11 @@ const DesktopNav = ({ homePage }: DesktopNavProps) => {
   return (
     <Flex
       id="desktop-nav-container"
-      bg={homePage ? 'linear-gradient(rgba(33,33,33,0.75), transparent)' : 'brand.dark'}
+      bg={
+        homePage
+          ? 'linear-gradient(rgba(33,33,33,0.75), transparent)'
+          : 'brand.dark'
+      }
       minH="100px"
       minW="100vw"
       display={['none', 'none', 'flex', 'flex']}

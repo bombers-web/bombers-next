@@ -1,20 +1,17 @@
-import {
-  Box,
-  Container,
-  Divider,
-  Heading,
-  SimpleGrid,
-  Text,
-  VStack,
-} from '@chakra-ui/react'
-import SectionHeader from 'common/SectionHeader'
+import { Box, Divider, Text, VStack } from '@chakra-ui/react'
 import Layout from '../../../src/common/Layout'
 import EventCard from '../../../src/components/Event/EventCard'
 import { fetchAPI } from '../../../src/lib/api'
+import { EventType } from '../../../src/types/eventTypes'
 
-const EventsPage = ({ events }) => {
+const EventsPage = ({ events }: { events: EventType[] }) => {
   const upcomingEvents = events?.filter((e) => e.active) || []
-  const pastEvents = events?.filter((e) => !e.active) || []
+  const featuredEvents = upcomingEvents.filter((e) => e.featured)
+  const regularEvents = upcomingEvents.filter((e) => !e.featured)
+  const sixMonthsAgo = new Date()
+  sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6)
+  const pastEvents =
+    events?.filter((e) => !e.active && new Date(e.date) >= sixMonthsAgo) || []
 
   return (
     <Layout
@@ -25,64 +22,74 @@ const EventsPage = ({ events }) => {
           'Stay up to date with the latest Bombers matches, fundraisers, and social events.',
       }}
     >
-      <Container maxW="container.md" py={12} mx="auto">
-        {/* UPCOMING EVENTS SECTION */}
-        {/* Changed align to center */}
-        <VStack align="center" spacing={8} mb={20} w="full">
-          <Box textAlign="center">
-            <SectionHeader title="Upcoming Events" />
-            <Text color="gray.500">
-              Don't miss out on the next club social or match day fundraiser.
-            </Text>
-          </Box>
-
-          <VStack w="full" spacing={6}>
-            {upcomingEvents.length > 0 ? (
-              upcomingEvents.map((event) => (
-                <EventCard key={event.id} event={event} />
-              ))
-            ) : (
-              <Box
-                p={10}
-                textAlign="center"
-                w="full"
-                bg="gray.50"
-                borderRadius="xl"
-              >
-                <Text color="gray.400">
-                  No upcoming events scheduled. Check back soon!
-                </Text>
-              </Box>
-            )}
-          </VStack>
-        </VStack>
-
-        {/* PAST EVENTS / ARCHIVE */}
-        {pastEvents.length > 0 && (
-          <VStack align="center" spacing={8} w="full">
-            <Divider />
-            <Box textAlign="center">
-              <Heading as="h2" size="lg">
-                Past Events
-              </Heading>
-              <Text color="gray.500" fontSize="sm">
-                A look back at our recent gatherings.
-              </Text>
-            </Box>
-
-            <SimpleGrid columns={[1, 1, 2]} spacing={6} w="full">
-              {pastEvents.map((event) => (
+      <Box maxW="780px" mx="auto" mt={6} mb={12} px={4}>
+        {/* UPCOMING */}
+        <Text
+          textAlign="center"
+          textTransform="uppercase"
+          letterSpacing="widest"
+          fontWeight="800"
+          fontSize="xl"
+          color="brand.medium"
+          mb={6}
+        >
+          Upcoming Events
+        </Text>
+        <VStack spacing={6} align="stretch" mb={12}>
+          {upcomingEvents.length > 0 ? (
+            <>
+              {featuredEvents.map((event) => (
                 <EventCard key={event.id} event={event} />
               ))}
-            </SimpleGrid>
+              {regularEvents.map((event) => (
+                <EventCard key={event.id} event={event} />
+              ))}
+            </>
+          ) : (
+            <Box
+              bg="blackAlpha.400"
+              borderRadius="2xl"
+              p={10}
+              textAlign="center"
+            >
+              <Text
+                color="whiteAlpha.400"
+                fontSize="sm"
+                textTransform="uppercase"
+                letterSpacing="widest"
+              >
+                No upcoming events scheduled. Check back soon!
+              </Text>
+            </Box>
+          )}
+        </VStack>
+
+        {/* PAST EVENTS */}
+        {pastEvents.length > 0 && (
+          <VStack spacing={4} align="stretch">
+            <Divider borderColor="brand.medium" opacity={0.3} mt={6} />
+            <Text
+              textAlign="center"
+              textTransform="uppercase"
+              letterSpacing="widest"
+              fontWeight="800"
+              fontSize="xl"
+              color="brand.meta"
+            >
+              Past Events
+            </Text>
+            {pastEvents.map((event) => (
+              <EventCard key={event.id} event={event} isPast />
+            ))}
           </VStack>
         )}
-      </Container>
+      </Box>
     </Layout>
   )
 }
+
 export async function getStaticProps() {
-  const events = await fetchAPI('/events')
+  const events = await fetchAPI('/events?populate=*')
 
   return {
     props: { events },
