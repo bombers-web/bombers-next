@@ -1,0 +1,262 @@
+﻿import React from 'react'
+import Image from 'next/image'
+import { Box, Button, Flex, Grid, GridItem, Text } from '@chakra-ui/react'
+import Layout from '../src/common/Layout'
+
+const SIGNUP_URL = 'https://forms.gle/REPLACE-ME'
+
+const STATS: [string, string][] = [
+  ['3', 'pitches'],
+  ['3', 'divisions'],
+  ['$500', 'per side'],
+]
+
+function Bombers7sLogo({
+  size = 50,
+  style,
+}: {
+  size?: number
+  style?: React.CSSProperties
+}) {
+  return (
+    <Image
+      src="/static/logos/Bombers7s-black.png"
+      alt="Bombers 7s"
+      width={size}
+      height={size}
+      style={{ objectFit: 'contain', ...style }}
+    />
+  )
+}
+
+function Photo({
+  h = 220,
+  patternId,
+  src,
+}: {
+  h?: number
+  patternId: string
+  src?: string
+}) {
+  const c = 'var(--chakra-colors-brand-medium)'
+  return (
+    <Box
+      w="full"
+      h={`${h}px`}
+      position="relative"
+      border="1.5px solid"
+      borderColor="brand.medium"
+      bg="brand.light"
+    >
+      <svg
+        width="100%"
+        height="100%"
+        style={{ position: 'absolute', inset: 0 }}
+        aria-hidden="true"
+      >
+        <defs>
+          <pattern
+            id={patternId}
+            width="10"
+            height="10"
+            patternUnits="userSpaceOnUse"
+            patternTransform="rotate(-30)"
+          >
+            <line
+              x1="0"
+              y1="0"
+              x2="0"
+              y2="10"
+              stroke={c}
+              strokeWidth="1"
+              opacity="0.28"
+            />
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill={`url(#${patternId})`} />
+      </svg>
+      {src && <Image src={src} alt="" fill style={{ objectFit: 'cover' }} />}
+    </Box>
+  )
+}
+
+export async function getStaticProps() {
+  return { props: {}, revalidate: 86400 }
+}
+
+export default function Gateway7s() {
+  return (
+    <Layout
+      seo={{
+        metaTitle: 'Gateway 7s · St. Louis Bombers Rugby',
+        metaDescription:
+          "Gateway 7s — St. Louis Bombers' flagship summer rugby sevens tournament. July 11, 2026, Forest Park.",
+      }}
+      mainBg="brand.light"
+    >
+      <Box color="brand.dark">
+        {/* Hero */}
+        <Box maxW="880px" mx="auto" px={10} pt={20} pb={16} textAlign="center">
+          <Text
+            fontSize="sm"
+            letterSpacing="0.4em"
+            color="brand.meta"
+            textTransform="uppercase"
+          >
+            JULY 11 · FOREST PARK
+          </Text>
+          <Text
+            fontFamily="'Big Shoulders Display', sans-serif"
+            sx={{ fontSize: 'clamp(80px, 14vw, 160px)' }}
+            lineHeight={0.9}
+            mt={5}
+            mb={2}
+            letterSpacing="-0.01em"
+            color="brand.dark"
+          >
+            Gateway 7s
+          </Text>
+          <Text fontSize="lg" color="brand.medium" fontStyle="italic">
+            One day. One champion.
+          </Text>
+          <Box mt={8}>
+            <Button
+              as="a"
+              href={SIGNUP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              variant="solid"
+              size="md"
+            >
+              Register your side
+            </Button>
+          </Box>
+        </Box>
+
+        {/* Single wide photo */}
+        <Box maxW="1080px" mx="auto" px={10}>
+          <Box
+            position="relative"
+            h="420px"
+            w="full"
+            overflow="hidden"
+            border="1px solid black"
+          >
+            <Image
+              src="/static/DSC_0008.JPG"
+              alt="Gateway 7s action"
+              fill
+              style={{ objectFit: 'cover' }}
+            />
+          </Box>
+        </Box>
+
+        {/* Description */}
+        <Box maxW="640px" mx="auto" px={10} py={20} textAlign="center">
+          <Bombers7sLogo
+            size={80}
+            style={{ display: 'block', margin: '0 auto 18px' }}
+          />
+          <Text fontSize="xl" color="brand.medium" lineHeight={1.7}>
+            The Bombers&apos; flagship summer tournament, on three pitches in
+            the heart of Forest Park. Three divisions — Men&apos;s Qualifier,
+            Women&apos;s Qualifier, and Men&apos;s Competitive.
+          </Text>
+        </Box>
+
+        {/* Stats strip */}
+        <Box maxW="880px" mx="auto" px={10} pb={20}>
+          <Grid
+            templateColumns="repeat(3, 1fr)"
+            borderTop="1px solid"
+            borderBottom="1px solid"
+            borderColor="brand.medium"
+          >
+            {STATS.map(([n, l], i) => (
+              <GridItem
+                key={l}
+                py={6}
+                px={3}
+                textAlign="center"
+                borderLeft={i === 0 ? 'none' : '1px dashed'}
+                borderColor="brand.meta"
+              >
+                <Text
+                  fontFamily="'Big Shoulders Display', sans-serif"
+                  fontSize="4xl"
+                  lineHeight={1}
+                  color="brand.highlight"
+                  sx={{
+                    WebkitTextStroke: '1px var(--chakra-colors-brand-medium)',
+                  }}
+                >
+                  {n}
+                </Text>
+                <Text
+                  fontSize="xs"
+                  letterSpacing="0.25em"
+                  color="brand.medium"
+                  mt={1.5}
+                  textTransform="uppercase"
+                >
+                  {l}
+                </Text>
+              </GridItem>
+            ))}
+          </Grid>
+        </Box>
+
+        {/* Two photos */}
+        <Box maxW="1080px" mx="auto" px={10}>
+          <Grid templateColumns="1fr 1fr" gap={4}>
+            <Photo h={300} patternId="hatch-left" src="/static/DSC_0178.JPG" />
+            <Photo h={300} patternId="hatch-right" src="/static/DSC_0040.JPG" />
+          </Grid>
+        </Box>
+
+        {/* Sign up */}
+        <Box maxW="640px" mx="auto" px={10} pt={20} pb={24} textAlign="center">
+          <Text
+            fontSize="xs"
+            letterSpacing="0.4em"
+            color="brand.meta"
+            textTransform="uppercase"
+          >
+            REGISTRATION
+          </Text>
+          <Text
+            fontFamily="'Big Shoulders Display', sans-serif"
+            fontSize="5xl"
+            lineHeight={1}
+            mt={2}
+            color="brand.dark"
+          >
+            Bring a side.
+          </Text>
+          <Text fontSize="md" color="brand.medium" mt={3.5} lineHeight={1.6}>
+            $500 per team. Registration closes{' '}
+            <Box as="b" color="brand.dark">
+              July 5
+            </Box>{' '}
+            or when we hit 16 teams.
+          </Text>
+          <Flex mt={7} gap={3} justify="center" flexWrap="wrap">
+            <Button
+              as="a"
+              href={SIGNUP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              variant="solid"
+              size="md"
+            >
+              Sign up →
+            </Button>
+            <Button as="a" href="/contact" variant="solid" size="md">
+              Contact Us
+            </Button>
+          </Flex>
+        </Box>
+      </Box>
+    </Layout>
+  )
+}
