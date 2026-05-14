@@ -101,6 +101,11 @@ function useNav(type?: undefined | String | Array<string>): DefaultNavs {
       ],
     },
     {
+      name: 'Gateway 7s',
+      id: 'gateway-7s',
+      slug: '/gateway-7s',
+    },
+    {
       name: 'Contact',
       id: 'contact',
       slug: '/contact',

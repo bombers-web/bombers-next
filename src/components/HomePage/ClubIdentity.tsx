@@ -100,7 +100,7 @@ export const ClubIdentity = ({ practice }: Props) => {
             textAlign="center"
           >
             <Heading
-              size="sm"
+              size="md"
               color="brand.light"
               textTransform="uppercase"
               letterSpacing="wider"
@@ -110,7 +110,7 @@ export const ClubIdentity = ({ practice }: Props) => {
             </Heading>
             <Text
               color="whiteAlpha.600"
-              fontSize="xs"
+              fontSize="sm"
               lineHeight="tall"
               flex={1}
             >
@@ -147,7 +147,7 @@ export const ClubIdentity = ({ practice }: Props) => {
                 border="1px solid"
                 borderColor="brand.highlight"
                 color="brand.highlight"
-                fontSize="xs"
+                fontSize="md"
                 fontWeight="bold"
                 textTransform="uppercase"
                 letterSpacing="wide"

@@ -3,7 +3,8 @@ import Image from 'next/image'
 import { Box, Button, Flex, Grid, GridItem, Text } from '@chakra-ui/react'
 import Layout from '../src/common/Layout'
 
-const SIGNUP_URL = 'https://forms.gle/REPLACE-ME'
+const SIGNUP_URL =
+  'https://l.facebook.com/l.php?u=https%3A%2F%2Fdocs.google.com%2Fforms%2Fd%2F1MCJCytB8SsPTHCqUr6LqPOCpobKH0pZfbi368i0isyU%2Fviewform%3Fedit_requested%3Dtrue&h=AUATtcH_2vm7187C4UDfhW4D4gQx85vH2hqJgcFeQ20y_eLikytiR7ywD5_3PIDP9XtlU4Fqh6quj2E4PDmTR0rOe3G6_MEBlbfLCObWLUe6dRwX-QLjNl0R6nFvFDe0Ykk'
 
 const STATS: [string, string][] = [
   ['3', 'pitches'],
@@ -222,7 +223,7 @@ export default function Gateway7s() {
             color="brand.meta"
             textTransform="uppercase"
           >
-            REGISTRATION
+            Official Midwest Qualifier
           </Text>
           <Text
             fontFamily="'Big Shoulders Display', sans-serif"
@@ -231,14 +232,10 @@ export default function Gateway7s() {
             mt={2}
             color="brand.dark"
           >
-            Bring a side.
+            Gateway 7s
           </Text>
           <Text fontSize="md" color="brand.medium" mt={3.5} lineHeight={1.6}>
-            $500 per team. Registration closes{' '}
-            <Box as="b" color="brand.dark">
-              July 5
-            </Box>{' '}
-            or when we hit 16 teams.
+            $500 per team. Sign up today!
           </Text>
           <Flex mt={7} gap={3} justify="center" flexWrap="wrap">
             <Button
