@@ -36,7 +36,7 @@ const Team = ({ team: { name, score, logo, ...teamData }, away, preview }) => {
               my={0}
               mx={2}
               size={preview ? 'lg' : 'xl'}
-              fontFamily="Big Shoulders Display"
+              fontFamily="display"
               color={preview ? 'white' : 'inherit'}
             >
               {name}
@@ -51,7 +51,7 @@ const Team = ({ team: { name, score, logo, ...teamData }, away, preview }) => {
             my={0}
             mx={2}
             fontSize="2xl"
-            fontFamily="Big Shoulders Display"
+            fontFamily="display"
             textTransform="capitalize"
             // bgColor={preview ? "#e2e2e2" : "none"}
             p={2}

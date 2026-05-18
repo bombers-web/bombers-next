@@ -36,7 +36,7 @@ export const RecruitBand = () => {
           <Heading
             size={{ base: '2xl', md: '3xl' }}
             color="brand.light"
-            fontFamily="'Big Shoulders Display', sans-serif"
+            fontFamily="display"
             lineHeight={1}
             fontWeight="black"
           >

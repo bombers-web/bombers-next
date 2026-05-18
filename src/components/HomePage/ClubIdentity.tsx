@@ -1,6 +1,5 @@
-import { Box, Grid, GridItem, Heading, Text } from '@chakra-ui/react'
-import { useRouter } from 'next/router'
-import LocationWithCopy from 'common/LocationWithCopy'
+import { Box, Grid, Link, Text } from '@chakra-ui/react'
+import NextLink from 'next/link'
 
 type Practice = {
   start_time?: string
@@ -24,8 +23,6 @@ const formatTime = (timeString?: string) => {
 }
 
 export const ClubIdentity = ({ practice }: Props) => {
-  const router = useRouter()
-
   const practiceTime = practice?.start_time
     ? `Tue & Thu · ${formatTime(practice.start_time)}`
     : 'Tue & Thu · 6:30 PM'
@@ -36,131 +33,129 @@ export const ClubIdentity = ({ practice }: Props) => {
       )}`
     : 'https://www.google.com/maps/search/?api=1&query=Emerson+Field+Forest+Park+St+Louis+MO'
 
-  const practiceLocationName = practice?.location?.name ?? 'Emerson Field'
-  const practiceLocationCity = practice?.location?.city ?? 'Forest Park'
-
-  const links = [
-    {
-      title: 'Join the Squad',
-      body: 'New to rugby or returning? We welcome all skill levels.',
-      href: '/contact',
-      cta: 'Contact Us →',
-    },
-    {
-      title: 'Donate & Sponsor',
-      body: 'Support the Bombers through donations or a corporate sponsorship.',
-      href: '/pay',
-      cta: 'Support the Club →',
-    },
-    {
-      title: 'Practice Schedule',
-      body: practiceTime,
-      href: '/team/practice',
-      cta: '',
-      address: {
-        name: practiceLocationName,
-        city: practiceLocationCity,
-        url: practiceMapUrl,
-      },
-    },
-  ]
+  const practiceLocationName =
+    practice?.location?.name ?? 'Emerson Central Fields'
+  const practiceLocationCity = practice?.location?.city ?? 'St. Louis, Missouri'
 
   return (
-    <Box
-      bg="brand.medium"
-      borderRadius="2xl"
-      overflow="hidden"
-      boxShadow="xl"
+    <Grid
+      templateColumns={{ base: '1fr', md: 'repeat(2, 1fr)' }}
+      gap={5}
+      maxW="880px"
+      mx="auto"
       w="full"
       my={4}
     >
-      {/* Link boxes */}
-      <Grid
-        templateColumns={{ base: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' }}
-        gap={0}
+      {/* Donate & Sponsor */}
+      <Box
+        bg="brand.medium"
+        color="white"
+        p={{ base: 7, md: 8 }}
+        display="flex"
+        flexDirection="column"
+        borderTop="3px solid"
+        borderColor="brand.highlight"
+        borderRadius="sm"
       >
-        {links.map((link, i) => (
-          <GridItem
-            key={link.href}
-            gridColumn={{ base: i === 0 ? '1 / -1' : 'auto', md: 'auto' }}
-            p={{ base: 4, md: 6 }}
-            borderLeft={
-              i === 1
-                ? { md: '1px solid' }
-                : i === 2
-                ? { base: '1px solid', md: '1px solid' }
-                : undefined
-            }
-            borderTop={i === 0 ? undefined : { base: '1px solid', md: 'none' }}
-            borderColor="whiteAlpha.100"
-            display="flex"
-            flexDirection="column"
+        <Text
+          fontFamily="display"
+          fontWeight="bold"
+          fontSize="lg"
+          letterSpacing="widest"
+          textTransform="uppercase"
+          color="white"
+        >
+          Donate &amp; Sponsor
+        </Text>
+        <Text
+          fontFamily="body"
+          fontSize="sm"
+          color="whiteAlpha.600"
+          mt={3}
+          lineHeight="tall"
+          flex={1}
+        >
+          Support the Bombers through donations or a corporate sponsorship.
+        </Text>
+        <NextLink href="/pay" passHref legacyBehavior>
+          <Link
+            fontFamily="display"
+            fontWeight="bold"
+            fontSize="sm"
+            letterSpacing="widest"
+            textTransform="uppercase"
+            color="brand.highlight"
+            mt={5}
+            display="inline-flex"
             alignItems="center"
             gap={2}
-            textAlign="center"
+            textDecoration="none"
+            _hover={{ textDecoration: 'none', opacity: 0.8 }}
           >
-            <Heading
-              size="md"
-              color="brand.light"
-              textTransform="uppercase"
-              letterSpacing="wider"
-              margin={0}
-            >
-              {link.title}
-            </Heading>
-            <Text
-              color="whiteAlpha.600"
-              fontSize="sm"
-              lineHeight="tall"
-              flex={1}
-            >
-              {link.body}
-            </Text>
-            {'address' in link && link.address && (
-              <>
-                <LocationWithCopy
-                  name={link.address.name}
-                  mapUrl={link.address.url}
-                  copyText={link.address.name}
-                />
-                <Text
-                  color="white"
-                  opacity={0.4}
-                  fontSize="xs"
-                  fontWeight="600"
-                  letterSpacing="widest"
-                  textTransform="uppercase"
-                  margin={0}
-                >
-                  {link.address.city}
-                </Text>
-              </>
-            )}
-            {link.cta && (
-              <Box
-                as="button"
-                onClick={() => router.push(link.href)}
-                mt={2}
-                px={4}
-                py={2}
-                bg="transparent"
-                border="1px solid"
-                borderColor="brand.highlight"
-                color="brand.highlight"
-                fontSize="md"
-                fontWeight="bold"
-                textTransform="uppercase"
-                letterSpacing="wide"
-                borderRadius="md"
-                transition="all 0.15s"
-                _hover={{ bg: 'brand.highlight', color: 'brand.dark' }}
-              >
-                {link.cta}
-              </Box>
-            )}
-          </GridItem>
-        ))}
-      </Grid>
-    </Box>
+            Support the Club →
+          </Link>
+        </NextLink>
+      </Box>
+
+      {/* Practice Schedule */}
+      <Box
+        bg="brand.medium"
+        color="white"
+        p={{ base: 7, md: 8 }}
+        display="flex"
+        flexDirection="column"
+        borderTop="3px solid"
+        borderColor="brand.highlight"
+        borderRadius="sm"
+      >
+        <Text
+          fontFamily="display"
+          fontWeight="bold"
+          fontSize="lg"
+          letterSpacing="widest"
+          textTransform="uppercase"
+          color="white"
+        >
+          Practice Schedule
+        </Text>
+        <Text
+          fontFamily="body"
+          fontSize="sm"
+          color="whiteAlpha.600"
+          mt={3}
+          lineHeight="tall"
+          flex={1}
+        >
+          {practiceTime}
+        </Text>
+        <Link
+          href={practiceMapUrl}
+          isExternal
+          fontFamily="display"
+          fontWeight="bold"
+          fontSize="sm"
+          letterSpacing="widest"
+          textTransform="uppercase"
+          color="brand.highlight"
+          mt={5}
+          display="inline-flex"
+          alignItems="center"
+          gap={2}
+          textDecoration="none"
+          _hover={{ textDecoration: 'none', opacity: 0.8 }}
+        >
+          {practiceLocationName} →
+        </Link>
+        <Text
+          fontFamily="body"
+          fontSize="xs"
+          color="whiteAlpha.400"
+          mt={2}
+          letterSpacing="wide"
+        >
+          {practiceLocationCity}
+        </Text>
+      </Box>
+    </Grid>
   )
 }

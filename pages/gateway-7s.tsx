@@ -107,7 +107,7 @@ export default function Gateway7s() {
             JULY 11 · FOREST PARK
           </Text>
           <Text
-            fontFamily="'Big Shoulders Display', sans-serif"
+            fontFamily="display"
             sx={{ fontSize: 'clamp(80px, 14vw, 160px)' }}
             lineHeight={0.9}
             mt={5}
@@ -183,7 +183,7 @@ export default function Gateway7s() {
                 borderColor="brand.meta"
               >
                 <Text
-                  fontFamily="'Big Shoulders Display', sans-serif"
+                  fontFamily="display"
                   fontSize="4xl"
                   lineHeight={1}
                   color="brand.highlight"
@@ -226,7 +226,7 @@ export default function Gateway7s() {
             Official Midwest Qualifier
           </Text>
           <Text
-            fontFamily="'Big Shoulders Display', sans-serif"
+            fontFamily="display"
             fontSize="5xl"
             lineHeight={1}
             mt={2}

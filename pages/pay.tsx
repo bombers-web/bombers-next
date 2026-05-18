@@ -94,7 +94,7 @@ const Pay = (props) => {
       }}
     >
       <Tabs
-        fontFamily="Montserrat"
+        fontFamily="body"
         textTransform="uppercase"
         align="center"
         variant="line"

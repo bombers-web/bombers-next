@@ -27,7 +27,7 @@ const Link = ({
       <Button
         variant={variant}
         color="brand.black"
-        fontFamily="Montserrat"
+        fontFamily="body"
         textTransform="uppercase"
         fontWeight="bold"
         fontSize="sm"

@@ -208,7 +208,7 @@ const Results = ({ results }) => {
                         fontWeight="black"
                         color={stat.color}
                         lineHeight="1"
-                        fontFamily="Big Shoulders Display"
+                        fontFamily="display"
                       >
                         {stat.value}
                       </Text>

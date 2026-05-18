@@ -20,7 +20,7 @@ const LoginButton = () => {
         <MenuList>
           <MenuItem
             color="brand.black"
-            fontFamily="Montserrat"
+            fontFamily="body"
             textTransform="uppercase"
             fontWeight="bold"
             fontSize="sm"
@@ -34,7 +34,7 @@ const LoginButton = () => {
           </MenuItem>
           <MenuItem
             color="brand.black"
-            fontFamily="Montserrat"
+            fontFamily="body"
             textTransform="uppercase"
             fontWeight="bold"
             fontSize="sm"

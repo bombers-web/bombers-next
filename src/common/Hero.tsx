@@ -102,7 +102,7 @@ const Hero = ({
                 lineHeight={1}
                 fontSize="10vh"
                 casing="uppercase"
-                fontFamily="Big Shoulders Display"
+                fontFamily="display"
                 color="brand.light"
                 align={textAlign}
               >
@@ -117,7 +117,7 @@ const Hero = ({
                 lineHeight={1}
                 fontSize="10vh"
                 casing="uppercase"
-                fontFamily="Big Shoulders Display"
+                fontFamily="display"
                 color="white"
                 align={textAlign}
               >

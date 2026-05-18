@@ -1,156 +1,17 @@
-import {
-  Flex,
-  Heading,
-  Icon,
-  Link,
-  Tab,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tabs,
-  Text,
-  VStack,
-} from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react'
 import NewsletterSignup from 'common/NewsletterSignup'
-import MatchTeams from 'components/Games/MatchTeams'
-import NextLink from 'next/link'
-import { FiCalendar } from 'react-icons/fi'
-import PageContent from '../src/common/PageContent'
-import Hero from '../src/common/Hero'
+import HomeHero from '../src/components/HomePage/HomeHero'
 import Layout from '../src/common/Layout'
-import { ClubIdentity } from '../src/components/HomePage/ClubIdentity'
-import Section from '../src/components/Section'
 import { fetchAPI } from '../src/lib/api'
-import Utils from 'utils/Utils'
-import EventCard from '../src/components/Event/EventCard'
-import { EventType } from '../src/types/eventTypes'
-import LocationWithCopy from '../src/common/LocationWithCopy'
+import StorySection from '../src/components/HomePage/StorySection'
+import NextUpSection, {
+  NextUpEntry,
+} from '../src/components/HomePage/NextUpSection'
+import NewsSection from '../src/components/HomePage/NewsSection'
+import HomeEventsSection from '../src/components/HomePage/HomeEventsSection'
 
 const isCancelled = (game) =>
   game?.finished && game?.home_score == null && game?.away_score == null
-
-const GameNextUp = ({ game, getLongDate }) => {
-  const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-    `${game?.location?.name ?? ''} ${game?.location?.address ?? ''}`.trim(),
-  )}`
-
-  return (
-    <VStack spacing={4} py={6} w="full">
-      <MatchTeams match={game} />
-
-      <VStack spacing={1}>
-        <Text color="white" fontWeight="bold" fontSize="lg">
-          {getLongDate(game?.date)[0]} @ {getLongDate(game?.date)[1]}
-        </Text>
-
-        {isCancelled(game) ? (
-          <Text
-            color="red.400"
-            fontSize="2xl"
-            fontWeight="bold"
-            letterSpacing="2px"
-          >
-            CANCELLED
-          </Text>
-        ) : (
-          <LocationWithCopy
-            name={game?.location?.name}
-            mapUrl={mapUrl}
-            copyText={`${game?.location?.name ?? ''} ${
-              game?.location?.address ?? ''
-            }`.trim()}
-            color="yellow.400"
-          />
-        )}
-      </VStack>
-    </VStack>
-  )
-}
-
-const TournamentNextUp = ({ tournament }) => {
-  const dateLabel = tournament?.date
-    ? new Date(tournament.date).toLocaleDateString('en-US', {
-        weekday: 'long',
-        month: 'long',
-        day: 'numeric',
-        year: 'numeric',
-        timeZone: 'UTC',
-      })
-    : null
-
-  const mapUrl =
-    tournament?.location?.address || tournament?.location?.name
-      ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-          `${tournament.location.name ?? ''} ${
-            tournament.location.address ?? ''
-          }`.trim(),
-        )}`
-      : null
-
-  return (
-    <VStack spacing={3} py={6} w="full">
-      <Flex w="full" justify="flex-end">
-        <NextLink href="/schedule?tab=sevens" passHref legacyBehavior>
-          <Link
-            color="whiteAlpha.600"
-            fontSize="xs"
-            fontWeight="bold"
-            textTransform="uppercase"
-            letterSpacing="tight"
-            _hover={{ color: 'brand.highlight', textDecoration: 'none' }}
-          >
-            View Sevens Schedule →
-          </Link>
-        </NextLink>
-      </Flex>
-
-      <Heading
-        size={{ base: 'md', md: 'lg' }}
-        color="white"
-        textTransform="uppercase"
-        letterSpacing="wider"
-        textAlign="center"
-        margin={0}
-      >
-        {tournament?.name}
-      </Heading>
-
-      {dateLabel && (
-        <Flex align="center" gap={2}>
-          <Icon as={FiCalendar} color="yellow.400" />
-          <Text color="white" fontWeight="semibold" fontSize="md">
-            {dateLabel}
-          </Text>
-        </Flex>
-      )}
-
-      {tournament?.location && (
-        <VStack spacing={0}>
-          <LocationWithCopy
-            name={tournament.location.name}
-            mapUrl={mapUrl}
-            copyText={`${tournament.location.name ?? ''} ${
-              tournament.location.address ?? ''
-            }`.trim()}
-            color="yellow.400"
-          />
-          {tournament.location.city && (
-            <Text
-              color="white"
-              opacity={0.4}
-              fontSize="sm"
-              fontWeight="600"
-              letterSpacing="widest"
-              textTransform="uppercase"
-            >
-              {tournament.location.city}
-            </Text>
-          )}
-        </VStack>
-      )}
-    </VStack>
-  )
-}
 
 const Home = (props) => {
   const {
@@ -160,196 +21,68 @@ const Home = (props) => {
     d2Upcoming,
     sevensUpcoming,
     featuredEvents,
-    practice,
+    recentGames,
+    content,
   } = props
-  const { getLongDate } = new Utils()
 
   const d1Games = d1Upcoming?.filter((g) => !g.finished || isCancelled(g)) ?? []
   const d2Games = d2Upcoming?.filter((g) => !g.finished || isCancelled(g)) ?? []
   const sevensGames = sevensUpcoming?.filter((t) => !t.finished) ?? []
 
-  const tabEntries: Array<{
-    key: string
-    label: string
-    date: Date
-    type: 'game' | 'tournament'
-    data: any
-  }> = []
+  const tabEntries: NextUpEntry[] = []
 
-  if (d1Games.length > 0) {
+  d1Games.slice(0, 2).forEach((g) => {
     tabEntries.push({
       key: 'd1',
       label: 'D1',
-      date: new Date(d1Games[0].date),
+      date: new Date(g.date),
       type: 'game',
-      data: d1Games[0],
+      data: g,
     })
-  }
-  if (d2Games.length > 0) {
+  })
+  d2Games.slice(0, 2).forEach((g) => {
     tabEntries.push({
       key: 'd2',
       label: 'D2',
-      date: new Date(d2Games[0].date),
+      date: new Date(g.date),
       type: 'game',
-      data: d2Games[0],
+      data: g,
     })
-  }
-  if (sevensGames.length > 0) {
+  })
+  sevensGames.slice(0, 2).forEach((t) => {
     tabEntries.push({
       key: 'sevens',
       label: '7s',
-      date: new Date(sevensGames[0].date),
+      date: new Date(t.date),
       type: 'tournament',
-      data: sevensGames[0],
+      data: t,
     })
-  }
+  })
 
   tabEntries.sort((a, b) => a.date.getTime() - b.date.getTime())
 
-  const tabStyle = {
-    color: 'whiteAlpha.500',
-    fontWeight: 'bold',
-    fontSize: 'md',
-    textTransform: 'uppercase' as const,
-    letterSpacing: '2px',
-    _selected: {
-      color: 'brand.highlight',
-      borderColor: 'brand.highlight',
-    },
-    _hover: { color: 'white' },
-    transition: 'all 0.2s',
-  }
-
   return (
-    <Layout seo={homepage?.seo} bg="brand.light" id="homepage">
-      <PageContent>
-        <Hero size="3xl" {...highlight} direct></Hero>
-        <Section
-          bg="brand.light"
-          padding="0px"
-          style={{ display: 'flex', justifyContent: 'center' }}
-          align="center"
-        >
-          <Flex
-            flexDirection="column"
-            textAlign="center"
-            my="10px"
-            w="full"
-            maxW="container.lg"
-          >
-            {/* CLUB IDENTITY STRIP */}
-            <ClubIdentity practice={practice} />
+    <Layout seo={homepage?.seo} id="homepage">
+      <HomeHero image={highlight?.image} />
 
-            {/* NEXT UP SECTION */}
-            <Flex
-              flexDirection="column"
-              bg="brand.medium"
-              p={6}
-              borderRadius="2xl"
-              border="1px solid"
-              borderColor="brand.medium"
-              w="full"
-              boxShadow="xl"
-            >
-              <Heading
-                size="lg"
-                color="brand.light"
-                mb={2}
-                textTransform="uppercase"
-              >
-                Next Up
-              </Heading>
+      <StorySection />
 
-              {tabEntries.length > 0 ? (
-                <Tabs variant="line" size="lg">
-                  <TabList
-                    borderBottom="1px solid"
-                    borderColor="whiteAlpha.200"
-                    mb={0}
-                    justifyContent="center"
-                    gap={4}
-                  >
-                    {tabEntries.map((entry) => (
-                      <Tab key={entry.key} {...tabStyle}>
-                        {entry.label}
-                      </Tab>
-                    ))}
-                  </TabList>
+      <NextUpSection entries={tabEntries} recentGames={recentGames ?? []} />
 
-                  <TabPanels>
-                    {tabEntries.map((entry) => (
-                      <TabPanel key={entry.key} p={0}>
-                        {entry.type === 'game' ? (
-                          <GameNextUp
-                            game={entry.data}
-                            getLongDate={getLongDate}
-                          />
-                        ) : (
-                          <TournamentNextUp tournament={entry.data} />
-                        )}
-                      </TabPanel>
-                    ))}
-                  </TabPanels>
-                </Tabs>
-              ) : (
-                <Text color="yellow.400" py={4}>
-                  There are no upcoming scheduled games
-                </Text>
-              )}
-            </Flex>
+      <NewsSection posts={content ?? []} />
 
-            {/* FEATURED EVENTS SECTION */}
-            {featuredEvents?.length > 0 && (
-              <Flex
-                flexDirection="column"
-                bg="brand.medium"
-                p={6}
-                borderRadius="2xl"
-                border="1px solid"
-                w="full"
-                mt={4}
-                gap={4}
-              >
-                <Flex justify="space-between" align="center">
-                  <Heading
-                    size="lg"
-                    color="brand.light"
-                    textTransform="uppercase"
-                    margin={0}
-                  >
-                    Upcoming Events
-                  </Heading>
-                  <NextLink href="/club/events" passHref legacyBehavior>
-                    <Link
-                      color="whiteAlpha.600"
-                      fontSize="xs"
-                      fontWeight="bold"
-                      textTransform="uppercase"
-                      letterSpacing="tight"
-                      _hover={{
-                        color: 'brand.highlight',
-                        textDecoration: 'none',
-                      }}
-                    >
-                      View All →
-                    </Link>
-                  </NextLink>
-                </Flex>
-                <VStack spacing={4} align="stretch">
-                  {featuredEvents.map((event: EventType) => (
-                    <EventCard key={event.id} event={event} />
-                  ))}
-                </VStack>
-              </Flex>
-            )}
+      <HomeEventsSection events={featuredEvents ?? []} />
 
-            {/* NEWSLETTER SECTION */}
-            <Flex flexDirection="column" textAlign="center" my="10px">
-              <NewsletterSignup />
-            </Flex>
-          </Flex>
-        </Section>
-      </PageContent>
+      <Box
+        bg="brand.light"
+        w="full"
+        px={{ base: 4, md: 8 }}
+        pb={{ base: 14, md: 20 }}
+      >
+        <Box maxW="1280px" mx="auto">
+          <NewsletterSignup />
+        </Box>
+      </Box>
     </Layout>
   )
 }
@@ -366,7 +99,7 @@ export async function getStaticProps() {
     d2Upcoming,
     homeCta,
     featuredEvents,
-    practices,
+    recentGamesData,
   ] = await Promise.all([
     fetchAPI(
       '/contents?populate=*&filters[status][$eq]=published&sort[1]=publishedAt:asc&pagination[limit]=3',
@@ -379,13 +112,12 @@ export async function getStaticProps() {
       `/games?${gamePopulate}&filters[division][$eq]=d2&filters[date][$gte]=${today}&sort=date:asc`,
     ),
     fetchAPI('/home-cta?populate[content][populate]=image'),
+    fetchAPI(`/events?populate=*&filters[active][$eq]=true&sort=date:asc`),
     fetchAPI(
-      `/events?populate=*&filters[active][$eq]=true&filters[featured][$eq]=true&sort=date:asc&pagination[limit]=3`,
+      `/games?${gamePopulate}&filters[finished][$eq]=true&sort=date:desc&pagination[limit]=6`,
     ),
-    fetchAPI('/practices?populate=*'),
   ])
 
-  // Fetched separately so a missing or errored sevens collection never breaks the page
   let sevensUpcoming = []
   try {
     const result = await fetchAPI(
@@ -398,15 +130,18 @@ export async function getStaticProps() {
 
   return {
     props: {
-      content,
+      content: Array.isArray(content) ? content : [],
       homepage,
       d1Upcoming,
       d2Upcoming,
       sevensUpcoming,
       highlight: homeCta?.content || null,
       featuredEvents: Array.isArray(featuredEvents) ? featuredEvents : [],
-      practice:
-        Array.isArray(practices) && practices.length > 0 ? practices[0] : null,
+      recentGames: Array.isArray(recentGamesData)
+        ? recentGamesData.filter(
+            (g) => g.home_score != null && g.away_score != null,
+          )
+        : [],
     },
     revalidate: 86400,
   }

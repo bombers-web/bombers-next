@@ -146,7 +146,7 @@ const ResultGame = ({
               fontWeight="black"
               color={bombersScoreColor}
               lineHeight="1"
-              fontFamily="Big Shoulders Display"
+              fontFamily="display"
             >
               {bombersScore ?? '–'}
             </Text>
@@ -163,7 +163,7 @@ const ResultGame = ({
               fontWeight="black"
               color="whiteAlpha.500"
               lineHeight="1"
-              fontFamily="Big Shoulders Display"
+              fontFamily="display"
             >
               {opponentScore ?? '–'}
             </Text>

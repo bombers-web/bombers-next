@@ -25,6 +25,9 @@ export default extendTheme({
         scrollbarWidth: 'none',
         msOverflowStyle: 'none',
       },
+      body: {
+        bg: 'brand.bg',
+      },
     },
   },
   colors: {
@@ -38,6 +41,10 @@ export default extendTheme({
       light: '#E2E2E2',
       white: '#fff',
       bg: '#f8f8f8',
+      win: '#5ec27e',
+      loss: '#d96b6b',
+      mediumDark: '#2f2f2f',
+      darkDark: '#252525',
     },
     gradient: {
       main: 'linear-gradient(90deg, rgba(24,24,24,1) 3%, rgba(56,56,56,1) 37%, rgba(53,53,53,1) 85%)',
@@ -57,6 +64,8 @@ export default extendTheme({
     },
   },
   fonts: {
+    display: "'Big Shoulders Display', sans-serif",
+    body: 'Montserrat, sans-serif',
     header: {
       fontWeight: 'bold',
       fontFamily: "'Montserrat', sans-serif",

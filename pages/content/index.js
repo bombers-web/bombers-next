@@ -36,7 +36,7 @@ const News = ({ content, categories }) => {
       }}
     >
       <Tabs
-        fontFamily="Montserrat"
+        fontFamily="body"
         align="center"
         variant="line"
         size="lg"

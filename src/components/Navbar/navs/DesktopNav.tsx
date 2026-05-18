@@ -58,11 +58,7 @@ const DesktopNav = ({ homePage }: DesktopNavProps) => {
   return (
     <Flex
       id="desktop-nav-container"
-      bg={
-        homePage
-          ? 'linear-gradient(rgba(33,33,33,0.75), transparent)'
-          : 'brand.dark'
-      }
+      bg="brand.dark"
       minH="100px"
       minW="100vw"
       display={['none', 'none', 'flex', 'flex']}
@@ -70,7 +66,6 @@ const DesktopNav = ({ homePage }: DesktopNavProps) => {
       alignItems="center"
       px="16px"
       pb="8px"
-      position={homePage ? 'fixed' : 'inherit'}
     >
       <Flex justifyContent="center" maxW="1180px" w="100%" alignItems="center">
         <Box flex="1">

@@ -104,7 +104,7 @@ const SevensTournamentGame = ({ game }) => {
               )}
               {!isCancelled && (
                 <Text
-                  fontFamily="Big Shoulders Display"
+                  fontFamily="display"
                   fontSize="xl"
                   fontWeight="black"
                   color="brand.light"
