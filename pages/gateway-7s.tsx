@@ -144,7 +144,7 @@ export default function Gateway7s() {
             border="1px solid black"
           >
             <Image
-              src="/static/DSC_0008.JPG"
+              src="/static/sevens_huddle.JPG"
               alt="Gateway 7s action"
               fill
               style={{ objectFit: 'cover' }}
@@ -161,7 +161,7 @@ export default function Gateway7s() {
           <Text fontSize="xl" color="brand.medium" lineHeight={1.7}>
             The Bombers&apos; flagship summer tournament, on three pitches in
             the heart of Forest Park. Three divisions — Men&apos;s Qualifier,
-            Women&apos;s Qualifier, and Men&apos;s Competitive.
+            Women&apos;s Qualifier, and Men&apos;s Social.
           </Text>
         </Box>
 
@@ -210,8 +210,12 @@ export default function Gateway7s() {
         {/* Two photos */}
         <Box maxW="1080px" mx="auto" px={10}>
           <Grid templateColumns="1fr 1fr" gap={4}>
-            <Photo h={300} patternId="hatch-left" src="/static/DSC_0178.JPG" />
-            <Photo h={300} patternId="hatch-right" src="/static/DSC_0040.JPG" />
+            <Photo
+              h={300}
+              patternId="hatch-left"
+              src="/static/feakes_action.JPG"
+            />
+            <Photo h={300} patternId="hatch-right" src="/static/calvin.JPG" />
           </Grid>
         </Box>
 
