@@ -89,7 +89,7 @@ const StorySection = () => {
             overflow="hidden"
           >
             <NextImage
-              src="/static/DSC_0795.jpg"
+              src="/static/DSC_0795.JPG"
               alt="Action shot from match day in Dallas"
               fill
               style={{ objectFit: 'cover', objectPosition: 'center' }}
