@@ -66,7 +66,7 @@ const MobileNav = ({ homePage }: MobileNavProps) => {
       </Box>
       <Drawer onClose={onClose} isOpen={isOpen} size="full" colorScheme="gray">
         <DrawerOverlay />
-        <DrawerContent bg="brand.dark">
+        <DrawerContent bg="brand.dark" sx={{ maxH: '100dvh' }}>
           <Flex
             justifyContent="space-between"
             w="100%"
@@ -83,7 +83,11 @@ const MobileNav = ({ homePage }: MobileNavProps) => {
             />
           </Flex>
 
-          <DrawerBody pb="calc(env(safe-area-inset-bottom) + 80px)">
+          <DrawerBody
+            sx={{
+              paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 80px)',
+            }}
+          >
             <Accordion
               as="ul"
               allowMultiple
@@ -92,7 +96,6 @@ const MobileNav = ({ homePage }: MobileNavProps) => {
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '32px',
-                height: '100%',
               }}
             >
               {navs.map((nav) => {
