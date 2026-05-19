@@ -9,7 +9,8 @@
       "PowerShell($dst = \"C:\\\\Users\\\\Eric Davidson\\\\.claude\\\\projects\\\\c--Users-Eric-Davidson-Documents-git-bombers-next\\\\9fd16ec6-982b-4549-9a49-7f38fc2f7e2c\\\\tool-results\\\\design\"; tar -xf \"$dst\\\\archive.tar\" -C $dst; Get-ChildItem $dst -Recurse | Select-Object FullName)",
       "PowerShell($dst = \"C:\\\\Users\\\\Eric Davidson\\\\.claude\\\\projects\\\\c--Users-Eric-Davidson-Documents-git-bombers-next\\\\9fd16ec6-982b-4549-9a49-7f38fc2f7e2c\\\\tool-results\\\\design\"; Get-ChildItem $dst | ForEach-Object { $_.FullName + \" \" + $_.Length })",
       "PowerShell($base = \"C:\\\\Users\\\\Eric Davidson\\\\.claude\\\\projects\\\\c--Users-Eric-Davidson-Documents-git-bombers-next\\\\9fd16ec6-982b-4549-9a49-7f38fc2f7e2c\\\\tool-results\\\\design\"; Get-ChildItem -LiteralPath $base | ForEach-Object { \"$\\($_.Name\\) [$\\($_.PSIsContainer\\)]\" })",
-      "PowerShell($base = \"C:\\\\Users\\\\Eric Davidson\\\\.claude\\\\projects\\\\c--Users-Eric-Davidson-Documents-git-bombers-next\\\\9fd16ec6-982b-4549-9a49-7f38fc2f7e2c\\\\tool-results\\\\design\\\\st-louis-bombers-rugby-club\"; Get-ChildItem -LiteralPath $base | ForEach-Object { $_.Name + \" \" + $_.PSIsContainer })"
+      "PowerShell($base = \"C:\\\\Users\\\\Eric Davidson\\\\.claude\\\\projects\\\\c--Users-Eric-Davidson-Documents-git-bombers-next\\\\9fd16ec6-982b-4549-9a49-7f38fc2f7e2c\\\\tool-results\\\\design\\\\st-louis-bombers-rugby-club\"; Get-ChildItem -LiteralPath $base | ForEach-Object { $_.Name + \" \" + $_.PSIsContainer })",
+      "Bash(Get-Content \"C:\\\\Users\\\\ERICDA~1\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--Users-Eric-Davidson-Documents-git-bombers-next\\\\22504aca-417b-4c3e-92f2-10ce4cae7f2b\\\\tasks\\\\bu9misz9y.output\" -Raw)"
     ]
   }
 }

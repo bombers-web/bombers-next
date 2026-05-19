@@ -26,6 +26,7 @@ export default extendTheme({
         msOverflowStyle: 'none',
       },
       body: {
+        fontWeight: 700,
         bg: 'brand.bg',
       },
     },

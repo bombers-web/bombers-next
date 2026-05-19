@@ -1,4 +1,5 @@
 import { Box, Flex, Grid, Heading, Link, Text } from '@chakra-ui/react'
+import SectionHeading from 'common/SectionHeading'
 import NextLink from 'next/link'
 import { format } from 'date-fns'
 import { EventType } from '../../types/eventTypes'
@@ -327,31 +328,12 @@ const HomeEventsSection = ({ events }: Props) => {
           flexWrap="wrap"
           gap={3}
         >
-          <Box>
-            <Text
-              fontFamily="display"
-              fontWeight={600}
-              fontSize="md"
-              letterSpacing="0.4em"
-              color="gray.500"
-              textTransform="uppercase"
-              mb={1}
-            >
-              On the Calendar
-            </Text>
-            <Heading
-              fontFamily="display"
-              fontWeight={700}
-              fontSize="clamp(36px, 4vw, 56px)"
-              letterSpacing="0.02em"
-              textTransform="uppercase"
-              lineHeight="none"
-              color="brand.dark"
-              margin={0}
-            >
-              Upcoming Events
-            </Heading>
-          </Box>
+          <SectionHeading
+            eyebrow="On the Calendar"
+            heading="Upcoming Events"
+            eyebrowColor="gray.500"
+            headingSize="clamp(36px, 4vw, 56px)"
+          />
           <NextLink href="/club/events" passHref legacyBehavior>
             <Link
               fontFamily="display"

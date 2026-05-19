@@ -1,4 +1,5 @@
 import { Box, Flex, Grid, Heading, Text } from '@chakra-ui/react'
+import SectionHeading from 'common/SectionHeading'
 import NextLink from 'next/link'
 import { format } from 'date-fns'
 import { parseCity } from 'lib/parse-address'
@@ -106,31 +107,12 @@ const NextUpSection = ({ entries = [], recentGames = [] }: Props) => {
           flexWrap="wrap"
           gap={3}
         >
-          <Box>
-            <Text
-              fontFamily="display"
-              fontWeight={600}
-              fontSize="md"
-              letterSpacing="0.4em"
-              color="gray.500"
-              textTransform="uppercase"
-              mb={1}
-            >
-              On the Pitch
-            </Text>
-            <Heading
-              fontFamily="display"
-              fontWeight={700}
-              fontSize="clamp(36px, 4vw, 56px)"
-              letterSpacing="0.02em"
-              textTransform="uppercase"
-              lineHeight="none"
-              color="brand.dark"
-              margin={0}
-            >
-              Results &amp; Fixtures
-            </Heading>
-          </Box>
+          <SectionHeading
+            eyebrow="On the Pitch"
+            heading="Results &amp; Fixtures"
+            eyebrowColor="gray.500"
+            headingSize="clamp(36px, 4vw, 56px)"
+          />
         </Flex>
 
         {/* Two panels */}

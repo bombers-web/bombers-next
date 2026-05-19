@@ -1,127 +1,200 @@
-import {
-  Box,
-  Flex,
-  Heading,
-  Image,
-  Link,
-  SimpleGrid,
-  Text,
-  VStack,
-} from '@chakra-ui/react'
+import { Box, Flex, Image, Link, SimpleGrid, Text } from '@chakra-ui/react'
+import SectionHeading from '../../common/SectionHeading'
 import { useEffect, useState } from 'react'
-import {
-  FormattedSponsor,
-  SponsorTier,
-  formatSponsors,
-} from 'utils/formatSponsors'
+import { FormattedSponsor, formatSponsors } from 'utils/formatSponsors'
 
-interface SponsorGridProps {
-  sponsors: FormattedSponsor[]
+interface SponsorCardProps {
+  name: string
+  logo?: string
+  website?: string
 }
 
-const SponsorGrid = ({ sponsors }: SponsorGridProps) => {
-  return (
-    <SimpleGrid columns={{ base: 1, sm: 2, md: 2, lg: 3 }} spacing={4}>
-      {sponsors?.map(({ id, logo, name, website }) => (
-        <Flex
-          key={id}
-          direction="column"
-          align="center"
-          justify="flex-end"
-          borderWidth="1px"
-          borderRadius="md"
-          p={4}
-          bg="gradient.regular"
-        >
+const SponsorCard = ({ name, logo, website }: SponsorCardProps) => (
+  <Link
+    href={website || '#'}
+    isExternal={!!website}
+    _hover={{ textDecoration: 'none' }}
+  >
+    <Flex
+      direction="column"
+      bg="brand.mediumSecondary"
+      borderRadius="4px"
+      overflow="hidden"
+      color="white"
+      boxShadow="0 2px 10px rgba(0,0,0,0.1)"
+      transition="transform 0.18s, box-shadow 0.18s"
+      _hover={{ transform: 'translateY(-3px)', boxShadow: '0 10px 30px rgba(0,0,0,0.18)' }}
+      h="100%"
+    >
+      <Flex
+        h="160px"
+        bg="brand.darkSecondary"
+        align="center"
+        justify="center"
+        p="24px"
+        flex="1"
+      >
+        {logo ? (
           <Image
             src={logo}
-            alt={`${name} Logo`}
-            maxH="150px"
+            alt={`${name} logo`}
+            maxH="120px"
+            maxW="100%"
             objectFit="contain"
-            width="80%"
-            p={4}
-            mb={2}
           />
-          <Text fontWeight="semibold" color="white">
+        ) : (
+          <Text
+            fontFamily="display"
+            fontWeight={700}
+            fontSize="22px"
+            letterSpacing="0.1em"
+            textTransform="uppercase"
+            textAlign="center"
+            opacity={0.9}
+          >
             {name}
           </Text>
-          {website && (
-            <Text color="white">
-              <Link
-                href={website}
-                isExternal
-                _hover={{ color: 'brand.highlight', textDecoration: 'none' }}
-                transition="color 0.2s"
-              >
-                Visit Website
-              </Link>
-            </Text>
-          )}
-        </Flex>
-      ))}
-    </SimpleGrid>
-  )
-}
+        )}
+      </Flex>
+      <Flex
+        px="22px"
+        py="18px"
+        borderTop="1px solid #3a3a3a"
+        align="center"
+        justify="space-between"
+      >
+        <Box
+          fontFamily="display"
+          fontWeight={600}
+          fontSize="14px"
+          letterSpacing="0.1em"
+          textTransform="uppercase"
+        >
+          {name}
+        </Box>
+        {website && (
+          <Box
+            fontFamily="display"
+            fontWeight={600}
+            fontSize="11px"
+            letterSpacing="0.2em"
+            textTransform="uppercase"
+            color="brand.meta"
+            borderBottom="1px solid #555"
+            pb="1px"
+            transition="color 0.15s, border-color 0.15s"
+            sx={{
+              'a:hover &': { color: 'brand.highlight', borderColor: 'brand.highlight' },
+            }}
+          >
+            Visit →
+          </Box>
+        )}
+      </Flex>
+    </Flex>
+  </Link>
+)
 
-// "Feature flags" - change them as needed
-const useTiers = false
-const returnEmptyTiers = useTiers && true
+const BecomeASponsor = () => (
+  <Link
+    href="mailto:sponsor@stlbombers.com"
+    _hover={{ textDecoration: 'none' }}
+  >
+    <Flex
+      direction="column"
+      align="center"
+      justify="center"
+      bg="brand.highlightSecondary"
+      borderRadius="4px"
+      p="40px 28px"
+      textAlign="center"
+      minH="220px"
+      color="black"
+      transition="background 0.15s"
+      _hover={{ bg: '#f0cc3a' }}
+    >
+      <Box
+        fontFamily="display"
+        fontWeight={600}
+        fontSize="11px"
+        letterSpacing="0.4em"
+        textTransform="uppercase"
+        color="#555"
+        mb={2}
+      >
+        Join our partners
+      </Box>
+      <Box
+        fontFamily="display"
+        fontWeight={700}
+        fontSize="32px"
+        letterSpacing="0.04em"
+        textTransform="uppercase"
+        lineHeight={1}
+        mb={3}
+      >
+        Become a<br />Sponsor
+      </Box>
+      <Box fontFamily="body" fontSize="13px" color="#444" lineHeight={1.55} mb={4}>
+        Kit, matchday, scoreboard, and tournament packages available.
+      </Box>
+      <Box
+        fontFamily="display"
+        fontWeight={700}
+        fontSize="13px"
+        letterSpacing="0.25em"
+        textTransform="uppercase"
+        bg="black"
+        color="brand.highlightSecondary"
+        px="22px"
+        py="12px"
+        borderRadius="3px"
+      >
+        Get the Packet →
+      </Box>
+    </Flex>
+  </Link>
+)
 
 const Sponsorships = ({ sponsors }) => {
-  const [sponsorList, setSponsorList] = useState<
-    SponsorTier[] | FormattedSponsor[]
-  >()
+  const [sponsorList, setSponsorList] = useState<FormattedSponsor[]>([])
 
   useEffect(() => {
-    setSponsorList(formatSponsors(sponsors, useTiers, returnEmptyTiers))
+    setSponsorList(formatSponsors(sponsors, false, false) as FormattedSponsor[])
   }, [sponsors])
 
   return (
-    <Box
-      p={4}
-      bg="brand.white"
-      borderRadius="md"
-      boxShadow="md"
-      maxWidth="1140px"
-    >
-      <VStack spacing={8} align="stretch">
-        <Flex
-          direction="column"
-          align="center"
-          justify="center"
-          bg="brand.white"
-          color="brand.meta"
-          p={4}
-          borderRadius="md"
+    <Box maxW="1280px" mx="auto">
+      {/* Header */}
+      <Flex align="baseline" justify="space-between" flexWrap="wrap" gap={4} mb="40px">
+        <SectionHeading
+          eyebrow="The companies that keep the ship afloat"
+          heading="Our Sponsors"
+        />
+        <Link
+          href="mailto:sponsor@stlbombers.com"
+          fontFamily="display"
+          fontWeight={600}
+          fontSize="13px"
+          letterSpacing="0.25em"
+          textTransform="uppercase"
+          color="brand.dark"
+          textDecoration="none"
+          borderBottom="2px solid"
+          borderColor="brand.highlight"
+          pb="2px"
+          _hover={{ textDecoration: 'none', color: 'brand.dark' }}
         >
-          <Heading size="lg" mb={2} textAlign="center">
-            {useTiers ? 'Sponsorship Tiers' : 'Sponsors'}
-          </Heading>
-          <Text textAlign="center" mt={0}>
-            The companies that keep the ship afloat:
-          </Text>
-        </Flex>
+          Become a Sponsor →
+        </Link>
+      </Flex>
 
-        {useTiers ? (
-          (sponsorList as SponsorTier[])?.map(
-            ({ tierName, tierDescription, sponsors: formattedSponsors }) => (
-              <Box key={tierName} borderWidth="1px" borderRadius="lg" p={4}>
-                <Heading size="md" mb={4}>
-                  {tierName}
-                </Heading>
-                {tierDescription && (
-                  <Text textAlign="center" mt={0}>
-                    {tierDescription}
-                  </Text>
-                )}
-                <SponsorGrid sponsors={formattedSponsors} />
-              </Box>
-            ),
-          )
-        ) : (
-          <SponsorGrid sponsors={sponsorList as FormattedSponsor[]} />
-        )}
-      </VStack>
+      <SimpleGrid columns={{ base: 2, md: 3 }} gap="18px">
+        {sponsorList?.map(({ id, logo, name, website }) => (
+          <SponsorCard key={id} name={name} logo={logo} website={website} />
+        ))}
+        <BecomeASponsor />
+      </SimpleGrid>
     </Box>
   )
 }

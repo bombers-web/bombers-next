@@ -28,6 +28,7 @@ type DesktopNavProps = {
 const MenuItem = styled(Box)`
   ${(props: MenuItemProps) => ({
     padding: props.outlined ? '4px' : '0px',
+    fontWeight: '800',
     border: props.outlined ? '3px solid white' : 'none',
     alignContent: 'center',
     ...props.theme?.fonts?.menuItem,

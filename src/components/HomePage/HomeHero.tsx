@@ -9,7 +9,7 @@ type Props = {
 
 const HomeHero = ({ image }: Props) => {
   return (
-    <Box bg="brand.dark" overflow="hidden" color="white">
+    <Box bg="brand.black" overflow="hidden" color="white">
       <Grid templateColumns={{ base: '1fr', md: '1.1fr 1fr' }} minH="auto">
         {/* LEFT — text */}
         <Box
