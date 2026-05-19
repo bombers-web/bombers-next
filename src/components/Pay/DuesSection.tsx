@@ -1,4 +1,5 @@
 import { Box, Flex, Link, SimpleGrid } from '@chakra-ui/react'
+import Image from 'next/image'
 import SectionHeading from '../../common/SectionHeading'
 
 interface DuesSubscription {
@@ -17,23 +18,6 @@ interface GroupedTier {
 const basePaypalUrl =
   'https://www.paypal.com/webapps/billing/plans/subscribe?plan_id='
 
-const PayPalIcon = () => (
-  <svg viewBox="0 0 20 20" width="18" height="18" fill="none">
-    <path
-      d="M5.5 17H3L4.2 9.5H8C10.5 9.5 11.5 8.5 12 7c.5-1.5-.5-2.5-2.5-2.5H5L3.5 12"
-      stroke="#003087"
-      strokeWidth="1.2"
-      fill="none"
-    />
-    <path
-      d="M8.5 17H6L7 11h3.5c2.5 0 3.5-1 4-2.5.4-1.5-.5-2.5-2.5-2.5"
-      stroke="#009cde"
-      strokeWidth="1.2"
-      fill="none"
-    />
-  </svg>
-)
-
 const PayButton = ({ planId }: { planId: string }) => (
   <Link
     href={`${basePaypalUrl}${planId}`}
@@ -42,21 +26,27 @@ const PayButton = ({ planId }: { planId: string }) => (
   >
     <Flex
       align="center"
-      gap="8px"
+      gap="0.5em"
       bg="brand.highlight"
       borderRadius="4px"
-      px="20px"
-      py="12px"
+      px="1.25em"
+      py="0.75em"
       cursor="pointer"
       whiteSpace="nowrap"
       transition="filter 0.15s"
       _hover={{ filter: 'brightness(0.92)' }}
     >
-      <PayPalIcon />
+      <Image
+        src="/icons/paypal_logo.png"
+        alt="PayPal"
+        width={80}
+        height={20}
+        style={{ objectFit: 'contain' }}
+      />
       <Box
         fontFamily="display"
         fontWeight={700}
-        fontSize="12px"
+        fontSize="0.75em"
         letterSpacing="0.2em"
         textTransform="uppercase"
         color="black"
@@ -99,8 +89,8 @@ const DuesCard = ({
   >
     <Box
       bg="brand.dark"
-      px={{ base: '24px', md: '32px' }}
-      py="28px"
+      px={{ base: '1.5em', md: '2em' }}
+      py="1.75em"
       borderBottom="3px solid"
       borderColor={accentColor}
     >
@@ -109,14 +99,14 @@ const DuesCard = ({
         heading={tierName}
         eyebrowColor={accentColor}
         headingColor="white"
-        headingSize={{ base: '28px', md: '36px' }}
+        headingSize={{ base: '1.75em', md: '2.25em' }}
       />
     </Box>
 
-    <Box px={{ base: '24px', md: '32px' }} py="28px">
+    <Box px={{ base: '1.5em', md: '2em' }} py="1.75em">
       <Box
         fontFamily="body"
-        fontSize="14px"
+        fontSize="0.875em"
         color="brand.meta"
         lineHeight={1.6}
         mb={6}
@@ -131,7 +121,7 @@ const DuesCard = ({
           border="1px solid"
           borderColor="brand.light"
           borderRadius="4px"
-          p="20px 22px"
+          p="1.25em 1.375em"
           mb={4}
           flexWrap="wrap"
           gap={4}
@@ -140,7 +130,7 @@ const DuesCard = ({
             <Box
               fontFamily="display"
               fontWeight={600}
-              fontSize="11px"
+              fontSize="0.6875em"
               letterSpacing="0.3em"
               textTransform="uppercase"
               color="brand.meta"
@@ -152,13 +142,13 @@ const DuesCard = ({
               <Box
                 fontFamily="display"
                 fontWeight={700}
-                fontSize="38px"
+                fontSize="2.375em"
                 color="brand.dark"
                 lineHeight={1}
               >
                 ${monthly.cost}
               </Box>
-              <Box fontFamily="body" fontSize="13px" color="brand.meta">
+              <Box fontFamily="body" fontSize="0.8125em" color="brand.meta">
                 /mo
               </Box>
             </Flex>
@@ -174,7 +164,7 @@ const DuesCard = ({
           border="1px solid"
           borderColor="brand.light"
           borderRadius="4px"
-          p="20px 22px"
+          p="1.25em 1.375em"
           flexWrap="wrap"
           gap={4}
         >
@@ -182,7 +172,7 @@ const DuesCard = ({
             <Box
               fontFamily="display"
               fontWeight={600}
-              fontSize="11px"
+              fontSize="0.6875em"
               letterSpacing="0.3em"
               textTransform="uppercase"
               color="brand.meta"
@@ -194,13 +184,13 @@ const DuesCard = ({
               <Box
                 fontFamily="display"
                 fontWeight={700}
-                fontSize="38px"
+                fontSize="2.375em"
                 color="brand.dark"
                 lineHeight={1}
               >
                 ${annual.cost}
               </Box>
-              <Box fontFamily="body" fontSize="13px" color="brand.meta">
+              <Box fontFamily="body" fontSize="0.8125em" color="brand.meta">
                 /yr
               </Box>
             </Flex>
@@ -233,15 +223,13 @@ const tierMeta: Record<
   rookie: {
     label: 'Rookie Dues',
     subtitle: 'First-year players',
-    description:
-      'For players in their first year with the Bombers. Includes kit, club membership, and all season fixtures.',
+    description: 'For players in their first year with the Bombers.',
     accentColor: 'brand.highlight',
   },
   senior: {
     label: 'Senior Dues',
     subtitle: 'Returning players',
-    description:
-      'For all returning players. Covers full season registration, D1/D2/Sevens eligibility, and club access.',
+    description: 'For all returning players.',
     accentColor: 'brand.highlightSecondary',
   },
 }
@@ -261,16 +249,16 @@ const DuesSection = ({ subscriptions, subtabIndex, onSubtabChange }) => {
   return (
     <Box maxW="1280px" mx="auto">
       {/* Section header */}
-      <Box mb="36px">
-        <SectionHeading eyebrow="Season 2026" heading="Club Dues" mb="28px" />
+      <Box mb="2.25em">
+        <SectionHeading eyebrow="Season 2026" heading="Club Dues" mb="1.75em" />
 
         {/* Player / Supporter toggle */}
         <Flex
           display="inline-flex"
           bg="brand.light"
           borderRadius="4px"
-          p="3px"
-          gap="3px"
+          p="0.1875em"
+          gap="0.1875em"
         >
           <Box
             as="button"
@@ -278,11 +266,11 @@ const DuesSection = ({ subscriptions, subtabIndex, onSubtabChange }) => {
             bg={subtabIndex === 0 ? 'brand.dark' : 'transparent'}
             color={subtabIndex === 0 ? 'white' : 'brand.meta'}
             border="none"
-            px="28px"
-            py="10px"
+            px="1.75em"
+            py="0.625em"
             fontFamily="display"
             fontWeight={600}
-            fontSize="13px"
+            fontSize="0.8125em"
             letterSpacing="0.25em"
             textTransform="uppercase"
             borderRadius="3px"
@@ -298,11 +286,11 @@ const DuesSection = ({ subscriptions, subtabIndex, onSubtabChange }) => {
             bg={subtabIndex === 1 ? 'brand.dark' : 'transparent'}
             color={subtabIndex === 1 ? 'white' : 'brand.meta'}
             border="none"
-            px="28px"
-            py="10px"
+            px="1.75em"
+            py="0.625em"
             fontFamily="display"
             fontWeight={600}
-            fontSize="13px"
+            fontSize="0.8125em"
             letterSpacing="0.25em"
             textTransform="uppercase"
             borderRadius="3px"
@@ -318,12 +306,12 @@ const DuesSection = ({ subscriptions, subtabIndex, onSubtabChange }) => {
       {/* Player dues panel */}
       {subtabIndex === 0 && (
         <Box>
-          <SimpleGrid columns={{ base: 1, md: 2 }} gap="20px">
+          <SimpleGrid columns={{ base: 1, md: 2 }} gap="1.25em">
             {tierKeys.map((key) => {
               const meta = tierMeta[key] || {
-                label: key.charAt(0).toUpperCase() + key.slice(1) + ' Dues',
-                subtitle: '',
-                description: '',
+                label: 'Player Dues',
+                subtitle: 'Active players',
+                description: 'For all returning players.',
                 accentColor: 'brand.highlight',
               }
               return (
@@ -340,20 +328,20 @@ const DuesSection = ({ subscriptions, subtabIndex, onSubtabChange }) => {
             })}
           </SimpleGrid>
           <Box
-            mt="20px"
+            mt="1.25em"
             fontFamily="body"
-            fontSize="13px"
+            fontSize="0.8125em"
             color="brand.meta"
             textAlign="center"
           >
             Questions about dues?{' '}
             <Link
-              href="mailto:info@stlbombers.com"
+              href="/contact"
               color="brand.dark"
               borderBottom="1px solid"
               borderColor="brand.highlight"
               textDecoration="none"
-              pb="1px"
+              pb="0.0625em"
             >
               Contact the treasurer
             </Link>
@@ -379,8 +367,8 @@ const DuesSection = ({ subscriptions, subtabIndex, onSubtabChange }) => {
           >
             <Box
               bg="brand.dark"
-              px={{ base: '24px', md: '32px' }}
-              py="28px"
+              px={{ base: '1.5em', md: '2em' }}
+              py="1.75em"
               borderBottom="3px solid"
               borderColor="brand.highlight"
             >
@@ -389,13 +377,13 @@ const DuesSection = ({ subscriptions, subtabIndex, onSubtabChange }) => {
                 heading="Supporter Dues"
                 eyebrowColor="brand.highlight"
                 headingColor="white"
-                headingSize={{ base: '28px', md: '36px' }}
+                headingSize={{ base: '1.75em', md: '2.25em' }}
               />
             </Box>
-            <Box px={{ base: '24px', md: '32px' }} py="28px">
+            <Box px={{ base: '1.5em', md: '2em' }} py="1.75em">
               <Box
                 fontFamily="body"
-                fontSize="15px"
+                fontSize="0.9375em"
                 color="brand.meta"
                 lineHeight={1.6}
                 mb={6}
@@ -413,7 +401,7 @@ const DuesSection = ({ subscriptions, subtabIndex, onSubtabChange }) => {
                     border="1px solid"
                     borderColor="brand.light"
                     borderRadius="4px"
-                    p="20px 22px"
+                    p="1.25em 1.375em"
                     mb={4}
                     flexWrap="wrap"
                     gap={4}
@@ -422,7 +410,7 @@ const DuesSection = ({ subscriptions, subtabIndex, onSubtabChange }) => {
                       <Box
                         fontFamily="display"
                         fontWeight={600}
-                        fontSize="11px"
+                        fontSize="0.6875em"
                         letterSpacing="0.3em"
                         textTransform="uppercase"
                         color="brand.meta"
@@ -434,7 +422,7 @@ const DuesSection = ({ subscriptions, subtabIndex, onSubtabChange }) => {
                         <Box
                           fontFamily="display"
                           fontWeight={700}
-                          fontSize="38px"
+                          fontSize="2.375em"
                           color="brand.dark"
                           lineHeight={1}
                         >
@@ -442,7 +430,7 @@ const DuesSection = ({ subscriptions, subtabIndex, onSubtabChange }) => {
                         </Box>
                         <Box
                           fontFamily="body"
-                          fontSize="13px"
+                          fontSize="0.8125em"
                           color="brand.meta"
                         >
                           {sub.type === 'monthly' ? '/mo' : '/yr'}
@@ -459,7 +447,7 @@ const DuesSection = ({ subscriptions, subtabIndex, onSubtabChange }) => {
                   border="1px solid"
                   borderColor="brand.light"
                   borderRadius="4px"
-                  p="20px 22px"
+                  p="1.25em 1.375em"
                   flexWrap="wrap"
                   gap={4}
                 >
@@ -467,7 +455,7 @@ const DuesSection = ({ subscriptions, subtabIndex, onSubtabChange }) => {
                     <Box
                       fontFamily="display"
                       fontWeight={600}
-                      fontSize="11px"
+                      fontSize="0.6875em"
                       letterSpacing="0.3em"
                       textTransform="uppercase"
                       color="brand.meta"
@@ -478,7 +466,7 @@ const DuesSection = ({ subscriptions, subtabIndex, onSubtabChange }) => {
                     <Box
                       fontFamily="display"
                       fontWeight={700}
-                      fontSize="38px"
+                      fontSize="2.375em"
                       color="brand.dark"
                       lineHeight={1}
                     >
@@ -486,7 +474,7 @@ const DuesSection = ({ subscriptions, subtabIndex, onSubtabChange }) => {
                     </Box>
                     <Box
                       fontFamily="body"
-                      fontSize="13px"
+                      fontSize="0.8125em"
                       color="brand.meta"
                       mt={1}
                     >
@@ -497,11 +485,11 @@ const DuesSection = ({ subscriptions, subtabIndex, onSubtabChange }) => {
                     href="mailto:info@stlbombers.com"
                     bg="brand.highlight"
                     borderRadius="4px"
-                    px="24px"
-                    py="14px"
+                    px="1.5em"
+                    py="0.875em"
                     fontFamily="display"
                     fontWeight={700}
-                    fontSize="13px"
+                    fontSize="0.8125em"
                     letterSpacing="0.2em"
                     textTransform="uppercase"
                     color="black"

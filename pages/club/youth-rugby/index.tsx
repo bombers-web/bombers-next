@@ -119,7 +119,10 @@ const YouthRugby = ({ youthTeams }) => {
                       leftIcon={<FiExternalLink />}
                       bg="brand.dark"
                       color="white"
-                      _hover={{ bg: 'brand.mediumSecondary', textDecoration: 'none' }}
+                      _hover={{
+                        bg: 'brand.mediumSecondary',
+                        textDecoration: 'none',
+                      }}
                       flex={{ base: '1', md: 'initial' }}
                     >
                       Visit Website

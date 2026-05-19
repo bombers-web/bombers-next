@@ -21,9 +21,9 @@ const subtabMap = {
 
 const tabStyle = {
   fontFamily: "'Big Shoulders Display', sans-serif",
-  fontWeight: 600,
-  fontSize: '14px',
-  letterSpacing: '0.3em',
+  fontWeight: 700,
+  fontSize: 'sm',
+  letterSpacing: '0.2em',
   textTransform: 'uppercase' as const,
   color: 'gray.400',
   padding: '20px 32px 17px',
@@ -101,32 +101,6 @@ const Pay = (props) => {
         position="relative"
         overflow="hidden"
       >
-        {/* Background logo watermark */}
-        <Box
-          position="absolute"
-          right="40px"
-          top="-50px"
-          opacity={0.04}
-          pointerEvents="none"
-          display={{ base: 'none', md: 'block' }}
-        >
-          <svg viewBox="0 0 100 120" width="360" height="432">
-            <g
-              fill="#fff"
-              stroke="#fff"
-              strokeWidth="1.2"
-              strokeLinejoin="round"
-            >
-              <path d="M50 8 C 48 22, 44 30, 50 42 C 56 30, 52 22, 50 8 Z" />
-              <path d="M50 40 C 36 36, 22 44, 18 60 C 22 56, 30 54, 34 58 C 26 64, 22 74, 28 82 C 32 74, 40 70, 46 72 C 42 64, 44 54, 50 50 Z" />
-              <path d="M50 40 C 64 36, 78 44, 82 60 C 78 56, 70 54, 66 58 C 74 64, 78 74, 72 82 C 68 74, 60 70, 54 72 C 58 64, 56 54, 50 50 Z" />
-              <path d="M50 50 C 44 62, 44 78, 50 92 C 56 78, 56 62, 50 50 Z" />
-              <rect x="22" y="62" width="56" height="7" rx="2" />
-              <path d="M40 92 L60 92 L56 102 L44 102 Z" />
-            </g>
-          </svg>
-        </Box>
-
         <Box maxW="1280px" mx="auto" position="relative">
           <Box
             fontFamily="display"
@@ -144,6 +118,7 @@ const Pay = (props) => {
             fontFamily="display"
             fontWeight={700}
             fontSize={{ base: '52px', md: '72px', lg: '80px' }}
+            color="brand.light"
             letterSpacing="0.02em"
             textTransform="uppercase"
             lineHeight={0.9}
@@ -153,14 +128,14 @@ const Pay = (props) => {
           >
             Keep the Bombers
             <br />
-            <Box as="span" color="brand.highlight">
+            <Box as="span" color="brand.light">
               on the pitch.
             </Box>
           </Box>
           <Box
             fontFamily="body"
             fontSize="17px"
-            color="#E2E2E2"
+            color="brand.highlight"
             lineHeight={1.65}
             maxW="560px"
           >

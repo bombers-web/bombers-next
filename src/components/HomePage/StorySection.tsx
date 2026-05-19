@@ -86,6 +86,7 @@ const StorySection = () => {
             pb={{ base: '75%', md: 0 }}
             minH={{ base: 0, md: '500px' }}
             borderRadius="sm"
+            border="1px solid black"
             overflow="hidden"
           >
             <NextImage

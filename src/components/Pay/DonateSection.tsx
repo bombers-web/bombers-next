@@ -53,6 +53,7 @@ const DonateSection = () => {
           py="32px"
           display="grid"
           gap="14px"
+          background="brand.white"
         >
           <Link
             href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=5JQ4TPW3RQ9UA"
@@ -163,7 +164,7 @@ const DonateSection = () => {
             color="brand.highlight"
             textDecoration="none"
           >
-            info@stlbombers.com
+            president@stlouisbombers.com
           </Link>
         </Box>
       </Box>
