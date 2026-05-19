@@ -83,7 +83,7 @@ const MobileNav = ({ homePage }: MobileNavProps) => {
             />
           </Flex>
 
-          <DrawerBody>
+          <DrawerBody pb="calc(env(safe-area-inset-bottom) + 80px)">
             <Accordion
               as="ul"
               allowMultiple
