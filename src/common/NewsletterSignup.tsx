@@ -15,7 +15,7 @@ const NewsletterSignup = () => {
       templateColumns={{ base: '1fr', lg: '1fr 1.1fr' }}
       gap={{ base: 8, lg: 12 }}
       alignItems="center"
-      bg="brand.mediumDark"
+      bg="brand.mediumSecondary"
       borderRadius="sm"
       p={{ base: 8, md: 14 }}
     >

@@ -25,7 +25,7 @@ const HomeHero = ({ image }: Props) => {
             fontWeight={700}
             fontSize="xl"
             letterSpacing="0.4em"
-            color="white"
+            color="brand.light"
             textTransform="uppercase"
             lineHeight={1}
             mt={5}
@@ -40,15 +40,13 @@ const HomeHero = ({ image }: Props) => {
             letterSpacing="0.02em"
             textTransform="uppercase"
             lineHeight={0.9}
-            color="white"
+            color="brand.light"
             mt={1.5}
             mb={0}
           >
             St. Louis
             <br />
-            <Box as="span" color="brand.highlight">
-              Bombers
-            </Box>
+            Bombers
           </Heading>
           <Text
             fontFamily="body"

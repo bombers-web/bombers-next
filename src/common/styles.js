@@ -109,8 +109,9 @@ export const FooterLinks = styled.div`
   display: grid;
   align-items: center;
   row-gap: 20px;
-  font-family: 'Montserrat', sans-serif;
-  text-transform: capitalize;
+  font-family: 'Big Shoulders Display', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
   grid-template-columns: repeat(2, 1fr);
   & ul {
     display: grid;
@@ -120,12 +121,23 @@ export const FooterLinks = styled.div`
     margin-top: 10px;
     & li:first-child {
       font-size: 1.25rem;
+      letter-spacing: 0.1em;
       color: var(--chakra-colors-brand-light);
-      font-weight: bold;
+      font-weight: 700;
     }
-    & li:not(:first-child) {
+    & a {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
       color: var(--chakra-colors-brand-white);
       cursor: pointer;
+      opacity: 0.75;
+      &:hover {
+        opacity: 1;
+        color: var(--chakra-colors-brand-highlight);
+      }
     }
   }
 `
@@ -142,7 +154,6 @@ export const FooterIcons = styled.div`
     padding: $padding;
     border-radius: 50%;
     background-color: var(--chakra-colors-brand-medium);
-    color: var(--chakra-colors-brand-white);
     cursor: pointer;
   }
 `

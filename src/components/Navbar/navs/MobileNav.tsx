@@ -16,8 +16,8 @@ import {
 } from '@chakra-ui/react'
 import { Twirl as Hamburger } from 'hamburger-react'
 import { useRouter } from 'next/router'
-import useNav from 'src/hooks/useNav'
 import NavLogo from '../../../common/NavLogo'
+import useNav from 'hooks/useNav'
 
 type MobileNavProps = {
   homePage: boolean
@@ -122,7 +122,14 @@ const MobileNav = ({ homePage }: MobileNavProps) => {
                       sx={{ border: 'none' }}
                     >
                       <Box flex="1" textAlign="left">
-                        <Heading size="md" color="brand.light">
+                        <Heading
+                          size="lg"
+                          fontWeight={6000}
+                          color="brand.light"
+                          fontFamily="display"
+                          letterSpacing="0.10em"
+                          textTransform="uppercase"
+                        >
                           {nav.name}
                         </Heading>
                       </Box>
@@ -144,7 +151,14 @@ const MobileNav = ({ homePage }: MobileNavProps) => {
                               key={sub.slug}
                             >
                               <Box as="div" flex={1} textAlign="left">
-                                <Heading size="xs" color="brand.light" p={2}>
+                                <Heading
+                                  size="sm"
+                                  color="brand.light"
+                                  p={2}
+                                  fontFamily="display"
+                                  letterSpacing="0.10em"
+                                  textTransform="uppercase"
+                                >
                                   {sub.name}
                                 </Heading>
                               </Box>

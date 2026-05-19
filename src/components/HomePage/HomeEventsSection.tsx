@@ -18,7 +18,7 @@ const btnBase = {
   display: 'inline-block',
   textDecoration: 'none',
   transition: 'opacity 0.15s',
-  _hover: { textDecoration: 'none', opacity: 0.8 },
+  _hover: { textDecoration: 'none', opacity: 0.8, color: 'brand.white' },
 }
 
 function FeaturedCard({ event }: { event: EventType }) {
@@ -37,7 +37,7 @@ function FeaturedCard({ event }: { event: EventType }) {
     <Box
       display="flex"
       flexDirection="column"
-      bg="brand.mediumDark"
+      bg="brand.mediumSecondary"
       borderRadius="sm"
       overflow="hidden"
       color="white"
@@ -188,14 +188,14 @@ function StackedCard({ event }: { event: EventType }) {
     <Box
       display="grid"
       gridTemplateColumns="130px 1fr"
-      bg="brand.mediumDark"
+      bg="brand.mediumSecondary"
       borderRadius="sm"
       overflow="hidden"
       color="white"
     >
       {/* Date block */}
       <Flex
-        bg="brand.darkDark"
+        bg="brand.darkSecondary"
         direction="column"
         align="center"
         justify="center"

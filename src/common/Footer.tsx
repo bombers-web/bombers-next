@@ -19,7 +19,7 @@ const Footer = (_props) => {
         <FooterInfo>
           <NavLogo color="brand.light" />
           <FooterIcons>
-            <Socials size="" />
+            <Socials size="" color="dark" />
             <Sponsors forFooter={true} />
           </FooterIcons>
         </FooterInfo>
@@ -50,7 +50,14 @@ const Footer = (_props) => {
         </FooterLinks>
       </FooterContainer>
       <Copyright backgroundColor="brand.dark">
-        <Text size="xs" textAlign="center" mt={4}>
+        <Text
+          fontFamily="display"
+          fontSize="sm"
+          letterSpacing="0.06em"
+          textTransform="uppercase"
+          textAlign="center"
+          mt={4}
+        >
           © {new Date().getFullYear()} St. Louis Bombers.
         </Text>
       </Copyright>

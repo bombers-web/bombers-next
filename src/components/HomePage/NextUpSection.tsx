@@ -136,11 +136,11 @@ const NextUpSection = ({ entries = [], recentGames = [] }: Props) => {
         {/* Two panels */}
         <Grid templateColumns={{ base: '1fr', md: '1fr 1fr' }} gap={4}>
           {/* Recent Results */}
-          <Box bg="brand.mediumDark" borderRadius="sm" overflow="hidden">
+          <Box bg="brand.mediumSecondary" borderRadius="sm" overflow="hidden">
             <Flex
               px={7}
               py={5}
-              bg="brand.darkDark"
+              bg="brand.darkSecondary"
               justify="space-between"
               align="baseline"
               borderBottom="2px solid"
@@ -234,11 +234,11 @@ const NextUpSection = ({ entries = [], recentGames = [] }: Props) => {
           </Box>
 
           {/* Upcoming */}
-          <Box bg="brand.mediumDark" borderRadius="sm" overflow="hidden">
+          <Box bg="brand.mediumSecondary" borderRadius="sm" overflow="hidden">
             <Flex
               px={7}
               py={5}
-              bg="brand.darkDark"
+              bg="brand.darkSecondary"
               justify="space-between"
               align="baseline"
               borderBottom="2px solid"

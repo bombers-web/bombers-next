@@ -86,6 +86,9 @@ const NavLogo = ({
             >
               <Heading
                 className="logo-heading"
+                fontFamily="display"
+                letterSpacing="0.04em"
+                textTransform="uppercase"
                 size={{
                   base: size || 'md',
                   sm: size || 'md',
