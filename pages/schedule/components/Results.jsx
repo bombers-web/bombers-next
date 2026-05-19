@@ -112,7 +112,7 @@ const Results = ({ results }) => {
             <MenuButton
               as={Box}
               cursor="pointer"
-              bg="brand.medium"
+              bg="brand.mediumSecondary"
               borderRadius="xl"
               px={5}
               py={3}
@@ -161,7 +161,7 @@ const Results = ({ results }) => {
 
           {hasRecord && (
             <Box
-              bg="brand.medium"
+              bg="brand.mediumSecondary"
               borderRadius="xl"
               px={6}
               py={4}

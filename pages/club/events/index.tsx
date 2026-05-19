@@ -30,7 +30,7 @@ const EventsPage = ({ events }: { events: EventType[] }) => {
           letterSpacing="widest"
           fontWeight="800"
           fontSize="xl"
-          color="brand.medium"
+          color="brand.mediumSecondary"
           mb={6}
         >
           Upcoming Events
@@ -67,7 +67,7 @@ const EventsPage = ({ events }: { events: EventType[] }) => {
         {/* PAST EVENTS */}
         {pastEvents.length > 0 && (
           <VStack spacing={4} align="stretch">
-            <Divider borderColor="brand.medium" opacity={0.3} mt={6} />
+            <Divider borderColor="brand.mediumSecondary" opacity={0.3} mt={6} />
             <Text
               textAlign="center"
               textTransform="uppercase"

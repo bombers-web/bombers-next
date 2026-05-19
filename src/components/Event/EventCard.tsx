@@ -27,7 +27,7 @@ const EventCard = ({
   return (
     <Box
       w="full"
-      bg="brand.medium"
+      bg="brand.mediumSecondary"
       borderRadius="xl"
       overflow="hidden"
       opacity={isPast ? 0.5 : 1}

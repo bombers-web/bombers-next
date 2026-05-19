@@ -32,7 +32,7 @@ const UpcomingGame = ({ homeTeam, awayTeam, date, location }) => {
   return (
     <Box
       w="full"
-      bg="brand.medium"
+      bg="brand.mediumSecondary"
       borderRadius="lg"
       overflow="hidden"
       border="1px solid"

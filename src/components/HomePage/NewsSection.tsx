@@ -78,7 +78,7 @@ const NewsSection = ({ posts }: Props) => {
               <Link
                 display="flex"
                 flexDirection="column"
-                bg="brand.medium"
+                bg="brand.mediumSecondary"
                 borderRadius="sm"
                 overflow="hidden"
                 textDecoration="none"

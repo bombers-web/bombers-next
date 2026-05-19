@@ -50,7 +50,7 @@ const ClubHistory = ({ history }) => {
                       {section.subtitle && (
                         <Heading
                           size="md"
-                          color="brand.medium"
+                          color="brand.mediumSecondary"
                           fontWeight="semibold"
                           letterSpacing="wide"
                         >

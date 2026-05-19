@@ -175,7 +175,7 @@ const NextUpSection = ({ entries = [], recentGames = [] }: Props) => {
                   py="18px"
                   color="white"
                   borderTop={i === 0 ? 'none' : '1px solid'}
-                  borderColor="brand.medium"
+                  borderColor="brand.mediumSecondary"
                 >
                   <Text
                     fontFamily="display"
@@ -276,7 +276,7 @@ const NextUpSection = ({ entries = [], recentGames = [] }: Props) => {
                     color="white"
                     textDecoration="none"
                     borderTop={i === 0 ? 'none' : '1px solid'}
-                    borderColor="brand.medium"
+                    borderColor="brand.mediumSecondary"
                     _hover={{
                       bg: '#383838',
                       textDecoration: 'none',

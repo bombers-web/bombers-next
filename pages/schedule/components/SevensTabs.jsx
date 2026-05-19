@@ -11,7 +11,7 @@ const SevensTabs = ({ tournaments = [] }) => {
     textTransform: 'uppercase',
     letterSpacing: '2px',
     fontSize: 'ls',
-    color: 'brand.medium',
+    color: 'brand.mediumSecondary',
     _selected: {
       color: 'brand.black',
       borderColor: 'brand.black',

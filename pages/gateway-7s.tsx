@@ -46,7 +46,7 @@ function Photo({
       h={`${h}px`}
       position="relative"
       border="1.5px solid"
-      borderColor="brand.medium"
+      borderColor="brand.mediumSecondary"
       bg="brand.light"
     >
       <svg
@@ -117,7 +117,7 @@ export default function Gateway7s() {
           >
             Gateway 7s
           </Text>
-          <Text fontSize="lg" color="brand.medium" fontStyle="italic">
+          <Text fontSize="lg" color="brand.mediumSecondary" fontStyle="italic">
             One day. One champion.
           </Text>
           <Box mt={8}>
@@ -158,7 +158,7 @@ export default function Gateway7s() {
             size={80}
             style={{ display: 'block', margin: '0 auto 18px' }}
           />
-          <Text fontSize="xl" color="brand.medium" lineHeight={1.7}>
+          <Text fontSize="xl" color="brand.mediumSecondary" lineHeight={1.7}>
             The Bombers&apos; flagship summer tournament, on three pitches in
             the heart of Forest Park. Three divisions — Men&apos;s Qualifier,
             Women&apos;s Qualifier, and Men&apos;s Social.
@@ -171,7 +171,7 @@ export default function Gateway7s() {
             templateColumns="repeat(3, 1fr)"
             borderTop="1px solid"
             borderBottom="1px solid"
-            borderColor="brand.medium"
+            borderColor="brand.mediumSecondary"
           >
             {STATS.map(([n, l], i) => (
               <GridItem
@@ -180,7 +180,7 @@ export default function Gateway7s() {
                 px={3}
                 textAlign="center"
                 borderLeft={i === 0 ? 'none' : '1px dashed'}
-                borderColor="brand.meta"
+                borderColor="brand.dark"
               >
                 <Text
                   fontFamily="display"
@@ -188,7 +188,8 @@ export default function Gateway7s() {
                   lineHeight={1}
                   color="brand.highlight"
                   sx={{
-                    WebkitTextStroke: '1px var(--chakra-colors-brand-medium)',
+                    WebkitTextStroke:
+                      '1px var(--chakra-colors-brand-mediumSecondary)',
                   }}
                 >
                   {n}
@@ -196,7 +197,7 @@ export default function Gateway7s() {
                 <Text
                   fontSize="xs"
                   letterSpacing="0.25em"
-                  color="brand.medium"
+                  color="brand.mediumSecondary"
                   mt={1.5}
                   textTransform="uppercase"
                 >
@@ -238,7 +239,12 @@ export default function Gateway7s() {
           >
             Gateway 7s
           </Text>
-          <Text fontSize="md" color="brand.medium" mt={3.5} lineHeight={1.6}>
+          <Text
+            fontSize="md"
+            color="brand.mediumSecondary"
+            mt={3.5}
+            lineHeight={1.6}
+          >
             $500 per team. Sign up today!
           </Text>
           <Flex mt={7} gap={3} justify="center" flexWrap="wrap">

@@ -56,7 +56,7 @@ const Mdx = (props) => {
           <Text
             {...props}
             as={node.tagName}
-            color="brand.medium"
+            color="brand.mediumSecondary"
             sx={{ fontWeight: 'bolder' }}
           ></Text>
         ),

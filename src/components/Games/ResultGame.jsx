@@ -52,7 +52,7 @@ const ResultGame = ({
   return (
     <Box
       w="full"
-      bg="brand.medium"
+      bg="brand.mediumSecondary"
       borderRadius="lg"
       overflow="hidden"
       borderLeft="4px solid"

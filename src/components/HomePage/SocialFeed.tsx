@@ -9,7 +9,7 @@ const FACEBOOK_URL = 'https://www.facebook.com/stlbombersrugby'
 export const SocialFeed = () => {
   return (
     <Box
-      bg="brand.medium"
+      bg="brand.mediumSecondary"
       borderRadius="2xl"
       p={6}
       my={4}

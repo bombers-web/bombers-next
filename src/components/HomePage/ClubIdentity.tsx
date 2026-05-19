@@ -48,7 +48,7 @@ export const ClubIdentity = ({ practice }: Props) => {
     >
       {/* Donate & Sponsor */}
       <Box
-        bg="brand.medium"
+        bg="brand.mediumSecondary"
         color="white"
         p={{ base: 7, md: 8 }}
         display="flex"
@@ -99,7 +99,7 @@ export const ClubIdentity = ({ practice }: Props) => {
 
       {/* Practice Schedule */}
       <Box
-        bg="brand.medium"
+        bg="brand.mediumSecondary"
         color="white"
         p={{ base: 7, md: 8 }}
         display="flex"

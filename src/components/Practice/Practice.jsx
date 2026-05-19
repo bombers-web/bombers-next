@@ -20,10 +20,10 @@ export const Practice = ({ practices }) => {
         my={8}
         p={{ base: 6, md: 10 }}
         w="full"
-        bg="brand.medium"
+        bg="brand.mediumSecondary"
         borderRadius="2xl"
         border="1px solid"
-        borderColor="brand.medium"
+        borderColor="brand.mediumSecondary"
         boxShadow="xl"
         gap={6}
       >

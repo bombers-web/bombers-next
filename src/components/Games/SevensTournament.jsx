@@ -53,7 +53,7 @@ const SevensTournament = ({ tournament, defaultExpanded = false }) => {
   return (
     <Box
       w="full"
-      bg="brand.medium"
+      bg="brand.mediumSecondary"
       borderRadius="xl"
       overflow="hidden"
       border="1px solid"

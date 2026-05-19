@@ -82,7 +82,7 @@ const SevensResults = ({ tournaments = [] }) => {
           <MenuButton
             as={Box}
             cursor="pointer"
-            bg="brand.medium"
+            bg="brand.mediumSecondary"
             borderRadius="xl"
             px={5}
             py={3}

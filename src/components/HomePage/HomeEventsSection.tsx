@@ -165,7 +165,7 @@ function FeaturedCard({ event }: { event: EventType }) {
               href={event.link}
               isExternal
               border="1.5px solid"
-              borderColor="brand.medium"
+              borderColor="brand.mediumSecondary"
               color="white"
             >
               {event.link_text ?? 'Register'}
