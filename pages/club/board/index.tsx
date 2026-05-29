@@ -5,24 +5,23 @@ import SectionLabel from '../../../src/common/SectionLabel'
 import PersonCard from '../../../src/common/PersonCard'
 import { fetchAPI } from '../../../src/lib/api'
 
-type Coach = {
+type BoardMember = {
   id: string
   first_name: string
-  last_name?: string
+  last_name: string
   position: string
   email?: string
-  picture?: { url: string; alternativeText?: string; name?: string }
   photo?: { url: string; alternativeText?: string; name?: string }
 }
 
-const Coaches = ({ coaches }: { coaches: Coach[] }) => {
+const Board = ({ members }: { members: BoardMember[] }) => {
   return (
     <Layout
       mainBg="brand.bg"
       seo={{
-        metaTitle: 'Coaches & Staff | St. Louis Bombers',
+        metaTitle: 'Executive Board | St. Louis Bombers',
         metaDescription:
-          'Meet the coaches and staff of the St. Louis Bombers Rugby Football Club.',
+          'Meet the leadership team behind the St. Louis Bombers Rugby Football Club.',
       }}
     >
       {/* Page Header */}
@@ -37,8 +36,8 @@ const Coaches = ({ coaches }: { coaches: Coach[] }) => {
       >
         <Box maxW="1100px" mx="auto" position="relative">
           <SectionHeading
-            eyebrow="The Staff"
-            heading={<>Coaches</>}
+            eyebrow="Club Leadership"
+            heading={<>Executive Board</>}
             eyebrowColor="brand.highlight"
             headingColor="white"
             as="h1"
@@ -59,9 +58,9 @@ const Coaches = ({ coaches }: { coaches: Coach[] }) => {
         pt={{ base: 10, md: 14 }}
         pb={{ base: 14, md: 20 }}
       >
-        <SectionLabel>Coaching Staff</SectionLabel>
+        <SectionLabel>Board Members</SectionLabel>
 
-        {coaches?.length > 0 ? (
+        {members?.length > 0 ? (
           <Grid
             templateColumns={{
               base: '1fr',
@@ -70,13 +69,13 @@ const Coaches = ({ coaches }: { coaches: Coach[] }) => {
             }}
             gap={{ base: '0.875rem', md: '1rem' }}
           >
-            {coaches.map((coach) => (
+            {members.map((member) => (
               <PersonCard
-                key={coach.id}
-                name={`${coach.first_name} ${coach.last_name || ''}`.trim()}
-                role={coach.position}
-                email={coach.email}
-                image={coach.picture ?? coach.photo}
+                key={member.id}
+                name={`${member.first_name} ${member.last_name || ''}`.trim()}
+                role={member.position}
+                email={member.email}
+                image={member.photo}
               />
             ))}
           </Grid>
@@ -95,7 +94,7 @@ const Coaches = ({ coaches }: { coaches: Coach[] }) => {
               textTransform="uppercase"
               letterSpacing="0.3em"
             >
-              No staff members listed
+              No board members listed
             </Text>
           </Flex>
         )}
@@ -105,11 +104,11 @@ const Coaches = ({ coaches }: { coaches: Coach[] }) => {
 }
 
 export async function getStaticProps() {
-  const coaches = await fetchAPI('/coaches?populate=picture')
-
+  const members = (await fetchAPI('/board-members?populate=photo')) || []
   return {
-    props: { coaches: Array.isArray(coaches) ? coaches : [] },
+    props: { members },
+    revalidate: 86400,
   }
 }
 
-export default Coaches
+export default Board
