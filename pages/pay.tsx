@@ -20,7 +20,6 @@ const subtabMap = {
   supporter: 1,
 }
 
-
 const Pay = (props) => {
   const [sponsors, setSponsors] = useState([])
   const { subscriptions } = props

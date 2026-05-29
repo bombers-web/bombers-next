@@ -30,7 +30,9 @@ const News = ({ content, categories }) => {
       >
         <div>
           {content?.length
-            ? content.map((item) => <ContentCard key={item?.id} content={item} />)
+            ? content.map((item) => (
+                <ContentCard key={item?.id} content={item} />
+              ))
             : 'No Content'}
         </div>
         {categories?.map((category) => (
