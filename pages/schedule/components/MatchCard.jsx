@@ -3,6 +3,7 @@ import Image from 'next/image'
 import LocationWithCopy from '../../../src/common/LocationWithCopy'
 
 const MatchCard = ({ game }) => {
+  if (!game) return null
   const d = new Date(game.date)
   const month = d
     .toLocaleDateString('en-US', { month: 'short', timeZone: 'UTC' })
