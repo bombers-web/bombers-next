@@ -1,5 +1,4 @@
 import { Flex, HStack, Link } from '@chakra-ui/react'
-import LoginButton from 'src/common/LoginButton'
 import NavLogo from '../../../common/NavLogo'
 import Socials from '../../../common/Socials'
 import useNav from '../../../hooks/useNav'
@@ -53,7 +52,6 @@ const TopNav = () => {
           )
         })}
         <Socials />
-        <LoginButton />
       </Flex>
     </HStack>
   )
