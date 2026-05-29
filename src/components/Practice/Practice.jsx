@@ -1,5 +1,7 @@
-import { Badge, Box, Flex, Heading, Icon, Link, Text } from '@chakra-ui/react'
-import { FiMapPin } from 'react-icons/fi'
+import { Box, Divider, Flex, Text } from '@chakra-ui/react'
+import LocationWithCopy from 'common/LocationWithCopy'
+
+const DAYS = ['Tuesday', 'Thursday']
 
 export const Practice = ({ practices }) => {
   const formatTime = (timeString) => {
@@ -11,86 +13,117 @@ export const Practice = ({ practices }) => {
     return `${adjustedHour}:${minute} ${ampm}`
   }
 
-  return (
-    practices?.length > 0 && (
+  if (!practices?.length) {
+    return (
       <Flex
-        direction="column"
         align="center"
         justify="center"
-        my={8}
-        p={{ base: 6, md: 10 }}
-        w="full"
         bg="brand.mediumSecondary"
-        borderRadius="2xl"
-        border="1px solid"
-        borderColor="brand.mediumSecondary"
-        boxShadow="xl"
-        gap={6}
+        borderRadius="sm"
+        py={16}
       >
-        <Flex align="center" gap={3}>
-          <Heading
-            size="md"
-            color="white"
-            textTransform="uppercase"
-            letterSpacing="wider"
-          >
-            Practice Schedule
-          </Heading>
-        </Flex>
-        <Box w="full">
-          {practices.map((practice, idx) => {
-            const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-              practice?.location?.address || '',
-            )}`
-            return (
-              <Flex
-                key={practice.id}
-                direction={{ base: 'column', md: 'row' }}
-                align="center"
-                justify="center"
-                gap={{ base: 4, md: 8 }}
-                mb={idx !== practices.length - 1 ? 6 : 0}
-              >
-                <Badge
-                  colorScheme="yellow"
-                  variant="solid"
-                  px={6}
-                  py={2}
-                  fontSize="lg"
-                  borderRadius="full"
-                >
-                  Tue & Thu @ {formatTime(practice.start_time)}
-                </Badge>
-                <Flex
-                  direction="column"
-                  align={{ base: 'center', md: 'flex-start' }}
-                  gap={1}
-                >
-                  <Link
-                    href={mapUrl}
-                    isExternal
-                    color="yellow.400"
-                    fontSize="md"
-                    display="flex"
-                    alignItems="center"
-                    fontWeight="semibold"
-                    _hover={{
-                      color: 'yellow.200',
-                      textDecoration: 'none',
-                    }}
-                  >
-                    <Icon as={FiMapPin} mr={2} />
-                    {practice?.location?.name}
-                  </Link>
-                  <Text color="whiteAlpha.700" fontSize="sm">
-                    {practice?.location?.city}
-                  </Text>
-                </Flex>
-              </Flex>
-            )
-          })}
-        </Box>
+        <Text
+          color="whiteAlpha.400"
+          fontFamily="display"
+          fontSize="0.8125rem"
+          textTransform="uppercase"
+          letterSpacing="0.3em"
+        >
+          No practice schedule listed
+        </Text>
       </Flex>
     )
+  }
+
+  return (
+    <Flex direction="column" gap={{ base: '1rem', md: '1.25rem' }}>
+      {practices.map((practice) => {
+        const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+          practice?.location?.address || '',
+        )}`
+        const time = formatTime(practice.start_time)
+
+        return (
+          <Box
+            key={practice.id}
+            bg="brand.dark"
+            borderRadius="sm"
+            overflow="hidden"
+          >
+            {/* Card header */}
+            <Box px={6} pt={6} pb={4}>
+              <Text
+                fontFamily="display"
+                fontWeight={800}
+                fontSize="lg"
+                letterSpacing="0.3em"
+                textTransform="uppercase"
+                color="brand.highlight"
+              >
+                Practice Schedule
+              </Text>
+            </Box>
+
+            <Divider borderColor="whiteAlpha.100" />
+
+            {/* Day rows */}
+            {DAYS.map((day, idx) => (
+              <Box key={day}>
+                <Flex align="center" px={6} py={{ base: 5, md: 6 }} gap={6}>
+                  <Text
+                    fontFamily="display"
+                    fontWeight={800}
+                    fontSize={{ base: '3xl', md: '4xl' }}
+                    textTransform="uppercase"
+                    letterSpacing="0.04em"
+                    lineHeight={1}
+                    color="white"
+                  >
+                    {day}
+                  </Text>
+                  <Text
+                    fontFamily="display"
+                    fontWeight={700}
+                    fontSize={{ base: '1rem', md: '1.125rem' }}
+                    letterSpacing="0.08em"
+                    color="brand.highlight"
+                    border="1px solid"
+                    borderColor="brand.highlight"
+                    borderRadius="full"
+                    px={4}
+                    py={1.5}
+                    lineHeight={1}
+                  >
+                    {time}
+                  </Text>
+                </Flex>
+                {idx < DAYS.length - 1 && (
+                  <Divider borderColor="whiteAlpha.100" />
+                )}
+              </Box>
+            ))}
+
+            <Divider borderColor="whiteAlpha.100" />
+
+            {/* Location */}
+            <Box px={6} py={5}>
+              <LocationWithCopy
+                name={practice?.location?.name ?? ''}
+                mapUrl={mapUrl}
+                copyText={practice?.location?.address}
+                color="whiteAlpha.700"
+                fontSize="sm"
+                fontWeight="semibold"
+              />
+              {practice?.location?.city && (
+                <Text color="whiteAlpha.400" fontSize="xs" mt={1} ml={5}>
+                  {practice.location.city}
+                </Text>
+              )}
+            </Box>
+          </Box>
+        )
+      })}
+    </Flex>
   )
 }
