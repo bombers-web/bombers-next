@@ -42,7 +42,7 @@ const StorySection = () => {
               textTransform="uppercase"
               lineHeight="none"
               mb={6}
-              margin={0}
+              
             >
               Sixty-four years.
               <br />

@@ -22,7 +22,7 @@ export const SocialFeed = () => {
           color="brand.light"
           textTransform="uppercase"
           letterSpacing="wider"
-          margin={0}
+          
         >
           From the Sideline
         </Heading>

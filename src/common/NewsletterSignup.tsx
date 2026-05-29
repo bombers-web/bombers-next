@@ -41,7 +41,6 @@ const NewsletterSignup = () => {
           lineHeight="none"
           color="white"
           mb={4}
-          margin={0}
         >
           Stay in the Loop
         </Heading>

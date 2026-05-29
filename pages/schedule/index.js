@@ -1,8 +1,9 @@
-import { Box, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react'
+import { Box, Flex } from '@chakra-ui/react'
 import { groupBy } from 'lodash'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import Layout from '../../src/common/Layout'
+import SectionHeading from '../../src/common/SectionHeading'
 import { fetchAPI } from '../../src/lib/api'
 import SevensTabs from './components/SevensTabs'
 import ScheduleTabs from './components/ScheduleTabs'
@@ -13,10 +14,11 @@ const tabMap = {
   sevens: 2,
 }
 
+const TAB_LABELS = ['Bombers DI', 'Bombers DII', 'Sevens']
+
 const Schedule = ({ games, tournaments }) => {
   const { d1, d2 } = groupBy(games, 'division')
   const router = useRouter()
-
   const [tabIndex, setTabIndex] = useState(0)
 
   useEffect(() => {
@@ -30,9 +32,8 @@ const Schedule = ({ games, tournaments }) => {
   }, [router.query, router.asPath])
 
   const handleTabChange = (index) => {
-    const tabKeys = Object.keys(tabMap)
-    const tabName = tabKeys.find((key) => tabMap[key] === index) || 'd1'
-
+    const tabName =
+      Object.keys(tabMap).find((key) => tabMap[key] === index) || 'd1'
     router.push(`/schedule?tab=${tabName}`, undefined, { shallow: true })
     setTabIndex(index)
   }
@@ -41,54 +42,87 @@ const Schedule = ({ games, tournaments }) => {
     metaTitle: 'Schedule',
   }
 
-  const tabStyle = {
-    textTransform: 'uppercase',
-    letterSpacing: '2px',
-    fontSize: 'ls',
-    color: 'brand.mediumSecondary',
-    _selected: {
-      color: 'brand.black',
-      borderColor: 'brand.black',
-    },
-    _hover: { color: 'brand.highlight' },
-    transition: 'all 0.2s',
-  }
-
   return (
-    <Layout seo={seo}>
+    <Layout seo={seo} mainBg="brand.bg">
+      {/* Dark page header */}
       <Box
-        maxW="1180px"
-        justifyContent={'center'}
-        mx="auto"
-        mt={6}
-        mb={4}
-        px={4}
+        bg="brand.black"
+        color="white"
+        px={{ base: '1.75rem', md: '2rem' }}
+        py={{ base: '3rem', md: '3rem' }}
       >
-        <Tabs
-          id="schedule"
-          isFitted
-          variant="line"
-          index={tabIndex}
-          onChange={handleTabChange}
-        >
-          <TabList borderBottom="2px solid" borderColor="gray.100" mb={8}>
-            <Tab {...tabStyle}>Bombers DI</Tab>
-            <Tab {...tabStyle}>Bombers DII</Tab>
-            <Tab {...tabStyle}>Sevens</Tab>
-          </TabList>
+        <Box maxW="1280px" mx="auto">
+          <SectionHeading
+            eyebrow="On the Pitch"
+            heading={
+              <>
+                Results &amp;{' '}
+                <Box as="span" color="brand.highlight">
+                  Fixtures
+                </Box>
+              </>
+            }
+            eyebrowColor="brand.meta"
+            headingColor="white"
+            as="h1"
+            headingSize={{ base: '2.5rem', md: 'clamp(40px, 5vw, 4rem)' }}
+          />
+        </Box>
+      </Box>
 
-          <TabPanels>
-            <TabPanel p={0}>
-              <ScheduleTabs games={d1} />
-            </TabPanel>
-            <TabPanel p={0}>
-              <ScheduleTabs games={d2} />
-            </TabPanel>
-            <TabPanel p={0}>
-              <SevensTabs tournaments={tournaments ?? []} />
-            </TabPanel>
-          </TabPanels>
-        </Tabs>
+      {/* Sticky division tab bar */}
+      <Box
+        position="sticky"
+        top={{ base: '60px', md: '62px' }}
+        zIndex={50}
+        bg="white"
+        borderBottom="1px solid"
+        borderColor="gray.200"
+      >
+        <Flex maxW="1280px" mx="auto" justify="center">
+          {TAB_LABELS.map((label, i) => (
+            <Box
+              key={i}
+              as="button"
+              flex="0 0 auto"
+              minW={{ base: '6.25rem', md: '11.25rem' }}
+              pt={4}
+              pb="0.8125rem"
+              px={6}
+              fontFamily="display"
+              fontWeight="600"
+              fontSize="sm"
+              letterSpacing="0.28em"
+              textTransform="uppercase"
+              color={tabIndex === i ? 'brand.dark' : 'blackAlpha.400'}
+              borderBottom="3px solid"
+              borderColor={tabIndex === i ? 'brand.highlight' : 'transparent'}
+              bg="transparent"
+              cursor="pointer"
+              _hover={{
+                color: tabIndex === i ? 'brand.dark' : 'blackAlpha.600',
+              }}
+              transition="color 0.15s, border-color 0.15s"
+              onClick={() => handleTabChange(i)}
+              textAlign="center"
+            >
+              {label}
+            </Box>
+          ))}
+        </Flex>
+      </Box>
+
+      {/* Content */}
+      <Box
+        maxW="1280px"
+        mx="auto"
+        px={{ base: 4, md: 8 }}
+        pt={10}
+        pb={{ base: 16, md: 24 }}
+      >
+        {tabIndex === 0 && <ScheduleTabs games={d1 ?? []} />}
+        {tabIndex === 1 && <ScheduleTabs games={d2 ?? []} />}
+        {tabIndex === 2 && <SevensTabs tournaments={tournaments ?? []} />}
       </Box>
     </Layout>
   )

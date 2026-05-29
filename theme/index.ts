@@ -5,7 +5,16 @@ import Button from './Button'
 export default extendTheme({
   components: {
     Button,
-    Heading,
+    Heading: {
+      baseStyle: {
+        margin: 0,
+      },
+    },
+    Text: {
+      baseStyle: {
+        margin: 0,
+      },
+    },
     Link: {
       baseStyle: {
         '&:hover': { color: ' var(--chakra-colors-brand-highlight)' },

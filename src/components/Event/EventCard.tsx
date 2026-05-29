@@ -125,7 +125,7 @@ const EventCard = ({
                 textTransform="uppercase"
                 color="brand.light"
                 opacity={0.4}
-                margin={0}
+                
               >
                 Details
               </Text>

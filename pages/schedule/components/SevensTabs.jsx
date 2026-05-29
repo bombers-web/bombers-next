@@ -1,42 +1,109 @@
-import { Box, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react'
-import SevensResults from './SevensResults'
-import SevensUpcoming from './SevensUpcoming'
+import { Box, Flex, Select, Text, VStack } from '@chakra-ui/react'
+import { useEffect, useMemo, useState } from 'react'
+import SevensTournament from '../../../src/components/Games/SevensTournament'
+
+const getSeasonForDate = (dateString) => {
+  try {
+    const date = new Date(dateString)
+    if (isNaN(date.getTime())) return null
+    const year = date.getFullYear()
+    const month = date.getMonth()
+    return month >= 7
+      ? `${year}–${year + 1} Season`
+      : `${year - 1}–${year} Season`
+  } catch {
+    return null
+  }
+}
 
 const SevensTabs = ({ tournaments = [] }) => {
-  const now = new Date()
-  const upcoming = tournaments.filter((t) => !t.finished)
-  const results = tournaments.filter((t) => t.finished)
+  const seasons = useMemo(() => {
+    const s = new Set()
+    tournaments.forEach((t) => {
+      const season = getSeasonForDate(t.date)
+      if (season) s.add(season)
+    })
+    return Array.from(s).sort((a, b) => parseInt(b) - parseInt(a))
+  }, [tournaments])
 
-  const tabStyle = {
-    textTransform: 'uppercase',
-    letterSpacing: '2px',
-    fontSize: 'ls',
-    color: 'brand.mediumSecondary',
-    _selected: {
-      color: 'brand.black',
-      borderColor: 'brand.black',
-    },
-    _hover: { color: 'brand.highlight' },
-    transition: 'all 0.2s',
-  }
+  const [selectedSeason, setSelectedSeason] = useState('')
+
+  useEffect(() => {
+    if (seasons.length > 0 && !selectedSeason) {
+      setSelectedSeason(seasons[0])
+    }
+  }, [seasons, selectedSeason])
+
+  const filtered = useMemo(
+    () =>
+      selectedSeason
+        ? tournaments.filter((t) => getSeasonForDate(t.date) === selectedSeason)
+        : tournaments,
+    [tournaments, selectedSeason],
+  )
+
+  const sorted = useMemo(
+    () => [...filtered].sort((a, b) => new Date(a.date) - new Date(b.date)),
+    [filtered],
+  )
 
   return (
-    <Box w="full">
-      <Tabs align="center" variant="line" colorScheme="black">
-        <TabList borderBottom="2px solid" borderColor="gray.100" gap={8}>
-          <Tab {...tabStyle}>Schedule</Tab>
-          <Tab {...tabStyle}>Results</Tab>
-        </TabList>
-        <TabPanels mt={6}>
-          <TabPanel p={0}>
-            <SevensUpcoming tournaments={upcoming} />
-          </TabPanel>
-          <TabPanel p={0}>
-            <SevensResults tournaments={results} />
-          </TabPanel>
-        </TabPanels>
-      </Tabs>
-    </Box>
+    <VStack spacing={0} align="stretch" w="full">
+      {seasons.length > 0 && (
+        <Box mb={6}>
+          <Select
+            value={selectedSeason}
+            onChange={(e) => setSelectedSeason(e.target.value)}
+            bg="brand.mediumSecondary"
+            color="white"
+            border="1px solid"
+            borderColor="whiteAlpha.300"
+            borderRadius="sm"
+            fontFamily="display"
+            fontWeight="500"
+            fontSize="sm"
+            letterSpacing="widest"
+            textTransform="uppercase"
+            cursor="pointer"
+            iconColor="brand.highlight"
+            maxW={300}
+            _focus={{ boxShadow: 'none', borderColor: 'brand.highlight' }}
+            sx={{ option: { background: '#2f2f2f', color: 'white' } }}
+          >
+            {seasons.map((s) => (
+              <option key={s} value={s}>
+                {s}
+              </option>
+            ))}
+          </Select>
+        </Box>
+      )}
+
+      {sorted.length > 0 ? (
+        <VStack spacing={3} align="stretch" w="full">
+          {sorted.map((tournament) => (
+            <SevensTournament
+              key={tournament.id}
+              tournament={tournament}
+              defaultExpanded={false}
+            />
+          ))}
+        </VStack>
+      ) : (
+        <Box bg="brand.mediumSecondary" borderRadius="sm" py={16} textAlign="center">
+          <Text
+            fontFamily="display"
+            fontWeight="600"
+            fontSize="sm"
+            letterSpacing="widest"
+            textTransform="uppercase"
+            color="brand.meta"
+          >
+            No Tournaments Scheduled
+          </Text>
+        </Box>
+      )}
+    </VStack>
   )
 }
 

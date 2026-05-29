@@ -132,16 +132,6 @@ const Pay = (props) => {
               on the pitch.
             </Box>
           </Box>
-          <Box
-            fontFamily="body"
-            fontSize="17px"
-            color="brand.highlight"
-            lineHeight={1.65}
-            maxW="560px"
-          >
-            Every dollar goes directly to the club — kit, tournament entry,
-            pitch maintenance, and getting new players kitted out on day one.
-          </Box>
         </Box>
       </Box>
 

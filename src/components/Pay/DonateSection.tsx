@@ -36,15 +36,6 @@ const DonateSection = () => {
           >
             Support the Bombers
           </Box>
-          <Box
-            fontFamily="body"
-            fontSize="15px"
-            color="#b8b8b8"
-            lineHeight={1.65}
-          >
-            Every dollar goes directly to the club — kit, tournament entry,
-            pitch maintenance, and getting new players on the field.
-          </Box>
         </Box>
 
         {/* Buttons */}
