@@ -1,12 +1,8 @@
 import { Box, Collapse, Flex, Icon, Text, VStack } from '@chakra-ui/react'
-import {
-  FiCalendar,
-  FiChevronDown,
-  FiChevronUp,
-  FiMapPin,
-} from 'react-icons/fi'
+import { FiCalendar, FiChevronDown, FiChevronUp } from 'react-icons/fi'
 import { useState } from 'react'
 import SevensTournamentGame from './SevensTournamentGame'
+import LocationWithCopy from '../../common/LocationWithCopy'
 
 const SevensTournament = ({ tournament, defaultExpanded = false }) => {
   const [isOpen, setIsOpen] = useState(defaultExpanded)
@@ -204,18 +200,22 @@ const SevensTournament = ({ tournament, defaultExpanded = false }) => {
           flexWrap="wrap"
         >
           {location?.name && (
-            <Flex align="center" gap="0.375rem">
-              <Icon
-                as={FiMapPin}
-                color="brand.meta"
-                boxSize={3}
-                flexShrink={0}
-              />
-              <Text fontSize="sm" color="brand.light" fontWeight="500">
-                {location.name}
-                {location.city ? `, ${location.city}` : ''}
-              </Text>
-            </Flex>
+            <LocationWithCopy
+              name={`${location.name}${location.city ? `, ${location.city}` : ''}`}
+              mapUrl={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                [location.name, location.address, location.city]
+                  .filter(Boolean)
+                  .join(' '),
+              )}`}
+              copyText={[location.name, location.address, location.city]
+                .filter(Boolean)
+                .join(', ')}
+              color="brand.light"
+              fontSize="sm"
+              fontWeight="500"
+              pinSize={3}
+              stopPropagation
+            />
           )}
           {dateLabel && (
             <Flex align="center" gap="0.375rem">

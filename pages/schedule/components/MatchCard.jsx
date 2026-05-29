@@ -310,7 +310,7 @@ const MatchCard = ({ game }) => {
                 color="brand.meta"
                 textAlign="center"
               >
-                {footerText} · {game.location?.city}
+                {footerText}
               </Text>
             ) : (
               <LocationWithCopy

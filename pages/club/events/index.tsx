@@ -1,8 +1,29 @@
-import { Box, Divider, Text, VStack } from '@chakra-ui/react'
+import { Box, Divider, Flex, Text, VStack } from '@chakra-ui/react'
 import Layout from '../../../src/common/Layout'
 import EventCard from '../../../src/components/Event/EventCard'
 import { fetchAPI } from '../../../src/lib/api'
 import { EventType } from '../../../src/types/eventTypes'
+
+function SectionLabel({ children, mt }: { children: string; mt?: number }) {
+  return (
+    <Flex align="center" gap={3} mb={6} mt={mt}>
+      <Divider borderColor="gray.300" my={0} />
+      <Text
+        fontFamily="display"
+        fontWeight={600}
+        fontSize="13px"
+        letterSpacing="0.42em"
+        textTransform="uppercase"
+        color="brand.meta"
+        whiteSpace="nowrap"
+        flexShrink={0}
+      >
+        {children}
+      </Text>
+      <Divider borderColor="gray.300" my={0} />
+    </Flex>
+  )
+}
 
 const EventsPage = ({ events }: { events: EventType[] }) => {
   const upcomingEvents = events?.filter((e) => e.active) || []
@@ -15,27 +36,60 @@ const EventsPage = ({ events }: { events: EventType[] }) => {
 
   return (
     <Layout
-      header="Club Events & Socials"
+      mainBg="brand.bg"
       seo={{
         metaTitle: 'Events | St. Louis Bombers Rugby',
         metaDescription:
           'Stay up to date with the latest Bombers matches, fundraisers, and social events.',
       }}
     >
-      <Box maxW="780px" mx="auto" mt={6} mb={12} px={4}>
-        {/* UPCOMING */}
-        <Text
-          textAlign="center"
-          textTransform="uppercase"
-          letterSpacing="widest"
-          fontWeight="800"
-          fontSize="xl"
-          color="brand.mediumSecondary"
-          mb={6}
-        >
-          Upcoming Events
-        </Text>
-        <VStack spacing={6} align="stretch" mb={12}>
+      {/* Dark page header */}
+      <Box
+        bg="brand.black"
+        color="white"
+        py={{ base: 10, md: 12 }}
+        px={{ base: 4, md: 8 }}
+      >
+        <Box maxW="1100px" mx="auto">
+          <Text
+            fontFamily="display"
+            fontWeight={600}
+            fontSize="13px"
+            letterSpacing="0.4em"
+            textTransform="uppercase"
+            color="brand.meta"
+            mb={2}
+          >
+            On the Calendar
+          </Text>
+          <Text
+            as="h1"
+            fontFamily="display"
+            fontWeight={700}
+            fontSize={{ base: '40px', md: '64px' }}
+            letterSpacing="0.02em"
+            textTransform="uppercase"
+            lineHeight={0.95}
+            color="white"
+          >
+            Club{' '}
+            <Box as="span" color="brand.highlight">
+              Events
+            </Box>
+          </Text>
+        </Box>
+      </Box>
+
+      {/* Content */}
+      <Box
+        maxW="1100px"
+        mx="auto"
+        px={{ base: 4, md: 8 }}
+        py={{ base: 10, md: 14 }}
+      >
+        <SectionLabel>Upcoming Events</SectionLabel>
+
+        <VStack spacing="14px" align="stretch" mb={12}>
           {upcomingEvents.length > 0 ? (
             <>
               {featuredEvents.map((event) => (
@@ -47,16 +101,17 @@ const EventsPage = ({ events }: { events: EventType[] }) => {
             </>
           ) : (
             <Box
-              bg="blackAlpha.400"
-              borderRadius="2xl"
+              bg="brand.mediumSecondary"
+              borderRadius="sm"
               p={10}
               textAlign="center"
             >
               <Text
                 color="whiteAlpha.400"
-                fontSize="sm"
+                fontFamily="display"
+                fontSize="13px"
                 textTransform="uppercase"
-                letterSpacing="widest"
+                letterSpacing="0.3em"
               >
                 No upcoming events scheduled. Check back soon!
               </Text>
@@ -64,24 +119,15 @@ const EventsPage = ({ events }: { events: EventType[] }) => {
           )}
         </VStack>
 
-        {/* PAST EVENTS */}
         {pastEvents.length > 0 && (
-          <VStack spacing={4} align="stretch">
-            <Divider borderColor="brand.mediumSecondary" opacity={0.3} mt={6} />
-            <Text
-              textAlign="center"
-              textTransform="uppercase"
-              letterSpacing="widest"
-              fontWeight="800"
-              fontSize="xl"
-              color="brand.meta"
-            >
-              Past Events
-            </Text>
-            {pastEvents.map((event) => (
-              <EventCard key={event.id} event={event} isPast />
-            ))}
-          </VStack>
+          <>
+            <SectionLabel mt={14}>Past Events</SectionLabel>
+            <VStack spacing="14px" align="stretch">
+              {pastEvents.map((event) => (
+                <EventCard key={event.id} event={event} isPast />
+              ))}
+            </VStack>
+          </>
         )}
       </Box>
     </Layout>
