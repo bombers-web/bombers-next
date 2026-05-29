@@ -1,80 +1,48 @@
-import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react'
 import { fetchAPI } from 'lib/api'
-import { useCallback, useState } from 'react'
+import { useState } from 'react'
 import Layout from '../../src/common/Layout'
+import PageTabs from '../../src/common/PageTabs'
 import ContentCard from '../../src/components/Content/ContentCard'
 
 const News = ({ content, categories }) => {
-  const [selectedTab, setSelectedTab] = useState('Latest')
-  const onTabChange = useCallback((e, d) => {
-    setSelectedTab(e)
-  }, [])
-
-  const tabStyle = {
-    textTransform: 'uppercase',
-    letterSpacing: '2px',
-    fontSize: 'ls',
-    color: 'gray.400',
-    _selected: {
-      color: 'brand.black',
-      borderColor: 'brand.black',
-    },
-    _hover: { color: 'brand.black' },
-    transition: 'all 0.2s',
-  }
+  const [tabIndex, setTabIndex] = useState(0)
+  const allTabs = ['Latest', ...(categories?.map((c) => c.name) ?? [])]
 
   return (
     <Layout
       header="Content"
       seo={{
         metaTitle: 'Content',
-        metaDescription: `${selectedTab} content`,
+        metaDescription: `${allTabs[tabIndex] ?? 'Latest'} content`,
       }}
       cover={{
         url: '/static/mcb-hero.jpeg',
         alternativeText: 'McBride cover photo',
       }}
     >
-      <Tabs
-        fontFamily="body"
-        align="center"
-        variant="line"
-        size="lg"
-        colorScheme="gray"
-        value={selectedTab}
-        onChange={onTabChange}
+      <PageTabs
+        tabs={allTabs}
+        index={tabIndex}
+        onChange={setTabIndex}
         id="content-tabs"
-        defaultIndex={0}
+        panelPx={0}
+        panelPy={6}
       >
-        <TabList>
-          <Tab {...tabStyle}>Latest</Tab>
-          {categories?.map((category) => (
-            <Tab {...tabStyle} key={category.id}>
-              {category.name}
-            </Tab>
-          ))}
-        </TabList>
-        <TabPanels my="24px">
-          <TabPanel textTransform="capitalize">
-            {content?.length
-              ? content.map((item) => {
-                  return <ContentCard key={item?.id} content={item} />
-                })
-              : 'No Content'}
-          </TabPanel>
-          {categories?.map((category) => {
-            return (
-              <TabPanel textTransform="capitalize" key={category}>
-                {category.contents?.length
-                  ? category.contents.map((item) => {
-                      return <ContentCard key={item.id} content={item} />
-                    })
-                  : `No ${category.name} content`}
-              </TabPanel>
-            )
-          })}
-        </TabPanels>
-      </Tabs>
+        <div>
+          {content?.length
+            ? content.map((item) => <ContentCard key={item?.id} content={item} />)
+            : 'No Content'}
+        </div>
+        {categories?.map((category) => (
+          <div key={category.id}>
+            {category.contents?.length
+              ? category.contents.map((item) => (
+                  <ContentCard key={item.id} content={item} />
+                ))
+              : `No ${category.name} content`}
+          </div>
+        ))}
+      </PageTabs>
     </Layout>
   )
 }

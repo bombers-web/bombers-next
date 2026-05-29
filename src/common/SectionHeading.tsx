@@ -23,7 +23,7 @@ const SectionHeading = ({
   <Box mb={mb}>
     <Box
       fontFamily="display"
-      fontWeight={700}
+      fontWeight={800}
       fontSize="sm"
       letterSpacing="0.3em"
       textTransform="uppercase"

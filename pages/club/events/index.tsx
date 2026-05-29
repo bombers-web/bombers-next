@@ -1,29 +1,10 @@
-import { Box, Divider, Flex, Text, VStack } from '@chakra-ui/react'
+import { Box, Text, VStack } from '@chakra-ui/react'
 import Layout from '../../../src/common/Layout'
 import EventCard from '../../../src/components/Event/EventCard'
+import SectionHeading from 'common/SectionHeading'
+import SectionLabel from 'common/SectionLabel'
 import { fetchAPI } from '../../../src/lib/api'
 import { EventType } from '../../../src/types/eventTypes'
-
-function SectionLabel({ children, mt }: { children: string; mt?: number }) {
-  return (
-    <Flex align="center" gap={3} mb={6} mt={mt}>
-      <Divider borderColor="gray.300" my={0} />
-      <Text
-        fontFamily="display"
-        fontWeight={600}
-        fontSize="13px"
-        letterSpacing="0.42em"
-        textTransform="uppercase"
-        color="brand.meta"
-        whiteSpace="nowrap"
-        flexShrink={0}
-      >
-        {children}
-      </Text>
-      <Divider borderColor="gray.300" my={0} />
-    </Flex>
-  )
-}
 
 const EventsPage = ({ events }: { events: EventType[] }) => {
   const upcomingEvents = events?.filter((e) => e.active) || []
@@ -51,32 +32,15 @@ const EventsPage = ({ events }: { events: EventType[] }) => {
         px={{ base: 4, md: 8 }}
       >
         <Box maxW="1100px" mx="auto">
-          <Text
-            fontFamily="display"
-            fontWeight={600}
-            fontSize="13px"
-            letterSpacing="0.4em"
-            textTransform="uppercase"
-            color="brand.meta"
-            mb={2}
-          >
-            On the Calendar
-          </Text>
-          <Text
+          <SectionHeading
+            eyebrow="On the Calendar"
+            heading={<>Club Events</>}
+            eyebrowColor="brand.highlight"
+            headingColor="white"
             as="h1"
-            fontFamily="display"
-            fontWeight={700}
-            fontSize={{ base: '40px', md: '64px' }}
-            letterSpacing="0.02em"
-            textTransform="uppercase"
-            lineHeight={0.95}
-            color="white"
-          >
-            Club{' '}
-            <Box as="span" color="brand.highlight">
-              Events
-            </Box>
-          </Text>
+            headingSize="clamp(48px, 5.5vw, 72px)"
+            mb="1rem"
+          />
         </Box>
       </Box>
 
