@@ -201,7 +201,9 @@ const SevensTournament = ({ tournament, defaultExpanded = false }) => {
         >
           {location?.name && (
             <LocationWithCopy
-              name={`${location.name}${location.city ? `, ${location.city}` : ''}`}
+              name={`${location.name}${
+                location.city ? `, ${location.city}` : ''
+              }`}
               mapUrl={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
                 [location.name, location.address, location.city]
                   .filter(Boolean)
