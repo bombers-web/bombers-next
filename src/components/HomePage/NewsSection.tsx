@@ -46,7 +46,6 @@ const NewsSection = ({ posts }: Props) => {
               textTransform="uppercase"
               lineHeight="none"
               color="white"
-              
             >
               Recent News
             </Heading>
@@ -153,7 +152,6 @@ const NewsSection = ({ posts }: Props) => {
                     textTransform="uppercase"
                     lineHeight="short"
                     color="white"
-                    
                   >
                     {post.title}
                   </Heading>
@@ -163,7 +161,6 @@ const NewsSection = ({ posts }: Props) => {
                     color="whiteAlpha.500"
                     lineHeight="tall"
                     flex={1}
-                    
                   >
                     {post.description}
                   </Text>

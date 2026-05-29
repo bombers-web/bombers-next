@@ -1,5 +1,10 @@
 import { Box, Collapse, Flex, Icon, Text, VStack } from '@chakra-ui/react'
-import { FiCalendar, FiChevronDown, FiChevronUp, FiMapPin } from 'react-icons/fi'
+import {
+  FiCalendar,
+  FiChevronDown,
+  FiChevronUp,
+  FiMapPin,
+} from 'react-icons/fi'
 import { useState } from 'react'
 import SevensTournamentGame from './SevensTournamentGame'
 
@@ -36,9 +41,11 @@ const SevensTournament = ({ tournament, defaultExpanded = false }) => {
   const isInProgress = !finished && games.some((g) => g.finished)
 
   const recordLabel = hasRecord
-    ? [record.wins, record.losses, ...(record.ties > 0 ? [record.ties] : [])].join(
-        ' – ',
-      )
+    ? [
+        record.wins,
+        record.losses,
+        ...(record.ties > 0 ? [record.ties] : []),
+      ].join(' – ')
     : null
 
   return (
@@ -198,7 +205,12 @@ const SevensTournament = ({ tournament, defaultExpanded = false }) => {
         >
           {location?.name && (
             <Flex align="center" gap="0.375rem">
-              <Icon as={FiMapPin} color="brand.meta" boxSize={3} flexShrink={0} />
+              <Icon
+                as={FiMapPin}
+                color="brand.meta"
+                boxSize={3}
+                flexShrink={0}
+              />
               <Text fontSize="sm" color="brand.light" fontWeight="500">
                 {location.name}
                 {location.city ? `, ${location.city}` : ''}
@@ -207,7 +219,12 @@ const SevensTournament = ({ tournament, defaultExpanded = false }) => {
           )}
           {dateLabel && (
             <Flex align="center" gap="0.375rem">
-              <Icon as={FiCalendar} color="brand.meta" boxSize={3} flexShrink={0} />
+              <Icon
+                as={FiCalendar}
+                color="brand.meta"
+                boxSize={3}
+                flexShrink={0}
+              />
               <Text fontSize="sm" color="brand.light" fontWeight="500">
                 {dateLabel}
               </Text>

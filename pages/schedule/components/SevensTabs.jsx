@@ -90,7 +90,12 @@ const SevensTabs = ({ tournaments = [] }) => {
           ))}
         </VStack>
       ) : (
-        <Box bg="brand.mediumSecondary" borderRadius="sm" py={16} textAlign="center">
+        <Box
+          bg="brand.mediumSecondary"
+          borderRadius="sm"
+          py={16}
+          textAlign="center"
+        >
           <Text
             fontFamily="display"
             fontWeight="600"

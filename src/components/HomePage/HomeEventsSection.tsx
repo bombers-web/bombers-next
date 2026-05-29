@@ -82,7 +82,6 @@ function FeaturedCard({ event }: { event: EventType }) {
             fontSize="clamp(72px, 8vw, 110px)"
             color="white"
             lineHeight={0.82}
-            
           >
             {day}
           </Text>
@@ -95,7 +94,6 @@ function FeaturedCard({ event }: { event: EventType }) {
               color="brand.highlight"
               textTransform="uppercase"
               lineHeight={1}
-              
             >
               {monthShort}
             </Text>
@@ -122,7 +120,6 @@ function FeaturedCard({ event }: { event: EventType }) {
           textTransform="uppercase"
           lineHeight={0.95}
           color="white"
-          
         >
           {event.name}
         </Heading>
@@ -261,7 +258,6 @@ function StackedCard({ event }: { event: EventType }) {
           textTransform="uppercase"
           lineHeight={1}
           color="white"
-          
         >
           {event.name}
         </Heading>
