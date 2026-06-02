@@ -111,7 +111,11 @@ const MobileNav = ({ homePage }: MobileNavProps) => {
                     <AccordionButton
                       onClick={(e) => {
                         if (!nav.subMenus) {
-                          router.push(nav.slug)
+                          if (nav.isExternal) {
+                            window.open(nav.slug, '_blank')
+                          } else {
+                            router.push(nav.slug)
+                          }
                           onClose()
                         }
                       }}

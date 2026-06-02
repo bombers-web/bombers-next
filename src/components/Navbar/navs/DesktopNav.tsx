@@ -157,6 +157,7 @@ const DesktopNav = ({ homePage }: DesktopNavProps) => {
               <Link
                 key={nav.slug}
                 href={nav.slug}
+                isExternal={nav.isExternal}
                 textDecoration="none"
                 _hover={{ textDecoration: 'none' }}
                 _focus={{ outline: 'none', boxShadow: 'none' }}
