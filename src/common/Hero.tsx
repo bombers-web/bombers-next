@@ -130,6 +130,7 @@ const Hero = ({
               ? links.map((link) => {
                   return (
                     <Link
+                      key={link.url || link.display}
                       variant="solid"
                       as="a"
                       href={link.url}

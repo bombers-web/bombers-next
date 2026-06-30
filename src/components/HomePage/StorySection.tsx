@@ -63,9 +63,9 @@ const StorySection = () => {
               Founded in 1962 and forged from a proud St. Louis rugby tradition,
               the Bombers have been a cornerstone of the game in the Gateway
               City for over six decades. From early Missouri Rugby Union
-              Championships to the national stage, we've always played with
-              grit, brotherhood, and a relentless drive to win — culminating in
-              our 2024 USA Club Rugby D1 National Championship.
+              Championships to the national stage, we&rsquo;ve always played
+              with grit, brotherhood, and a relentless drive to win —
+              culminating in our 2024 USA Club Rugby D1 National Championship.
             </Text>
             <Text
               fontFamily="body"

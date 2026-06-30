@@ -13,10 +13,15 @@ export async function fetchAPI(path) {
         tags: ['strapi-data'],
       },
     })
-    const json = await response?.json()
+    if (!response.ok) {
+      throw new Error(
+        `Strapi request failed: ${response.status} ${response.statusText} (${requestUrl})`,
+      )
+    }
+    const json = await response.json()
     return json.data
   } catch (error) {
     console.error('Something went wrong', error)
-    throw new Error(error)
+    throw error
   }
 }

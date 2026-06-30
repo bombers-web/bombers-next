@@ -15,6 +15,7 @@ const Tabs = ({ sections, tabList }: TabsProps) => {
           {tabList.map(({ icon, href, title }, i) => {
             return (
               <Tab
+                key={`${title}${i}`}
                 id={`${title}${i}`}
                 icon={icon}
                 title={title}

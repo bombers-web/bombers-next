@@ -58,11 +58,12 @@ const Sponsors = ({ forFooter, ...props }) => {
     <SponsorContainer>
       <SponsorList>
         {sponsors?.map((sponsor) => (
-          <Box minW={100} minH={100}>
+          <Box key={sponsor?.id || sponsor?.name} minW={100} minH={100}>
             <Image
               height={250}
               width={250}
               className="sponsor_image"
+              alt={sponsor?.name || 'Sponsor'}
               src={sponsor?.image?.url || sponsor.logo}
             ></Image>
           </Box>

@@ -57,9 +57,14 @@ export default class MyDocument extends Document {
           />
 
           <link href="/scss/fontawesome.scss" rel="stylesheet" />
+          {/* UIKit must load synchronously in <Head> before components that
+              rely on the global `UIkit`. next/script isn't supported inside
+              _document, so these stay as plain synchronous scripts. */}
+          {/* eslint-disable @next/next/no-sync-scripts */}
           <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.2.0/js/uikit.min.js" />
           <script src="https://cdn.jsdelivr.net/npm/uikit@3.2.3/dist/js/uikit-icons.min.js" />
           <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.2.0/js/uikit.js" />
+          {/* eslint-enable @next/next/no-sync-scripts */}
           <script
             defer
             src="https://cloud.umami.is/script.js"

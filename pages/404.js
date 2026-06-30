@@ -32,7 +32,7 @@ const Fof = () => {
                 textTransform="uppercase"
                 letterSpacing="widest"
               >
-                This page doesn't exist.
+                This page doesn&rsquo;t exist.
               </Text>
             </VStack>
 

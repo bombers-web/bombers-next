@@ -15,6 +15,7 @@ import {
 } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import { withMask } from 'use-mask-input'
+import { escapeHtml } from 'utils/escapeHtml'
 
 const TOPICS = [
   'Joining the team',
@@ -124,21 +125,21 @@ const ContactForm = () => {
             <body>
               <div class="container">
                 <h2>New Contact Form Submission</h2>
-                <div class="field"><p><strong>Name:</strong> ${
-                  contact.firstName
-                } ${contact.lastName}</p></div>
-                <div class="field"><p><strong>Email:</strong> ${
-                  contact.email
-                }</p></div>
-                <div class="field"><p><strong>Phone:</strong> ${
-                  contact.phone || 'Not provided'
-                }</p></div>
-                <div class="field"><p><strong>Topic:</strong> ${
-                  contact.topic
-                }</p></div>
-                <div class="field"><p><strong>Message:</strong></p><pre>${
-                  contact.message
-                }</pre></div>
+                <div class="field"><p><strong>Name:</strong> ${escapeHtml(
+                  contact.firstName,
+                )} ${escapeHtml(contact.lastName)}</p></div>
+                <div class="field"><p><strong>Email:</strong> ${escapeHtml(
+                  contact.email,
+                )}</p></div>
+                <div class="field"><p><strong>Phone:</strong> ${escapeHtml(
+                  contact.phone || 'Not provided',
+                )}</p></div>
+                <div class="field"><p><strong>Topic:</strong> ${escapeHtml(
+                  contact.topic,
+                )}</p></div>
+                <div class="field"><p><strong>Message:</strong></p><pre>${escapeHtml(
+                  contact.message,
+                )}</pre></div>
               </div>
             </body>
             </html>
