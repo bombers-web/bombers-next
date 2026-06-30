@@ -109,6 +109,7 @@ export async function getStaticProps() {
 
   return {
     props: { coaches: Array.isArray(coaches) ? coaches : [] },
+    revalidate: 86400,
   }
 }
 

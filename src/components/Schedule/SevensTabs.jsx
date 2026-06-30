@@ -1,6 +1,6 @@
 import { Box, Flex, Select, Text, VStack } from '@chakra-ui/react'
 import { useEffect, useMemo, useState } from 'react'
-import SevensTournament from '../../../src/components/Games/SevensTournament'
+import SevensTournament from 'components/Games/SevensTournament'
 
 const getSeasonForDate = (dateString) => {
   try {

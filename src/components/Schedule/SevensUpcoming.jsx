@@ -1,5 +1,5 @@
 import { Box, Flex, Text, VStack } from '@chakra-ui/react'
-import UpcomingGame from '../../../src/components/Games/UpcomingGame'
+import SevensTournament from 'components/Games/SevensTournament'
 
 const getMonthLabel = (dateString) =>
   new Date(dateString).toLocaleDateString('en-US', {
@@ -8,20 +8,18 @@ const getMonthLabel = (dateString) =>
     timeZone: 'UTC',
   })
 
-const Upcoming = ({ upcoming }) => {
-  // Group games by month
+const SevensUpcoming = ({ tournaments = [] }) => {
   const byMonth = {}
-  upcoming?.forEach((game) => {
-    const month = getMonthLabel(game.date)
+  tournaments.forEach((t) => {
+    const month = getMonthLabel(t.date)
     if (!byMonth[month]) byMonth[month] = []
-    byMonth[month].push(game)
+    byMonth[month].push(t)
   })
 
-  return upcoming?.length > 0 ? (
+  return tournaments.length > 0 ? (
     <VStack spacing={6} align="stretch" w="full" py={4}>
-      {Object.entries(byMonth).map(([month, games]) => (
+      {Object.entries(byMonth).map(([month, items]) => (
         <Box key={month}>
-          {/* Month header divider */}
           <Flex align="center" gap={3} mb={3}>
             <Text
               fontSize="lg"
@@ -37,13 +35,11 @@ const Upcoming = ({ upcoming }) => {
           </Flex>
 
           <VStack spacing={3} align="stretch">
-            {games.map((game) => (
-              <UpcomingGame
-                key={game.id || game.date}
-                homeTeam={{ name: game?.home?.name, logo: game?.home?.logo }}
-                awayTeam={{ name: game?.away?.name, logo: game?.away?.logo }}
-                date={game?.date}
-                location={game?.location}
+            {items.map((tournament) => (
+              <SevensTournament
+                key={tournament.id}
+                tournament={tournament}
+                defaultExpanded={false}
               />
             ))}
           </VStack>
@@ -59,10 +55,10 @@ const Upcoming = ({ upcoming }) => {
         letterSpacing="widest"
         fontWeight="bold"
       >
-        No Games Currently Scheduled
+        No Upcoming Tournaments
       </Text>
     </Box>
   )
 }
 
-export default Upcoming
+export default SevensUpcoming

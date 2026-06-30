@@ -61,7 +61,7 @@ const HomeHero = ({ image }: Props) => {
           <Text
             fontFamily="body"
             fontSize="md"
-            color="#b8b8b8"
+            color="brand.muted"
             lineHeight={1.6}
             mt={4}
             maxW="460px"
@@ -104,7 +104,7 @@ const HomeHero = ({ image }: Props) => {
                 height="auto"
                 borderRadius={0}
                 color="white"
-                borderColor="rgba(255,255,255,0.6)"
+                borderColor="overlay.light"
                 _hover={{
                   bg: 'brand.dark',
                   borderColor: 'white',

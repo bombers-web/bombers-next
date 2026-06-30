@@ -279,7 +279,6 @@ function EraSection({
   section: HistorySection
   mt?: number | string
   showChampionCallout?: boolean
-  showEagles?: boolean
 }) {
   const imageLeft =
     section.imagePosition === 'left' || section.imagePosition === 'start'
@@ -507,7 +506,6 @@ const ClubHistory = ({
             section={section}
             mt={docSection || i > 0 ? 20 : undefined}
             showChampionCallout={i === eraSections.length - 1}
-            showEagles={i === eraSections.length - 1}
           />
         ))}
       </Box>

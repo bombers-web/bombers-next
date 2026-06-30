@@ -1,6 +1,6 @@
 import { Box, Flex, Grid, Text } from '@chakra-ui/react'
 import Image from 'next/image'
-import LocationWithCopy from '../../../src/common/LocationWithCopy'
+import LocationWithCopy from 'common/LocationWithCopy'
 
 const MatchCard = ({ game }) => {
   if (!game) return null

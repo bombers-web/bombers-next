@@ -13,7 +13,7 @@ import {
 } from '@chakra-ui/react'
 import { FiChevronDown } from 'react-icons/fi'
 import { useEffect, useMemo, useState } from 'react'
-import ResultGame from '../../../src/components/Games/ResultGame'
+import ResultGame from 'components/Games/ResultGame'
 
 const getSeasonForDate = (dateString) => {
   if (!dateString) return null

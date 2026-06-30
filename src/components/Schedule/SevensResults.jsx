@@ -13,7 +13,7 @@ import {
 } from '@chakra-ui/react'
 import { FiChevronDown } from 'react-icons/fi'
 import { useEffect, useMemo, useState } from 'react'
-import SevensTournament from '../../../src/components/Games/SevensTournament'
+import SevensTournament from 'components/Games/SevensTournament'
 
 const getSeasonForDate = (dateString) => {
   if (!dateString) return null

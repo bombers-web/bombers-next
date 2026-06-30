@@ -135,7 +135,7 @@ function FeaturedCard({ event }: { event: EventType }) {
           {time}
         </Text>
         {event.location && (
-          <Text fontFamily="body" fontSize="14px" color="#b8b8b8" mt={1}>
+          <Text fontFamily="body" fontSize="14px" color="brand.muted" mt={1}>
             {event.location}
           </Text>
         )}
@@ -143,7 +143,7 @@ function FeaturedCard({ event }: { event: EventType }) {
           <Text
             fontFamily="body"
             fontSize="15px"
-            color="#b8b8b8"
+            color="brand.muted"
             lineHeight={1.6}
             mt={4}
             noOfLines={3}
@@ -226,7 +226,7 @@ function StackedCard({ event }: { event: EventType }) {
         <Text
           fontFamily="body"
           fontSize="11px"
-          color="#b8b8b8"
+          color="brand.muted"
           letterSpacing="0.25em"
           textTransform="uppercase"
           mt="10px"
@@ -245,7 +245,7 @@ function StackedCard({ event }: { event: EventType }) {
         <Text
           fontFamily="body"
           fontSize="12px"
-          color="#8a8a8a"
+          color="brand.mutedDark"
           letterSpacing="0.1em"
         >
           {time}
@@ -262,7 +262,7 @@ function StackedCard({ event }: { event: EventType }) {
           {event.name}
         </Heading>
         {event.location && (
-          <Text fontFamily="body" fontSize="13px" color="#b8b8b8">
+          <Text fontFamily="body" fontSize="13px" color="brand.muted">
             {event.location}
           </Text>
         )}

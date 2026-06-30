@@ -5,8 +5,8 @@ import { useEffect, useState } from 'react'
 import Layout from '../../src/common/Layout'
 import SectionHeading from '../../src/common/SectionHeading'
 import { fetchAPI } from '../../src/lib/api'
-import SevensTabs from './components/SevensTabs'
-import ScheduleTabs from './components/ScheduleTabs'
+import SevensTabs from 'components/Schedule/SevensTabs'
+import ScheduleTabs from 'components/Schedule/ScheduleTabs'
 
 const tabMap = {
   d1: 0,

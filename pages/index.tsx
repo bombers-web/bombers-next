@@ -92,15 +92,9 @@ export async function getStaticProps() {
   const gamePopulate =
     'populate[home][populate]=logo&populate[away][populate]=logo&populate=location'
 
-  const [
-    content,
-    homepage,
-    d1Upcoming,
-    d2Upcoming,
-    homeCta,
-    featuredEvents,
-    recentGamesData,
-  ] = await Promise.all([
+  // Resilient fetch: a single Strapi hiccup shouldn't fail the whole
+  // build/revalidation. allSettled lets each section fall back independently.
+  const settled = await Promise.allSettled([
     fetchAPI(
       '/contents?populate=*&filters[status][$eq]=published&sort[1]=publishedAt:asc&pagination[limit]=3',
     ),
@@ -117,6 +111,18 @@ export async function getStaticProps() {
       `/games?${gamePopulate}&filters[finished][$eq]=true&sort=date:desc&pagination[limit]=6`,
     ),
   ])
+
+  const [
+    content,
+    homepage,
+    d1Upcoming,
+    d2Upcoming,
+    homeCta,
+    featuredEvents,
+    recentGamesData,
+  ] = settled.map((result) =>
+    result.status === 'fulfilled' ? result.value : null,
+  )
 
   let sevensUpcoming = []
   try {

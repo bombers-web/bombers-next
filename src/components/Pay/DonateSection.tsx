@@ -132,7 +132,7 @@ const DonateSection = () => {
             pt="2px"
           >
             {'Venmo: '}
-            <Box as="strong" color="#999">
+            <Box as="strong" color="brand.meta">
               @stlbombers
             </Box>
           </Box>
@@ -140,12 +140,12 @@ const DonateSection = () => {
 
         {/* 501(c)(7) note */}
         <Box
-          bg="#1a1a1a"
+          bg="brand.nearBlack"
           px={{ base: '28px', md: '40px' }}
           py="18px"
           fontFamily="body"
           fontSize="13px"
-          color="#777"
+          color="brand.metaDark"
           lineHeight={1.55}
         >
           The St. Louis Bombers RFC is a 501(c)(7) nonprofit. Donations support

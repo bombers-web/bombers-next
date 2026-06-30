@@ -1,8 +1,5 @@
-/* eslint-disable no-unused-vars */
 import {
   Box,
-  Divider,
-  Flex,
   Heading,
   Text,
   Avatar,
@@ -14,8 +11,6 @@ import {
 import { format } from 'date-fns'
 import { useRouter } from 'next/router'
 import {
-  EmailIcon,
-  EmailShareButton,
   FacebookIcon,
   FacebookShareButton,
   TwitterIcon,

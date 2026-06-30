@@ -23,12 +23,12 @@ const EventCard = ({
 
   const stopPropagation = (e: React.MouseEvent) => e.stopPropagation()
 
-  const cardBg = isPast ? '#6f6f6f' : 'brand.mediumSecondary'
-  const railBg = isPast ? '#5c5c5c' : 'brand.darkSecondary'
-  const railBorderColor = isPast ? 'rgba(255,255,255,0.25)' : 'brand.highlight'
-  const monthColor = isPast ? 'rgba(255,255,255,0.7)' : 'brand.highlight'
-  const subtitleColor = isPast ? 'rgba(255,255,255,0.6)' : 'brand.highlight'
-  const detailsColor = isPast ? 'rgba(255,255,255,0.6)' : 'brand.light'
+  const cardBg = isPast ? 'brand.pastSurface' : 'brand.mediumSecondary'
+  const railBg = isPast ? 'brand.pastRail' : 'brand.darkSecondary'
+  const railBorderColor = isPast ? 'overlay.lightFaint' : 'brand.highlight'
+  const monthColor = isPast ? 'overlay.lightStrong' : 'brand.highlight'
+  const subtitleColor = isPast ? 'overlay.light' : 'brand.highlight'
+  const detailsColor = isPast ? 'overlay.light' : 'brand.light'
 
   return (
     <Box w="full" bg={cardBg} borderRadius="sm" overflow="hidden">
@@ -144,7 +144,7 @@ const EventCard = ({
                         event.location,
                       )}`
                 }
-                color={isPast ? 'rgba(255,255,255,0.7)' : 'brand.highlight'}
+                color={isPast ? 'overlay.lightStrong' : 'brand.highlight'}
                 fontSize="13px"
                 pinSize={3}
               />
@@ -163,7 +163,7 @@ const EventCard = ({
                 fontFamily="body"
                 fontSize="14px"
                 lineHeight={1.65}
-                color={isPast ? 'rgba(255,255,255,0.7)' : 'brand.light'}
+                color={isPast ? 'overlay.lightStrong' : 'brand.light'}
               >
                 {event?.description ||
                   'No further details available for this event.'}

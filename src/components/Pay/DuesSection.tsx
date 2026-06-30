@@ -276,7 +276,7 @@ const DuesSection = ({ subscriptions, subtabIndex, onSubtabChange }) => {
             borderRadius="3px"
             cursor="pointer"
             transition="background 0.15s, color 0.15s"
-            _hover={subtabIndex !== 0 ? { bg: '#eee' } : {}}
+            _hover={subtabIndex !== 0 ? { bg: 'brand.surfaceHover' } : {}}
           >
             Player Dues
           </Box>
@@ -296,7 +296,7 @@ const DuesSection = ({ subscriptions, subtabIndex, onSubtabChange }) => {
             borderRadius="3px"
             cursor="pointer"
             transition="background 0.15s, color 0.15s"
-            _hover={subtabIndex !== 1 ? { bg: '#eee' } : {}}
+            _hover={subtabIndex !== 1 ? { bg: 'brand.surfaceHover' } : {}}
           >
             Supporter Dues
           </Box>

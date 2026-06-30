@@ -1,4 +1,5 @@
 import { Box, LinkBox } from '@chakra-ui/react'
+import type { BoxProps, SystemStyleObject } from '@chakra-ui/react'
 import { toLower } from 'lodash'
 import Link from 'next/link'
 import { PropsWithChildren } from 'react'
@@ -13,12 +14,12 @@ type CardProps = {
   border?: string
   radius?: number | string
   bg?: Image
-  styles?: any
-  _hover?: any
+  styles?: SystemStyleObject
+  _hover?: SystemStyleObject
   imageProps?: any
-  hoverBg?: any
+  hoverBg?: boolean
   bgProps?: any
-  height?: any
+  height?: BoxProps['height']
   id: string
 }
 const Card = ({

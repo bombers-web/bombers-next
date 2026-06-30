@@ -42,7 +42,7 @@ const FieldLabel = ({ children, fontWeight = '700' }) => (
 )
 
 const inputSx = {
-  bg: '#EEF1F4',
+  bg: 'brand.surfaceMuted',
   color: 'brand.dark',
   border: '1.5px solid transparent',
   borderRadius: '0.5rem',
@@ -51,7 +51,7 @@ const inputSx = {
     borderColor: 'brand.highlight',
     boxShadow: '0 0 0 3px rgba(214,195,127,0.18)',
   },
-  _placeholder: { color: '#aaa' },
+  _placeholder: { color: 'brand.placeholder' },
 }
 
 const ContactForm = () => {
@@ -348,7 +348,7 @@ const ContactForm = () => {
             isDisabled={isSubmitting}
             bg="brand.highlight"
             color="brand.black"
-            _hover={{ bg: '#c8b265' }}
+            _hover={{ bg: 'brand.highlightHover' }}
             _active={{ transform: 'scale(0.98)' }}
             fontFamily="display"
             fontWeight="700"

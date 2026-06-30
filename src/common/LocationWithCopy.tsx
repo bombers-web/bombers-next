@@ -1,4 +1,5 @@
 import { Flex, Icon, IconButton, Link, Text, Tooltip } from '@chakra-ui/react'
+import type { IconProps, TextProps } from '@chakra-ui/react'
 import { FiCopy, FiMapPin } from 'react-icons/fi'
 
 interface LocationWithCopyProps {
@@ -6,11 +7,11 @@ interface LocationWithCopyProps {
   mapUrl?: string
   copyText?: string
   color?: string
-  fontSize?: any
+  fontSize?: TextProps['fontSize']
   fontWeight?: string
-  textTransform?: any
+  textTransform?: TextProps['textTransform']
   showPin?: boolean
-  pinSize?: any
+  pinSize?: IconProps['boxSize']
   stopPropagation?: boolean
 }
 
