@@ -95,9 +95,7 @@ export async function getStaticProps() {
   // Resilient fetch: a single Strapi hiccup shouldn't fail the whole
   // build/revalidation. allSettled lets each section fall back independently.
   const settled = await Promise.allSettled([
-    fetchAPI(
-      '/contents?populate=*&filters[status][$eq]=published&sort[1]=publishedAt:asc&pagination[limit]=3',
-    ),
+    fetchAPI('/contents?populate=*&sort[0]=published:desc&pagination[limit]=3'),
     fetchAPI('/homepage?populate=*'),
     fetchAPI(
       `/games?${gamePopulate}&filters[division][$eq]=d1&filters[date][$gte]=${today}&sort=date:asc`,

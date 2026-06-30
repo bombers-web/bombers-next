@@ -128,6 +128,56 @@ const Schedule = ({ games, tournaments }) => {
   )
 }
 
+// Strapi returns full media objects (every format variant, hashes, provider
+// metadata, timestamps) and full relations. The UI only ever reads a handful of
+// fields, so we slim the payload before it ships as page props — otherwise the
+// serialized data balloons past Next's 128 kB page-data threshold.
+const slimLogo = (logo) => {
+  if (!logo) return null
+  const smallUrl = logo.formats?.small?.url ?? null
+  return {
+    url: logo.url ?? null,
+    formats: smallUrl ? { small: { url: smallUrl } } : null,
+  }
+}
+
+const slimTeam = (team) =>
+  team ? { name: team.name ?? null, logo: slimLogo(team.logo) } : null
+
+const slimLocation = (loc) =>
+  loc
+    ? {
+        name: loc.name ?? null,
+        address: loc.address ?? null,
+        city: loc.city ?? null,
+      }
+    : null
+
+const slimWinner = (w) =>
+  w ? { id: w.id ?? null, name: w.name ?? null } : null
+
+const slimGame = (g) => ({
+  id: g.id ?? null,
+  date: g.date ?? null,
+  division: g.division ?? null,
+  finished: g.finished ?? null,
+  home_score: g.home_score ?? null,
+  away_score: g.away_score ?? null,
+  home: slimTeam(g.home),
+  away: slimTeam(g.away),
+  winner: slimWinner(g.winner),
+  location: slimLocation(g.location),
+})
+
+const slimTournament = (t) => ({
+  id: t.id ?? null,
+  name: t.name ?? null,
+  date: t.date ?? null,
+  finished: t.finished ?? null,
+  location: slimLocation(t.location),
+  games: Array.isArray(t.games) ? t.games.map(slimGame) : [],
+})
+
 export async function getStaticProps() {
   const gamePopulate =
     'populate[0]=home.logo&populate[1]=away.logo&populate=location&populate=winner'
@@ -147,8 +197,10 @@ export async function getStaticProps() {
 
   return {
     props: {
-      games: games ?? [],
-      tournaments: tournaments ?? [],
+      games: Array.isArray(games) ? games.map(slimGame) : [],
+      tournaments: Array.isArray(tournaments)
+        ? tournaments.map(slimTournament)
+        : [],
     },
     revalidate: 86400,
   }
