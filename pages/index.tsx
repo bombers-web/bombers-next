@@ -101,10 +101,10 @@ export async function getStaticProps() {
     fetchAPI('/contents?populate=*&sort[0]=published:desc&pagination[limit]=3'),
     fetchAPI('/homepage?populate=*'),
     fetchAPI(
-      `/games?${gamePopulate}&filters[division][$eq]=d1&filters[date][$gte]=${today}&filters[cancelled][$ne]=true&sort=date:asc`,
+      `/games?${gamePopulate}&filters[division][$eq]=d1&filters[date][$gte]=${today}&sort=date:asc`,
     ),
     fetchAPI(
-      `/games?${gamePopulate}&filters[division][$eq]=d2&filters[date][$gte]=${today}&filters[cancelled][$ne]=true&sort=date:asc`,
+      `/games?${gamePopulate}&filters[division][$eq]=d2&filters[date][$gte]=${today}&sort=date:asc`,
     ),
     fetchAPI('/home-cta?populate[content][populate]=image'),
     fetchAPI(`/events?populate=*&filters[active][$eq]=true&sort=date:asc`),
