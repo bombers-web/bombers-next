@@ -50,7 +50,7 @@ const NewsSection = ({ posts }: Props) => {
               Recent News
             </Heading>
           </Box>
-          <NextLink href="/contents" passHref legacyBehavior>
+          <NextLink href="/content" passHref legacyBehavior>
             <Link
               fontFamily="display"
               fontWeight="bold"
@@ -70,7 +70,7 @@ const NewsSection = ({ posts }: Props) => {
           {posts.slice(0, 3).map((post) => (
             <NextLink
               key={post.uid}
-              href={`/contents/${post.category?.name}/${post.uid}`}
+              href={`/content/${post.uid?.toLowerCase()}`}
               passHref
               legacyBehavior
             >
