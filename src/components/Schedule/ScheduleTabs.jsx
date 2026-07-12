@@ -1,6 +1,7 @@
 import { Box, Flex, Select, Text, VStack } from '@chakra-ui/react'
 import { useEffect, useMemo, useState } from 'react'
 import MatchCard from './MatchCard'
+import { getMatchOutcome } from 'utils/matchOutcome'
 
 const getSeasonForDate = (dateString) => {
   try {
@@ -53,9 +54,10 @@ const ScheduleTabs = ({ games = [] }) => {
       ties = 0
     filtered.forEach((g) => {
       if (!g?.finished) return
-      if (g?.winner?.name?.includes('St. Louis Bombers')) wins++
-      else if (g?.winner?.id) losses++
-      else ties++
+      const outcome = getMatchOutcome(g)
+      if (outcome === 'win') wins++
+      else if (outcome === 'loss') losses++
+      else if (outcome === 'tie') ties++
     })
     return { wins, losses, ties }
   }, [filtered])
@@ -71,6 +73,7 @@ const ScheduleTabs = ({ games = [] }) => {
             <Select
               value={selectedSeason}
               onChange={(e) => setSelectedSeason(e.target.value)}
+              aria-label="Select season"
               bg="brand.mediumSecondary"
               color="white"
               border="1px solid"

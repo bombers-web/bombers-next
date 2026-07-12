@@ -1,8 +1,15 @@
 import { Box, Flex, Text, VStack } from '@chakra-ui/react'
 import Image from 'next/image'
 import LocationWithCopy from '../../common/LocationWithCopy'
+import { formatMatchTime } from 'utils/formatTime'
 
-const UpcomingGame = ({ homeTeam, awayTeam, date, location }) => {
+const UpcomingGame = ({
+  homeTeam,
+  awayTeam,
+  date,
+  location,
+  cancelled = false,
+}) => {
   const d = new Date(date)
 
   const dateLabel = d.toLocaleDateString('en-US', {
@@ -12,7 +19,7 @@ const UpcomingGame = ({ homeTeam, awayTeam, date, location }) => {
     year: 'numeric',
     timeZone: 'UTC',
   })
-  const formattedTime = d.toLocaleTimeString('en-US', {
+  const formattedTime = formatMatchTime(date, {
     hour: '2-digit',
     minute: '2-digit',
   })
@@ -37,6 +44,7 @@ const UpcomingGame = ({ homeTeam, awayTeam, date, location }) => {
       overflow="hidden"
       border="1px solid"
       borderColor="whiteAlpha.100"
+      opacity={cancelled ? 0.65 : 1}
       transition="all 0.2s ease-in-out"
       _hover={{
         transform: 'scale(1.01)',
@@ -100,6 +108,7 @@ const UpcomingGame = ({ homeTeam, awayTeam, date, location }) => {
                 src={bombers.logo?.formats?.small?.url || bombers.logo?.url}
                 style={{ objectFit: 'contain' }}
                 fill
+                sizes="70px"
               />
             )}
           </Box>
@@ -143,6 +152,7 @@ const UpcomingGame = ({ homeTeam, awayTeam, date, location }) => {
                 src={opponent.logo?.formats?.small?.url || opponent.logo?.url}
                 style={{ objectFit: 'contain' }}
                 fill
+                sizes="70px"
               />
             )}
           </Box>
@@ -160,17 +170,17 @@ const UpcomingGame = ({ homeTeam, awayTeam, date, location }) => {
         </Flex>
       </Flex>
 
-      {/* Footer: time + location */}
+      {/* Footer: time (or cancellation notice) + location */}
       <VStack spacing={0} pb={3} align="center">
         <Text
-          color="brand.light"
-          opacity={0.6}
+          color={cancelled ? 'brand.loss' : 'brand.light'}
+          opacity={cancelled ? 1 : 0.6}
           fontSize="lg"
           fontWeight="600"
           letterSpacing="wider"
           textTransform="uppercase"
         >
-          {formattedTime}
+          {cancelled ? 'CANCELLED' : formattedTime}
         </Text>
         {location && (
           <LocationWithCopy

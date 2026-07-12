@@ -1,13 +1,16 @@
 import { Badge, Box, Flex, Text, VStack } from '@chakra-ui/react'
 import Image from 'next/image'
+import { getMatchOutcome, parseScore, isBombers } from 'utils/matchOutcome'
+
+const OUTCOME_LABEL = { win: 'WIN', loss: 'LOSS', tie: 'TIE' } as const
 
 const ResultGame = ({
   homeTeam,
   awayTeam,
   date,
   winner,
-  finished,
   division,
+  cancelled = false,
 }) => {
   const d = new Date(date)
   const formattedDate = d.toLocaleDateString('en-US', {
@@ -18,30 +21,46 @@ const ResultGame = ({
     timeZone: 'UTC',
   })
 
-  const isBombersHome = homeTeam?.name?.includes('Bombers')
+  const isBombersHome = isBombers(homeTeam?.name)
   const bombers = isBombersHome ? homeTeam : awayTeam
   const opponent = isBombersHome ? awayTeam : homeTeam
-  const bombersScore = isBombersHome ? homeTeam?.score : awayTeam?.score
-  const opponentScore = isBombersHome ? awayTeam?.score : homeTeam?.score
+  const bombersScore = parseScore(
+    isBombersHome ? homeTeam?.score : awayTeam?.score,
+  )
+  const opponentScore = parseScore(
+    isBombersHome ? awayTeam?.score : homeTeam?.score,
+  )
 
-  const bombersWon = winner?.name?.includes('St. Louis Bombers')
-  const hasTie = finished && !winner?.id
-  const outcome = hasTie
-    ? 'TIE'
-    : bombersWon
-    ? 'WIN'
-    : winner?.id
-    ? 'LOSS'
+  const result = getMatchOutcome({
+    home: { name: homeTeam?.name },
+    away: { name: awayTeam?.name },
+    home_score: homeTeam?.score,
+    away_score: awayTeam?.score,
+    winner,
+    cancelled,
+  })
+  const bombersWon = result === 'win'
+  const outcome = cancelled
+    ? 'CANCELLED'
+    : result
+    ? OUTCOME_LABEL[result]
     : null
 
-  const outcomeScheme = hasTie ? 'gray' : bombersWon ? 'green' : 'red'
-  const borderColor = hasTie
-    ? 'gray.600'
-    : bombersWon
-    ? 'green.500'
-    : winner?.id
-    ? 'red.500'
-    : 'whiteAlpha.200'
+  const outcomeScheme = cancelled
+    ? 'red'
+    : result === 'tie'
+    ? 'gray'
+    : result === 'win'
+    ? 'green'
+    : 'red'
+  const borderColor =
+    result === 'win'
+      ? 'green.500'
+      : result === 'loss'
+      ? 'red.500'
+      : result === 'tie'
+      ? 'gray.600'
+      : 'whiteAlpha.200'
 
   const bombersScoreColor = 'brand.light'
 
@@ -122,6 +141,7 @@ const ResultGame = ({
                 src={bombers.logo?.formats?.small?.url || bombers.logo?.url}
                 style={{ objectFit: 'contain' }}
                 fill
+                sizes="70px"
               />
             )}
           </Box>
@@ -140,42 +160,44 @@ const ResultGame = ({
 
         {/* Score display */}
         <VStack spacing={0} align="center" minW={{ base: '80px', md: '120px' }}>
-          <Flex align="baseline" gap={2}>
-            <Text
-              fontSize={{ base: '4xl', md: '5xl' }}
-              fontWeight="black"
-              color={bombersScoreColor}
-              lineHeight="1"
-              fontFamily="display"
-            >
-              {bombersScore ?? '–'}
-            </Text>
-            <Text
-              fontSize={{ base: 'xl', md: '3xl' }}
-              fontWeight="300"
-              color="whiteAlpha.300"
-              lineHeight="1"
-            >
-              —
-            </Text>
-            <Text
-              fontSize={{ base: '4xl', md: '5xl' }}
-              fontWeight="black"
-              color="whiteAlpha.500"
-              lineHeight="1"
-              fontFamily="display"
-            >
-              {opponentScore ?? '–'}
-            </Text>
-          </Flex>
+          {!cancelled && (
+            <Flex align="baseline" gap={2}>
+              <Text
+                fontSize={{ base: '4xl', md: '5xl' }}
+                fontWeight="black"
+                color={bombersScoreColor}
+                lineHeight="1"
+                fontFamily="display"
+              >
+                {bombersScore ?? '–'}
+              </Text>
+              <Text
+                fontSize={{ base: 'xl', md: '3xl' }}
+                fontWeight="300"
+                color="whiteAlpha.300"
+                lineHeight="1"
+              >
+                —
+              </Text>
+              <Text
+                fontSize={{ base: '4xl', md: '5xl' }}
+                fontWeight="black"
+                color="whiteAlpha.500"
+                lineHeight="1"
+                fontFamily="display"
+              >
+                {opponentScore ?? '–'}
+              </Text>
+            </Flex>
+          )}
           <Text
             fontSize="md"
-            color="brand.light"
+            color={cancelled ? 'brand.loss' : 'brand.light'}
             letterSpacing="widest"
             textTransform="uppercase"
             mt={1}
           >
-            FINAL
+            {cancelled ? 'CANCELLED' : 'FINAL'}
           </Text>
         </VStack>
 
@@ -199,6 +221,7 @@ const ResultGame = ({
                 src={opponent.logo?.formats?.small?.url || opponent.logo?.url}
                 style={{ objectFit: 'contain' }}
                 fill
+                sizes="70px"
               />
             )}
           </Box>

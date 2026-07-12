@@ -3,10 +3,11 @@ import { FiCalendar, FiChevronDown, FiChevronUp } from 'react-icons/fi'
 import { useState } from 'react'
 import SevensTournamentGame from './SevensTournamentGame'
 import LocationWithCopy from '../../common/LocationWithCopy'
+import { isGameCancelled } from 'utils/matchOutcome'
 
 const SevensTournament = ({ tournament, defaultExpanded = false }) => {
   const [isOpen, setIsOpen] = useState(defaultExpanded)
-  const { name, date, location, games = [], finished } = tournament
+  const { name, date, location, games = [], finished, cancelled } = tournament
 
   const dateLabel = date
     ? new Date(date).toLocaleDateString('en-US', {
@@ -21,8 +22,7 @@ const SevensTournament = ({ tournament, defaultExpanded = false }) => {
   const record = games.reduce(
     (acc, game) => {
       if (!game?.finished) return acc
-      const isCancelled = game.home_score == null && game.away_score == null
-      if (isCancelled) return acc
+      if (cancelled || isGameCancelled(game)) return acc
       const bombersWon = game?.winner?.name?.includes('St. Louis Bombers')
       const hasTie = game.finished && !game?.winner?.id
       if (bombersWon) acc.wins++
@@ -33,8 +33,9 @@ const SevensTournament = ({ tournament, defaultExpanded = false }) => {
     { wins: 0, losses: 0, ties: 0 },
   )
 
-  const hasRecord = finished && record.wins + record.losses + record.ties > 0
-  const isInProgress = !finished && games.some((g) => g.finished)
+  const hasRecord =
+    finished && !cancelled && record.wins + record.losses + record.ties > 0
+  const isInProgress = !finished && !cancelled && games.some((g) => g.finished)
 
   const recordLabel = hasRecord
     ? [
@@ -75,7 +76,7 @@ const SevensTournament = ({ tournament, defaultExpanded = false }) => {
             fontWeight="600"
             fontSize="sm"
             letterSpacing="wider"
-            color={finished ? 'brand.meta' : 'brand.highlight'}
+            color={finished || cancelled ? 'brand.meta' : 'brand.highlight'}
             flexShrink={0}
             w={16}
           >
@@ -129,7 +130,23 @@ const SevensTournament = ({ tournament, defaultExpanded = false }) => {
               {recordLabel}
             </Text>
           )}
-          {finished && (
+          {cancelled && (
+            <Text
+              fontFamily="display"
+              fontWeight="700"
+              fontSize="xs"
+              letterSpacing="widest"
+              textTransform="uppercase"
+              px={2}
+              py="0.1875rem"
+              border="1px solid"
+              borderColor="brand.loss"
+              color="brand.loss"
+            >
+              Cancelled
+            </Text>
+          )}
+          {finished && !cancelled && (
             <Text
               fontFamily="display"
               fontWeight="700"
@@ -163,20 +180,24 @@ const SevensTournament = ({ tournament, defaultExpanded = false }) => {
               In Progress
             </Text>
           )}
-          {!isOpen && games.length > 0 && !finished && !isInProgress && (
-            <Text
-              fontSize="xs"
-              fontFamily="display"
-              fontWeight="500"
-              letterSpacing="widest"
-              textTransform="uppercase"
-              color="brand.meta"
-              whiteSpace="nowrap"
-              display={{ base: 'none', md: 'block' }}
-            >
-              {games.length} {games.length === 1 ? 'Game' : 'Games'}
-            </Text>
-          )}
+          {!isOpen &&
+            games.length > 0 &&
+            !finished &&
+            !cancelled &&
+            !isInProgress && (
+              <Text
+                fontSize="xs"
+                fontFamily="display"
+                fontWeight="500"
+                letterSpacing="widest"
+                textTransform="uppercase"
+                color="brand.meta"
+                whiteSpace="nowrap"
+                display={{ base: 'none', md: 'block' }}
+              >
+                {games.length} {games.length === 1 ? 'Game' : 'Games'}
+              </Text>
+            )}
           <Icon
             as={isOpen ? FiChevronUp : FiChevronDown}
             color={isOpen ? 'brand.highlight' : 'brand.meta'}
@@ -242,6 +263,7 @@ const SevensTournament = ({ tournament, defaultExpanded = false }) => {
                 <SevensTournamentGame
                   key={game.id ?? `${game.date}-${game.home?.name}`}
                   game={game}
+                  tournamentCancelled={!!cancelled}
                 />
               ))}
             </VStack>

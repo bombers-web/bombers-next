@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Box, Button, Collapse, Flex, Icon, Link, Text } from '@chakra-ui/react'
 import { FiChevronDown, FiChevronUp, FiExternalLink } from 'react-icons/fi'
 import { format } from 'date-fns'
+import { isTimeTBD } from 'utils/formatTime'
 import { EventType } from '../../types/eventTypes'
 import LocationWithCopy from '../../common/LocationWithCopy'
 
@@ -19,7 +20,7 @@ const EventCard = ({
   const month = format(eventDate, 'MMM').toUpperCase()
   const weekday = format(eventDate, 'EEE').toUpperCase()
   const year = format(eventDate, 'yyyy')
-  const time = format(eventDate, 'p')
+  const time = isTimeTBD(event?.date) ? 'Time TBD' : format(eventDate, 'p')
 
   const stopPropagation = (e: React.MouseEvent) => e.stopPropagation()
 

@@ -161,6 +161,7 @@ const slimGame = (g) => ({
   date: g.date ?? null,
   division: g.division ?? null,
   finished: g.finished ?? null,
+  cancelled: g.cancelled ?? null,
   home_score: g.home_score ?? null,
   away_score: g.away_score ?? null,
   home: slimTeam(g.home),
@@ -174,6 +175,7 @@ const slimTournament = (t) => ({
   name: t.name ?? null,
   date: t.date ?? null,
   finished: t.finished ?? null,
+  cancelled: t.cancelled ?? null,
   location: slimLocation(t.location),
   games: Array.isArray(t.games) ? t.games.map(slimGame) : [],
 })

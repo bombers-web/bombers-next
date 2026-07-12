@@ -2,6 +2,7 @@ import { Box, Flex, Grid, Heading, Link, Text } from '@chakra-ui/react'
 import SectionHeading from 'common/SectionHeading'
 import NextLink from 'next/link'
 import { format } from 'date-fns'
+import { isTimeTBD } from 'utils/formatTime'
 import { EventType } from '../../types/eventTypes'
 
 type Props = {
@@ -28,7 +29,7 @@ function FeaturedCard({ event }: { event: EventType }) {
   const monthShort = format(d, 'MMM').toUpperCase()
   const dayShort = format(d, 'EEE').toUpperCase()
   const year = format(d, 'yyyy')
-  const time = format(d, 'p')
+  const time = isTimeTBD(event.date) ? 'Time TBD' : format(d, 'p')
 
   const photoBg = event.image?.url
     ? `linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 100%), url(${event.image.url})`
@@ -180,7 +181,7 @@ function StackedCard({ event }: { event: EventType }) {
   const day = format(d, 'd')
   const monthShort = format(d, 'MMM').toUpperCase()
   const dayShort = format(d, 'EEE').toUpperCase()
-  const time = format(d, 'p')
+  const time = isTimeTBD(event.date) ? 'Time TBD' : format(d, 'p')
 
   return (
     <Box

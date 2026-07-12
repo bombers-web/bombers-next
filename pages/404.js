@@ -48,9 +48,10 @@ const Fof = () => {
                 alt="404 error"
                 src="/static/hinson_404.JPG"
                 quality={90}
+                priority
                 width={600}
                 height={600}
-                style={{ objectFit: 'cover' }}
+                style={{ objectFit: 'cover', width: '100%', height: 'auto' }}
               />
               <Box />
             </Box>

@@ -17,11 +17,13 @@ const Socials = ({
   const socials = [
     {
       name: 'facebook',
+      label: 'St. Louis Bombers on Facebook',
       url: 'https://www.facebook.com/stlbombersrugby',
       icon: faFacebookSquare,
     },
     {
       name: 'instagram',
+      label: 'St. Louis Bombers on Instagram',
       url: 'https://www.instagram.com/stl_bombersrfc/',
       icon: faInstagram,
     },
@@ -50,7 +52,13 @@ const Socials = ({
         {socials.map((page) => {
           return (
             <Link href={page?.url} key={page?.url} passHref legacyBehavior>
-              <Button variant="link" as="a" pb="3" target="_blank">
+              <Button
+                variant="link"
+                as="a"
+                pb="3"
+                target="_blank"
+                aria-label={page.label}
+              >
                 {page.name === 'venmo' ? (
                   <></>
                 ) : (
@@ -58,6 +66,7 @@ const Socials = ({
                     color={iconColor || 'white'}
                     fontSize={iconSize || '1x'}
                     icon={page.icon as IconProp}
+                    aria-hidden="true"
                   />
                 )}
               </Button>

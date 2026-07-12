@@ -9,9 +9,7 @@ import NextUpSection, {
 } from '../src/components/HomePage/NextUpSection'
 import NewsSection from '../src/components/HomePage/NewsSection'
 import HomeEventsSection from '../src/components/HomePage/HomeEventsSection'
-
-const isCancelled = (game) =>
-  game?.finished && game?.home_score == null && game?.away_score == null
+import { isGameCancelled } from 'utils/matchOutcome'
 
 const Home = (props) => {
   const {
@@ -25,9 +23,14 @@ const Home = (props) => {
     content,
   } = props
 
-  const d1Games = d1Upcoming?.filter((g) => !g.finished || isCancelled(g)) ?? []
-  const d2Games = d2Upcoming?.filter((g) => !g.finished || isCancelled(g)) ?? []
-  const sevensGames = sevensUpcoming?.filter((t) => !t.finished) ?? []
+  // Cancelled games/tournaments stay on the schedule page with a badge, but
+  // never get featured as the next fixture to show up for.
+  const d1Games =
+    d1Upcoming?.filter((g) => !g.finished && !isGameCancelled(g)) ?? []
+  const d2Games =
+    d2Upcoming?.filter((g) => !g.finished && !isGameCancelled(g)) ?? []
+  const sevensGames =
+    sevensUpcoming?.filter((t) => !t.finished && !t.cancelled) ?? []
 
   const tabEntries: NextUpEntry[] = []
 
@@ -98,10 +101,10 @@ export async function getStaticProps() {
     fetchAPI('/contents?populate=*&sort[0]=published:desc&pagination[limit]=3'),
     fetchAPI('/homepage?populate=*'),
     fetchAPI(
-      `/games?${gamePopulate}&filters[division][$eq]=d1&filters[date][$gte]=${today}&sort=date:asc`,
+      `/games?${gamePopulate}&filters[division][$eq]=d1&filters[date][$gte]=${today}&filters[cancelled][$ne]=true&sort=date:asc`,
     ),
     fetchAPI(
-      `/games?${gamePopulate}&filters[division][$eq]=d2&filters[date][$gte]=${today}&sort=date:asc`,
+      `/games?${gamePopulate}&filters[division][$eq]=d2&filters[date][$gte]=${today}&filters[cancelled][$ne]=true&sort=date:asc`,
     ),
     fetchAPI('/home-cta?populate[content][populate]=image'),
     fetchAPI(`/events?populate=*&filters[active][$eq]=true&sort=date:asc`),
@@ -125,7 +128,7 @@ export async function getStaticProps() {
   let sevensUpcoming = []
   try {
     const result = await fetchAPI(
-      `/tournaments?populate=location&filters[finished][$ne]=true&sort[0]=date:asc`,
+      `/tournaments?populate=location&filters[finished][$ne]=true&filters[cancelled][$ne]=true&sort[0]=date:asc`,
     )
     sevensUpcoming = Array.isArray(result) ? result : []
   } catch {
@@ -143,7 +146,7 @@ export async function getStaticProps() {
       featuredEvents: Array.isArray(featuredEvents) ? featuredEvents : [],
       recentGames: Array.isArray(recentGamesData)
         ? recentGamesData.filter(
-            (g) => g.home_score != null && g.away_score != null,
+            (g) => g.home_score != null && g.away_score != null && !g.cancelled,
           )
         : [],
     },

@@ -73,7 +73,7 @@ const PersonCard = ({ name, role, email, image }: PersonCardProps) => {
             letterSpacing="0.3em"
             textTransform="uppercase"
             color="brand.highlight"
-            noOfLines={1}
+            noOfLines={2}
             mb="0.25rem"
           >
             {role}
@@ -93,7 +93,7 @@ const PersonCard = ({ name, role, email, image }: PersonCardProps) => {
             <Flex
               as="a"
               href={`mailto:${email}`}
-              align="center"
+              align="flex-start"
               gap="0.25rem"
               mt="0.5rem"
               color="brand.meta"
@@ -102,8 +102,8 @@ const PersonCard = ({ name, role, email, image }: PersonCardProps) => {
               _hover={{ color: 'brand.highlight' }}
               transition="color 0.2s"
             >
-              <FiMail size="0.6875rem" />
-              <Text as="span" noOfLines={1}>
+              <FiMail size="0.6875rem" style={{ flexShrink: 0 }} />
+              <Text as="span" wordBreak="break-all">
                 {email}
               </Text>
             </Flex>

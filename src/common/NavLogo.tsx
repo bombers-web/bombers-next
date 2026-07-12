@@ -85,6 +85,7 @@ const NavLogo = ({
               display={display}
             >
               <Heading
+                as="p"
                 className="logo-heading"
                 fontFamily="display"
                 letterSpacing="0.04em"

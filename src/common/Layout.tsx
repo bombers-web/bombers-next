@@ -36,17 +36,38 @@ const Layout = ({
   return (
     <Box id={id}>
       <Seo seo={seo} />
+      <Box
+        as="a"
+        href="#main"
+        position="absolute"
+        left="-9999px"
+        zIndex="banner"
+        bg="brand.dark"
+        color="brand.light"
+        fontFamily="display"
+        fontWeight={700}
+        letterSpacing="0.1em"
+        textTransform="uppercase"
+        px={4}
+        py={2}
+        borderRadius="sm"
+        _focus={{ position: 'fixed', left: 3, top: 3 }}
+      >
+        Skip to content
+      </Box>
       <Flex direction="column" bg={bg} id="layout">
         <Nav as="nav" />
         <Box
           className="scrollable"
           id="main"
           as="main"
+          tabIndex={-1}
           h="100%"
           flex="1 0 100%"
           minH={'80vh'}
           overflowY="hidden"
           bg={mainBg || 'brand.light'}
+          sx={{ '&:focus': { outline: 'none' } }}
         >
           {children}
         </Box>

@@ -44,8 +44,7 @@ const HomeHero = ({ image }: Props) => {
             mt={1.5}
             mb={0}
           >
-            St. Louis
-            <br />
+            St. Louis <br />
             Bombers
           </Heading>
           <Text
@@ -131,8 +130,9 @@ const HomeHero = ({ image }: Props) => {
               src="/static/larkin_scrum.jpg"
               alt=""
               fill
-              style={{ objectFit: 'cover', objectPosition: 'center' }}
               priority
+              sizes="(max-width: 48em) 100vw, 50vw"
+              style={{ objectFit: 'cover', objectPosition: 'center' }}
             />
           )}
           <Box

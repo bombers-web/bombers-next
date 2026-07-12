@@ -58,6 +58,7 @@ const MobileNav = ({ homePage }: MobileNavProps) => {
               toggled={isOpen}
               rounded
               hideOutline
+              label="Open menu"
               size={28}
               color="var(--chakra-colors-brand-white)"
             />
@@ -78,6 +79,7 @@ const MobileNav = ({ homePage }: MobileNavProps) => {
               toggled={isOpen}
               rounded
               hideOutline
+              label="Close menu"
               size={28}
               color="var(--chakra-colors-brand-white)"
             />

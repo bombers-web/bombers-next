@@ -1,5 +1,6 @@
 import { AspectRatio, Box, Flex, Grid, Text } from '@chakra-ui/react'
 import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 import Layout from '../../../src/common/Layout'
 import SectionHeading from '../../../src/common/SectionHeading'
 import SectionLabel from '../../../src/common/SectionLabel'
@@ -78,6 +79,20 @@ const docMd = {
       {children}
     </Text>
   ),
+  a: ({ href, children }: any) => (
+    <Text
+      as="a"
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      color="brand.highlight"
+      textDecoration="underline"
+      wordBreak="break-word"
+      _hover={{ color: 'brand.highlightHover' }}
+    >
+      {children}
+    </Text>
+  ),
 }
 
 const eraMd = {
@@ -107,6 +122,20 @@ const eraMd = {
   ),
   strong: ({ children }: any) => (
     <Text as="strong" fontWeight="bold" color="inherit">
+      {children}
+    </Text>
+  ),
+  a: ({ href, children }: any) => (
+    <Text
+      as="a"
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      color="brand.dark"
+      textDecoration="underline"
+      wordBreak="break-word"
+      _hover={{ color: 'brand.highlight' }}
+    >
       {children}
     </Text>
   ),
@@ -223,7 +252,9 @@ function DocCard({ section }: { section: HistorySection }) {
         )}
         {section.content && (
           <Box>
-            <ReactMarkdown components={docMd}>{section.content}</ReactMarkdown>
+            <ReactMarkdown remarkPlugins={[remarkGfm]} components={docMd}>
+              {section.content}
+            </ReactMarkdown>
           </Box>
         )}
         {link && (
@@ -300,7 +331,9 @@ function EraSection({
       )}
       {section.content && (
         <Box mt={section.subtitle ? '1.375rem' : 0}>
-          <ReactMarkdown components={eraMd}>{section.content}</ReactMarkdown>
+          <ReactMarkdown remarkPlugins={[remarkGfm]} components={eraMd}>
+            {section.content}
+          </ReactMarkdown>
         </Box>
       )}
     </Box>

@@ -44,6 +44,7 @@ const Upcoming = ({ upcoming }) => {
                 awayTeam={{ name: game?.away?.name, logo: game?.away?.logo }}
                 date={game?.date}
                 location={game?.location}
+                cancelled={!!game?.cancelled}
               />
             ))}
           </VStack>

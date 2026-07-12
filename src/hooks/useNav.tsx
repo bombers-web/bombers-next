@@ -16,17 +16,43 @@ type DefaultNavs = {
   shortest: number
 }
 
+// Every component that calls useNav (desktop nav, mobile nav, footer…) used to
+// fire its own /pages fetch on mount, spamming the console when Strapi is
+// unreachable. Share a single in-flight request across all consumers and fail
+// quietly (CMS-driven menu items just don't appear).
+let cachedPages: Array<any> | null = null
+let pagesRequest: Promise<Array<any>> | null = null
+
+function loadDynamicPages(): Promise<Array<any>> {
+  if (cachedPages) return Promise.resolve(cachedPages)
+  if (!pagesRequest) {
+    pagesRequest = fetchAPI('/pages?populate[1]=Seo.shareImage')
+      .then((val) => {
+        cachedPages = Array.isArray(val) ? val : []
+        return cachedPages
+      })
+      .catch(() => {
+        // Allow a later mount to retry; return empty so the base nav still renders.
+        pagesRequest = null
+        return []
+      })
+  }
+  return pagesRequest
+}
+
 function useNav(type?: undefined | String | Array<string>): DefaultNavs {
-  const [dynamicPages, setDynamicPages] = useState([])
+  const [dynamicPages, setDynamicPages] = useState<Array<any>>(
+    cachedPages || [],
+  )
 
   useEffect(() => {
-    fetchAPI('/pages?populate[1]=Seo.shareImage')
-      .then((val) => {
-        if (val) {
-          setDynamicPages(val)
-        }
-      })
-      .catch((err) => console.error(err))
+    let active = true
+    loadDynamicPages().then((pages) => {
+      if (active) setDynamicPages(pages)
+    })
+    return () => {
+      active = false
+    }
   }, [])
 
   const baseNavs = [
@@ -101,11 +127,11 @@ function useNav(type?: undefined | String | Array<string>): DefaultNavs {
         },
       ],
     },
-    {
-      name: 'Gateway 7s',
-      id: 'gateway-7s',
-      slug: '/gateway-7s',
-    },
+    // {
+    //   name: 'Gateway 7s',
+    //   id: 'gateway-7s',
+    //   slug: '/gateway-7s',
+    // },
     {
       name: 'Bomber Open',
       id: 'golf',

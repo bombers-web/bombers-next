@@ -48,6 +48,7 @@ const MatchTeams = ({
               src={home?.logo?.formats?.small?.url || home?.logo?.url}
               style={{ objectFit: 'contain' }}
               fill
+              sizes="70px"
             />
           </Box>
           <Text
@@ -90,6 +91,7 @@ const MatchTeams = ({
               src={away?.logo?.formats?.small?.url || away?.logo?.url}
               style={{ objectFit: 'contain' }}
               fill
+              sizes="70px"
             />
           </Box>
           <Text

@@ -92,6 +92,7 @@ const StorySection = () => {
               src="/static/DSC_0795.JPG"
               alt="Action shot from match day in Dallas"
               fill
+              sizes="(max-width: 48em) 100vw, 50vw"
               style={{ objectFit: 'cover', objectPosition: 'center' }}
             />
           </Box>

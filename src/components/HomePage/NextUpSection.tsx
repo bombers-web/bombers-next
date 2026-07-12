@@ -4,6 +4,14 @@ import NextLink from 'next/link'
 import { format } from 'date-fns'
 import { parseCity } from 'lib/parse-address'
 import HeaderLink from 'common/HeaderLink'
+import { getMatchOutcome, parseScore, isBombers } from 'utils/matchOutcome'
+
+// Badge label + brand color per outcome. `null` (indeterminate) renders no badge.
+const OUTCOME_BADGE = {
+  win: { label: 'W', color: 'brand.win' },
+  loss: { label: 'L', color: 'brand.loss' },
+  tie: { label: 'T', color: 'brand.lightSecondary' },
+} as const
 
 export type NextUpEntry = {
   key: string
@@ -41,8 +49,6 @@ function SideChip({ label }: { label: string }) {
   )
 }
 
-const isBombers = (name: string) => name.toLowerCase().includes('bombers')
-
 const NextUpSection = ({ entries = [], recentGames = [] }: Props) => {
   if (entries.length === 0 && recentGames.length === 0) return null
 
@@ -50,10 +56,10 @@ const NextUpSection = ({ entries = [], recentGames = [] }: Props) => {
     .filter((g) => g.home_score != null && g.away_score != null)
     .slice(0, 3)
     .map((g) => {
-      const isHome = isBombers(g.home?.name ?? '')
+      const isHome = isBombers(g.home?.name)
       const opponent = (isHome ? g.away?.name : g.home?.name) ?? 'TBD'
-      const bombersScore = (isHome ? g.home_score : g.away_score) as number
-      const oppScore = (isHome ? g.away_score : g.home_score) as number
+      const bombersScore = parseScore(isHome ? g.home_score : g.away_score)
+      const oppScore = parseScore(isHome ? g.away_score : g.home_score)
       return {
         dateStr: format(new Date(g.date), 'MMM d'),
         side:
@@ -66,7 +72,7 @@ const NextUpSection = ({ entries = [], recentGames = [] }: Props) => {
         vsLabel: isHome ? 'vs' : '@',
         bombersScore,
         oppScore,
-        win: bombersScore > oppScore,
+        outcome: getMatchOutcome(g),
       }
     })
 
@@ -150,10 +156,13 @@ const NextUpSection = ({ entries = [], recentGames = [] }: Props) => {
               results.map((r, i) => (
                 <Grid
                   key={i}
-                  templateColumns="60px 50px 1fr auto"
-                  gap={4}
+                  templateColumns={{
+                    base: '46px auto minmax(0, 1fr) auto',
+                    md: '60px 50px 1fr auto',
+                  }}
+                  gap={{ base: 2, md: 4 }}
                   alignItems="center"
-                  px={7}
+                  px={{ base: 4, md: 7 }}
                   py="18px"
                   color="white"
                   borderTop={i === 0 ? 'none' : '1px solid'}
@@ -171,7 +180,12 @@ const NextUpSection = ({ entries = [], recentGames = [] }: Props) => {
                     {r.dateStr}
                   </Text>
                   <SideChip label={r.side} />
-                  <Text fontFamily="body" fontSize="md" minW={0}>
+                  <Text
+                    fontFamily="body"
+                    fontSize="md"
+                    minW={0}
+                    overflowWrap="normal"
+                  >
                     <Box as="span" color="#b8b8b8">
                       {r.vsLabel}
                     </Box>{' '}
@@ -187,28 +201,30 @@ const NextUpSection = ({ entries = [], recentGames = [] }: Props) => {
                       lineHeight={1}
                       margin="0"
                     >
-                      {r.bombersScore}
+                      {r.bombersScore ?? '–'}
                       <Box as="span" color="#8a8a8a" fontWeight={400}>
                         {' '}
                         –{' '}
                       </Box>
-                      {r.oppScore}
+                      {r.oppScore ?? '–'}
                     </Text>
-                    <Box
-                      fontFamily="display"
-                      fontWeight={700}
-                      fontSize="sm"
-                      letterSpacing="0.18em"
-                      textTransform="uppercase"
-                      color={r.win ? 'brand.win' : 'brand.loss'}
-                      border="1px solid"
-                      borderColor={r.win ? 'brand.win' : 'brand.loss'}
-                      px="7px"
-                      py="3px"
-                      lineHeight={1.4}
-                    >
-                      {r.win ? 'W' : 'L'}
-                    </Box>
+                    {r.outcome && (
+                      <Box
+                        fontFamily="display"
+                        fontWeight={700}
+                        fontSize="sm"
+                        letterSpacing="0.18em"
+                        textTransform="uppercase"
+                        color={OUTCOME_BADGE[r.outcome].color}
+                        border="1px solid"
+                        borderColor={OUTCOME_BADGE[r.outcome].color}
+                        px="7px"
+                        py="3px"
+                        lineHeight={1.4}
+                      >
+                        {OUTCOME_BADGE[r.outcome].label}
+                      </Box>
+                    )}
                   </Flex>
                 </Grid>
               ))
@@ -249,10 +265,13 @@ const NextUpSection = ({ entries = [], recentGames = [] }: Props) => {
                 <NextLink key={i} href={u.href} passHref legacyBehavior>
                   <Grid
                     as="a"
-                    templateColumns="60px 50px 1fr auto"
-                    gap={4}
+                    templateColumns={{
+                      base: '46px auto minmax(0, 1fr) auto',
+                      md: '60px 50px 1fr auto',
+                    }}
+                    gap={{ base: 2, md: 4 }}
                     alignItems="center"
-                    px={7}
+                    px={{ base: 4, md: 7 }}
                     pt={u.location ? '12px' : '18px'}
                     pb="18px"
                     color="white"
@@ -289,7 +308,12 @@ const NextUpSection = ({ entries = [], recentGames = [] }: Props) => {
                       {u.dateStr}
                     </Text>
                     <SideChip label={u.side} />
-                    <Text fontFamily="body" fontSize="md" minW={0}>
+                    <Text
+                      fontFamily="body"
+                      fontSize="md"
+                      minW={0}
+                      overflowWrap="normal"
+                    >
                       <Box as="span" color="#b8b8b8">
                         {u.vsLabel}
                       </Box>{' '}

@@ -1,7 +1,9 @@
 import { fetchAPI } from 'lib/api'
 import { useState } from 'react'
+import { Box } from '@chakra-ui/react'
 import Layout from '../../src/common/Layout'
 import PageTabs from '../../src/common/PageTabs'
+import SectionHeading from '../../src/common/SectionHeading'
 import ContentCard from '../../src/components/Content/ContentCard'
 
 const News = ({ content, categories }) => {
@@ -20,6 +22,28 @@ const News = ({ content, categories }) => {
         alternativeText: 'McBride cover photo',
       }}
     >
+      <Box
+        bg="brand.black"
+        color="white"
+        pt={{ base: '4.5rem', md: '4.5rem' }}
+        pb={{ base: '4rem', md: '4rem' }}
+        px={{ base: 4, md: 8 }}
+      >
+        <Box maxW="1100px" mx="auto">
+          <SectionHeading
+            eyebrow="On the Pitch"
+            heading={<>Latest News</>}
+            eyebrowColor="brand.highlight"
+            headingColor="white"
+            as="h1"
+            headingSize={{
+              base: '2.5rem',
+              md: 'clamp(2.5rem, 5.4vw, 4.375rem)',
+            }}
+            mb="1.25rem"
+          />
+        </Box>
+      </Box>
       <PageTabs
         tabs={allTabs}
         index={tabIndex}

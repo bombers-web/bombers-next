@@ -41,7 +41,7 @@ const PayButton = ({ planId }: { planId: string }) => (
         alt="PayPal"
         width={80}
         height={20}
-        style={{ objectFit: 'contain' }}
+        style={{ objectFit: 'contain', height: 'auto' }}
       />
       <Box
         fontFamily="display"

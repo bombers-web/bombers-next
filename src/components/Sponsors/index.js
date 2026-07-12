@@ -38,7 +38,13 @@ const Sponsors = ({ forFooter, ...props }) => {
         const logo = sponsor?.image?.url || sponsor.logo
         return (
           <Box key={sponsor?.name}>
-            <Link href={sponsor?.website} isExternal>
+            <Link
+              href={sponsor?.website}
+              isExternal
+              aria-label={
+                sponsor?.name ? `${sponsor.name} (sponsor)` : 'Sponsor'
+              }
+            >
               <Pic
                 style={{
                   width: 60,

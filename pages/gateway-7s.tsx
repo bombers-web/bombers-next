@@ -76,7 +76,15 @@ function Photo({
         </defs>
         <rect width="100%" height="100%" fill={`url(#${patternId})`} />
       </svg>
-      {src && <Image src={src} alt="" fill style={{ objectFit: 'cover' }} />}
+      {src && (
+        <Image
+          src={src}
+          alt=""
+          fill
+          sizes="(max-width: 48em) 100vw, 540px"
+          style={{ objectFit: 'cover' }}
+        />
+      )}
     </Box>
   )
 }
@@ -107,6 +115,7 @@ export default function Gateway7s() {
             JULY 11 · FOREST PARK
           </Text>
           <Text
+            as="h1"
             fontFamily="display"
             sx={{ fontSize: 'clamp(80px, 14vw, 160px)' }}
             lineHeight={0.9}
@@ -147,6 +156,8 @@ export default function Gateway7s() {
               src="/static/sevens_huddle.JPG"
               alt="Gateway 7s action"
               fill
+              priority
+              sizes="(max-width: 68em) 100vw, 1080px"
               style={{ objectFit: 'cover' }}
             />
           </Box>

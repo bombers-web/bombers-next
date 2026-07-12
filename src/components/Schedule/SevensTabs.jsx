@@ -54,6 +54,7 @@ const SevensTabs = ({ tournaments = [] }) => {
           <Select
             value={selectedSeason}
             onChange={(e) => setSelectedSeason(e.target.value)}
+            aria-label="Select season"
             bg="brand.mediumSecondary"
             color="white"
             border="1px solid"

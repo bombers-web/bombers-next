@@ -14,6 +14,7 @@ import {
 import { FiChevronDown } from 'react-icons/fi'
 import { useEffect, useMemo, useState } from 'react'
 import ResultGame from 'components/Games/ResultGame'
+import { getMatchOutcome } from 'utils/matchOutcome'
 
 const getSeasonForDate = (dateString) => {
   if (!dateString) return null
@@ -59,19 +60,17 @@ const Results = ({ results }) => {
     return selectedSeason ? gamesBySeason[selectedSeason] || [] : []
   }, [selectedSeason, gamesBySeason])
 
-  // Season record: wins/losses/ties from games with resolved outcomes
+  // Season record: wins/losses/ties from games with resolved outcomes.
+  // Indeterminate games (finished but no scores and no winner) are not counted.
   const seasonRecord = useMemo(() => {
     let wins = 0
     let losses = 0
     let ties = 0
     gamesForSelectedSeason.forEach((game) => {
-      if (game?.winner?.name?.includes('St. Louis Bombers')) {
-        wins++
-      } else if (game?.winner?.id) {
-        losses++
-      } else if (game?.finished) {
-        ties++
-      }
+      const outcome = getMatchOutcome(game)
+      if (outcome === 'win') wins++
+      else if (outcome === 'loss') losses++
+      else if (outcome === 'tie') ties++
     })
     return { wins, losses, ties }
   }, [gamesForSelectedSeason])
@@ -253,6 +252,7 @@ const Results = ({ results }) => {
               finished={game?.finished}
               division={game?.division}
               winner={game?.winner}
+              cancelled={!!game?.cancelled}
             />
           ))}
         </VStack>

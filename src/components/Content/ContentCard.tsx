@@ -11,11 +11,14 @@ import {
 import { toLower } from 'lodash'
 import { format } from 'date-fns'
 import Link from 'next/link'
+import Image from 'next/image'
 import ReactMarkdown from 'react-markdown'
 
 const ContentCard = ({ content }) => {
   const contentId = content?.uid ? toLower(content.uid) : toLower(content?.id)
   const link = `/content/${contentId}`
+  const imageUrl = content?.image?.url
+  const title = content?.title || 'Story'
 
   return (
     <Link href={link} style={{ textDecoration: 'none' }}>
@@ -37,14 +40,40 @@ const ContentCard = ({ content }) => {
         <Flex direction={['column', 'row']} minH="280px">
           {/* IMAGE SECTION */}
           <Box
-            backgroundImage={`url(${content?.image?.url})`}
-            backgroundPosition="center"
-            backgroundSize="cover"
+            position="relative"
+            flexShrink={0}
             w={['100%', '350px']}
             minH={['200px', 'auto']}
-            transition="transform 0.5s ease"
-            _groupHover={{ transform: 'scale(1.02)' }}
-          />
+            bg="brand.dark"
+            overflow="hidden"
+          >
+            <Box
+              position="absolute"
+              inset={0}
+              transition="transform 0.5s ease"
+              _groupHover={{ transform: 'scale(1.02)' }}
+            >
+              {imageUrl ? (
+                <Image
+                  src={imageUrl}
+                  alt={title}
+                  fill
+                  sizes="(max-width: 30em) 100vw, 350px"
+                  style={{ objectFit: 'cover' }}
+                />
+              ) : (
+                <Flex align="center" justify="center" w="full" h="full">
+                  <Image
+                    src="/static/logos/white_logo.png"
+                    alt=""
+                    width={110}
+                    height={110}
+                    style={{ objectFit: 'contain', opacity: 0.4 }}
+                  />
+                </Flex>
+              )}
+            </Box>
+          </Box>
 
           {/* CONTENT SECTION */}
           <Flex direction="column" p={6} flex="1" justify="space-between">

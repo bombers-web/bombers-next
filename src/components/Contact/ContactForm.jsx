@@ -5,11 +5,11 @@ import {
   Flex,
   FormControl,
   FormErrorMessage,
+  FormLabel,
   Grid,
   Input,
   InputGroup,
   InputLeftElement,
-  Text,
   Textarea,
   useToast,
 } from '@chakra-ui/react'
@@ -25,11 +25,13 @@ const TOPICS = [
   'Other',
 ]
 
+// Chakra FormLabel so that, inside a FormControl, htmlFor/id are wired to the
+// input automatically (screen readers previously only got the placeholder).
 const FieldLabel = ({ children, fontWeight = '700' }) => (
-  <Text
-    as="label"
+  <FormLabel
     display="block"
     mb="0.5rem"
+    mr={0}
     fontFamily="display"
     fontWeight={fontWeight}
     fontSize="0.75rem"
@@ -38,7 +40,7 @@ const FieldLabel = ({ children, fontWeight = '700' }) => (
     color="brand.dark"
   >
     {children}
-  </Text>
+  </FormLabel>
 )
 
 const inputSx = {

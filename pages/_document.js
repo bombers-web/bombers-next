@@ -30,7 +30,7 @@ export default class MyDocument extends Document {
 
   render() {
     return (
-      <Html>
+      <Html lang="en">
         <Head>
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link
@@ -40,14 +40,6 @@ export default class MyDocument extends Document {
           />
           <link rel="shortcut icon" href="/favicon.ico" />
           <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css?family=Staatliches"
-          />
-          <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/uikit@3.2.3/dist/css/uikit.min.css"
-          />
-          <link
             href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@300;400;500;600;700;800;900&display=swap"
             rel="stylesheet"
           />
@@ -55,16 +47,6 @@ export default class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap"
             rel="stylesheet"
           />
-
-          <link href="/scss/fontawesome.scss" rel="stylesheet" />
-          {/* UIKit must load synchronously in <Head> before components that
-              rely on the global `UIkit`. next/script isn't supported inside
-              _document, so these stay as plain synchronous scripts. */}
-          {/* eslint-disable @next/next/no-sync-scripts */}
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.2.0/js/uikit.min.js" />
-          <script src="https://cdn.jsdelivr.net/npm/uikit@3.2.3/dist/js/uikit-icons.min.js" />
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.2.0/js/uikit.js" />
-          {/* eslint-enable @next/next/no-sync-scripts */}
           <script
             defer
             src="https://cloud.umami.is/script.js"

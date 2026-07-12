@@ -1,14 +1,13 @@
 import { Badge, Box, Flex, Text } from '@chakra-ui/react'
 import Image from 'next/image'
+import { formatMatchTime } from 'utils/formatTime'
+import { isGameCancelled } from 'utils/matchOutcome'
 
-const SevensTournamentGame = ({ game }) => {
+const SevensTournamentGame = ({ game, tournamentCancelled = false }) => {
   const { home, away, home_score, away_score, finished, winner, date } = game
 
   const timeLabel = date
-    ? new Date(date).toLocaleTimeString('en-US', {
-        hour: '2-digit',
-        minute: '2-digit',
-      })
+    ? formatMatchTime(date, { hour: '2-digit', minute: '2-digit' })
     : null
 
   const isBombersHome = home?.name?.includes('Bombers')
@@ -17,7 +16,7 @@ const SevensTournamentGame = ({ game }) => {
   const bombersScore = isBombersHome ? home_score : away_score
   const opponentScore = isBombersHome ? away_score : home_score
 
-  const isCancelled = finished && home_score == null && away_score == null
+  const isCancelled = tournamentCancelled || isGameCancelled(game)
   const bombersWon = winner?.name?.includes('St. Louis Bombers')
   const hasTie = finished && !winner?.id && !isCancelled
   const outcome = isCancelled
@@ -30,7 +29,9 @@ const SevensTournamentGame = ({ game }) => {
     ? 'LOSS'
     : null
 
-  const borderColor = hasTie
+  const borderColor = isCancelled
+    ? 'whiteAlpha.100'
+    : hasTie
     ? 'gray.600'
     : bombersWon
     ? 'green.500'
@@ -49,7 +50,8 @@ const SevensTournamentGame = ({ game }) => {
       borderLeftColor={borderColor}
       px={3}
       pt={2}
-      pb={timeLabel && !finished ? 1.5 : 2}
+      pb={timeLabel && !finished && !isCancelled ? 1.5 : 2}
+      opacity={isCancelled ? 0.65 : 1}
     >
       {/* Teams row */}
       <Flex align="center" justify="space-between" gap={2}>
@@ -62,6 +64,7 @@ const SevensTournamentGame = ({ game }) => {
                 src={bombers.logo?.formats?.small?.url || bombers.logo?.url}
                 style={{ objectFit: 'contain' }}
                 fill
+                sizes="70px"
               />
             )}
           </Box>
@@ -76,15 +79,15 @@ const SevensTournamentGame = ({ game }) => {
           </Text>
         </Flex>
 
-        {/* Center: score or VS */}
+        {/* Center: cancelled badge, score, or VS */}
         <Flex align="center" gap={2} flexShrink={0}>
-          {finished ? (
+          {isCancelled || finished ? (
             <>
               {outcome && (
                 <Badge
                   colorScheme={
                     isCancelled
-                      ? 'orange'
+                      ? 'red'
                       : hasTie
                       ? 'gray'
                       : bombersWon
@@ -153,6 +156,7 @@ const SevensTournamentGame = ({ game }) => {
                 src={opponent.logo?.formats?.small?.url || opponent.logo?.url}
                 style={{ objectFit: 'contain' }}
                 fill
+                sizes="70px"
               />
             )}
           </Box>
@@ -160,7 +164,7 @@ const SevensTournamentGame = ({ game }) => {
       </Flex>
 
       {/* Time footer */}
-      {timeLabel && !finished && (
+      {timeLabel && !finished && !isCancelled && (
         <Text
           color="whiteAlpha.400"
           fontSize="sm"

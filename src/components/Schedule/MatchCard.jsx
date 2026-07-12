@@ -1,6 +1,20 @@
 import { Box, Flex, Grid, Text } from '@chakra-ui/react'
 import Image from 'next/image'
 import LocationWithCopy from 'common/LocationWithCopy'
+import {
+  getMatchOutcome,
+  parseScore,
+  isBombers,
+  isGameCancelled,
+} from 'utils/matchOutcome'
+import { formatMatchTime } from 'utils/formatTime'
+
+// Display label + brand color per outcome. `null` (indeterminate) shows no badge.
+const OUTCOME = {
+  win: { label: 'WIN', color: 'brand.win' },
+  loss: { label: 'LOSS', color: 'brand.loss' },
+  tie: { label: 'TIE', color: 'brand.lightSecondary' },
+}
 
 const MatchCard = ({ game }) => {
   if (!game) return null
@@ -13,38 +27,24 @@ const MatchCard = ({ game }) => {
     year: 'numeric',
     timeZone: 'UTC',
   })
-  const time = d.toLocaleTimeString('en-US', {
-    hour: 'numeric',
-    minute: '2-digit',
-  })
+  const time = formatMatchTime(game.date)
 
-  const isBombersHome = game?.home?.name?.includes('Bombers')
+  const isBombersHome = isBombers(game?.home?.name)
   const bombers = isBombersHome ? game.home : game.away
   const opponent = isBombersHome ? game.away : game.home
-  const bombersScore = isBombersHome ? game.home_score : game.away_score
-  const opponentScore = isBombersHome ? game.away_score : game.home_score
+  const bombersScore = parseScore(
+    isBombersHome ? game.home_score : game.away_score,
+  )
+  const opponentScore = parseScore(
+    isBombersHome ? game.away_score : game.home_score,
+  )
 
-  const isResult = !!game.finished
-  const bombersWon = game?.winner?.name?.includes('St. Louis Bombers')
-  const hasTie = isResult && !game?.winner?.id
-  const outcome = hasTie
-    ? 'TIE'
-    : bombersWon
-    ? 'WIN'
-    : game?.winner?.id
-    ? 'LOSS'
-    : null
-
-  const outcomeColor = hasTie
-    ? 'brand.lightSecondary'
-    : bombersWon
-    ? 'brand.win'
-    : 'brand.loss'
-  const outcomeBorderColor = hasTie
-    ? 'brand.lightSecondary'
-    : bombersWon
-    ? 'brand.win'
-    : 'brand.loss'
+  const cancelled = isGameCancelled(game)
+  const isResult = !!game.finished && !cancelled
+  const result = getMatchOutcome(game)
+  const outcome = result ? OUTCOME[result].label : null
+  const outcomeColor = result ? OUTCOME[result].color : 'brand.lightSecondary'
+  const outcomeBorderColor = outcomeColor
 
   const divLabel =
     game.division === 'd1' ? 'DI' : game.division === 'd2' ? 'DII' : null
@@ -75,6 +75,7 @@ const MatchCard = ({ game }) => {
       borderRadius="sm"
       overflow="hidden"
       mb={3}
+      opacity={cancelled ? 0.65 : 1}
     >
       {/* Date Rail */}
       <Box
@@ -172,6 +173,7 @@ const MatchCard = ({ game }) => {
                   alt={bombers.name}
                   src={bombers.logo?.formats?.small?.url || bombers.logo?.url}
                   fill
+                  sizes="56px"
                   style={{ objectFit: 'contain' }}
                 />
               )}
@@ -198,7 +200,22 @@ const MatchCard = ({ game }) => {
             gap={2}
             minW={{ base: '5.25rem', md: '7.5rem' }}
           >
-            {isResult ? (
+            {cancelled ? (
+              <Text
+                fontFamily="display"
+                fontWeight="700"
+                fontSize="xs"
+                letterSpacing="widest"
+                textTransform="uppercase"
+                px={2}
+                py="0.1875rem"
+                border="1px solid"
+                borderColor="brand.loss"
+                color="brand.loss"
+              >
+                CANCELLED
+              </Text>
+            ) : isResult ? (
               <>
                 <Text
                   fontFamily="display"
@@ -273,6 +290,7 @@ const MatchCard = ({ game }) => {
                   alt={opponent.name}
                   src={opponent.logo?.formats?.small?.url || opponent.logo?.url}
                   fill
+                  sizes="56px"
                   style={{ objectFit: 'contain' }}
                 />
               )}

@@ -70,7 +70,7 @@ const DonateSection = () => {
                 alt="PayPal"
                 width={100}
                 height={26}
-                style={{ objectFit: 'contain' }}
+                style={{ objectFit: 'contain', height: 'auto' }}
               />
               <Box
                 fontFamily="display"
@@ -109,7 +109,7 @@ const DonateSection = () => {
                 alt="Venmo"
                 width={100}
                 height={26}
-                style={{ objectFit: 'contain' }}
+                style={{ objectFit: 'contain', height: 'auto' }}
               />
               <Box
                 fontFamily="display"

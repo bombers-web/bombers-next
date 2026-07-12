@@ -17,6 +17,7 @@ export type MatchType = {
   home_score: string
   preview: string
   finished: boolean
+  cancelled: boolean
   away_score: string
   division: 'd1' | 'd2'
   updates: string

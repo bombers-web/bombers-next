@@ -2,14 +2,33 @@ import {
   Box,
   Button,
   FormControl,
+  FormErrorMessage,
   FormLabel,
   Grid,
   Heading,
   Input,
   Text,
 } from '@chakra-ui/react'
+import { useState } from 'react'
 
 const NewsletterSignup = () => {
+  const [email, setEmail] = useState('')
+  const [error, setError] = useState('')
+
+  // Inline validation to match the contact form (no native browser bubble).
+  // On success we let the form submit natively to Mailchimp.
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    if (!email.trim()) {
+      e.preventDefault()
+      setError('Email is required')
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      e.preventDefault()
+      setError('Please enter a valid email address')
+    } else {
+      setError('')
+    }
+  }
+
   return (
     <Grid
       templateColumns={{ base: '1fr', lg: '1fr 1.1fr' }}
@@ -65,6 +84,8 @@ const NewsletterSignup = () => {
           id="mc-embedded-subscribe-form"
           name="mc-embedded-subscribe-form"
           target="_blank"
+          noValidate
+          onSubmit={handleSubmit}
         >
           <Grid templateColumns={{ base: '1fr', sm: '1fr 1fr' }} gap={3} mb={3}>
             <FormControl>
@@ -107,12 +128,17 @@ const NewsletterSignup = () => {
             </FormControl>
           </Grid>
 
-          <FormControl isRequired mb={3}>
+          <FormControl isRequired isInvalid={!!error} mb={3}>
             <FormLabel srOnly>Email Address</FormLabel>
             <Input
               type="email"
               name="EMAIL"
-              placeholder="Email Address *"
+              placeholder="Email Address"
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value)
+                if (error) setError('')
+              }}
               bg="transparent"
               color="white"
               borderColor="whiteAlpha.300"
@@ -125,6 +151,7 @@ const NewsletterSignup = () => {
                 boxShadow: 'none',
               }}
             />
+            <FormErrorMessage color="brand.loss">{error}</FormErrorMessage>
           </FormControl>
 
           {/* Mailchimp honeypot */}
