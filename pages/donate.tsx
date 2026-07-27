@@ -4,9 +4,9 @@ import { useEffect, useState } from 'react'
 import Layout from '../src/common/Layout'
 import PageTabs from '../src/common/PageTabs'
 import SectionHeading from 'common/SectionHeading'
-import DonateSection from '../src/components/Pay/DonateSection'
-import DuesSection from '../src/components/Pay/DuesSection'
-import Sponsorships from '../src/components/Pay/Sponsorships'
+import DonateSection from '../src/components/Donate/DonateSection'
+import DuesSection from '../src/components/Donate/DuesSection'
+import Sponsorships from '../src/components/Donate/Sponsorships'
 import { fetchAPI } from '../src/lib/api'
 
 const tabMap = {
@@ -20,7 +20,7 @@ const subtabMap = {
   supporter: 1,
 }
 
-const Pay = (props) => {
+const Donate = (props) => {
   const [sponsors, setSponsors] = useState([])
   const { subscriptions } = props
   const router = useRouter()
@@ -55,7 +55,7 @@ const Pay = (props) => {
   const handleTabChange = (index) => {
     const tabKeys = Object.keys(tabMap)
     const tabName = tabKeys.find((key) => tabMap[key] === index) || 'donations'
-    router.push(`/pay?tab=${tabName}`, undefined, { shallow: true })
+    router.push(`/donate?tab=${tabName}`, undefined, { shallow: true })
     setTabIndex(index)
   }
 
@@ -63,7 +63,7 @@ const Pay = (props) => {
     const subtabKeys = Object.keys(subtabMap)
     const subtabName =
       subtabKeys.find((key) => subtabMap[key] === index) || 'player'
-    router.push(`/pay?tab=dues&subtab=${subtabName}`, undefined, {
+    router.push(`/donate?tab=dues&subtab=${subtabName}`, undefined, {
       shallow: true,
     })
     setSubtabIndex(index)
@@ -72,7 +72,7 @@ const Pay = (props) => {
   return (
     <Layout
       seo={{
-        metaTitle: 'Pay',
+        metaTitle: 'Donate',
         metaDescription: 'Dues, Donations and Sponsorships',
       }}
     >
@@ -128,4 +128,4 @@ export async function getStaticProps() {
   }
 }
 
-export default Pay
+export default Donate

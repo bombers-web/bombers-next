@@ -146,7 +146,7 @@ function useNav(type?: undefined | String | Array<string>): DefaultNavs {
     {
       name: 'Donate',
       id: 'donate',
-      slug: '/pay',
+      slug: '/donate',
     },
   ]
 

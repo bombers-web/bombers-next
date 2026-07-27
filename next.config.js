@@ -25,6 +25,15 @@ const nextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: '/pay',
+        destination: '/donate',
+        permanent: true,
+      },
+    ]
+  },
 }
 
 module.exports = nextConfig
