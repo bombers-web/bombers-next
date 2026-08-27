@@ -132,10 +132,16 @@ function useNav(type?: undefined | String | Array<string>): DefaultNavs {
     //   id: 'gateway-7s',
     //   slug: '/gateway-7s',
     // },
+    // {
+    //   name: 'Bomber Open',
+    //   id: 'golf',
+    //   slug: 'https://app.eventcaddy.com/events/2026-bomber-open',
+    //   isExternal: true,
+    // },
     {
-      name: 'Bomber Open',
-      id: 'golf',
-      slug: 'https://app.eventcaddy.com/events/2026-bomber-open',
+      name: 'Store',
+      id: 'store',
+      slug: 'https://mo-bombers-pod-store.checkoutstores.com',
       isExternal: true,
     },
     {
